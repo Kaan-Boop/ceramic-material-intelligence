@@ -1,0 +1,16 @@
+{
+  "schema_version": "0.1-draft",
+  "status": "UNAVAILABLE",
+  "errors": [
+    {
+      "code": "ANALYSIS_BASIS_UNKNOWN",
+      "path": "input.base[0].material_analysis_id",
+      "message": "Seçilen analizin kütle bazı bilinmiyor.",
+      "severity": "ERROR",
+      "details": {
+        "analysis_id": "example-feldspar-analysis-v1",
+        "required_action": "SELECT_OR_COMPLETE_ANALYSIS"
+      }
+    }
+  ]
+}

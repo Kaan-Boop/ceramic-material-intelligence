@@ -1,0 +1,25 @@
+{
+  "persist": false,
+  "input": {
+    "kind": "INLINE_RECIPE",
+    "input_mode": "PARTS",
+    "mass_basis": "DRY",
+    "base": [
+      { "material_analysis_id": "example-feldspar-analysis-v1", "amount": 40, "unit": "part" },
+      { "material_analysis_id": "example-silica-analysis-v1", "amount": 25, "unit": "part" },
+      { "material_analysis_id": "example-kaolin-analysis-v1", "amount": 20, "unit": "part" },
+      { "material_analysis_id": "example-whiting-analysis-v1", "amount": 15, "unit": "part" }
+    ],
+    "additions": []
+  },
+  "analysis_options": {
+    "normalization_policy_id": "base-100-v1",
+    "umf_convention_id": "standard-flux-v1",
+    "include_additions": true
+  },
+  "firing_context": {
+    "cone_system": "ORTON",
+    "target_cone": "6",
+    "atmosphere": "OXIDATION"
+  }
+}

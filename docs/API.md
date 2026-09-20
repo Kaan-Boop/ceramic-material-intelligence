@@ -1,0 +1,95 @@
+# API ve domain sözleşmesi — taslak v0.1
+
+Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyaları sentetik örneklerdir; contract testleri M3/M4'te oluşturulacak. Başlangıç: same-origin JSON REST `/api/v1`.
+
+## Endpoints ve aşama
+
+| Endpoint | Davranış | Milestone |
+|---|---|---|
+| GET /materials | İzinli ürün listesi; query/filter/cursor | M4 |
+| GET /materials/{id} | Ürün kimliği ve analiz sürümleri | M4 |
+| GET /material-analyses/{id} | Exact analiz sürümü, baz ve kaynak | M4 |
+| GET /oxides | Desteklenen oksitler ve sabit/policy metadata | M4 |
+| POST /analyses | Geçici hesap; `persist=false` varsayılanı | M4 |
+| POST /analyses, persist=true | Yeni immutable AnalysisRun | M5 |
+| GET /analyses/{id} | Yetkili kaydedilmiş sonuç | M5 |
+| GET/POST /recipes | Kayıtlar / yeni Recipe+ilk revision | M5 |
+| GET /recipes/{id} | Kimlik, güncel revision ve kaynak bağlantıları | M5 |
+| POST /recipes/{id}/revisions | Yeni revision; base revision precondition | M5 |
+| GET/POST /tests | Numune + temel context/gözlem akışı | M6 |
+| GET /recipes/{id}/similar | Yetkili exact revision'a göre yakınlık | M8 |
+
+Unsupported endpoint route açılmaz. `/simulate`, `/predictions`, `/ai-explanations` bu sürümde yok.
+
+## Analiz isteği
+
+`input` discriminated union:
+
+- `kind=INLINE_RECIPE`: base/additions, açık input_mode ve mass_basis.
+- `kind=RECIPE_REVISION`: recipe_revision_id; M5'ten itibaren. Inline satırlarla aynı istekte verilmez.
+
+Malzeme adı değil `material_analysis_id`. M4'in dosya tabanlı sürümlü referans resolver'ı aynı sözleşmeyi sağlar; M5 DB resolver geçişi motoru değiştirmez.
+
+`analysis_options`: normalization_policy_id, umf_convention_id, constants_version (opsiyonel; belirtilmezse server seçtiğini yanıtta sabitler), include_additions. Mass basis unsupported/unknown ise hard error. `firing_context` opsiyoneldir; kimya hesabı için sıcaklık zorunlu değil.
+
+Örnek: [analysis.request.example.json](../contracts/examples/analysis.request.example.json). Kimlikler gerçek materyallere referans değildir. [analysis.error.example.json](../contracts/examples/analysis.error.example.json) bazın çözülemediği varsayımsal bir 422 cevabıdır; gerçek endpoint çalıştırması değildir.
+
+## Sonuç zarfı
+
+```text
+AnalysisResult
+  schema_version
+  analysis_id?                 # yalnızca persisted sonuçta
+  persistence: TRANSIENT | PERSISTED
+  engine_version
+  constants_version
+  policy_versions
+  input_hash
+  provenance: recipe_revision?, analysis_refs[], dataset_snapshot?, source_refs[]
+  calculated
+    normalized_recipe
+    oxide_masses
+    oxide_percentages          # bazları ayrı
+    moles / mol_percent
+    umf
+    ratios
+    flux_distribution
+  observed_refs[]              # varsa gerçek numunelere link
+  predictions[]                # MVP boş
+  warnings[]
+  unavailable_sections[]
+```
+
+Her bölüm/value envelope: evidence_kind, method_kind, status, qualifiers[], value, unit, basis, method_id/version, input_refs/source_refs, assumptions[], limitations[], uncertainty?, unavailable_reason?. Section metadata aynı olan değerler için ortak taşınabilir; serializer bu mirası belgeler.
+
+EXAMPLE ONLY normalizasyon çıktısı: [normalization.result.excerpt.json](../contracts/examples/normalization.result.excerpt.json). Bu dosya tam AnalysisResult değildir; değer sözleşmesinin örneğidir.
+
+M4 yanıtı hesaplama için gerçekten kullanılan sabitleri/sürümleri içerir. İstemcinin güncel bir malzeme listesinden yeniden kaynak ataması yapmasına izin verilmez. `recipe_revision_id` kullanılıyorsa başka kullanıcının revision'ına erişim yetkisi kontrol edilir.
+
+## Hatalar
+
+| HTTP / kod | Kullanım |
+|---|---|
+| 400 MALFORMED_REQUEST | JSON çözülemiyor |
+| 422 NEGATIVE_AMOUNT / NON_FINITE_AMOUNT / ZERO_BASE_TOTAL | Geçersiz giriş |
+| 422 ANALYSIS_BASIS_UNKNOWN / INCOMPLETE_ANALYSIS / UNSUPPORTED_OXIDE | Bilimsel girdi eksik veya kapsam dışı; strict tam hesap yapılamıyor |
+| 404 MATERIAL_ANALYSIS_NOT_FOUND | Analiz yok veya istemciye açıklanmaması gereken erişim kapsamı |
+| 401 AUTH_REQUIRED | Kimlik gerekiyor |
+| 403 ACTION_NOT_ALLOWED | Kimliği bilinen kaynağa işlem yetkisi yok; existence leakage politikası uygulanır |
+| 409 IDEMPOTENCY_KEY_REUSED | Aynı anahtar, farklı payload |
+| 412 REVISION_PRECONDITION_FAILED | İstemcinin base revision'ı güncel değil |
+| 429 RATE_LIMITED | Tekrar deneme bilgisiyle |
+
+Hata alanları code, path, message, details, severity. Kullanıcı mesajı yerelleştirilebilir; kod sabit. Stack trace ve özel girdi sızmaz.
+
+Geçerli kimyada sıfır flux, tüm isteği 422 yapmaz: HTTP 200; oxide/moles AVAILABLE, UMF UNAVAILABLE/ZERO_FLUX. Benzer biçimde tek ratio'da zero denominator bölüm düzeyindedir. Eksik analizde 422 cevabı isterse normalizasyon partial_results taşıyabilir; yanlış tam kimya üretmez.
+
+## Mutasyonlar ve concurrency
+
+Persisted POST için Idempotency-Key zorunlu; anahtar owner+route kapsamlı, body hash ile eşlenir. Aynı key/body aynı kaydı döndürür; farklı body 409. Transaction'da unique constraint ile çift kayıt engellenir. İlk sürüm saklama süresi API sözleşmesinde açıklanacak; süresi dolmuş key için sınırsız garantisi yok.
+
+Yeni revision, If-Match/expected_revision ile eski revision'ı belirtir. Uyuşmazlık 412 ve çözüm akışı; sessiz overwrite yok. GET paging deterministic sıralama+cursor; ilk default 25, max 100 önerisi M4 ölçümünde doğrulanır. Cache key owner/access scope+input+engine/policies/constants; private yanıt shared public cache'e girmez.
+
+## Geçersiz vs desteklenmeyen
+
+Geçersiz JSON negatif amount ile, fiziksel modelin henüz uygulanmaması aynı sorun değildir. Optional prediction yoksa calculations başarısız olmaz. `unavailable_reason=MODEL_NOT_IMPLEMENTED` backend tarafından gerçek duruma göre üretilir; sahte % veya placeholder grafik yok.

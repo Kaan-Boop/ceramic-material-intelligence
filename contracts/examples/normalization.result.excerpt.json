@@ -1,0 +1,27 @@
+{
+  "evidence_kind": "CALCULATED",
+  "method_kind": "DETERMINISTIC",
+  "status": "AVAILABLE",
+  "qualifiers": [],
+  "method_id": "normalize_recipe",
+  "method_version": "0.1-draft",
+  "basis": "BASE_ONLY",
+  "unit": "percent_of_base",
+  "value": {
+    "original_total_parts": 100,
+    "normalized_base_total": 100,
+    "ingredients": [
+      { "analysis_id": "example-feldspar-analysis-v1", "original_amount": 40, "normalized_amount": 40 },
+      { "analysis_id": "example-silica-analysis-v1", "original_amount": 25, "normalized_amount": 25 },
+      { "analysis_id": "example-kaolin-analysis-v1", "original_amount": 20, "normalized_amount": 20 },
+      { "analysis_id": "example-whiting-analysis-v1", "original_amount": 15, "normalized_amount": 15 }
+    ]
+  },
+  "input_refs": ["request.input.base"],
+  "source_refs": [],
+  "assumptions": ["All base amounts are dry relative parts."],
+  "limitations": ["Normalization does not validate material chemistry."],
+  "uncertainty": null,
+  "uncertainty_reason": "Input weighing uncertainty was not provided.",
+  "unavailable_reason": null
+}

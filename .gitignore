@@ -1,0 +1,23 @@
+# Gerçek veri dosyaları ve çalışma ortamları Git'e girmez.
+.env
+.env.*
+!.env.example
+.venv/
+node_modules/
+.next/
+__pycache__/
+.pytest_cache/
+.hypothesis/
+storage/
+data/raw/
+data/staging/
+data/normalized/
+data/processed/
+data/exports/
+uploads/
+*.log
+*.sqlite
+*.sqlite3
+*.db
+.DS_Store
+Thumbs.db
