@@ -1,0 +1,45 @@
+{
+  "schema_version": "material-analysis-intake-v1",
+  "sources": {
+    "project-synthetic": {
+      "source_name": "Ceramic Lab synthetic intake fixtures",
+      "source_url": "local:data/fixtures/synthetic-materials.json",
+      "source_type": "SYNTHETIC_TEST_FIXTURE",
+      "source_author": "Ceramic Lab project",
+      "source_license": "Project license not selected; internal validation authorized",
+      "commercial_use_allowed": "UNKNOWN",
+      "attribution_required": "UNKNOWN",
+      "share_alike_required": "UNKNOWN",
+      "retrieval_date": "2026-09-20"
+    }
+  },
+  "records": [
+    {
+      "record_id": "synthetic-silica", "analysis_version": "1", "material_id": "test-silica",
+      "material_name": "Synthetic 100 percent silica — NOT A COMMERCIAL MATERIAL",
+      "source_id": "project-synthetic", "record_kind": "SYNTHETIC_TEST_ONLY",
+      "analysis_date": "2026-09-20", "method": "Constructed software test",
+      "analysis_basis": "DRY", "coverage": "COMPLETE_REPORTED",
+      "omitted_oxides_statement": "All other oxides absent by synthetic construction, not a measurement.",
+      "oxides": {"SiO2": 100}, "loi_pct": 0, "loi_reference_basis": "DRY"
+    },
+    {
+      "record_id": "synthetic-dry", "analysis_version": "1", "material_id": "test-dry",
+      "material_name": "Synthetic dry analysis with 10 percent LOI",
+      "source_id": "project-synthetic", "record_kind": "SYNTHETIC_TEST_ONLY",
+      "analysis_date": "2026-09-20", "method": "Constructed software test",
+      "analysis_basis": "DRY", "coverage": "COMPLETE_REPORTED",
+      "omitted_oxides_statement": "All other oxides absent by synthetic construction, not a measurement.",
+      "oxides": {"SiO2": 45, "Al2O3": 45}, "loi_pct": 10, "loi_reference_basis": "DRY"
+    },
+    {
+      "record_id": "synthetic-ignited", "analysis_version": "1", "material_id": "test-ignited",
+      "material_name": "Synthetic ignited analysis with dry-basis LOI",
+      "source_id": "project-synthetic", "record_kind": "SYNTHETIC_TEST_ONLY",
+      "analysis_date": "2026-09-20", "method": "Constructed software test",
+      "analysis_basis": "IGNITED", "coverage": "COMPLETE_REPORTED",
+      "omitted_oxides_statement": "All other oxides absent by synthetic construction, not a measurement.",
+      "oxides": {"SiO2": 50, "Al2O3": 50}, "loi_pct": 10, "loi_reference_basis": "DRY"
+    }
+  ]
+}

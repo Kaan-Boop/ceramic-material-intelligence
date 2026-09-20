@@ -1,6 +1,6 @@
 # Veri kaynakları ve araştırma kaydı
 
-Kontrol tarihi: 2026-09-20. Bu tablo, aynı görevde yapılan önceki web incelemesinin kaynaklarını ve bulgularını kaydeder. Kaynak metadatası okundu; dataset import edilmedi. Hiçbir satır otomatik production kabulü değildir.
+Kontrol tarihi: 2026-09-20. Aşağıdaki genel envanter M1 araştırmasını kaydeder. M2'de beş somut kaynak edinildi; güncel indirme, lisans, sayım ve sınırlamalar [DATA_ACQUISITION](DATA_ACQUISITION.md), [DATA_QUALITY](DATA_QUALITY.md) ve [manifest](../data/manifests/research-acquisition-2026-09-20.json) içindedir. Hiçbir satır otomatik production kabulü değildir.
 
 `NOT_VERIFIED` = bulunmadığı veya izin verilmediği iddiası değil; henüz doğrulanmadı. SourceRecord ve hak incelemesi **paket/kayıt düzeyinde** M2'de yapılır.
 
@@ -42,7 +42,7 @@ ResearchGate ve Google Patents için veri edinme kabulü yok. ResearchGate yerin
 
 ## İlk edinme sırası
 
-1. Kullanıcının gerçek ürün envanteri ve kendisine ait kayıtları (Q-01/Q-03).
+1. Kullanıcı henüz ürün envanteri olmadığını bildirdi; öncelik açıkça izinli hazır akademik/üretici/GitHub veri paketlerine çevrildi. İleride kendi ürünleri ayrıca bağlanacak.
 2. İzni açık TDS/CoA veya kullanıcıya ait ölçüm; başlangıç hedefi 10–20 kabul edilmiş analiz, kota değil.
 3. Sınırlı kaynaklı atom/oksit sabit seti; teorik fixture'lar ayrı.
 4. Cone 6 oksidasyon bağlamı yeterli, lisansı açık akademik/kurumsal deney dosyaları.

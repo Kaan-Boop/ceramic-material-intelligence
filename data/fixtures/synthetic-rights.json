@@ -1,0 +1,13 @@
+{
+  "schema_version": "rights-decisions-v1",
+  "sources": {
+    "project-synthetic": {
+      "store": "ALLOWED", "derive": "ALLOWED",
+      "purposes": ["INTERNAL_VALIDATION"],
+      "reviewer": "Project implementation review",
+      "evidence": "User authorized M2 local validation; fixtures authored for this project, not third-party data.",
+      "decision_version": "1", "checked_at": "2026-09-20",
+      "approved_analysis_hashes": []
+    }
+  }
+}

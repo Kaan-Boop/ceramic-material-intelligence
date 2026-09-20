@@ -1,0 +1,2 @@
+# Optional read-only XLSX profiling. Core intake and tests use Python stdlib.
+openpyxl==3.1.5

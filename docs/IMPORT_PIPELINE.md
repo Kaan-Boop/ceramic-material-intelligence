@@ -1,6 +1,6 @@
 # Veri edinme ve import sözleşmesi
 
-M1 tasarımı; ağ erişimi yapan importer yazılmadı. M2 validator/import işleri bu kapılara uyar.
+M1 sözleşmesi + M2 uygulaması. `materials.py` yerel kontrollü intake; `acquire.py` sınırlı resmi kaynak indirme; `profile_research.py` araştırma dosyası inceleme; `inventory.py` provenance manifest export sağlar. Araştırma arşivi ve kabul edilmiş motor dataset'i ayrı tutulur.
 
 ## İş akışı
 
@@ -40,3 +40,39 @@ A–E özeti ileride kullanılacaksa kuralı açıklanmış, sürümlü ve göre
 - Tekrar import çoğaltmıyor; rapor sayımları tutarlı.
 - Sentetik/theoretical fixture'lar gerçek üretici ve OBSERVED deney diye görünmüyor.
 - 10–20 analiz başlangıç hedefi; hak/kalite kapıları sayı için gevşetilmiyor.
+
+## M2 çalıştırma
+
+Python 3.12+ ile proje kökünden:
+
+```sh
+python -m pipelines.ingestion.materials validate data/fixtures/synthetic-materials.json --rights data/fixtures/synthetic-rights.json --purpose INTERNAL_VALIDATION
+python -m pipelines.ingestion.materials import data/fixtures/synthetic-materials.json --rights data/fixtures/synthetic-rights.json --purpose INTERNAL_VALIDATION --storage storage/intake
+python -m unittest discover -s tests -v
+```
+
+`validate` storage'a yazmaz. `import` kaynak dosyasını birebir, hak kararını snapshot olarak, disposition ve accepted kayıtları ayrı katmanlarda saklar. CLI exit code: 0 temiz, 2 quarantined/rejected kayıt, 1 dosya/hak/import başarısızlığı. Bozuk JSON veya storage izni olmayan kaynak varsa raw saklamadan durur. İşletmecinin verdiği hak kararının hukuki doğruluğunu yazılım garanti etmez.
+
+```sh
+python -m pipelines.ingestion.acquire --storage storage/research --sources uci-583 zenodo-14742972 mendeley-p49ncrb39k fabris-2024 kiln-controller
+python -m pipelines.ingestion.profile_research --storage storage/research
+```
+
+İlk komut ağ erişimi kullanır; ikinci komut yerel raw dosyalar üzerinde çalışır ve Excel için openpyxl gerekir. Program, R scripti veya upstream Python çalıştırılmaz. Her profil yeni dizine yazılır; konsolda dönen gerçek profil yolu inventory komutuna verilir:
+
+```sh
+python -m pipelines.ingestion.inventory --storage storage/research --profile storage/research/profiles/PROFILE_ID --output data/manifests/NEW_INVENTORY.json
+```
+
+`PROFILE_ID` ve `NEW_INVENTORY` yer tutucudur; mevcut dosyayı ezmek yerine yeni isim kullanılmalı. İndiricinin kaynağı tamamlanamazsa receipt hata ve alınmış parçaları kaydeder, profiler o koşunun başarısız kaynağını kabul etmez. Sonraki başarılı retry bağımsız receipt ile eklenir. SHA-256 içerik saklaması aynı byte'ları çoğaltmaz; değişen API metadata'sı yeni artifact olabilir.
+
+Yerel intake aynı anda yalnızca tek import çalıştırır; atomik publish öncesi geçici klasör yayımlanmış release değildir. Çökme sonrası stale lock otomatik silinmez; doğrulanıp ele alınmalıdır. Önceki raw/artifact checksum bozuksa devam edilmez. Manifestler imzalı değildir; hash kontrolü güvenilir imza veya kötü niyetli değişikliğe karşı mutlak koruma sayılmaz.
+
+## Bilinen teknik borç
+
+- M2 tek kullanıcı yerel dosya araçlarıdır; uzak istemcilerin yüklemelerine açık API değildir. Yetkilendirme/çok kullanıcılı erişim yok.
+- Araştırma kaynakları için genele açık configurable crawler yok; beş kaynak açıkça seçilmiş, boyut/host sınırları sabit.
+- İlk acquisition receipt'leri `v1` metadata alanları taşır; inventory exporter eski boolean/koşullu hak etiketlerini açık migration kaydıyla üç durumlu alanlara çevirir. Orijinal receipt'ler değiştirilmez.
+- Zengin hata mesajı ve çözüm önerilerinin bütün kodlara sözlük olarak bağlanması henüz yok; mevcut CLI code/path/severity döndürür.
+- Veri kabulü için exact record hash inceleme listesi var; inceleme UI'ı yok. Üretici malzemesi kimliği/bazı/sürümü doğrulanmadan `approved_analysis_hashes` listesine eklenmez.
+- Baz dönüşümü, molar sabit seti ve UMF bu modülün işi değildir; M3 motoru henüz yok.
