@@ -1,6 +1,8 @@
 # Veri kaynakları ve araştırma kaydı
 
-Kontrol tarihi: 2026-09-20. Aşağıdaki genel envanter M1 araştırmasını kaydeder. M2'de beş somut kaynak edinildi; güncel indirme, lisans, sayım ve sınırlamalar [DATA_ACQUISITION](DATA_ACQUISITION.md), [DATA_QUALITY](DATA_QUALITY.md) ve [manifest](../data/manifests/research-acquisition-2026-09-20.json) içindedir. Hiçbir satır otomatik production kabulü değildir.
+Kontrol tarihi: 2026-09-20. Aşağıdaki genel envanter M1 araştırmasını kaydeder. M2'de altı somut kaynak edinildi; güncel indirme, lisans, sayım ve sınırlamalar [DATA_ACQUISITION](DATA_ACQUISITION.md), [ikinci dilim](M2_BATCH2_REPORT.md) ve [manifest](../data/manifests/research-acquisition-2026-09-20-batch2.json) içindedir. Hiçbir satır otomatik production kabulü değildir.
+
+Kullanıcının 23 kaynaklık arşivi ve 46 sayfalık araştırması için [güncel kabul incelemesi](SOURCE_REVIEW_2026-09-20.md) eklendi. Özellikle GlazyBench GitHub/HF lisans çelişkisi, OpenGlaze'in 36 kayıtlı dosyasındaki kaynak/baz eksikleri, Materials Project GNoME BY-NC istisnası ve JANAF SRD ayrımı için bu güncelleme esas alınmalıdır.
 
 `NOT_VERIFIED` = bulunmadığı veya izin verilmediği iddiası değil; henüz doğrulanmadı. SourceRecord ve hak incelemesi **paket/kayıt düzeyinde** M2'de yapılır.
 
@@ -12,7 +14,7 @@ Kontrol tarihi: 2026-09-20. Aşağıdaki genel envanter M1 araştırmasını kay
 | S02 [glazy-data](https://github.com/derekphilipau/glazy-data) | Reçete/malzeme arşivi; sayı sayılmadı | YAML.gz, eski CSV, LATEST işaretçisi; download var | Gerekmez | README NC-SA; commercial açık değil / koşullu | Duplicate ve eksik veriler; ayrı hak alanı |
 | S03 [Digitalfire API açıklaması](https://digitalfire.com/glossary/digitalfire%2Bapi) | Malzeme, reçete, teknik açıklama; toplam bilinmiyor | API çalışması belgeli; public erişim sözleşmesi doğrulanmadı | Plan yok | Site hakları saklı; dataset hakları UNKNOWN / UNKNOWN | Yöntem referansı; yeniden dağıtım kabulü yok |
 | S04 [Ceramic Arts Network](https://ceramicartsnetwork.org/ceramic-recipes/how-to-use-ceramic-recipes) | Editoryal reçeteler; sayı doğrulanmadı | Web/abonelik; bulk/API doğrulanmadı | Plan yok | Açık veri lisansı doğrulanmadı / yeniden yayın ayrıca inceleme | Kaynak keşfi; veri setine alınmadı |
-| S05 [GlazyBench](https://arxiv.org/abs/2605.06641) | Yazar beyanı 23,148 formülasyon | Ön yayın; veri paketi/API doğrulanmadı | Plan yok | Dataset hak zinciri UNKNOWN / UNKNOWN | Benchmark adayı; bağımsız deney sayısı değil |
+| S05 [GlazyBench](https://github.com/ziazhai/GlazyBench) | Güncel README: 16.781 train + 4.903 test; makaledeki farklı toplamla bir tutulmaz | JSON GitHub / HF; bulk alınmadı | Plan yok | Canonical NC-SA; HF MIT etiketiyle çelişiyor; ticari kullanım bekletilir | Benchmark adayı; aynı dağıtımlar iki dataset sayılmaz; [inceleme](SOURCE_REVIEW_2026-09-20.md) |
 | S06 [SciGlass Next](https://docs.sciglass.uni-jena.de/guide/) | Birincil çalışmada 422,000+ cam/eriyik | Web, belgelenmiş API, tarihsel arşiv | Gerekmez | Tarihsel ODbL atfı; paket lisansı belirsiz / doğrulanacak | Cam araştırması; sır yüzeyi datası değil |
 | S07 [Sibelco](https://ceramics.sibelcotools.com/) | Ürün/mineral PDF bilgileri; uygun analiz sayısı bilinmiyor | Web/PDF; public API doğrulanmadı | Gerekmez | Yeniden dağıtım UNKNOWN / UNKNOWN | TDS/CoA ve gerçek lot aranacak |
 | S08 [Orton](https://www.ortonceramic.com/pyrometric-cones-resources) | Küçük cone/hız/seri referans tabloları; satır sayılmadı | Resmî chart PDF/web; API doğrulanmadı | Gerekmez | Yeniden dağıtım UNKNOWN / UNKNOWN | Birincil üretici; conversion üretime alınmadı |

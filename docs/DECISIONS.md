@@ -30,7 +30,7 @@ Mikroservis, Redis, ayrı arama motoru, vektör veritabanı, Kubernetes ve job q
 
 | ID | Bilinmeyen | Geçici yaklaşım | Hangi işi etkiler? |
 |---|---|---|---|
-| Q-01 | Hammaddeler, üreticiler ve lotlar | Genel adları ticari analize eşleme yok | M2 gerçek referans seti seçimi |
+| Q-01 | Kullanıcı henüz ürün envanteri olmadığını bildirdi | İzinli hazır kaynaklar araştırılıyor; genel adları ticari analize eşleme yok | M2 gerçek referans seti seçimi; kullanıcı listesi beklenerek durulmaz |
 | Q-02 | Bünye, fırın, maksimum koşullar, witness cone kullanımı | Pilot varsayımı görünür | M6 fiziksel protokol |
 | Q-03 | Mevcut reçete/deney dosyaları ve sahiplik | Hiçbir veri alınmış kabul edilmez | M2/M6 import kapsamı |
 | Q-04 | Yerel tek kullanıcı mı, dış erişimli pilot mu? | M4 yerel tek kullanıcı hedefi | Yayından önce auth/deployment |

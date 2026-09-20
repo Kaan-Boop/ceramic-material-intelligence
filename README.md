@@ -8,6 +8,8 @@ Amaç: seramik reçetelerini kaynaklı kimyasal hesaplara ve gerçek deney sonu�
 
 ## Buradan başlayın
 
+Yeni: [23 kaynaklık arşiv ve fizibilite PDF'sinin kabul incelemesi](docs/SOURCE_REVIEW_2026-09-20.md). Bu inceleme yeni veri import'u veya M3 başlangıcı değildir.
+
 1. [M2 ikinci edinme raporu](docs/M2_BATCH2_REPORT.md), [ilk teslim](docs/M2_REPORT.md), [indirilen kaynaklar](docs/DATA_ACQUISITION.md), [veri kalitesi](docs/DATA_QUALITY.md)
 2. [Kararlar ve açık sorular](docs/DECISIONS.md)
 3. [Mimari](docs/ARCHITECTURE.md)
