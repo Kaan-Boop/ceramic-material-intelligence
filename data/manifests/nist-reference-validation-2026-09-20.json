@@ -1,0 +1,18 @@
+{
+  "validator_version": "reference-certificates-v1",
+  "status": "VALIDATED_REFERENCE_STRUCTURE_AND_ARCHIVE",
+  "materials": 4,
+  "certified_element_values": 39,
+  "independently_double_checked_transcription": false,
+  "production_ready_material_analyses": 0,
+  "training_release": false,
+  "limitations": [
+    "Partial elemental data, not complete oxide chemistry.",
+    "No inference of LOI, oxidation state, missing values, or commercial product equivalence.",
+    "Certificate issue date is not measurement date.",
+    "Structural and checksum checks do not independently verify transcription accuracy."
+  ],
+  "transcription_sha256": "5c923931ed3ac5d4a5ea3dcd2525df11ac2c4f297c706d3dbc486d791dc4f5c0",
+  "receipt_sha256": "d12b4b17d20e6f4116560aed85e537f469ef59041e173609a7c97c0d47438253",
+  "validator_sha256": "5b1af742cff2db499f6dd3dd673ef02bf71658da575b78c1db8fd42e884fa8c1"
+}

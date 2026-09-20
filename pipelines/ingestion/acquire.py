@@ -16,14 +16,15 @@ from urllib.request import Request, HTTPRedirectHandler, build_opener
 from uuid import uuid4
 import xml.etree.ElementTree as ET
 
-VERSION = "reviewed-acquisition-v1.1"
+VERSION = "reviewed-acquisition-v1.2"
 MAX_BYTES = 8 * 1024 * 1024
 HOSTS = {"archive.ics.uci.edu", "zenodo.org", "data.mendeley.com",
-         "www.ebi.ac.uk", "raw.githubusercontent.com", "api.github.com",
+         "www.ebi.ac.uk", "raw.githubusercontent.com", "api.github.com", "www.nist.gov", "tsapps.nist.gov",
          "prod-dcd-datasets-public-files-eu-west-1.s3.eu-west-1.amazonaws.com"}
 KILN_COMMIT = "a2b3071e4e55f47c20326563200da0b49d3c5bb8"
 PROFILES = ("cone-05-fast-bisque", "cone-05-long-bisque", "cone-6-long-glaze",
             "test-200-250", "test-fast")
+NIST_POLICY = "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications"
 
 
 def checked_url(url):
@@ -82,6 +83,24 @@ class Collector:
         return raw
 
     def collect(self, source):
+        if source == "nist-srm-ceramics":
+            # SRM certificates, NOT Standard Reference Data (SRD) compilations.
+            policy, final = self.fetch(NIST_POLICY)
+            if b"royalty-free basis throughout the world" not in policy or b"Fair Use of Other NIST Data/Works" not in policy:
+                raise ValueError("NIST_POLICY_REVIEW_REQUIRED")
+            self.save(source, "nist-data-use-policy.html", NIST_POLICY, policy, final)
+            for code in ("70b", "97b", "98b", "99b"):
+                url = f"https://tsapps.nist.gov/srmext/certificates/{code}.pdf"
+                raw, final = self.fetch(url)
+                if not raw.startswith(b"%PDF-"):
+                    raise ValueError("NIST_CERTIFICATE_NOT_PDF")
+                self.save(source, f"SRM-{code}.pdf", url, raw, final)
+            return {"license": "LicenseRef-NIST-NonSRD-Data-Use", "license_evidence": NIST_POLICY,
+                    "source_author": "National Institute of Standards and Technology / National Bureau of Standards",
+                    "source_name": "NIST ceramic SRM certificates", "source_url": "https://www.nist.gov/srm",
+                    "version": "Certificate revisions and content hashes; retrieved 2026-09-20",
+                    "entity_kind": "ELEMENTAL_REFERENCE_MATERIAL_CERTIFICATES",
+                    "license_conditions": "NIST non-SRD data terms: attribution, retention of notice, identification of modifications. No endorsement or certification of this platform. Not a blanket license for SRD or third-party works."}
         if source == "uci-583":
             url = "https://archive.ics.uci.edu/static/public/583/chemical%2Bcomposition%2Bof%2Bceramic%2Bsamples.zip"
             self.download(source, "ceramic-samples.zip", url)
@@ -142,20 +161,20 @@ class Collector:
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--storage", type=Path, required=True)
-    parser.add_argument("--sources", nargs="+", choices=("uci-583", "zenodo-14742972", "mendeley-p49ncrb39k", "fabris-2024", "kiln-controller"), required=True)
+    parser.add_argument("--sources", nargs="+", choices=("uci-583", "zenodo-14742972", "mendeley-p49ncrb39k", "fabris-2024", "kiln-controller", "nist-srm-ceramics"), required=True)
     args = parser.parse_args()
     collector = Collector(args.storage)
     sources, failures = {}, {}
     for source in dict.fromkeys(args.sources):
         try:
             info = collector.collect(source)
-            info.update(source_id=source, source_name=source, source_url=info["license_evidence"],
+            info.update(source_id=source, source_name=info.get("source_name", source), source_url=info.get("source_url", info["license_evidence"]),
                         source_license=info["license"], source_type="OFFICIAL_EXPORT_OR_API",
                         retrieval_date=datetime.now(timezone.utc).date().isoformat(),
                         commercial_use_allowed="ALLOWED", attribution_required="REQUIRED",
                         share_alike_required="REQUIRED" if source == "kiln-controller" else "NOT_REQUIRED",
-                        license_conditions="Retain attribution/license and comply with any applicable third-party and copyleft obligations.",
-                        layer="OPEN_DATA", rights_partition="COPYLEFT_REFERENCE" if source == "kiln-controller" else "CC_BY_REFERENCE",
+                        license_conditions=info.get("license_conditions", "Retain attribution/license and comply with any applicable third-party and copyleft obligations."),
+                        layer="OPEN_DATA", rights_partition="COPYLEFT_REFERENCE" if source == "kiln-controller" else ("NIST_NON_SRD_REFERENCE" if source == "nist-srm-ceramics" else "CC_BY_REFERENCE"),
                         product_release="NOT_APPROVED", training="NOT_ENABLED", core_engine_eligible=False)
             sources[source] = info
             print(json.dumps({"source": source, "state": "ARCHIVED_REFERENCE_ONLY"}), flush=True)

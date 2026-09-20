@@ -25,6 +25,13 @@ def build_inventory(root, profile):
     report = json.loads((profile / "report.json").read_text(encoding="utf-8"))
     for source_id, source in sources.items():
         # Explicit metadata migration for early acquisition receipts; no chemistry changes.
+        if source.get("license") == "LicenseRef-NIST-NonSRD-Data-Use":
+            if (source_id != "nist-srm-ceramics" or source.get("rights_partition") != "NIST_NON_SRD_REFERENCE"
+                    or source.get("commercial_use_allowed") != "ALLOWED" or not source.get("license_conditions")
+                    or source.get("license_evidence") != "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications"):
+                raise ValueError("UNREVIEWED_RIGHTS_MIGRATION")
+            # Reviewed custom terms must not be relabeled CC BY or overwritten.
+            continue
         if source.get("license") not in ("CC-BY-4.0", "GPL-3.0-or-later") or source.get("commercial_use_allowed") not in ("ALLOWED", "ALLOWED_WITH_LICENSE_CONDITIONS"):
             raise ValueError("UNREVIEWED_RIGHTS_MIGRATION")
         source["source_url"] = source.get("source_url", source["license_evidence"])
@@ -32,7 +39,7 @@ def build_inventory(root, profile):
         source["commercial_use_allowed"] = "ALLOWED"
         source["attribution_required"] = "REQUIRED"
         source["share_alike_required"] = "REQUIRED" if source_id == "kiln-controller" else "NOT_REQUIRED"
-        source["license_conditions"] = "Attribution and license retention required; GPL reference is separately partitioned, not relicensed. Product release remains NOT_APPROVED."
+        source.setdefault("license_conditions", "Attribution and license retention required; GPL reference is separately partitioned, not relicensed. Product release remains NOT_APPROVED.")
         source["rights_partition"] = "COPYLEFT_REFERENCE" if source_id == "kiln-controller" else "CC_BY_REFERENCE"
         source["layer"] = "OPEN_DATA"
     return {"schema_version": "research-inventory-v1", "release_kind": "INTERNAL_REFERENCE_NOT_PRODUCTION",

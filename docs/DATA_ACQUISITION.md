@@ -44,7 +44,11 @@ Bu tabloda “UNKNOWN” bir yasak hükmü değildir; yeterli kanıt olmadığı
 - robots.txt denetimi tüm sitelerde tamamlanmış değildir. Bu koleksiyondaki veri edinimi scraping'e dayanmaz; ileride scraping kararı için ayrı ToS/robots/izin denetimi zorunludur.
 - Kaynak şartlarının tam hukuki denetimi, ürün içinde gösterim/export ve AI eğitimi onayı henüz yapılmadı. Açık lisanslı arşiv saklama, production release ile eşitlenmez.
 
-## İkinci edinme dilimi
+## İkinci edinme dilimi — güncelleme
+
+20 Eylül 2026: NIST/NBS'nin 70b, 97b, 98b, 99b sertifikaları ve kullanım politikası alındı. 4 referans materyalden 39 sertifikalı element değeri, ayrı araştırma katmanında sürümlendi. Güncel toplam 6 kaynak / 29 dosya-içerik kaydıdır. Bu belgenin önceki beş kaynak sayımları ilk edinme dilimine aittir. [İkinci dilim raporu ve hak tablosu](M2_BATCH2_REPORT.md) kapsamı, testleri ve sınırlamaları açıklar.
+
+### Devam eden edinme öncelikleri
 
 1. Önce pratik fayda: açıkça izinli, baz/ürün kimliği belli hammadde analizleri. Hedef 10–20; şu anda kabul edilmiş gerçek motor analizi **0**.
 2. Modern stoneware/Cone 6 oksidasyon çalışmalarının CSV/JSON supplementary paketleri. Arkeolojik ölçüm sayısını artırmak pilot verisini kendiliğinden iyileştirmez.

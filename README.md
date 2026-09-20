@@ -8,7 +8,7 @@ Amaç: seramik reçetelerini kaynaklı kimyasal hesaplara ve gerçek deney sonu�
 
 ## Buradan başlayın
 
-1. [M2 teslim ve test raporu](docs/M2_REPORT.md), [indirilen kaynaklar](docs/DATA_ACQUISITION.md), [veri kalitesi](docs/DATA_QUALITY.md)
+1. [M2 ikinci edinme raporu](docs/M2_BATCH2_REPORT.md), [ilk teslim](docs/M2_REPORT.md), [indirilen kaynaklar](docs/DATA_ACQUISITION.md), [veri kalitesi](docs/DATA_QUALITY.md)
 2. [Kararlar ve açık sorular](docs/DECISIONS.md)
 3. [Mimari](docs/ARCHITECTURE.md)
 4. [Bilimsel hesaplama sözleşmesi](docs/CHEMISTRY_ENGINE.md)
@@ -53,13 +53,15 @@ Docker, API, database setup ve migration henüz yok. PostgreSQL kalıcılığı 
 
 ## Testler
 
-M2: 37 unit test; hak kapısı, baz/LOI kontrolleri, tekrar import, bozuk arşiv, atomik yayın, negatif değer, birim dönüşümü, aralık ve yönlendirme kontrolü. Bunlar UMF motoru veya fiziksel seramik doğrulaması değildir. M3'te kimya/golden/property, M4'te E2E, M5'te PostgreSQL integration/replay testleri uygulanacak.
+M2: 48 unit test; hak kapısı, baz/LOI kontrolleri, tekrar import, bozuk arşiv, atomik yayın, negatif değer, birim dönüşümü, aralık, yönlendirme, sertifika kökeni ve belirsizlik türü kontrolü. Bunlar UMF motoru veya fiziksel seramik doğrulaması değildir. M3'te kimya/golden/property, M4'te E2E, M5'te PostgreSQL integration/replay testleri uygulanacak.
 
 ## Veri ve lisans
 
 `contracts/examples/` altındaki kimlikler ve içerik **sentetik sözleşme örnekleridir**. Gerçek üretici analizi, gerçek deney veya yürütülmüş API cevabı değildir.
 
-Beş kaynaktan 24 kaynak/dosya/içerik kaydı yerel `storage/research/` altında saklandı. Raw veri Git'e alınmaz; yalnızca checksum/provenance [manifest'i](data/manifests/research-acquisition-2026-09-20.json) sürümlenir. Dört kaynak CC BY 4.0, GitHub program örnekleri GPL-3.0-or-later referansıdır; lisanslar birbirine veya proje lisansına dönüştürülmez. Dışarı yayın ve AI eğitimi yapılmadı.
+Altı kaynaktan 29 kaynak/dosya/içerik kaydı (1.316.468 byte) yerel `storage/research/` altında saklandı. Raw veri Git'e alınmaz; checksum/provenance [güncel manifest](data/manifests/research-acquisition-2026-09-20-batch2.json) sürümlenir. Dört kaynak CC BY 4.0, GitHub program örnekleri GPL-3.0-or-later, NIST sertifikaları ayrı non-SRD kullanım koşulları altındadır. Lisanslar birbirine veya proje lisansına dönüştürülmez. Dışarı yayın ve AI eğitimi yapılmadı.
+
+`data/reference/nist-certified-elements-v1.json`, dört SRM'nin Table 1'inden seçilmiş 39 sertifikalı element değerinin küçük, kaynaklı transkripsiyonudur. Bu gerçek referans verisidir; sentetik fixture veya eksiksiz oksit analizi değildir. PDF becerisiyle tablolar görsel olarak incelendi; bağımsız ikinci kişi doğrulaması henüz yapılmadı.
 
 `data/fixtures/` üç sentetik yazılım testidir; gerçek malzeme analizi sayılmaz. Gerçek motor-referans analizi sayısı 0. Projenin kod/belge lisansı henüz seçilmedi; açık kaynak lisansı verilmiş sayılmamalıdır. [LICENSES](docs/LICENSES.md) geçerlidir.
 

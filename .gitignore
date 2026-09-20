@@ -1,4 +1,5 @@
-# Gerçek veri dosyaları ve çalışma ortamları Git'e girmez.
+# Büyük/ham veri ve çalışma ortamları Git'e girmez.
+# data/reference içindeki küçük, izinli ve kaynaklı transkripsiyonlar sürümlenir.
 .env
 .env.*
 !.env.example
