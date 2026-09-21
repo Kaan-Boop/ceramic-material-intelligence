@@ -1,0 +1,56 @@
+{
+  "schema_version": "chemistry-quality-audit-v1",
+  "grain": "One element identity / one theoretical oxide formula / one study material analysis candidate",
+  "archive_sources": 3,
+  "archive_files": 15,
+  "archive_checksum_checks_passed": true,
+  "installed_source_matches": {
+    "periodictable/mass.py": true,
+    "periodictable/formulas.py": true
+  },
+  "element_identities": 118,
+  "unique_atomic_numbers": 118,
+  "standard_mass_available": 84,
+  "mass_unavailable": 34,
+  "oxide_formulas": 35,
+  "maximum_element_mass_balance_error_g_per_100g": 1.4210854715202004e-14,
+  "study_candidates": 15,
+  "duplicate_candidate_ids": 0,
+  "accepted_study_materials": 0,
+  "independently_counted_unknown_analysis_basis": 15,
+  "quarantined_study_materials": 15,
+  "study_quality_flags": {
+    "ANALYSIS_BASIS_UNKNOWN": 15,
+    "ANALYSIS_DATE_UNKNOWN": 15,
+    "LOT_UNKNOWN": 15,
+    "OMITTED_SPECIES_UNDEFINED": 15,
+    "UNDEFINED_DASH": 2,
+    "REPORTED_COLUMN_SUM_OUTSIDE_100_PLUS_MINUS_0_5": 4,
+    "LOI_WT_PCT_UNAVAILABLE": 7,
+    "MIXED_ELEMENT_AND_OXIDE_REPORTING": 1,
+    "PERCENT_UNIT_BASIS_NOT_EXPLICIT": 1,
+    "OTHERS_NOT_IDENTIFIED_OR_LOI": 5
+  },
+  "current_constant_comparison": {
+    "Zr": {
+      "package": 91.224,
+      "ciaaw_2024": 91.222
+    },
+    "Gd": {
+      "package": 157.25,
+      "ciaaw_2024": 157.249
+    },
+    "Lu": {
+      "package": 174.9668,
+      "ciaaw_2024": 174.96669
+    }
+  },
+  "comparison_source": "https://ciaaw.org/atomic-weights.htm",
+  "temporal_analysis": "No comparable repeated measurement series; no trend inferred",
+  "limitations": [
+    "No new real material analyses accepted",
+    "Only three known constant revisions compared, not full CIAAW table validation",
+    "Numerical checks do not validate real firing behavior",
+    "No input uncertainty propagation in stoichiometric results"
+  ]
+}

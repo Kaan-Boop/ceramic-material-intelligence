@@ -1,0 +1,5 @@
+# Small chemistry adapter in the existing local research environment.
+# Windows x64 / CPython 3.12 NumPy wheel; other packages pure Python.
+periodictable==2.1.0 --hash=sha256:e9155d2bf5ac10050abeff2f99096d4f04312c0c8a6bb432e28744367c5064b3
+pyparsing==3.2.5 --hash=sha256:e38a4f02064cf41fe6593d328d0512495ad1f3d8a91c4f73fc401b3079a59a5e
+numpy==2.5.3 --hash=sha256:0a59a421a32580a009e8a1751345bf829631b990dc1794b80514ab722b435def
