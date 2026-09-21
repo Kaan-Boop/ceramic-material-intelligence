@@ -1,6 +1,6 @@
 # Senaryo ve simülasyon sınırları
 
-M1'de tanımlanır; M8 sonrası ayrı iş. İlk what-if yalnızca malzeme miktarının normalize reçete ve kimyaya etkisini hesaplar. Yüzey render'ı veya fırın sonucu iddiası yok.
+M1'de tanımlanır; üretim simülasyonu M8 sonrası ayrı iş. 2026-09-21 kullanıcı yönlendirmesiyle M2 yanında izole bir [sır–bünye termal araştırma prototipi](PHYSICS_RESEARCH.md) eklendi. Bu istisna M2/M3/M4'ü tamamlamaz ve üretim fizik modeli onayı değildir. İlk reçete what-if'i yalnızca malzeme miktarının normalize reçete ve kimyaya etkisini hesaplayacak. Yüzey render'ı veya kesin fırın sonucu iddiası yok.
 
 1. Ingredient slider -> yeni geçici senaryo -> aynı Python motoru.
 2. Line/biaxial blend -> kontrol/tekrar planı -> gerçek numune sonuçları.

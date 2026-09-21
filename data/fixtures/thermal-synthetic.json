@@ -1,0 +1,29 @@
+{
+  "schema_version": "thermal-scenario/1",
+  "glaze": {
+    "material_id": "SYNTHETIC_GLAZE_A",
+    "source_ref": "project:synthetic-thermal-fixture-v1; NOT a commercial glaze",
+    "data_kind": "SYNTHETIC",
+    "coefficient_kind": "TANGENT_SMALL_STRAIN",
+    "unit": "1/K",
+    "points": [[0, 0.000008], [600, 0.000008]]
+  },
+  "body": {
+    "material_id": "SYNTHETIC_BODY_B",
+    "source_ref": "project:synthetic-thermal-fixture-v1; NOT a commercial clay body",
+    "data_kind": "SYNTHETIC",
+    "coefficient_kind": "TANGENT_SMALL_STRAIN",
+    "unit": "1/K",
+    "points": [[0, 0.000006], [600, 0.000006]]
+  },
+  "reference_temperature_c": 520,
+  "target_temperature_c": 20,
+  "reference_length_mm": 100,
+  "sensitivity_steps": {
+    "glaze_alpha_offset_per_k": 0.0000005,
+    "body_alpha_offset_per_k": 0.0000005,
+    "reference_temperature_c": 10,
+    "target_temperature_c": 10,
+    "reference_length_mm": 10
+  }
+}

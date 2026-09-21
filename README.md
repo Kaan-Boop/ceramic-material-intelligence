@@ -8,6 +8,8 @@ Amaç: seramik reçetelerini kaynaklı kimyasal hesaplara ve gerçek deney sonu�
 
 ## Buradan başlayın
 
+Yeni: [Sır–bünye fizik mimarisi ve çalışan termal araştırma prototipi](docs/PHYSICS_RESEARCH.md). Yerel Python CLI serbest büzülme farkı ve OAT duyarlılık üretir; örnekler sentetik, gerilme/çatlama olasılığı/kimyasal reaksiyon çözümü yoktur. M2 yanında izole araştırmadır; kimya motoru veya web MVP'si değildir.
+
 Yeni: [23 kaynaklık arşiv ve fizibilite PDF'sinin kabul incelemesi](docs/SOURCE_REVIEW_2026-09-20.md). Bu inceleme yeni veri import'u veya M3 başlangıcı değildir.
 
 1. [M2 ikinci edinme raporu](docs/M2_BATCH2_REPORT.md), [ilk teslim](docs/M2_REPORT.md), [indirilen kaynaklar](docs/DATA_ACQUISITION.md), [veri kalitesi](docs/DATA_QUALITY.md)
@@ -43,6 +45,7 @@ M2 intake/edinme altyapısı Python 3.12 standart kütüphanesini kullanır. XLS
 
 ```sh
 python -m unittest discover -s tests -v
+python -m research.thermal data/fixtures/thermal-synthetic.json
 python -m pipelines.ingestion.materials validate data/fixtures/synthetic-materials.json --rights data/fixtures/synthetic-rights.json --purpose INTERNAL_VALIDATION
 python -m pipelines.ingestion.materials import data/fixtures/synthetic-materials.json --rights data/fixtures/synthetic-rights.json --purpose INTERNAL_VALIDATION --storage storage/intake
 ```
@@ -51,11 +54,11 @@ Komutlar proje kökünde çalıştırılır. Sistemde `python` yoksa kurulu Pyth
 
 Planlanan stack: Next.js/React/TypeScript, FastAPI/Pydantic, bağımsız Python `ceramic_engine`, PostgreSQL/SQLAlchemy/Alembic. Sürümler implementasyon başlangıcında destek ve bağımlılık uyumuna göre sabitlenecek; henüz lockfile yok.
 
-Docker, API, database setup ve migration henüz yok. PostgreSQL kalıcılığı M5; ilk web prototipi M4'tür. Mevcut çalışır sistem dosya tabanlı intake ve araştırma koleksiyonu araçlarıdır.
+Docker, API, database setup ve migration henüz yok. PostgreSQL kalıcılığı M5; ilk web prototipi M4'tür. Mevcut çalışır sistem dosya tabanlı intake, araştırma koleksiyonu araçları ve izole termal araştırma CLI'ıdır.
 
 ## Testler
 
-M2: 48 unit test; hak kapısı, baz/LOI kontrolleri, tekrar import, bozuk arşiv, atomik yayın, negatif değer, birim dönüşümü, aralık, yönlendirme, sertifika kökeni ve belirsizlik türü kontrolü. Bunlar UMF motoru veya fiziksel seramik doğrulaması değildir. M3'te kimya/golden/property, M4'te E2E, M5'te PostgreSQL integration/replay testleri uygulanacak.
+Toplam 69 test: M2'de 48 test; hak kapısı, baz/LOI kontrolleri, tekrar import, bozuk arşiv, atomik yayın, negatif değer, birim dönüşümü, aralık, yönlendirme, sertifika kökeni ve belirsizlik türü kontrolü. Termal araştırmada 21 test; elle hesap, parçalı integral, ölçekleme, kapsam/birim kontrolleri, duyarlılık, replay ve CLI dosya koruması. Bunlar UMF motoru veya fiziksel seramik doğrulaması değildir. M3'te kimya/golden/property, M4'te E2E, M5'te PostgreSQL integration/replay testleri uygulanacak.
 
 ## Veri ve lisans
 

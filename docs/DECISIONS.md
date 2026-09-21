@@ -19,6 +19,7 @@ Durumlar: ACCEPTED_FOR_M1 = bu tasarım tesliminin başlangıç kararı; PROVISI
 | ADR-013 | PROVISIONAL | Cone 6 oksidasyon pilotu | Fırın/bünye/ürün uygunluğu kullanıcı bilgisiyle sabitlenecek |
 | ADR-014 | DEFERRED | Sayısal fiziksel özellik ve ML | İkinci bağımsız kaynak ve fiziksel doğrulama olmadan yayın yok |
 | ADR-015 | ACCEPTED_FOR_M1 | HTML export, snapshot raporudur | Sunucusuz yeni hesap ile karıştırılmaz |
+| ADR-016 | ACCEPTED_FOR_RESEARCH | Kullanıcı talebiyle M2 yanında izole sır–bünye free-strain prototipi | Sentetik girdilerle matematik/duyarlılık testi; üretim termal modeli, FEM ve M3 teslimi değildir. Metal ertelendi. PHYSICS_RESEARCH belgesi geçerli. |
 
 ## Alternatifler
 
@@ -45,5 +46,5 @@ Bu sorular tasarımın tamamlanmasını engellemez. Belirli ticari malzeme kabul
 - Orton tablolarının uygulamada yeniden dağıtımı ve seçilecek seri/sürüm doğrulanmadı; otomatik dönüşüm yok.
 - Stull orijinal deney kapsamının birincil yayından incelemesi tamamlanmadı; bölge overlay'i kapalı.
 - Limit formula seti ve yeniden kullanım hakları seçilmedi; başarı yorumu üretilemez.
-- Genleşme için ikinci bağımsız model ve katsayı seti seçilmedi; termal çıktı yok.
+- Üretim genleşme katsayı seti seçilmedi. İzole araştırma prototipi MOOSE ve bağımsız FEniCSx anlatımındaki küçük-strain formülleriyle karşılaştırıldı; sentetik termal çıktı vardır. Gerçek malzeme veya ikinci solver/deney doğrulaması henüz yok.
 - Kaynakların tamamında ToS/API/robots/paket lisansı incelemesi bitmiş değil; DATA_SOURCES kabul listesi değildir.
