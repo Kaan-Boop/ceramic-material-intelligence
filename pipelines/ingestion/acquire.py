@@ -9,6 +9,7 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import json
+import re
 from pathlib import Path
 import time
 from urllib.parse import urlparse
@@ -16,10 +17,11 @@ from urllib.request import Request, HTTPRedirectHandler, build_opener
 from uuid import uuid4
 import xml.etree.ElementTree as ET
 
-VERSION = "reviewed-acquisition-v1.2"
+VERSION = "reviewed-acquisition-v1.3"
 MAX_BYTES = 8 * 1024 * 1024
 HOSTS = {"archive.ics.uci.edu", "zenodo.org", "data.mendeley.com",
          "www.ebi.ac.uk", "raw.githubusercontent.com", "api.github.com", "www.nist.gov", "tsapps.nist.gov",
+         "link.springer.com", "link.springernature.com", "www.iieta.org", "oiccpress.com",
          "prod-dcd-datasets-public-files-eu-west-1.s3.eu-west-1.amazonaws.com"}
 KILN_COMMIT = "a2b3071e4e55f47c20326563200da0b49d3c5bb8"
 PROFILES = ("cone-05-fast-bisque", "cone-05-long-bisque", "cone-6-long-glaze",
@@ -27,10 +29,24 @@ PROFILES = ("cone-05-fast-bisque", "cone-05-long-bisque", "cone-6-long-glaze",
 NIST_POLICY = "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications"
 
 
+def article_authors(meta):
+    authors = []
+    for group in meta.findall("contrib-group"):
+        for person in group.findall("contrib"):
+            if person.get("contrib-type") != "author" and group.get("content-type") != "author":
+                continue
+            name = person.find("name")
+            if name is not None:
+                authors.append(" ".join(filter(None, [name.findtext("given-names"), name.findtext("surname")])))
+    if not authors:
+        raise ValueError("AUTHOR_METADATA_REVIEW_REQUIRED")
+    return "; ".join(authors)
+
+
 def checked_url(url):
     parsed = urlparse(url)
     if parsed.scheme != "https" or parsed.hostname not in HOSTS or parsed.username or parsed.password:
-        raise ValueError("UNREVIEWED_DOWNLOAD_HOST")
+        raise ValueError("UNREVIEWED_DOWNLOAD_HOST: " + str(parsed.hostname))
     return url
 
 
@@ -83,6 +99,60 @@ class Collector:
         return raw
 
     def collect(self, source):
+        if source in ("metakaolin-2024", "feldspar-activation-2023"):
+            pmc = {"metakaolin-2024": "PMC10820037", "feldspar-activation-2023": "PMC10779675"}[source]
+            url = f"https://www.ebi.ac.uk/europepmc/webservices/rest/{pmc}/fullTextXML"
+            raw, final = self.fetch(url)
+            doc = ET.fromstring(raw)
+            meta = doc.find("./front/article-meta")
+            permission = meta.find("permissions")
+            if permission is None or "creativecommons.org/licenses/by/4.0" not in ET.tostring(permission, encoding="unicode"):
+                raise ValueError("LICENSE_CHANGED")
+            doi = meta.find("article-id[@pub-id-type='doi']").text
+            authors = article_authors(meta)
+            title = "".join(meta.find("title-group/article-title").itertext())
+            self.save(source, "article.xml", url, raw, final)
+            return {"license": "CC-BY-4.0", "license_evidence": "https://doi.org/" + doi,
+                    "source_name": title, "source_author": authors,
+                    "version": pmc + "; content hash pinned", "entity_kind": "STUDY_SCOPED_RAW_MATERIAL_ANALYSES"}
+        if source in ("anorthite-2018", "sanitary-body-2022"):
+            from io import BytesIO
+            from pypdf import PdfReader
+            if source == "anorthite-2018":
+                # Journal's public archive; Springer currently redirects to an identity host.
+                # Do not follow that identity flow or bypass it.
+                url = "https://oiccpress.com/ijic/article/download/4155/1953/2972"
+                doi = "10.1007/s40090-018-0137-4"
+                authors = "Ali Arastehnodeh; Majid Saghi"
+                title = "Using white cement as a source of calcium oxide in Anorthite body"
+                evidence = "https://link.springer.com/article/" + doi
+            else:
+                evidence = "https://www.iieta.org/node/11313"
+                policy, policy_final = self.fetch(evidence)
+                if b"creativecommons.org/licenses/by/4.0" not in policy or b"10.18280/acsm.460306" not in policy:
+                    raise ValueError("ARTICLE_LICENSE_REVIEW_REQUIRED")
+                self.save(source, "article-and-license.html", evidence, policy, policy_final)
+                url = "https://www.iieta.org/download/file/fid/76842"
+                doi = "10.18280/acsm.460306"
+                authors = "Khaled Boulaiche; Kamel Boudeghdegh; Sofiane Haddad; Abdelmalek Roula; Hichem Alioui"
+                title = "Valorisation of Industrial Soda-Lime Glass Waste and Its Effect on the Rheological Behavior, Physical-Mechanical and Structural Properties of Sanitary Ceramic Vitreous Bodies"
+            raw, final = self.fetch(url)
+            if not raw.startswith(b"%PDF-"):
+                raise ValueError("ARTICLE_NOT_PDF")
+            content = "".join(page.extract_text() or "" for page in PdfReader(BytesIO(raw)).pages)
+            # Reviewed PDF wraps the license host as 'creativecom-\nmons'.
+            # Repair only that textual line wrap for license checking, never data.
+            license_text = re.sub(r"creativecom-\s+mons", "creativecommons", content)
+            compact = "".join(license_text.replace("\u00ad", "").split())
+            if doi not in compact:
+                raise ValueError("ARTICLE_IDENTITY_CHANGED")
+            if source == "anorthite-2018" and "creativecommons.org/licenses/by/4.0" not in compact:
+                raise ValueError("ARTICLE_LICENSE_REVIEW_REQUIRED")
+            self.save(source, "article.pdf", url, raw, final)
+            return {"license": "CC-BY-4.0", "license_evidence": evidence, "source_name": title,
+                    "source_type": "PUBLISHED_ARTICLE_DIRECT_DOWNLOAD",
+                    "source_author": authors, "version": "DOI:" + doi + "; content hash pinned",
+                    "entity_kind": "STUDY_SCOPED_RAW_MATERIAL_ANALYSES_AND_TESTS"}
         if source == "nist-srm-ceramics":
             # SRM certificates, NOT Standard Reference Data (SRD) compilations.
             policy, final = self.fetch(NIST_POLICY)
@@ -161,7 +231,7 @@ class Collector:
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--storage", type=Path, required=True)
-    parser.add_argument("--sources", nargs="+", choices=("uci-583", "zenodo-14742972", "mendeley-p49ncrb39k", "fabris-2024", "kiln-controller", "nist-srm-ceramics"), required=True)
+    parser.add_argument("--sources", nargs="+", choices=("uci-583", "zenodo-14742972", "mendeley-p49ncrb39k", "fabris-2024", "kiln-controller", "nist-srm-ceramics", "metakaolin-2024", "feldspar-activation-2023", "anorthite-2018", "sanitary-body-2022"), required=True)
     args = parser.parse_args()
     collector = Collector(args.storage)
     sources, failures = {}, {}
@@ -169,7 +239,7 @@ def main():
         try:
             info = collector.collect(source)
             info.update(source_id=source, source_name=info.get("source_name", source), source_url=info.get("source_url", info["license_evidence"]),
-                        source_license=info["license"], source_type="OFFICIAL_EXPORT_OR_API",
+                        source_license=info["license"], source_type=info.get("source_type", "OFFICIAL_EXPORT_OR_API"),
                         retrieval_date=datetime.now(timezone.utc).date().isoformat(),
                         commercial_use_allowed="ALLOWED", attribution_required="REQUIRED",
                         share_alike_required="REQUIRED" if source == "kiln-controller" else "NOT_REQUIRED",

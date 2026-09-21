@@ -1,0 +1,1619 @@
+{
+  "schema_version": "study-material-candidates-v1",
+  "release_kind": "RESEARCH_QUARANTINE_NOT_ENGINE_INPUT",
+  "parser_sha256": "b4cb2a8f0e960ba69334f0f9b418055cc595869b7d4298a1317694d2a6613ef4",
+  "core_engine_eligible": false,
+  "external_publication": false,
+  "training_release": false,
+  "transcription_review": "Single assistant; no independent second reviewer",
+  "sources": {
+    "metakaolin-2024": {
+      "license": "CC-BY-4.0",
+      "license_evidence": "https://doi.org/10.3390/ma17020367",
+      "source_name": "Mechanical Properties and Reaction Kinetics of Alkali-Activated Metakaolin",
+      "source_author": "Chao Cui; Yingze Dang; Chenguang Luo; Lan Wang; Hui Peng",
+      "version": "PMC10820037; content hash pinned",
+      "entity_kind": "STUDY_SCOPED_RAW_MATERIAL_ANALYSES",
+      "source_id": "metakaolin-2024",
+      "source_url": "https://doi.org/10.3390/ma17020367",
+      "source_license": "CC-BY-4.0",
+      "source_type": "OFFICIAL_EXPORT_OR_API",
+      "retrieval_date": "2026-09-21",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "license_conditions": "Retain attribution/license and comply with any applicable third-party and copyleft obligations.",
+      "layer": "OPEN_DATA",
+      "rights_partition": "CC_BY_REFERENCE",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false,
+      "metadata_review": "Author names parsed from pinned article XML; initial receipts preserved unchanged."
+    },
+    "feldspar-activation-2023": {
+      "license": "CC-BY-4.0",
+      "license_evidence": "https://doi.org/10.3390/ma17010144",
+      "source_name": "Mechanism of Potassium Release from Feldspar by Mechanical Activation in Presence of Additives at Ordinary Temperatures",
+      "source_author": "Xianmei Zhang; Zhenquan He; Wei Jia; Fanrong Meng; Wenju Zhang; Changai Lu; Xiangyang Hao; Guosheng Gai; Zhaohui Huang; Minggang Xu; Kaijun Wang; Sining Yun",
+      "version": "PMC10779675; content hash pinned",
+      "entity_kind": "STUDY_SCOPED_RAW_MATERIAL_ANALYSES",
+      "source_id": "feldspar-activation-2023",
+      "source_url": "https://doi.org/10.3390/ma17010144",
+      "source_license": "CC-BY-4.0",
+      "source_type": "OFFICIAL_EXPORT_OR_API",
+      "retrieval_date": "2026-09-21",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "license_conditions": "Retain attribution/license and comply with any applicable third-party and copyleft obligations.",
+      "layer": "OPEN_DATA",
+      "rights_partition": "CC_BY_REFERENCE",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false,
+      "metadata_review": "Author names parsed from pinned article XML; initial receipts preserved unchanged."
+    },
+    "sanitary-body-2022": {
+      "license": "CC-BY-4.0",
+      "license_evidence": "https://www.iieta.org/node/11313",
+      "source_name": "Valorisation of Industrial Soda-Lime Glass Waste and Its Effect on the Rheological Behavior, Physical-Mechanical and Structural Properties of Sanitary Ceramic Vitreous Bodies",
+      "source_author": "Khaled Boulaiche; Kamel Boudeghdegh; Sofiane Haddad; Abdelmalek Roula; Hichem Alioui",
+      "version": "DOI:10.18280/acsm.460306; content hash pinned",
+      "entity_kind": "STUDY_SCOPED_RAW_MATERIAL_ANALYSES_AND_TESTS",
+      "source_id": "sanitary-body-2022",
+      "source_url": "https://www.iieta.org/node/11313",
+      "source_license": "CC-BY-4.0",
+      "source_type": "PUBLISHED_ARTICLE_DIRECT_DOWNLOAD",
+      "retrieval_date": "2026-09-21",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "license_conditions": "Retain attribution/license and comply with any applicable third-party and copyleft obligations.",
+      "layer": "OPEN_DATA",
+      "rights_partition": "CC_BY_REFERENCE",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false
+    },
+    "anorthite-2018": {
+      "license": "CC-BY-4.0",
+      "license_evidence": "https://link.springer.com/article/10.1007/s40090-018-0137-4",
+      "source_name": "Using white cement as a source of calcium oxide in Anorthite body",
+      "source_author": "Ali Arastehnodeh; Majid Saghi",
+      "version": "DOI:10.1007/s40090-018-0137-4; content hash pinned",
+      "entity_kind": "STUDY_SCOPED_RAW_MATERIAL_ANALYSES_AND_TESTS",
+      "source_id": "anorthite-2018",
+      "source_url": "https://link.springer.com/article/10.1007/s40090-018-0137-4",
+      "source_license": "CC-BY-4.0",
+      "source_type": "PUBLISHED_ARTICLE_DIRECT_DOWNLOAD",
+      "retrieval_date": "2026-09-21",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "license_conditions": "Retain attribution/license and comply with any applicable third-party and copyleft obligations.",
+      "layer": "OPEN_DATA",
+      "rights_partition": "CC_BY_REFERENCE",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false
+    }
+  },
+  "records": [
+    {
+      "id": "anorthite-2018:Super Standard Porcelain",
+      "version": 1,
+      "source_id": "anorthite-2018",
+      "name_as_reported": "Super Standard Porcelain",
+      "manufacturer_as_reported": "IMERYS Ceramics, UK",
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 1",
+      "source_pdf_page": 2,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "SiO2",
+          "raw_value": "47.1",
+          "value": "47.1",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "37.1",
+          "value": "37.1",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "0.7",
+          "value": "0.7",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "CaO",
+          "raw_value": "0.26",
+          "value": "0.26",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.33",
+          "value": "0.33",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "–",
+          "value": null,
+          "unit": "wt_pct",
+          "missing_reason": "NOT_REPORTED_OR_UNDEFINED_DASH"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "1.87",
+          "value": "1.87",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "LOI",
+          "raw_value": "12.4",
+          "value": "12.4",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "99.76",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED",
+        "UNDEFINED_DASH"
+      ],
+      "raw_sha256": "dfe6d64ef2ad96638257422492e83e24fe28a6fcf696c2bb8ca6734679b7e965",
+      "source_url": "https://oiccpress.com/ijic/article/download/4155/1953/2972",
+      "source_locator": "Table 1: Super Standard Porcelain"
+    },
+    {
+      "id": "anorthite-2018:Quantum AP200F",
+      "version": 1,
+      "source_id": "anorthite-2018",
+      "name_as_reported": "Quantum AP200F",
+      "manufacturer_as_reported": "Cibelco–India [source spelling]",
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 1",
+      "source_pdf_page": 2,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "SiO2",
+          "raw_value": "64.9",
+          "value": "64.9",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "17",
+          "value": "17",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "0.28",
+          "value": "0.28",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "CaO",
+          "raw_value": "0.76",
+          "value": "0.76",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.44",
+          "value": "0.44",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "2.42",
+          "value": "2.42",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "12.1",
+          "value": "12.1",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "LOI",
+          "raw_value": "0.57",
+          "value": "0.57",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "98.47",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED",
+        "REPORTED_COLUMN_SUM_OUTSIDE_100_PLUS_MINUS_0_5"
+      ],
+      "raw_sha256": "dfe6d64ef2ad96638257422492e83e24fe28a6fcf696c2bb8ca6734679b7e965",
+      "source_url": "https://oiccpress.com/ijic/article/download/4155/1953/2972",
+      "source_locator": "Table 1: Quantum AP200F"
+    },
+    {
+      "id": "anorthite-2018:Quartz",
+      "version": 1,
+      "source_id": "anorthite-2018",
+      "name_as_reported": "Quartz",
+      "manufacturer_as_reported": "Morvarid–Iran",
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 1",
+      "source_pdf_page": 2,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "SiO2",
+          "raw_value": "99.15",
+          "value": "99.15",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "0.68",
+          "value": "0.68",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "0.03",
+          "value": "0.03",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "CaO",
+          "raw_value": "0.12",
+          "value": "0.12",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "–",
+          "value": null,
+          "unit": "wt_pct",
+          "missing_reason": "NOT_REPORTED_OR_UNDEFINED_DASH"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "–",
+          "value": null,
+          "unit": "wt_pct",
+          "missing_reason": "NOT_REPORTED_OR_UNDEFINED_DASH"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "–",
+          "value": null,
+          "unit": "wt_pct",
+          "missing_reason": "NOT_REPORTED_OR_UNDEFINED_DASH"
+        },
+        {
+          "reported_as": "LOI",
+          "raw_value": "–",
+          "value": null,
+          "unit": "wt_pct",
+          "missing_reason": "NOT_REPORTED_OR_UNDEFINED_DASH"
+        }
+      ],
+      "reported_numeric_column_sum": "99.98",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED",
+        "UNDEFINED_DASH",
+        "LOI_WT_PCT_UNAVAILABLE"
+      ],
+      "raw_sha256": "dfe6d64ef2ad96638257422492e83e24fe28a6fcf696c2bb8ca6734679b7e965",
+      "source_url": "https://oiccpress.com/ijic/article/download/4155/1953/2972",
+      "source_locator": "Table 1: Quartz"
+    },
+    {
+      "id": "feldspar-activation-2023:Potash feldspar powder",
+      "version": 1,
+      "source_id": "feldspar-activation-2023",
+      "name_as_reported": "Potash feldspar powder",
+      "manufacturer_as_reported": "Lingshou County Shengpeng Mineral Factory, Shijiazhuang, China",
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 1",
+      "source_pdf_page": null,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "SiO2",
+          "raw_value": "67.03",
+          "value": "67.03",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "CaO",
+          "raw_value": "1.44",
+          "value": "1.44",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "Rb2O",
+          "raw_value": "0.0293",
+          "value": "0.0293",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "S",
+          "raw_value": "0.0139",
+          "value": "0.0139",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "18",
+          "value": "18",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "BaO",
+          "raw_value": "0.633",
+          "value": "0.633",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "Cr2O3",
+          "raw_value": "0.0273",
+          "value": "0.0273",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "Nd2O3",
+          "raw_value": "0.0040",
+          "value": "0.0040",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "8.69",
+          "value": "8.69",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.106",
+          "value": "0.106",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "Ag2O",
+          "raw_value": "0.0113",
+          "value": "0.0113",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "PbO",
+          "raw_value": "0.0039",
+          "value": "0.0039",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "3.36",
+          "value": "3.36",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "P2O5",
+          "raw_value": "0.0708",
+          "value": "0.0708",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "MnO",
+          "raw_value": "0.0054",
+          "value": "0.0054",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "Ga2O3",
+          "raw_value": "0.003",
+          "value": "0.003",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "0.359",
+          "value": "0.359",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "TiO2",
+          "raw_value": "0.0323",
+          "value": "0.0323",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "NiO",
+          "raw_value": "0.0024",
+          "value": "0.0024",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "SrO",
+          "raw_value": "0.155",
+          "value": "0.155",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "Cl",
+          "raw_value": "0.018",
+          "value": "0.018",
+          "unit": "percent_unspecified"
+        },
+        {
+          "reported_as": "ZnO",
+          "raw_value": "0.0011",
+          "value": "0.0011",
+          "unit": "percent_unspecified"
+        }
+      ],
+      "reported_numeric_column_sum": "99.9957",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED",
+        "LOI_WT_PCT_UNAVAILABLE",
+        "MIXED_ELEMENT_AND_OXIDE_REPORTING",
+        "PERCENT_UNIT_BASIS_NOT_EXPLICIT"
+      ],
+      "exclusion_note": "Cl/S remain elemental. MnO is not MnO2; unsupported species are retained, not discarded.",
+      "raw_sha256": "3c34f5f7829227c9ef2f49cd5d8e8bd9740b335ca1d823309e331135bdea5211",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10779675/fullTextXML",
+      "source_locator": "Table 1: Potash feldspar powder"
+    },
+    {
+      "id": "metakaolin-2024:Devolite",
+      "version": 1,
+      "source_id": "metakaolin-2024",
+      "name_as_reported": "Devolite",
+      "manufacturer_as_reported": "Imerys",
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 1",
+      "source_pdf_page": null,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "37.73",
+          "value": "37.73",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "SiO2",
+          "raw_value": "50.73",
+          "value": "50.73",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "1.12",
+          "value": "1.12",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.27",
+          "value": "0.27",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "1.65",
+          "value": "1.65",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "0.24",
+          "value": "0.24",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Others",
+          "raw_value": "8.26",
+          "value": "8.26",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "100.00",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED",
+        "LOI_WT_PCT_UNAVAILABLE",
+        "OTHERS_NOT_IDENTIFIED_OR_LOI"
+      ],
+      "exclusion_note": "Table 2 labels LOI in g, not wt%; do not convert without initial mass. Calcined descendants are not the raw parent analysis.",
+      "raw_sha256": "8753e50ef07c5473fe1e9f20b3395e9ac84b21e74ce025f1deb5ac44702cbdc0",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10820037/fullTextXML",
+      "source_locator": "Table 1: Devolite"
+    },
+    {
+      "id": "metakaolin-2024:Shanxi",
+      "version": 1,
+      "source_id": "metakaolin-2024",
+      "name_as_reported": "Shanxi",
+      "manufacturer_as_reported": null,
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 1",
+      "source_pdf_page": null,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "41.12",
+          "value": "41.12",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "SiO2",
+          "raw_value": "50.34",
+          "value": "50.34",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "0.59",
+          "value": "0.59",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.58",
+          "value": "0.58",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "0.14",
+          "value": "0.14",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "0.13",
+          "value": "0.13",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Others",
+          "raw_value": "7.10",
+          "value": "7.10",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "100.00",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED",
+        "LOI_WT_PCT_UNAVAILABLE",
+        "OTHERS_NOT_IDENTIFIED_OR_LOI"
+      ],
+      "exclusion_note": "Table 2 labels LOI in g, not wt%; do not convert without initial mass. Calcined descendants are not the raw parent analysis.",
+      "raw_sha256": "8753e50ef07c5473fe1e9f20b3395e9ac84b21e74ce025f1deb5ac44702cbdc0",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10820037/fullTextXML",
+      "source_locator": "Table 1: Shanxi"
+    },
+    {
+      "id": "metakaolin-2024:M501",
+      "version": 1,
+      "source_id": "metakaolin-2024",
+      "name_as_reported": "M501",
+      "manufacturer_as_reported": "Imerys",
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 1",
+      "source_pdf_page": null,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "42.35",
+          "value": "42.35",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "SiO2",
+          "raw_value": "49.68",
+          "value": "49.68",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "0.50",
+          "value": "0.50",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.01",
+          "value": "0.01",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "0.16",
+          "value": "0.16",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "0.19",
+          "value": "0.19",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Others",
+          "raw_value": "7.11",
+          "value": "7.11",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "100.00",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED",
+        "LOI_WT_PCT_UNAVAILABLE",
+        "OTHERS_NOT_IDENTIFIED_OR_LOI"
+      ],
+      "exclusion_note": "Table 2 labels LOI in g, not wt%; do not convert without initial mass. Calcined descendants are not the raw parent analysis.",
+      "raw_sha256": "8753e50ef07c5473fe1e9f20b3395e9ac84b21e74ce025f1deb5ac44702cbdc0",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10820037/fullTextXML",
+      "source_locator": "Table 1: M501"
+    },
+    {
+      "id": "metakaolin-2024:1200S",
+      "version": 1,
+      "source_id": "metakaolin-2024",
+      "name_as_reported": "1200S",
+      "manufacturer_as_reported": "Imerys",
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 1",
+      "source_pdf_page": null,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "39.16",
+          "value": "39.16",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "SiO2",
+          "raw_value": "55.13",
+          "value": "55.13",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "1.80",
+          "value": "1.80",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.15",
+          "value": "0.15",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "0.56",
+          "value": "0.56",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "0.65",
+          "value": "0.65",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Others",
+          "raw_value": "2.55",
+          "value": "2.55",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "100.00",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED",
+        "LOI_WT_PCT_UNAVAILABLE",
+        "OTHERS_NOT_IDENTIFIED_OR_LOI"
+      ],
+      "exclusion_note": "Table 2 labels LOI in g, not wt%; do not convert without initial mass. Calcined descendants are not the raw parent analysis.",
+      "raw_sha256": "8753e50ef07c5473fe1e9f20b3395e9ac84b21e74ce025f1deb5ac44702cbdc0",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10820037/fullTextXML",
+      "source_locator": "Table 1: 1200S"
+    },
+    {
+      "id": "metakaolin-2024:Opacilite",
+      "version": 1,
+      "source_id": "metakaolin-2024",
+      "name_as_reported": "Opacilite",
+      "manufacturer_as_reported": "Imerys",
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 1",
+      "source_pdf_page": null,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "40.92",
+          "value": "40.92",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "SiO2",
+          "raw_value": "51.57",
+          "value": "51.57",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "0.52",
+          "value": "0.52",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.24",
+          "value": "0.24",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "1.38",
+          "value": "1.38",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "0.27",
+          "value": "0.27",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Others",
+          "raw_value": "5.10",
+          "value": "5.10",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "100.00",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED",
+        "LOI_WT_PCT_UNAVAILABLE",
+        "OTHERS_NOT_IDENTIFIED_OR_LOI"
+      ],
+      "exclusion_note": "Table 2 labels LOI in g, not wt%; do not convert without initial mass. Calcined descendants are not the raw parent analysis.",
+      "raw_sha256": "8753e50ef07c5473fe1e9f20b3395e9ac84b21e74ce025f1deb5ac44702cbdc0",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10820037/fullTextXML",
+      "source_locator": "Table 1: Opacilite"
+    },
+    {
+      "id": "sanitary-body-2022:Hycast VC",
+      "version": 1,
+      "source_id": "sanitary-body-2022",
+      "name_as_reported": "Hycast VC",
+      "manufacturer_as_reported": null,
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 2",
+      "source_pdf_page": 2,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "SiO2",
+          "raw_value": "52",
+          "value": "52",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "31",
+          "value": "31",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "TiO2",
+          "raw_value": "1",
+          "value": "1",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "CaO",
+          "raw_value": "2",
+          "value": "2",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.4",
+          "value": "0.4",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "2.1",
+          "value": "2.1",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "0.2",
+          "value": "0.2",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "1.2",
+          "value": "1.2",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "LOI",
+          "raw_value": "12",
+          "value": "12",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "101.9",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED",
+        "REPORTED_COLUMN_SUM_OUTSIDE_100_PLUS_MINUS_0_5"
+      ],
+      "loi_protocol_as_reported": "1000°C, 2 h; mass basis not explicitly established",
+      "raw_sha256": "29df3aa68d410c946d24264e54337eb8b22cf5a92b21cc5d2820c59a2e2f294e",
+      "source_url": "https://www.iieta.org/download/file/fid/76842",
+      "source_locator": "Table 2: Hycast VC"
+    },
+    {
+      "id": "sanitary-body-2022:Parkaolin",
+      "version": 1,
+      "source_id": "sanitary-body-2022",
+      "name_as_reported": "Parkaolin",
+      "manufacturer_as_reported": "IMERYS Minerals Ltd, UK",
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 2",
+      "source_pdf_page": 2,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "SiO2",
+          "raw_value": "48",
+          "value": "48",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "37",
+          "value": "37",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "TiO2",
+          "raw_value": "0.06",
+          "value": "0.06",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "CaO",
+          "raw_value": "0.07",
+          "value": "0.07",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.3",
+          "value": "0.3",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "1.9",
+          "value": "1.9",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "0.1",
+          "value": "0.1",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "0.19",
+          "value": "0.19",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "LOI",
+          "raw_value": "11.8",
+          "value": "11.8",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "99.42",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED",
+        "REPORTED_COLUMN_SUM_OUTSIDE_100_PLUS_MINUS_0_5"
+      ],
+      "loi_protocol_as_reported": "1000°C, 2 h; mass basis not explicitly established",
+      "raw_sha256": "29df3aa68d410c946d24264e54337eb8b22cf5a92b21cc5d2820c59a2e2f294e",
+      "source_url": "https://www.iieta.org/download/file/fid/76842",
+      "source_locator": "Table 2: Parkaolin"
+    },
+    {
+      "id": "sanitary-body-2022:Remblend (RMB)",
+      "version": 1,
+      "source_id": "sanitary-body-2022",
+      "name_as_reported": "Remblend (RMB)",
+      "manufacturer_as_reported": "IMERYS Ceramics, Austell, UK",
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 2",
+      "source_pdf_page": 2,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "SiO2",
+          "raw_value": "48",
+          "value": "48",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "37",
+          "value": "37",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "TiO2",
+          "raw_value": "0.05",
+          "value": "0.05",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "CaO",
+          "raw_value": "0.07",
+          "value": "0.07",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.3",
+          "value": "0.3",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "1.75",
+          "value": "1.75",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "0.1",
+          "value": "0.1",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "0.8",
+          "value": "0.8",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "LOI",
+          "raw_value": "12.1",
+          "value": "12.1",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "100.17",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED"
+      ],
+      "loi_protocol_as_reported": "1000°C, 2 h; mass basis not explicitly established",
+      "raw_sha256": "29df3aa68d410c946d24264e54337eb8b22cf5a92b21cc5d2820c59a2e2f294e",
+      "source_url": "https://www.iieta.org/download/file/fid/76842",
+      "source_locator": "Table 2: Remblend (RMB)"
+    },
+    {
+      "id": "sanitary-body-2022:Na feldspar, Çine (Aydin, Turkey)",
+      "version": 1,
+      "source_id": "sanitary-body-2022",
+      "name_as_reported": "Na feldspar, Çine (Aydin, Turkey)",
+      "manufacturer_as_reported": null,
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 2",
+      "source_pdf_page": 2,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "SiO2",
+          "raw_value": "70.74",
+          "value": "70.74",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "17.92",
+          "value": "17.92",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "TiO2",
+          "raw_value": "0.26",
+          "value": "0.26",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "CaO",
+          "raw_value": "0.5",
+          "value": "0.5",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.2",
+          "value": "0.2",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "0.4",
+          "value": "0.4",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "9.6",
+          "value": "9.6",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "0.08",
+          "value": "0.08",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "LOI",
+          "raw_value": "0.5",
+          "value": "0.5",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "100.20",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED"
+      ],
+      "loi_protocol_as_reported": "1000°C, 2 h; mass basis not explicitly established",
+      "raw_sha256": "29df3aa68d410c946d24264e54337eb8b22cf5a92b21cc5d2820c59a2e2f294e",
+      "source_url": "https://www.iieta.org/download/file/fid/76842",
+      "source_locator": "Table 2: Na feldspar, Çine (Aydin, Turkey)"
+    },
+    {
+      "id": "sanitary-body-2022:K feldspar, Çine (Aydin, Turkey)",
+      "version": 1,
+      "source_id": "sanitary-body-2022",
+      "name_as_reported": "K feldspar, Çine (Aydin, Turkey)",
+      "manufacturer_as_reported": null,
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 2",
+      "source_pdf_page": 2,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "SiO2",
+          "raw_value": "69.5",
+          "value": "69.5",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "17.3",
+          "value": "17.3",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "TiO2",
+          "raw_value": "0",
+          "value": "0",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "CaO",
+          "raw_value": "0.5",
+          "value": "0.5",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.2",
+          "value": "0.2",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "9",
+          "value": "9",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "3.5",
+          "value": "3.5",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "0.16",
+          "value": "0.16",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "LOI",
+          "raw_value": "0.4",
+          "value": "0.4",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "100.56",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED",
+        "REPORTED_COLUMN_SUM_OUTSIDE_100_PLUS_MINUS_0_5"
+      ],
+      "loi_protocol_as_reported": "1000°C, 2 h; mass basis not explicitly established",
+      "raw_sha256": "29df3aa68d410c946d24264e54337eb8b22cf5a92b21cc5d2820c59a2e2f294e",
+      "source_url": "https://www.iieta.org/download/file/fid/76842",
+      "source_locator": "Table 2: K feldspar, Çine (Aydin, Turkey)"
+    },
+    {
+      "id": "sanitary-body-2022:Quartz, Bir el-Ater (Tebessa, Algeria)",
+      "version": 1,
+      "source_id": "sanitary-body-2022",
+      "name_as_reported": "Quartz, Bir el-Ater (Tebessa, Algeria)",
+      "manufacturer_as_reported": null,
+      "identity_scope": "STUDY_SAMPLE_NOT_CURRENT_PRODUCT_SPECIFICATION",
+      "source_table": "Table 2",
+      "source_pdf_page": 2,
+      "analysis_basis": "UNKNOWN",
+      "analysis_date": null,
+      "lot": null,
+      "uncertainty": null,
+      "method": "XRF_REPORTED_BY_AUTHORS",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "disposition": "QUARANTINED",
+      "core_engine_eligible": false,
+      "measurements": [
+        {
+          "reported_as": "SiO2",
+          "raw_value": "96.35",
+          "value": "96.35",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Al2O3",
+          "raw_value": "0.52",
+          "value": "0.52",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "TiO2",
+          "raw_value": "0.05",
+          "value": "0.05",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "CaO",
+          "raw_value": "1.19",
+          "value": "1.19",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "MgO",
+          "raw_value": "0.08",
+          "value": "0.08",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "K2O",
+          "raw_value": "0.17",
+          "value": "0.17",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Na2O",
+          "raw_value": "0.08",
+          "value": "0.08",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "Fe2O3",
+          "raw_value": "0.24",
+          "value": "0.24",
+          "unit": "wt_pct"
+        },
+        {
+          "reported_as": "LOI",
+          "raw_value": "1.2",
+          "value": "1.2",
+          "unit": "wt_pct"
+        }
+      ],
+      "reported_numeric_column_sum": "99.88",
+      "sum_note": "Diagnostic only; includes LOI/Others where reported, excludes missing cells. Not mass closure or normalization.",
+      "quality_flags": [
+        "ANALYSIS_BASIS_UNKNOWN",
+        "ANALYSIS_DATE_UNKNOWN",
+        "LOT_UNKNOWN",
+        "OMITTED_SPECIES_UNDEFINED"
+      ],
+      "loi_protocol_as_reported": "1000°C, 2 h; mass basis not explicitly established",
+      "raw_sha256": "29df3aa68d410c946d24264e54337eb8b22cf5a92b21cc5d2820c59a2e2f294e",
+      "source_url": "https://www.iieta.org/download/file/fid/76842",
+      "source_locator": "Table 2: Quartz, Bir el-Ater (Tebessa, Algeria)"
+    }
+  ],
+  "thermal_references": [
+    {
+      "id": "anorthite-2018:S0:1250",
+      "source_id": "anorthite-2018",
+      "raw_sha256": "dfe6d64ef2ad96638257422492e83e24fe28a6fcf696c2bb8ca6734679b7e965",
+      "source_url": "https://oiccpress.com/ijic/article/download/4155/1953/2972",
+      "source_pdf_page": 5,
+      "source_table": "Table 3, S0 column",
+      "specimen": "S0",
+      "reported_firing_temperature_C": 1250,
+      "recipe_table": "Table 2",
+      "recipe_wt_pct": {
+        "kaolin": "50",
+        "quartz": "25",
+        "K-feldspar": "25"
+      },
+      "recipe_material_refs": [
+        "anorthite-2018:Super Standard Porcelain",
+        "anorthite-2018:Quartz",
+        "anorthite-2018:Quantum AP200F"
+      ],
+      "quantity_kind": "REPORTED_INTERVAL_MEAN_LINEAR_TEC",
+      "unit": "1e-6/K",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "measurement_branch": "UNKNOWN",
+      "uncertainty": null,
+      "reference_length_definition": null,
+      "measurement_instrument": null,
+      "model_input_eligible": false,
+      "limitation": "Table says measured; text says average TEC calculated. Measurement protocol/branch/reference length not established. Not instantaneous alpha(T), not a glaze/body pair, no crack probability.",
+      "intervals": [
+        {
+          "from_C": 25,
+          "to_C": 100,
+          "reported_value": "5.1932"
+        },
+        {
+          "from_C": 100,
+          "to_C": 200,
+          "reported_value": "5.6889"
+        },
+        {
+          "from_C": 200,
+          "to_C": 300,
+          "reported_value": "6.1479"
+        },
+        {
+          "from_C": 300,
+          "to_C": 400,
+          "reported_value": "6.6729"
+        },
+        {
+          "from_C": 400,
+          "to_C": 500,
+          "reported_value": "7.5255"
+        },
+        {
+          "from_C": 500,
+          "to_C": 600,
+          "reported_value": "11.0457"
+        }
+      ]
+    },
+    {
+      "id": "anorthite-2018:S0:1340",
+      "source_id": "anorthite-2018",
+      "raw_sha256": "dfe6d64ef2ad96638257422492e83e24fe28a6fcf696c2bb8ca6734679b7e965",
+      "source_url": "https://oiccpress.com/ijic/article/download/4155/1953/2972",
+      "source_pdf_page": 5,
+      "source_table": "Table 3, S0 column",
+      "specimen": "S0",
+      "reported_firing_temperature_C": 1340,
+      "recipe_table": "Table 2",
+      "recipe_wt_pct": {
+        "kaolin": "50",
+        "quartz": "25",
+        "K-feldspar": "25"
+      },
+      "recipe_material_refs": [
+        "anorthite-2018:Super Standard Porcelain",
+        "anorthite-2018:Quartz",
+        "anorthite-2018:Quantum AP200F"
+      ],
+      "quantity_kind": "REPORTED_INTERVAL_MEAN_LINEAR_TEC",
+      "unit": "1e-6/K",
+      "evidence_kind": "OBSERVED",
+      "method_kind": "EMPIRICAL",
+      "qualifier": "REPORTED",
+      "status": "PARTIAL",
+      "measurement_branch": "UNKNOWN",
+      "uncertainty": null,
+      "reference_length_definition": null,
+      "measurement_instrument": null,
+      "model_input_eligible": false,
+      "limitation": "Table says measured; text says average TEC calculated. Measurement protocol/branch/reference length not established. Not instantaneous alpha(T), not a glaze/body pair, no crack probability.",
+      "intervals": [
+        {
+          "from_C": 25,
+          "to_C": 100,
+          "reported_value": "4.5047"
+        },
+        {
+          "from_C": 100,
+          "to_C": 200,
+          "reported_value": "5.324"
+        },
+        {
+          "from_C": 200,
+          "to_C": 300,
+          "reported_value": "5.5183"
+        },
+        {
+          "from_C": 300,
+          "to_C": 400,
+          "reported_value": "6.0361"
+        },
+        {
+          "from_C": 400,
+          "to_C": 500,
+          "reported_value": "6.7346"
+        },
+        {
+          "from_C": 500,
+          "to_C": 600,
+          "reported_value": "9.168"
+        }
+      ]
+    }
+  ],
+  "report": {
+    "candidate_count": 15,
+    "accepted_for_core": 0,
+    "quarantined": 15,
+    "duplicate_candidate_ids": 0,
+    "thermal_reference_series": 2,
+    "thermal_reference_cells": 12,
+    "source_counts": {
+      "anorthite-2018": 3,
+      "feldspar-activation-2023": 1,
+      "metakaolin-2024": 5,
+      "sanitary-body-2022": 6
+    },
+    "flag_counts": {
+      "ANALYSIS_BASIS_UNKNOWN": 15,
+      "ANALYSIS_DATE_UNKNOWN": 15,
+      "LOT_UNKNOWN": 15,
+      "OMITTED_SPECIES_UNDEFINED": 15,
+      "UNDEFINED_DASH": 2,
+      "REPORTED_COLUMN_SUM_OUTSIDE_100_PLUS_MINUS_0_5": 4,
+      "LOI_WT_PCT_UNAVAILABLE": 7,
+      "MIXED_ELEMENT_AND_OXIDE_REPORTING": 1,
+      "PERCENT_UNIT_BASIS_NOT_EXPLICIT": 1,
+      "OTHERS_NOT_IDENTIFIED_OR_LOI": 5
+    },
+    "missing_reviewed_sources": []
+  }
+}

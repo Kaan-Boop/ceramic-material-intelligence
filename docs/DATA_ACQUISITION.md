@@ -1,5 +1,7 @@
 # Açık veri edinimi — ilk koleksiyon
 
+Güncel durum (21 Eylül 2026): [üçüncü edinme dilimi](M2_BATCH3_REPORT.md) ile 10 kaynak / 34 tamamlanmış kaynak-dosya-içerik kaydı / 4.608.097 byte. Yeni 15 hammadde adayı karantinada; motor için onaylı gerçek analiz sayısı hâlâ 0. Aşağıdaki ilk koleksiyon sayımları tarihsel kapsamındadır.
+
 İnceleme ve indirme: 20 Eylül 2026. Kullanıcının henüz ürün envanteri yok; edinme alanı yasal hazır seramik, sır, bünye ve fırın verileri olarak genişletildi. Bu çalışma tüm interneti veya bütün üreticileri kapsayan tamamlanmış bir arşiv değildir.
 
 ## İndirilen kaynaklar

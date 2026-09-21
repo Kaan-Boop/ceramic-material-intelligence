@@ -8,6 +8,8 @@ Amaç: seramik reçetelerini kaynaklı kimyasal hesaplara ve gerçek deney sonu�
 
 ## Buradan başlayın
 
+Yeni: [M2 üçüncü edinme raporu](docs/M2_BATCH3_REPORT.md): 4 yeni açık lisanslı çalışma, 15 araştırma-kapsamlı analiz adayı ve 12 aralık-ortalama genleşme değeri. Analiz adayları karantinada; fizik motoruna veya üretim hesabına aktarılmadı.
+
 Yeni: [Sır–bünye fizik mimarisi ve çalışan termal araştırma prototipi](docs/PHYSICS_RESEARCH.md). Yerel Python CLI serbest büzülme farkı ve OAT duyarlılık üretir; örnekler sentetik, gerilme/çatlama olasılığı/kimyasal reaksiyon çözümü yoktur. M2 yanında izole araştırmadır; kimya motoru veya web MVP'si değildir.
 
 Yeni: [23 kaynaklık arşiv ve fizibilite PDF'sinin kabul incelemesi](docs/SOURCE_REVIEW_2026-09-20.md). Bu inceleme yeni veri import'u veya M3 başlangıcı değildir.
@@ -41,7 +43,7 @@ Yeni: [23 kaynaklık arşiv ve fizibilite PDF'sinin kabul incelemesi](docs/SOURC
 
 ## Kurulum ve geliştirme
 
-M2 intake/edinme altyapısı Python 3.12 standart kütüphanesini kullanır. XLSX kaynaklarını salt okunur profillemek için ayrıca `requirements-research.txt` içindeki openpyxl 3.1.5 gerekir. Bu ortamda Python 3.12.14 ve openpyxl 3.1.5 ile çalıştırıldı; yeni paket yüklenmedi.
+M2 intake altyapısı Python 3.12 standart kütüphanesini kullanır. XLSX profili için openpyxl 3.1.5, yeni makale PDF'lerinin kimlik/lisans kontrolü için pypdf 6.10.0 gerekir; `requirements-research.txt` içinde sabittir. Bu ortamda Python 3.12.14 ve mevcut paketler kullanıldı; yeni paket yüklenmedi.
 
 ```sh
 python -m unittest discover -s tests -v
@@ -58,13 +60,15 @@ Docker, API, database setup ve migration henüz yok. PostgreSQL kalıcılığı 
 
 ## Testler
 
-Toplam 69 test: M2'de 48 test; hak kapısı, baz/LOI kontrolleri, tekrar import, bozuk arşiv, atomik yayın, negatif değer, birim dönüşümü, aralık, yönlendirme, sertifika kökeni ve belirsizlik türü kontrolü. Termal araştırmada 21 test; elle hesap, parçalı integral, ölçekleme, kapsam/birim kontrolleri, duyarlılık, replay ve CLI dosya koruması. Bunlar UMF motoru veya fiziksel seramik doğrulaması değildir. M3'te kimya/golden/property, M4'te E2E, M5'te PostgreSQL integration/replay testleri uygulanacak.
+Toplam 80 test: önceki M2 kontrolleri 48, yeni çalışma-adayı kontrolleri 11, termal araştırma 21. Haklar, baz/LOI, tekrar import, hash, tablo yapısı, metadata, eksik değerler, termal integral ve duyarlılık denetlenir. Bunlar UMF motoru veya fiziksel seramik doğrulaması değildir. M3'te kimya/golden/property, M4'te E2E, M5'te PostgreSQL integration/replay testleri uygulanacak.
 
 ## Veri ve lisans
 
 `contracts/examples/` altındaki kimlikler ve içerik **sentetik sözleşme örnekleridir**. Gerçek üretici analizi, gerçek deney veya yürütülmüş API cevabı değildir.
 
-Altı kaynaktan 29 kaynak/dosya/içerik kaydı (1.316.468 byte) yerel `storage/research/` altında saklandı. Raw veri Git'e alınmaz; checksum/provenance [güncel manifest](data/manifests/research-acquisition-2026-09-20-batch2.json) sürümlenir. Dört kaynak CC BY 4.0, GitHub program örnekleri GPL-3.0-or-later, NIST sertifikaları ayrı non-SRD kullanım koşulları altındadır. Lisanslar birbirine veya proje lisansına dönüştürülmez. Dışarı yayın ve AI eğitimi yapılmadı.
+On kaynaktan 34 tamamlanmış kaynak/dosya/içerik kaydı (4.608.097 byte) yerel `storage/research/` altında saklandı. Raw veri Git'e alınmaz; checksum/provenance [güncel manifest](data/manifests/research-acquisition-2026-09-21-batch3.json) sürümlenir. Sekiz kaynak CC BY 4.0, GitHub program örnekleri GPL-3.0-or-later, NIST sertifikaları ayrı non-SRD kullanım koşulları altındadır. Lisanslar birbirine veya proje lisansına dönüştürülmez. Dışarı yayın ve AI eğitimi yapılmadı.
+
+`data/reference/study-material-candidates-v1.json`, 15 çalışma-kapsamlı hammadde analiz adayını ve iki S0 pişirim grubu için 12 ortalama TEC değerini içerir. Bu dosya motor girdisi değildir. Analiz bazı, eksik bileşenler ve ölçüm yöntemi sınırları korunur; tüm adaylar araştırma karantinasındadır. `pipelines.ingestion.study_materials` bunları yerel raw arşivden yeniden üretir.
 
 `data/reference/nist-certified-elements-v1.json`, dört SRM'nin Table 1'inden seçilmiş 39 sertifikalı element değerinin küçük, kaynaklı transkripsiyonudur. Bu gerçek referans verisidir; sentetik fixture veya eksiksiz oksit analizi değildir. PDF becerisiyle tablolar görsel olarak incelendi; bağımsız ikinci kişi doğrulaması henüz yapılmadı.
 

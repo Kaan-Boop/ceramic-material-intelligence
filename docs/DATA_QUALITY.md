@@ -1,5 +1,7 @@
 # İlk gerçek veri koleksiyonunun kalite incelemesi
 
+21 Eylül eki: [M2 üçüncü dilim](M2_BATCH3_REPORT.md) 15 yeni çalışma-kapsamlı aday içerir. 15'inin analiz bazı belirsiz, 7'sinde kullanılabilir wt% LOI yok; 4 sütunun raporlanan toplamı tanımlı inceleme bandının dışında. Hiçbiri normalize edilip kabul edilmiş gibi gösterilmedi. İki gerçek bünye TEC serisi aralık ortalamasıdır; anlık α(T) girdisi değildir. İlk koleksiyonun aşağıdaki bulguları korunur.
+
 Tarih: 2026-09-20. Amaç: arşivlenmiş araştırma verisini kimya motoruna uygun hammadde analiziyle karıştırmamak. Kaynak kapsamı ve lisanslar [edinme raporunda](DATA_ACQUISITION.md).
 
 ## Bulgular

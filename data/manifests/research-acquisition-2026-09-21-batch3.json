@@ -1,0 +1,931 @@
+{
+  "schema_version": "research-inventory-v1",
+  "release_kind": "INTERNAL_REFERENCE_NOT_PRODUCTION",
+  "metadata_migration": "Early receipt boolean/conditional rights fields mapped to required enums; original receipts retained.",
+  "source_count": 10,
+  "unique_source_file_contents": 34,
+  "bytes_by_unique_source_file_content": 4608097,
+  "sources": {
+    "uci-583": {
+      "license": "CC-BY-4.0",
+      "license_evidence": "https://archive.ics.uci.edu/dataset/583/chemical+composition+of+ceramic+samples",
+      "source_author": "UCI dataset deposit; contributor not listed on reviewed page",
+      "version": "DOI:10.24432/C54P5X; content hash pinned",
+      "entity_kind": "FIRED_SAMPLE_COMPOSITION",
+      "source_id": "uci-583",
+      "source_name": "uci-583",
+      "source_type": "OFFICIAL_EXPORT_OR_API",
+      "retrieval_date": "2026-09-20",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "layer": "OPEN_DATA",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false,
+      "source_url": "https://archive.ics.uci.edu/dataset/583/chemical+composition+of+ceramic+samples",
+      "source_license": "CC-BY-4.0",
+      "license_conditions": "Attribution and license retention required; GPL reference is separately partitioned, not relicensed. Product release remains NOT_APPROVED.",
+      "rights_partition": "CC_BY_REFERENCE"
+    },
+    "zenodo-14742972": {
+      "license": "CC-BY-4.0",
+      "license_evidence": "https://zenodo.org/api/records/14742972",
+      "source_author": "Jelena Živković",
+      "version": "14742972-v1",
+      "entity_kind": "ARCHAEOLOGICAL_BODY_GLAZE_TABLES",
+      "source_id": "zenodo-14742972",
+      "source_name": "zenodo-14742972",
+      "source_type": "OFFICIAL_EXPORT_OR_API",
+      "retrieval_date": "2026-09-20",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "layer": "OPEN_DATA",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false,
+      "source_url": "https://zenodo.org/api/records/14742972",
+      "source_license": "CC-BY-4.0",
+      "license_conditions": "Attribution and license retention required; GPL reference is separately partitioned, not relicensed. Product release remains NOT_APPROVED.",
+      "rights_partition": "CC_BY_REFERENCE"
+    },
+    "fabris-2024": {
+      "license": "CC-BY-4.0",
+      "license_evidence": "https://doi.org/10.3390/ma18010060",
+      "source_author": "Riccardo Fabris, Giulia Masi, Denia Mazzini, Leonardo Sanseverino, Maria Chiara Bignozzi",
+      "version": "PMC11721402; content hash pinned",
+      "entity_kind": "PUBLISHED_MATERIALS_RECIPES_TEST_RESULTS",
+      "source_id": "fabris-2024",
+      "source_name": "fabris-2024",
+      "source_type": "OFFICIAL_EXPORT_OR_API",
+      "retrieval_date": "2026-09-20",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "layer": "OPEN_DATA",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false,
+      "source_url": "https://doi.org/10.3390/ma18010060",
+      "source_license": "CC-BY-4.0",
+      "license_conditions": "Attribution and license retention required; GPL reference is separately partitioned, not relicensed. Product release remains NOT_APPROVED.",
+      "rights_partition": "CC_BY_REFERENCE"
+    },
+    "kiln-controller": {
+      "license": "GPL-3.0-or-later",
+      "license_evidence": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/README.md",
+      "source_author": "Jason Bruce and kiln-controller contributors; origin picoReflow",
+      "version": "a2b3071e4e55f47c20326563200da0b49d3c5bb8",
+      "entity_kind": "UNVALIDATED_SCHEDULE_EXAMPLES",
+      "source_id": "kiln-controller",
+      "source_name": "kiln-controller",
+      "source_type": "OFFICIAL_EXPORT_OR_API",
+      "retrieval_date": "2026-09-20",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "REQUIRED",
+      "layer": "OPEN_DATA",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false,
+      "source_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/README.md",
+      "source_license": "GPL-3.0-or-later",
+      "license_conditions": "Attribution and license retention required; GPL reference is separately partitioned, not relicensed. Product release remains NOT_APPROVED.",
+      "rights_partition": "COPYLEFT_REFERENCE"
+    },
+    "mendeley-p49ncrb39k": {
+      "license": "CC-BY-4.0",
+      "license_evidence": "https://data.mendeley.com/public-api/datasets/p49ncrb39k",
+      "source_author": "Wenpeng Xu",
+      "version": "DOI:10.17632/p49ncrb39k.2",
+      "entity_kind": "PASTE_GLAZE_ELEMENTAL_MEASUREMENTS_AND_SUMMARIES",
+      "source_id": "mendeley-p49ncrb39k",
+      "source_name": "mendeley-p49ncrb39k",
+      "source_type": "OFFICIAL_EXPORT_OR_API",
+      "retrieval_date": "2026-09-20",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "layer": "OPEN_DATA",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false,
+      "source_url": "https://data.mendeley.com/public-api/datasets/p49ncrb39k",
+      "source_license": "CC-BY-4.0",
+      "license_conditions": "Attribution and license retention required; GPL reference is separately partitioned, not relicensed. Product release remains NOT_APPROVED.",
+      "rights_partition": "CC_BY_REFERENCE"
+    },
+    "nist-srm-ceramics": {
+      "license": "LicenseRef-NIST-NonSRD-Data-Use",
+      "license_evidence": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications",
+      "source_author": "National Institute of Standards and Technology / National Bureau of Standards",
+      "source_name": "NIST ceramic SRM certificates",
+      "source_url": "https://www.nist.gov/srm",
+      "version": "Certificate revisions and content hashes; retrieved 2026-09-20",
+      "entity_kind": "ELEMENTAL_REFERENCE_MATERIAL_CERTIFICATES",
+      "license_conditions": "NIST non-SRD data terms: attribution, retention of notice, identification of modifications. No endorsement or certification of this platform. Not a blanket license for SRD or third-party works.",
+      "source_id": "nist-srm-ceramics",
+      "source_license": "LicenseRef-NIST-NonSRD-Data-Use",
+      "source_type": "OFFICIAL_EXPORT_OR_API",
+      "retrieval_date": "2026-09-20",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "layer": "OPEN_DATA",
+      "rights_partition": "NIST_NON_SRD_REFERENCE",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false
+    },
+    "metakaolin-2024": {
+      "license": "CC-BY-4.0",
+      "license_evidence": "https://doi.org/10.3390/ma17020367",
+      "source_name": "Mechanical Properties and Reaction Kinetics of Alkali-Activated Metakaolin",
+      "source_author": "Chao Cui; Yingze Dang; Chenguang Luo; Lan Wang; Hui Peng",
+      "version": "PMC10820037; content hash pinned",
+      "entity_kind": "STUDY_SCOPED_RAW_MATERIAL_ANALYSES",
+      "source_id": "metakaolin-2024",
+      "source_url": "https://doi.org/10.3390/ma17020367",
+      "source_license": "CC-BY-4.0",
+      "source_type": "OFFICIAL_EXPORT_OR_API",
+      "retrieval_date": "2026-09-21",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "license_conditions": "Retain attribution/license and comply with any applicable third-party and copyleft obligations.",
+      "layer": "OPEN_DATA",
+      "rights_partition": "CC_BY_REFERENCE",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false,
+      "metadata_review": "From hash-linked study candidate review; original receipts unchanged."
+    },
+    "feldspar-activation-2023": {
+      "license": "CC-BY-4.0",
+      "license_evidence": "https://doi.org/10.3390/ma17010144",
+      "source_name": "Mechanism of Potassium Release from Feldspar by Mechanical Activation in Presence of Additives at Ordinary Temperatures",
+      "source_author": "Xianmei Zhang; Zhenquan He; Wei Jia; Fanrong Meng; Wenju Zhang; Changai Lu; Xiangyang Hao; Guosheng Gai; Zhaohui Huang; Minggang Xu; Kaijun Wang; Sining Yun",
+      "version": "PMC10779675; content hash pinned",
+      "entity_kind": "STUDY_SCOPED_RAW_MATERIAL_ANALYSES",
+      "source_id": "feldspar-activation-2023",
+      "source_url": "https://doi.org/10.3390/ma17010144",
+      "source_license": "CC-BY-4.0",
+      "source_type": "OFFICIAL_EXPORT_OR_API",
+      "retrieval_date": "2026-09-21",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "license_conditions": "Retain attribution/license and comply with any applicable third-party and copyleft obligations.",
+      "layer": "OPEN_DATA",
+      "rights_partition": "CC_BY_REFERENCE",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false,
+      "metadata_review": "From hash-linked study candidate review; original receipts unchanged."
+    },
+    "sanitary-body-2022": {
+      "license": "CC-BY-4.0",
+      "license_evidence": "https://www.iieta.org/node/11313",
+      "source_name": "Valorisation of Industrial Soda-Lime Glass Waste and Its Effect on the Rheological Behavior, Physical-Mechanical and Structural Properties of Sanitary Ceramic Vitreous Bodies",
+      "source_author": "Khaled Boulaiche; Kamel Boudeghdegh; Sofiane Haddad; Abdelmalek Roula; Hichem Alioui",
+      "version": "DOI:10.18280/acsm.460306; content hash pinned",
+      "entity_kind": "STUDY_SCOPED_RAW_MATERIAL_ANALYSES_AND_TESTS",
+      "source_id": "sanitary-body-2022",
+      "source_url": "https://www.iieta.org/node/11313",
+      "source_license": "CC-BY-4.0",
+      "source_type": "PUBLISHED_ARTICLE_DIRECT_DOWNLOAD",
+      "retrieval_date": "2026-09-21",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "license_conditions": "Retain attribution/license and comply with any applicable third-party and copyleft obligations.",
+      "layer": "OPEN_DATA",
+      "rights_partition": "CC_BY_REFERENCE",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false,
+      "metadata_review": "From hash-linked study candidate review; original receipts unchanged."
+    },
+    "anorthite-2018": {
+      "license": "CC-BY-4.0",
+      "license_evidence": "https://link.springer.com/article/10.1007/s40090-018-0137-4",
+      "source_name": "Using white cement as a source of calcium oxide in Anorthite body",
+      "source_author": "Ali Arastehnodeh; Majid Saghi",
+      "version": "DOI:10.1007/s40090-018-0137-4; content hash pinned",
+      "entity_kind": "STUDY_SCOPED_RAW_MATERIAL_ANALYSES_AND_TESTS",
+      "source_id": "anorthite-2018",
+      "source_url": "https://link.springer.com/article/10.1007/s40090-018-0137-4",
+      "source_license": "CC-BY-4.0",
+      "source_type": "PUBLISHED_ARTICLE_DIRECT_DOWNLOAD",
+      "retrieval_date": "2026-09-21",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "license_conditions": "Retain attribution/license and comply with any applicable third-party and copyleft obligations.",
+      "layer": "OPEN_DATA",
+      "rights_partition": "CC_BY_REFERENCE",
+      "product_release": "NOT_APPROVED",
+      "training": "NOT_ENABLED",
+      "core_engine_eligible": false,
+      "metadata_review": "From hash-linked study candidate review; original receipts unchanged."
+    }
+  },
+  "receipts": [
+    {
+      "path": "receipts/9e25e7373d2c477f9e6d6def543545cf.json",
+      "sha256": "96fb27c22d640fd7a3873f4c2d80a47a701c76d1d14492ce77a16dc0424ef74e",
+      "created_at": "2026-09-20T13:42:30.995503+00:00",
+      "failures": {
+        "mendeley-p49ncrb39k": "ValueError: UNREVIEWED_DOWNLOAD_HOST"
+      }
+    },
+    {
+      "path": "receipts/fd3ced8a5d204ec988f76dd7a9d337f2.json",
+      "sha256": "5506fd06fd66a79db139baeea2983169baadbfe3196cbeae12969bb30148ef04",
+      "created_at": "2026-09-20T13:46:49.195143+00:00",
+      "failures": {}
+    },
+    {
+      "path": "receipts/d75950363aa34eff968c21d30cf38881.json",
+      "sha256": "d12b4b17d20e6f4116560aed85e537f469ef59041e173609a7c97c0d47438253",
+      "created_at": "2026-09-20T19:28:34.624688+00:00",
+      "failures": {}
+    },
+    {
+      "path": "receipts/85f674f2200848b0a2ea2265809ea803.json",
+      "sha256": "001b89f0e533be7ee154de8214a2b6c3a775e10c31556ced8c088ced64523c8f",
+      "created_at": "2026-09-21T07:58:00.711930+00:00",
+      "failures": {
+        "feldspar-activation-2023": "RemoteDisconnected: Remote end closed connection without response",
+        "anorthite-2018": "ValueError: UNREVIEWED_DOWNLOAD_HOST",
+        "sanitary-body-2022": "URLError: <urlopen error _ssl.c:993: The handshake operation timed out>"
+      }
+    },
+    {
+      "path": "receipts/52fc1aefe59b44c2a50ad1164b2cfdeb.json",
+      "sha256": "3109792392cd362d6f019d90215a37817cc5a06600a2d2a0a0a5c4bcea1bf3da",
+      "created_at": "2026-09-21T07:58:44.460421+00:00",
+      "failures": {
+        "anorthite-2018": "ValueError: UNREVIEWED_DOWNLOAD_HOST: idp.springer.com"
+      }
+    },
+    {
+      "path": "receipts/b43e9f440e3e4a83967ffd4891ea1b4b.json",
+      "sha256": "68a8fa5d7a6e2a27df6f8496cc6e5fa70495c3d6f1f8d49c300b0c9587fa97c4",
+      "created_at": "2026-09-21T08:09:38.533351+00:00",
+      "failures": {
+        "anorthite-2018": "ValueError: ARTICLE_LICENSE_REVIEW_REQUIRED"
+      }
+    },
+    {
+      "path": "receipts/33cb8d506f9f4bbd99140ee0e8cb5172.json",
+      "sha256": "04def697b688ca349fd1a73b1bb47e63b24d49fabb6488c755206f6a47cbace0",
+      "created_at": "2026-09-21T08:10:33.050637+00:00",
+      "failures": {}
+    },
+    {
+      "path": "receipts/0f5d1b577fe946cdb073219b1f829f3d.json",
+      "sha256": "d35b00d7700105cf456cabe18e3f94d9f3783e24e7d6d53457da6fed281b9760",
+      "created_at": "2026-09-21T08:12:08.772737+00:00",
+      "failures": {}
+    }
+  ],
+  "files": [
+    {
+      "source_id": "uci-583",
+      "filename": "ceramic-samples.zip",
+      "source_url": "https://archive.ics.uci.edu/static/public/583/chemical%2Bcomposition%2Bof%2Bceramic%2Bsamples.zip",
+      "resolved_url": "https://archive.ics.uci.edu/static/public/583/chemical%2Bcomposition%2Bof%2Bceramic%2Bsamples.zip",
+      "raw_path": "raw/sha256/4a06043102d23b1d10abc82d214960ba2c8c3a3dcf32f21539ae61debd4c5d6f",
+      "sha256": "4a06043102d23b1d10abc82d214960ba2c8c3a3dcf32f21539ae61debd4c5d6f",
+      "bytes": 8836,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:07.774823+00:00"
+    },
+    {
+      "source_id": "zenodo-14742972",
+      "filename": "metadata.json",
+      "source_url": "https://zenodo.org/api/records/14742972",
+      "resolved_url": "https://zenodo.org/api/records/14742972",
+      "raw_path": "raw/sha256/ad62ff4db239842b11fd2056a4d8f1a6422848bb4fd1ee31b1c643957c72b2e0",
+      "sha256": "ad62ff4db239842b11fd2056a4d8f1a6422848bb4fd1ee31b1c643957c72b2e0",
+      "bytes": 10951,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:10.512698+00:00"
+    },
+    {
+      "source_id": "zenodo-14742972",
+      "filename": "Table 4.xlsx",
+      "source_url": "https://zenodo.org/api/records/14742972/files/Table%204.xlsx/content",
+      "resolved_url": "https://zenodo.org/api/records/14742972/files/Table%204.xlsx/content",
+      "raw_path": "raw/sha256/6818d225ac9109efd5264f9576a9c2d3b0d09af19ab5e8917a0be9e83401bc9f",
+      "sha256": "6818d225ac9109efd5264f9576a9c2d3b0d09af19ab5e8917a0be9e83401bc9f",
+      "bytes": 13108,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:11.618123+00:00"
+    },
+    {
+      "source_id": "zenodo-14742972",
+      "filename": "Captions.xlsx",
+      "source_url": "https://zenodo.org/api/records/14742972/files/Captions.xlsx/content",
+      "resolved_url": "https://zenodo.org/api/records/14742972/files/Captions.xlsx/content",
+      "raw_path": "raw/sha256/f3674a675ce419073aa6382a769b052d7e7e1892f7ca82d8ea2dec53c34aa74d",
+      "sha256": "f3674a675ce419073aa6382a769b052d7e7e1892f7ca82d8ea2dec53c34aa74d",
+      "bytes": 12973,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:11.858392+00:00"
+    },
+    {
+      "source_id": "zenodo-14742972",
+      "filename": "Table 2.xlsx",
+      "source_url": "https://zenodo.org/api/records/14742972/files/Table%202.xlsx/content",
+      "resolved_url": "https://zenodo.org/api/records/14742972/files/Table%202.xlsx/content",
+      "raw_path": "raw/sha256/acc142935ef0950b9629493f33fda3b0ba25b278f7c3eff2ca72637c04566db5",
+      "sha256": "acc142935ef0950b9629493f33fda3b0ba25b278f7c3eff2ca72637c04566db5",
+      "bytes": 17227,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:12.993567+00:00"
+    },
+    {
+      "source_id": "zenodo-14742972",
+      "filename": "Table 6.xlsx",
+      "source_url": "https://zenodo.org/api/records/14742972/files/Table%206.xlsx/content",
+      "resolved_url": "https://zenodo.org/api/records/14742972/files/Table%206.xlsx/content",
+      "raw_path": "raw/sha256/dd5214865d2c58b10f12ddba5dd18ad674b7f2d63e67de95d602871ed20e99c5",
+      "sha256": "dd5214865d2c58b10f12ddba5dd18ad674b7f2d63e67de95d602871ed20e99c5",
+      "bytes": 15249,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:16.506544+00:00"
+    },
+    {
+      "source_id": "zenodo-14742972",
+      "filename": "Table 5.xlsx",
+      "source_url": "https://zenodo.org/api/records/14742972/files/Table%205.xlsx/content",
+      "resolved_url": "https://zenodo.org/api/records/14742972/files/Table%205.xlsx/content",
+      "raw_path": "raw/sha256/047d9f44e7b98bb1c6a06e1a8b1d8f1a0e8ef4aeba1fbfb8ba25ba1db6dedc5b",
+      "sha256": "047d9f44e7b98bb1c6a06e1a8b1d8f1a0e8ef4aeba1fbfb8ba25ba1db6dedc5b",
+      "bytes": 13640,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:18.919061+00:00"
+    },
+    {
+      "source_id": "zenodo-14742972",
+      "filename": "Table 1.xlsx",
+      "source_url": "https://zenodo.org/api/records/14742972/files/Table%201.xlsx/content",
+      "resolved_url": "https://zenodo.org/api/records/14742972/files/Table%201.xlsx/content",
+      "raw_path": "raw/sha256/7be4f2ba70804650ba31a1d5b8b82c774e2e9b5732afdb2e3ea06bde99d42527",
+      "sha256": "7be4f2ba70804650ba31a1d5b8b82c774e2e9b5732afdb2e3ea06bde99d42527",
+      "bytes": 12738,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:20.680564+00:00"
+    },
+    {
+      "source_id": "zenodo-14742972",
+      "filename": "Table 3.xlsx",
+      "source_url": "https://zenodo.org/api/records/14742972/files/Table%203.xlsx/content",
+      "resolved_url": "https://zenodo.org/api/records/14742972/files/Table%203.xlsx/content",
+      "raw_path": "raw/sha256/bbdede9e4bd8bd70a632f10a78f99d7a38b38c0e58c4f9f5b4606a225393fdd5",
+      "sha256": "bbdede9e4bd8bd70a632f10a78f99d7a38b38c0e58c4f9f5b4606a225393fdd5",
+      "bytes": 12928,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:21.061914+00:00"
+    },
+    {
+      "source_id": "fabris-2024",
+      "filename": "article.xml",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11721402/fullTextXML",
+      "resolved_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11721402/fullTextXML",
+      "raw_path": "raw/sha256/531920da4d08f65172d6b7aa6ade51af8359a55619aba7abe2042ad4d718cdae",
+      "sha256": "531920da4d08f65172d6b7aa6ade51af8359a55619aba7abe2042ad4d718cdae",
+      "bytes": 159953,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:24.267593+00:00"
+    },
+    {
+      "source_id": "kiln-controller",
+      "filename": "README.md",
+      "source_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/README.md",
+      "raw_path": "raw/sha256/98234db3fe748f5f45ead8d1f5c53920c80f153a33929815687b65dd4462e32a",
+      "sha256": "98234db3fe748f5f45ead8d1f5c53920c80f153a33929815687b65dd4462e32a",
+      "bytes": 10246,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:25.004979+00:00"
+    },
+    {
+      "source_id": "kiln-controller",
+      "filename": "config.py.txt",
+      "source_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/config.py",
+      "resolved_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/config.py",
+      "raw_path": "raw/sha256/b96c68bcf04308d4687634091bcadc2f869e92c7b7d7431eeea9fab9dc86963f",
+      "sha256": "b96c68bcf04308d4687634091bcadc2f869e92c7b7d7431eeea9fab9dc86963f",
+      "bytes": 11358,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:25.987002+00:00"
+    },
+    {
+      "source_id": "kiln-controller",
+      "filename": "cone-05-fast-bisque.json",
+      "source_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/storage/profiles/cone-05-fast-bisque.json",
+      "resolved_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/storage/profiles/cone-05-fast-bisque.json",
+      "raw_path": "raw/sha256/26c0e08a67266b4ae27ae8e3f898f94ef2020cd80ee9b3919a065414274c9754",
+      "sha256": "26c0e08a67266b4ae27ae8e3f898f94ef2020cd80ee9b3919a065414274c9754",
+      "bytes": 152,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:26.993169+00:00"
+    },
+    {
+      "source_id": "kiln-controller",
+      "filename": "cone-05-long-bisque.json",
+      "source_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/storage/profiles/cone-05-long-bisque.json",
+      "resolved_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/storage/profiles/cone-05-long-bisque.json",
+      "raw_path": "raw/sha256/d2aa4eca37138c3a4a17a17aa9f879bcc9aabcec3ee06c388f33571adb3be6c0",
+      "sha256": "d2aa4eca37138c3a4a17a17aa9f879bcc9aabcec3ee06c388f33571adb3be6c0",
+      "bytes": 183,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:28.002027+00:00"
+    },
+    {
+      "source_id": "kiln-controller",
+      "filename": "cone-6-long-glaze.json",
+      "source_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/storage/profiles/cone-6-long-glaze.json",
+      "resolved_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/storage/profiles/cone-6-long-glaze.json",
+      "raw_path": "raw/sha256/c8184cc319195b860bf19b0bd3a0bebb0393c95a5220cf2612710ec8ed0cec0e",
+      "sha256": "c8184cc319195b860bf19b0bd3a0bebb0393c95a5220cf2612710ec8ed0cec0e",
+      "bytes": 167,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:29.036455+00:00"
+    },
+    {
+      "source_id": "kiln-controller",
+      "filename": "test-200-250.json",
+      "source_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/storage/profiles/test-200-250.json",
+      "resolved_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/storage/profiles/test-200-250.json",
+      "raw_path": "raw/sha256/380394878b732c9d5d3c45c7bc1f2f3618db08097578b46415cee741b8c6ef92",
+      "sha256": "380394878b732c9d5d3c45c7bc1f2f3618db08097578b46415cee741b8c6ef92",
+      "bytes": 115,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:30.057306+00:00"
+    },
+    {
+      "source_id": "kiln-controller",
+      "filename": "test-fast.json",
+      "source_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/storage/profiles/test-fast.json",
+      "resolved_url": "https://raw.githubusercontent.com/jbruce12000/kiln-controller/a2b3071e4e55f47c20326563200da0b49d3c5bb8/storage/profiles/test-fast.json",
+      "raw_path": "raw/sha256/4226a117a478eea7f4d100212d2f47d49baf433bf2b70afaa9d885489288f0ce",
+      "sha256": "4226a117a478eea7f4d100212d2f47d49baf433bf2b70afaa9d885489288f0ce",
+      "bytes": 132,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:42:30.995503+00:00"
+    },
+    {
+      "source_id": "mendeley-p49ncrb39k",
+      "filename": "metadata.json",
+      "source_url": "https://data.mendeley.com/public-api/datasets/p49ncrb39k",
+      "resolved_url": "https://data.mendeley.com/public-api/datasets/p49ncrb39k",
+      "raw_path": "raw/sha256/bdffbcf394739fecb8ffa7eb517f4c1706ddd142a9422e0ea1a7d10fa2dbeab1",
+      "sha256": "bdffbcf394739fecb8ffa7eb517f4c1706ddd142a9422e0ea1a7d10fa2dbeab1",
+      "bytes": 9671,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:46:43.060390+00:00"
+    },
+    {
+      "source_id": "mendeley-p49ncrb39k",
+      "filename": "Dataset_S1.csv",
+      "source_url": "https://data.mendeley.com/public-files/datasets/p49ncrb39k/files/cf888d6f-2f35-4b61-8c2b-c9df1e41fffb/file_downloaded",
+      "resolved_url": "https://prod-dcd-datasets-public-files-eu-west-1.s3.eu-west-1.amazonaws.com/c6272ce9-dcb1-4b6b-9786-00ac8f558390",
+      "raw_path": "raw/sha256/6fdc85d1df40773cc4fbfba347523c005719722969193ce893a38af86017dfad",
+      "sha256": "6fdc85d1df40773cc4fbfba347523c005719722969193ce893a38af86017dfad",
+      "bytes": 45809,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:46:44.186033+00:00"
+    },
+    {
+      "source_id": "mendeley-p49ncrb39k",
+      "filename": "Dataset_S2.csv",
+      "source_url": "https://data.mendeley.com/public-files/datasets/p49ncrb39k/files/fb458ec0-5f13-43fc-9080-04533961bf6b/file_downloaded",
+      "resolved_url": "https://prod-dcd-datasets-public-files-eu-west-1.s3.eu-west-1.amazonaws.com/506cf838-8e7d-4087-b87c-7beaf6c700de",
+      "raw_path": "raw/sha256/fdf642b64ee79e12f2702fb7cb90584144f7f8e6e184670cfd00ca9a212e621b",
+      "sha256": "fdf642b64ee79e12f2702fb7cb90584144f7f8e6e184670cfd00ca9a212e621b",
+      "bytes": 44793,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:46:45.160210+00:00"
+    },
+    {
+      "source_id": "mendeley-p49ncrb39k",
+      "filename": "Dataset_S3.csv",
+      "source_url": "https://data.mendeley.com/public-files/datasets/p49ncrb39k/files/24ffa969-655c-403b-a3db-41e93307cf86/file_downloaded",
+      "resolved_url": "https://prod-dcd-datasets-public-files-eu-west-1.s3.eu-west-1.amazonaws.com/0c1fb196-61ab-46bb-80db-6ae87a98cbe2",
+      "raw_path": "raw/sha256/88aafb189091df64367db1a4e35a30f0adfc54130f2fa5fbf729e8d61e70eedb",
+      "sha256": "88aafb189091df64367db1a4e35a30f0adfc54130f2fa5fbf729e8d61e70eedb",
+      "bytes": 9818,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:46:46.162178+00:00"
+    },
+    {
+      "source_id": "mendeley-p49ncrb39k",
+      "filename": "Dataset_S4.csv",
+      "source_url": "https://data.mendeley.com/public-files/datasets/p49ncrb39k/files/a66c2439-cbca-4086-8aba-4ac13423744f/file_downloaded",
+      "resolved_url": "https://prod-dcd-datasets-public-files-eu-west-1.s3.eu-west-1.amazonaws.com/8a2fcd1c-fb99-4e3e-9508-c971db910a72",
+      "raw_path": "raw/sha256/0d3431562eafbb989c16cf46040b56a3026c913cfc79285f513139075dd63f99",
+      "sha256": "0d3431562eafbb989c16cf46040b56a3026c913cfc79285f513139075dd63f99",
+      "bytes": 7019,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:46:47.269191+00:00"
+    },
+    {
+      "source_id": "mendeley-p49ncrb39k",
+      "filename": "Dataset_S5.csv",
+      "source_url": "https://data.mendeley.com/public-files/datasets/p49ncrb39k/files/cefdc42e-c7b4-4126-9f60-43d0dae2e7b3/file_downloaded",
+      "resolved_url": "https://prod-dcd-datasets-public-files-eu-west-1.s3.eu-west-1.amazonaws.com/3a051055-8fc1-4448-b4e1-d7db8f8564b0",
+      "raw_path": "raw/sha256/5f1c691564d63823edbc8a0980bb6155fb01f8fe915f4c61c7ab2752bb766603",
+      "sha256": "5f1c691564d63823edbc8a0980bb6155fb01f8fe915f4c61c7ab2752bb766603",
+      "bytes": 3425,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:46:48.387914+00:00"
+    },
+    {
+      "source_id": "mendeley-p49ncrb39k",
+      "filename": "README.md",
+      "source_url": "https://data.mendeley.com/public-files/datasets/p49ncrb39k/files/da6bb2a1-b94c-4497-846f-d072654c43aa/file_downloaded",
+      "resolved_url": "https://prod-dcd-datasets-public-files-eu-west-1.s3.eu-west-1.amazonaws.com/54c2e185-e42f-4260-b6e5-450857ff36ff",
+      "raw_path": "raw/sha256/3084a364779820110482d2142c46e2560931da41186ec423c3039ee991a8a051",
+      "sha256": "3084a364779820110482d2142c46e2560931da41186ec423c3039ee991a8a051",
+      "bytes": 5090,
+      "reused": false,
+      "retrieved_at": "2026-09-20T13:46:49.195143+00:00"
+    },
+    {
+      "source_id": "nist-srm-ceramics",
+      "filename": "nist-data-use-policy.html",
+      "source_url": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications",
+      "resolved_url": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications",
+      "raw_path": "raw/sha256/04637b63cbcf4d23a63e8ec81817276bc85626545fd78c132bd2dccd7f868c36",
+      "sha256": "04637b63cbcf4d23a63e8ec81817276bc85626545fd78c132bd2dccd7f868c36",
+      "bytes": 93925,
+      "reused": false,
+      "retrieved_at": "2026-09-20T19:28:28.706077+00:00"
+    },
+    {
+      "source_id": "nist-srm-ceramics",
+      "filename": "SRM-70b.pdf",
+      "source_url": "https://tsapps.nist.gov/srmext/certificates/70b.pdf",
+      "resolved_url": "https://tsapps.nist.gov/srmext/certificates/70b.pdf",
+      "raw_path": "raw/sha256/0773ca9ba9f22d41b1be1abd0fdc62a4d54444a169654ac738057d7863ba1dbe",
+      "sha256": "0773ca9ba9f22d41b1be1abd0fdc62a4d54444a169654ac738057d7863ba1dbe",
+      "bytes": 224950,
+      "reused": false,
+      "retrieved_at": "2026-09-20T19:28:30.570566+00:00"
+    },
+    {
+      "source_id": "nist-srm-ceramics",
+      "filename": "SRM-97b.pdf",
+      "source_url": "https://tsapps.nist.gov/srmext/certificates/97b.pdf",
+      "resolved_url": "https://tsapps.nist.gov/srmext/certificates/97b.pdf",
+      "raw_path": "raw/sha256/1fbc602c023b51bbcb9f6cfa7c55f8d5d98f2997d75e61e3fa2b35d59ce2b3cf",
+      "sha256": "1fbc602c023b51bbcb9f6cfa7c55f8d5d98f2997d75e61e3fa2b35d59ce2b3cf",
+      "bytes": 162304,
+      "reused": false,
+      "retrieved_at": "2026-09-20T19:28:31.691431+00:00"
+    },
+    {
+      "source_id": "nist-srm-ceramics",
+      "filename": "SRM-98b.pdf",
+      "source_url": "https://tsapps.nist.gov/srmext/certificates/98b.pdf",
+      "resolved_url": "https://tsapps.nist.gov/srmext/certificates/98b.pdf",
+      "raw_path": "raw/sha256/bcee3992dfe56c0b6f0f8be17d155d437272a8b173bb516e2c251d0596441bdb",
+      "sha256": "bcee3992dfe56c0b6f0f8be17d155d437272a8b173bb516e2c251d0596441bdb",
+      "bytes": 163505,
+      "reused": false,
+      "retrieved_at": "2026-09-20T19:28:33.208402+00:00"
+    },
+    {
+      "source_id": "nist-srm-ceramics",
+      "filename": "SRM-99b.pdf",
+      "source_url": "https://tsapps.nist.gov/srmext/certificates/99b.pdf",
+      "resolved_url": "https://tsapps.nist.gov/srmext/certificates/99b.pdf",
+      "raw_path": "raw/sha256/52d58ff04cd31311879c9503d9846c80b4b22f67d52fa33bb8152bc0c4884535",
+      "sha256": "52d58ff04cd31311879c9503d9846c80b4b22f67d52fa33bb8152bc0c4884535",
+      "bytes": 246203,
+      "reused": false,
+      "retrieved_at": "2026-09-20T19:28:34.624162+00:00"
+    },
+    {
+      "source_id": "metakaolin-2024",
+      "filename": "article.xml",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10820037/fullTextXML",
+      "resolved_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10820037/fullTextXML",
+      "raw_path": "raw/sha256/8753e50ef07c5473fe1e9f20b3395e9ac84b21e74ce025f1deb5ac44702cbdc0",
+      "sha256": "8753e50ef07c5473fe1e9f20b3395e9ac84b21e74ce025f1deb5ac44702cbdc0",
+      "bytes": 127139,
+      "reused": false,
+      "retrieved_at": "2026-09-21T07:56:07.624517+00:00"
+    },
+    {
+      "source_id": "feldspar-activation-2023",
+      "filename": "article.xml",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10779675/fullTextXML",
+      "resolved_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10779675/fullTextXML",
+      "raw_path": "raw/sha256/3c34f5f7829227c9ef2f49cd5d8e8bd9740b335ca1d823309e331135bdea5211",
+      "sha256": "3c34f5f7829227c9ef2f49cd5d8e8bd9740b335ca1d823309e331135bdea5211",
+      "bytes": 122655,
+      "reused": false,
+      "retrieved_at": "2026-09-21T07:58:43.097050+00:00"
+    },
+    {
+      "source_id": "sanitary-body-2022",
+      "filename": "article-and-license.html",
+      "source_url": "https://www.iieta.org/node/11313",
+      "resolved_url": "https://www.iieta.org/node/11313",
+      "raw_path": "raw/sha256/8ae194f6c066ed41b3dae93fbe438ee4138575200d95541057f8fde155a3602e",
+      "sha256": "8ae194f6c066ed41b3dae93fbe438ee4138575200d95541057f8fde155a3602e",
+      "bytes": 98884,
+      "reused": false,
+      "retrieved_at": "2026-09-21T08:06:09.405199+00:00"
+    },
+    {
+      "source_id": "sanitary-body-2022",
+      "filename": "article.pdf",
+      "source_url": "https://www.iieta.org/download/file/fid/76842",
+      "resolved_url": "https://www.iieta.org/download/file/fid/76842",
+      "raw_path": "raw/sha256/29df3aa68d410c946d24264e54337eb8b22cf5a92b21cc5d2820c59a2e2f294e",
+      "sha256": "29df3aa68d410c946d24264e54337eb8b22cf5a92b21cc5d2820c59a2e2f294e",
+      "bytes": 1355818,
+      "reused": false,
+      "retrieved_at": "2026-09-21T08:10:33.050637+00:00"
+    },
+    {
+      "source_id": "anorthite-2018",
+      "filename": "article.pdf",
+      "source_url": "https://oiccpress.com/ijic/article/download/4155/1953/2972",
+      "resolved_url": "https://oiccpress.com/ijic/article/download/4155/1953/2972",
+      "raw_path": "raw/sha256/dfe6d64ef2ad96638257422492e83e24fe28a6fcf696c2bb8ca6734679b7e965",
+      "sha256": "dfe6d64ef2ad96638257422492e83e24fe28a6fcf696c2bb8ca6734679b7e965",
+      "bytes": 1587133,
+      "reused": false,
+      "retrieved_at": "2026-09-21T08:12:08.772737+00:00"
+    }
+  ],
+  "profile_directory": "profiles/cced193c487e47aa945bdee246a1c0d1",
+  "quality_report": {
+    "parser_version": "research-profile-v1.1",
+    "parser_code_sha256": "37444ce645f9e3c1b586bffba92b5ed3c51dc4a6136b951c808acd6a7d3be2fa",
+    "created_at": "2026-09-21T08:15:23.420237+00:00",
+    "source_count": 10,
+    "profiled_files": 19,
+    "summary": [
+      {
+        "source_id": "uci-583",
+        "kind": "FIRED_SAMPLE_MEASUREMENT_ROWS",
+        "count": 88,
+        "parts": {
+          "Body": 44,
+          "Glaze": 44
+        },
+        "exact_duplicate_data_rows": 0,
+        "negative_cells": 1,
+        "rows_with_negative_cells": 1
+      },
+      {
+        "source_id": "zenodo-14742972",
+        "filename": "Table 4.xlsx",
+        "sheets": [
+          {
+            "name": "Table 4",
+            "nonempty_rows_including_headers_notes": 37,
+            "max_columns": 13,
+            "exact_duplicate_nonempty_rows": 0,
+            "blank_cells": 74,
+            "interpretation": "Matrix rows include headers/notes; NOT a count of independent experiments."
+          }
+        ]
+      },
+      {
+        "source_id": "zenodo-14742972",
+        "filename": "Captions.xlsx",
+        "sheets": [
+          {
+            "name": "Captions",
+            "nonempty_rows_including_headers_notes": 168,
+            "max_columns": 3,
+            "exact_duplicate_nonempty_rows": 0,
+            "blank_cells": 182,
+            "interpretation": "Matrix rows include headers/notes; NOT a count of independent experiments."
+          }
+        ]
+      },
+      {
+        "source_id": "zenodo-14742972",
+        "filename": "Table 2.xlsx",
+        "sheets": [
+          {
+            "name": "Table 2",
+            "nonempty_rows_including_headers_notes": 41,
+            "max_columns": 29,
+            "exact_duplicate_nonempty_rows": 0,
+            "blank_cells": 838,
+            "interpretation": "Matrix rows include headers/notes; NOT a count of independent experiments."
+          }
+        ]
+      },
+      {
+        "source_id": "zenodo-14742972",
+        "filename": "Table 6.xlsx",
+        "sheets": [
+          {
+            "name": "Table 6",
+            "nonempty_rows_including_headers_notes": 106,
+            "max_columns": 15,
+            "exact_duplicate_nonempty_rows": 0,
+            "blank_cells": 833,
+            "interpretation": "Matrix rows include headers/notes; NOT a count of independent experiments."
+          }
+        ]
+      },
+      {
+        "source_id": "zenodo-14742972",
+        "filename": "Table 5.xlsx",
+        "sheets": [
+          {
+            "name": "Table 5",
+            "nonempty_rows_including_headers_notes": 51,
+            "max_columns": 17,
+            "exact_duplicate_nonempty_rows": 0,
+            "blank_cells": 300,
+            "interpretation": "Matrix rows include headers/notes; NOT a count of independent experiments."
+          }
+        ]
+      },
+      {
+        "source_id": "zenodo-14742972",
+        "filename": "Table 1.xlsx",
+        "sheets": [
+          {
+            "name": "Table 1",
+            "nonempty_rows_including_headers_notes": 81,
+            "max_columns": 7,
+            "exact_duplicate_nonempty_rows": 0,
+            "blank_cells": 109,
+            "interpretation": "Matrix rows include headers/notes; NOT a count of independent experiments."
+          }
+        ]
+      },
+      {
+        "source_id": "zenodo-14742972",
+        "filename": "Table 3.xlsx",
+        "sheets": [
+          {
+            "name": "Table 3",
+            "nonempty_rows_including_headers_notes": 37,
+            "max_columns": 15,
+            "exact_duplicate_nonempty_rows": 0,
+            "blank_cells": 137,
+            "interpretation": "Matrix rows include headers/notes; NOT a count of independent experiments."
+          }
+        ]
+      },
+      {
+        "source_id": "fabris-2024",
+        "kind": "PUBLISHED_TABLES",
+        "count": 7,
+        "research_material_rows": 11,
+        "recipe_range_sets": 4,
+        "core_engine_eligible": 0
+      },
+      {
+        "source_id": "kiln-controller",
+        "filename": "cone-05-fast-bisque.json",
+        "kind": "UNVALIDATED_PROGRAM",
+        "points": 7
+      },
+      {
+        "source_id": "kiln-controller",
+        "filename": "cone-05-long-bisque.json",
+        "kind": "UNVALIDATED_PROGRAM",
+        "points": 9
+      },
+      {
+        "source_id": "kiln-controller",
+        "filename": "cone-6-long-glaze.json",
+        "kind": "UNVALIDATED_PROGRAM",
+        "points": 8
+      },
+      {
+        "source_id": "kiln-controller",
+        "filename": "test-200-250.json",
+        "kind": "UNVALIDATED_PROGRAM",
+        "points": 5
+      },
+      {
+        "source_id": "kiln-controller",
+        "filename": "test-fast.json",
+        "kind": "UNVALIDATED_PROGRAM",
+        "points": 6
+      },
+      {
+        "source_id": "mendeley-p49ncrb39k",
+        "filename": "Dataset_S1.csv",
+        "nonempty_rows_including_headers_notes": 136,
+        "max_columns": 58,
+        "exact_duplicate_nonempty_rows": 0,
+        "blank_cells": 0,
+        "interpretation": "Matrix rows include headers/notes; NOT a count of independent experiments."
+      },
+      {
+        "source_id": "mendeley-p49ncrb39k",
+        "filename": "Dataset_S2.csv",
+        "nonempty_rows_including_headers_notes": 136,
+        "max_columns": 56,
+        "exact_duplicate_nonempty_rows": 0,
+        "blank_cells": 0,
+        "interpretation": "Matrix rows include headers/notes; NOT a count of independent experiments."
+      },
+      {
+        "source_id": "mendeley-p49ncrb39k",
+        "filename": "Dataset_S3.csv",
+        "nonempty_rows_including_headers_notes": 136,
+        "max_columns": 4,
+        "exact_duplicate_nonempty_rows": 0,
+        "blank_cells": 0,
+        "interpretation": "Matrix rows include headers/notes; NOT a count of independent experiments."
+      },
+      {
+        "source_id": "mendeley-p49ncrb39k",
+        "filename": "Dataset_S4.csv",
+        "nonempty_rows_including_headers_notes": 136,
+        "max_columns": 7,
+        "exact_duplicate_nonempty_rows": 0,
+        "blank_cells": 119,
+        "interpretation": "Matrix rows include headers/notes; NOT a count of independent experiments."
+      },
+      {
+        "source_id": "mendeley-p49ncrb39k",
+        "filename": "Dataset_S5.csv",
+        "nonempty_rows_including_headers_notes": 58,
+        "max_columns": 10,
+        "exact_duplicate_nonempty_rows": 0,
+        "blank_cells": 7,
+        "interpretation": "Matrix rows include headers/notes; NOT a count of independent experiments."
+      }
+    ],
+    "production_ready_material_analyses": 0,
+    "training_release": false
+  },
+  "profile_artifacts": {
+    "profiles/cced193c487e47aa945bdee246a1c0d1/000-uci-583.json": "4deca75b2d6bc76a23104e26bd6cc7c13f82ba8f7504f5dba1e97f91f8ce97d9",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/001-zenodo-14742972.json": "93c5cb61743b7b7b29bf0806c65bdae91aee752e7ee8cb7b7e64600273e1ad18",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/002-zenodo-14742972.json": "b1f10749bfc932df0354b4fbe976eac8f467e1a3d7c661b2800f6c0a8aac5382",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/003-zenodo-14742972.json": "9a0b6740fcc43dc6bba6a1ce4782f15a4b3817553a5bf053a9d53ff0aacde63b",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/004-zenodo-14742972.json": "24fb51a190348dab5ac2cf820b1be467fbaa6d63cd89522f427e64cfc0d42de7",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/005-zenodo-14742972.json": "c6508e96329981bc2f672378f53505dd8feb60e57f1311a4df609a1ad364f651",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/006-zenodo-14742972.json": "2c2f259b7590514c697a0fb201555ba18b5bef122b7bcaa9938f3ebdaebaa255",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/007-zenodo-14742972.json": "e35ab135e7f4afeab8edb7ce4bf4d1a00da46adefae8bec20ceb5e7d388ffdb5",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/008-fabris-2024.json": "c5ef8421486ec28b4032566eef2c69faf2cd22e4cf31efc6e8526cf3e721b413",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/009-kiln-controller.json": "172c6e2d2b717100117ad28d0c669b8c563e8eb1da7be149d50cf4926a908f80",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/010-kiln-controller.json": "8697d749e95bed2e2a8f03725de76d5d37a76fa6ddec4a9cd80abd51bb9185fa",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/011-kiln-controller.json": "9e96c8148876978242cbf22e6bc333330559f211327977f64550d9be03335ac5",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/012-kiln-controller.json": "20235dc5bf838b2e7b22735995b53e92bf0a0cf4bbb154d6e6a6c80b3c7b1b80",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/013-kiln-controller.json": "0e90dae11390b8e246eef911b80766efb09f03947ec2835333e85a69a4fa158d",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/014-mendeley-p49ncrb39k.json": "c461db8d208b903ab7a5dae49d58ae7760418be96184e6aeead0826065430bbe",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/015-mendeley-p49ncrb39k.json": "c57c3afb6baf989a90681282dca79070fe50d643fa78eb14d1977e52963f24d2",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/016-mendeley-p49ncrb39k.json": "fe5206bcd8fd5ff3fe349b877204385daf1f48a1280c8c121241136cbb1a9e26",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/017-mendeley-p49ncrb39k.json": "c2e6d15fdbfadc78334f320572ea724d1e343da6de8b1feece8e3ccc78ee7a68",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/018-mendeley-p49ncrb39k.json": "6e10b72aff4498501c93125b2061d9719c9e5fd3ae0e395cf8617a3d52ffd899",
+    "profiles/cced193c487e47aa945bdee246a1c0d1/report.json": "74ffeac071268d8248f9a16e63b60a95785dcb8e83f5c1faf778a73408daf960"
+  },
+  "production_ready_material_analyses": 0,
+  "external_publication": false,
+  "training_release": false,
+  "study_candidate_review": {
+    "filename": "study-material-candidates-v1.json",
+    "sha256": "4d2fec16e4904b9347706e660806447e280e4e1d614939cd4031f61e8eb06861",
+    "report": {
+      "candidate_count": 15,
+      "accepted_for_core": 0,
+      "quarantined": 15,
+      "duplicate_candidate_ids": 0,
+      "thermal_reference_series": 2,
+      "thermal_reference_cells": 12,
+      "source_counts": {
+        "anorthite-2018": 3,
+        "feldspar-activation-2023": 1,
+        "metakaolin-2024": 5,
+        "sanitary-body-2022": 6
+      },
+      "flag_counts": {
+        "ANALYSIS_BASIS_UNKNOWN": 15,
+        "ANALYSIS_DATE_UNKNOWN": 15,
+        "LOT_UNKNOWN": 15,
+        "OMITTED_SPECIES_UNDEFINED": 15,
+        "UNDEFINED_DASH": 2,
+        "REPORTED_COLUMN_SUM_OUTSIDE_100_PLUS_MINUS_0_5": 4,
+        "LOI_WT_PCT_UNAVAILABLE": 7,
+        "MIXED_ELEMENT_AND_OXIDE_REPORTING": 1,
+        "PERCENT_UNIT_BASIS_NOT_EXPLICIT": 1,
+        "OTHERS_NOT_IDENTIFIED_OR_LOI": 5
+      },
+      "missing_reviewed_sources": []
+    }
+  }
+}

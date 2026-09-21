@@ -57,8 +57,22 @@ def main():
     parser.add_argument("--storage", type=Path, required=True)
     parser.add_argument("--profile", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--candidate-review", type=Path)
     args = parser.parse_args()
     inventory = build_inventory(args.storage, args.profile)
+    if args.candidate_review:
+        raw = args.candidate_review.read_bytes()
+        review = json.loads(raw)
+        if review.get("schema_version") != "study-material-candidates-v1" or review.get("core_engine_eligible") is not False:
+            raise ValueError("UNREVIEWED_CANDIDATE_REPORT")
+        inventory["study_candidate_review"] = {"filename": args.candidate_review.name,
+                                               "sha256": hashlib.sha256(raw).hexdigest(),
+                                               "report": review["report"]}
+        for source, metadata in review["sources"].items():
+            if source not in inventory["sources"]:
+                raise ValueError("REVIEW_SOURCE_NOT_ARCHIVED")
+            inventory["sources"][source].update({k: metadata[k] for k in ("source_author", "source_type")})
+            inventory["sources"][source]["metadata_review"] = "From hash-linked study candidate review; original receipts unchanged."
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("x", encoding="utf-8") as stream:
         json.dump(inventory, stream, ensure_ascii=False, indent=2)
