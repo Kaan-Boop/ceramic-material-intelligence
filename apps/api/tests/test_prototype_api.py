@@ -69,6 +69,24 @@ class PrototypeAPITests(unittest.TestCase):
         self.assertEqual(len(rows), 4)
         self.assertTrue(all(r['qualifier'] == 'THEORETICAL_NOT_MANUFACTURER_ANALYSIS' for r in rows))
 
+    def test_process_report_without_fake_probabilities(self):
+        result = self.client.post('/api/v1/analyses', json=self.example).json()['process']
+        self.assertEqual(len(result['stages']), 6)
+        self.assertTrue(all(s['probability'] is None for s in result['stages']))
+
+    def test_process_schedule_and_window(self):
+        self.example['context'].update(temperature_c=1230, body_window=dict(
+            product_id='synthetic-test-only', min_c=1200, max_c=1280,
+            source_ref='synthetic-fixture', conditions='Not a commercial product'),
+            schedule=dict(start_c=30,segments=[dict(target_c=1230,rate_c_per_hour=100,hold_minutes=20)]))
+        response = self.client.post('/api/v1/analyses', json=self.example)
+        self.assertEqual(response.status_code, 200)
+        result = response.json()['process']
+        self.assertEqual(result['schedule']['total_duration_minutes'],740)
+        self.assertEqual(result['body_window']['code'],'WITHIN_REPORTED_WINDOW')
+        self.example['context']['body_window']['min_c'] = 1500
+        self.assertEqual(self.client.post('/api/v1/analyses',json=self.example).status_code,422)
+
 
 if __name__ == '__main__':
     unittest.main()

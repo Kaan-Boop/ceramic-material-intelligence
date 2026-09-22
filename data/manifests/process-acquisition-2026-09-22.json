@@ -1,0 +1,73 @@
+{
+  "schema_version": "process-source-pool/1",
+  "records": [
+    {
+      "source_name": "amorphouspy/LICENSE",
+      "source_url": "https://raw.githubusercontent.com/glasagent/amorphouspy/2c7b65d2922066b01b668e392bfec06a0f1aa431/LICENSE",
+      "source_type": "OPEN_SOURCE_REFERENCE",
+      "source_author": "amorphouspy contributors",
+      "source_license": "Apache-2.0",
+      "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+      "attribution_required": true,
+      "share_alike_required": false,
+      "retrieval_date": "2026-09-22T18:31:22.985180+00:00",
+      "license_evidence": "https://github.com/glasagent/amorphouspy/blob/2c7b65d2922066b01b668e392bfec06a0f1aa431/LICENSE",
+      "path": "storage/process-pool/2026-09-22/amorphouspy/LICENSE",
+      "bytes": 10820,
+      "sha256": "b910ef304b9f431918140f323eaac3a7d62d33618bb1ba06e47d494f742d71c6",
+      "commit": "2c7b65d2922066b01b668e392bfec06a0f1aa431",
+      "status": "ARCHIVED_NOT_EXECUTED_NOT_MODEL_TRAINING"
+    },
+    {
+      "source_name": "amorphouspy/README.md",
+      "source_url": "https://raw.githubusercontent.com/glasagent/amorphouspy/2c7b65d2922066b01b668e392bfec06a0f1aa431/README.md",
+      "source_type": "OPEN_SOURCE_REFERENCE",
+      "source_author": "amorphouspy contributors",
+      "source_license": "Apache-2.0",
+      "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+      "attribution_required": true,
+      "share_alike_required": false,
+      "retrieval_date": "2026-09-22T18:31:24.336762+00:00",
+      "license_evidence": "https://github.com/glasagent/amorphouspy/blob/2c7b65d2922066b01b668e392bfec06a0f1aa431/LICENSE",
+      "path": "storage/process-pool/2026-09-22/amorphouspy/README.md",
+      "bytes": 5439,
+      "sha256": "2d0aa50e9f0d3487f92876edf01dd566073b20ca1550fb3ad21de3ef839c37fa",
+      "commit": "2c7b65d2922066b01b668e392bfec06a0f1aa431",
+      "status": "ARCHIVED_NOT_EXECUTED_NOT_MODEL_TRAINING"
+    },
+    {
+      "source_name": "amorphouspy/pyproject.toml",
+      "source_url": "https://raw.githubusercontent.com/glasagent/amorphouspy/2c7b65d2922066b01b668e392bfec06a0f1aa431/pyproject.toml",
+      "source_type": "OPEN_SOURCE_REFERENCE",
+      "source_author": "amorphouspy contributors",
+      "source_license": "Apache-2.0",
+      "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+      "attribution_required": true,
+      "share_alike_required": false,
+      "retrieval_date": "2026-09-22T18:31:25.701776+00:00",
+      "license_evidence": "https://github.com/glasagent/amorphouspy/blob/2c7b65d2922066b01b668e392bfec06a0f1aa431/LICENSE",
+      "path": "storage/process-pool/2026-09-22/amorphouspy/pyproject.toml",
+      "bytes": 3681,
+      "sha256": "048b2468c75497dcbda7703043b287d6018dd68db5316288f6b5e95ac060847e",
+      "commit": "2c7b65d2922066b01b668e392bfec06a0f1aa431",
+      "status": "ARCHIVED_NOT_EXECUTED_NOT_MODEL_TRAINING"
+    },
+    {
+      "source_name": "kasama-celadon-2022.pdf",
+      "source_url": "https://www.jstage.jst.go.jp/article/jcersj2/130/3/130_21162/_pdf/-char/en",
+      "source_type": "PAPER_NOT_EXTRACTED",
+      "source_author": "Ojima et al.; Ceramic Society of Japan",
+      "source_license": "CC-BY-4.0",
+      "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+      "attribution_required": true,
+      "share_alike_required": false,
+      "retrieval_date": "2026-09-22T18:31:34.836249+00:00",
+      "license_evidence": "https://www.jstage.jst.go.jp/article/jcersj2/130/3/130_21162/_article/-char/en",
+      "path": "storage/process-pool/2026-09-22/kasama-celadon-2022.pdf",
+      "bytes": 869224,
+      "sha256": "1c81ef0ab7774a4bd79efc67ff6a7c2a933204112869f053b6b9fa1108f3a24e",
+      "commit": null,
+      "status": "ARCHIVED_NOT_EXECUTED_NOT_MODEL_TRAINING"
+    }
+  ]
+}

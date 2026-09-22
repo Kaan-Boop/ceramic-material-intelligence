@@ -98,6 +98,9 @@
           "chemistry": {
             "$ref": "#/components/schemas/ChemistryResult"
           },
+          "process": {
+            "$ref": "#/components/schemas/ProcessReport"
+          },
           "materials": {
             "items": {
               "$ref": "#/components/schemas/Material"
@@ -125,6 +128,7 @@
           "report_id",
           "request",
           "chemistry",
+          "process",
           "materials",
           "notices"
         ],
@@ -444,11 +448,104 @@
             "maxLength": 160,
             "title": "Clay Body",
             "default": ""
+          },
+          "body_window": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReportedWindow"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "glaze_window": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReportedWindow"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "schedule": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FiringSchedule"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
         "type": "object",
         "title": "FiringContext"
+      },
+      "FiringSchedule": {
+        "properties": {
+          "start_c": {
+            "type": "number",
+            "maximum": 1800.0,
+            "minimum": 0.0,
+            "title": "Start C"
+          },
+          "segments": {
+            "items": {
+              "$ref": "#/components/schemas/FiringSegment"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Segments"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "start_c",
+          "segments"
+        ],
+        "title": "FiringSchedule"
+      },
+      "FiringSegment": {
+        "properties": {
+          "target_c": {
+            "type": "number",
+            "maximum": 1800.0,
+            "minimum": 0.0,
+            "title": "Target C"
+          },
+          "rate_c_per_hour": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 10000.0,
+                "minimum": 0.01
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rate C Per Hour"
+          },
+          "hold_minutes": {
+            "type": "number",
+            "maximum": 10080.0,
+            "minimum": 0.0,
+            "title": "Hold Minutes",
+            "default": 0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "target_c",
+          "rate_c_per_hour"
+        ],
+        "title": "FiringSegment"
       },
       "Ingredient": {
         "properties": {
@@ -612,6 +709,146 @@
         ],
         "title": "Predictions"
       },
+      "ProcessReport": {
+        "properties": {
+          "engine_version": {
+            "type": "string",
+            "title": "Engine Version"
+          },
+          "input_hash": {
+            "type": "string",
+            "title": "Input Hash"
+          },
+          "input_snapshot": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Input Snapshot"
+          },
+          "status": {
+            "type": "string",
+            "const": "PARTIAL",
+            "title": "Status"
+          },
+          "checks_evidence_kind": {
+            "type": "string",
+            "const": "CALCULATED",
+            "title": "Checks Evidence Kind"
+          },
+          "checks_method_kind": {
+            "type": "string",
+            "const": "DETERMINISTIC",
+            "title": "Checks Method Kind"
+          },
+          "checks_qualifier": {
+            "type": "string",
+            "title": "Checks Qualifier"
+          },
+          "body_window": {
+            "$ref": "#/components/schemas/WindowCheck"
+          },
+          "glaze_window": {
+            "$ref": "#/components/schemas/WindowCheck"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/ScheduleCheck"
+          },
+          "stages": {
+            "items": {
+              "$ref": "#/components/schemas/ProcessStage"
+            },
+            "type": "array",
+            "title": "Stages"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Limitations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "engine_version",
+          "input_hash",
+          "input_snapshot",
+          "status",
+          "checks_evidence_kind",
+          "checks_method_kind",
+          "checks_qualifier",
+          "body_window",
+          "glaze_window",
+          "schedule",
+          "stages",
+          "warnings",
+          "limitations"
+        ],
+        "title": "ProcessReport"
+      },
+      "ProcessStage": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "status": {
+            "type": "string",
+            "const": "UNAVAILABLE",
+            "title": "Status"
+          },
+          "evidence_kind": {
+            "type": "string",
+            "const": "PREDICTED",
+            "title": "Evidence Kind"
+          },
+          "probability": {
+            "type": "null",
+            "title": "Probability"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "required_evidence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Required Evidence"
+          },
+          "next_step": {
+            "type": "string",
+            "title": "Next Step"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "status",
+          "evidence_kind",
+          "probability",
+          "reason",
+          "required_evidence",
+          "next_step"
+        ],
+        "title": "ProcessStage"
+      },
       "Ratio": {
         "properties": {
           "status": {
@@ -653,6 +890,110 @@
           "value"
         ],
         "title": "Ratio"
+      },
+      "ReportedWindow": {
+        "properties": {
+          "product_id": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Product Id"
+          },
+          "source_ref": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Source Ref"
+          },
+          "conditions": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Conditions"
+          },
+          "min_c": {
+            "type": "number",
+            "maximum": 1800.0,
+            "minimum": 0.0,
+            "title": "Min C"
+          },
+          "max_c": {
+            "type": "number",
+            "maximum": 1800.0,
+            "minimum": 0.0,
+            "title": "Max C"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "product_id",
+          "source_ref",
+          "conditions",
+          "min_c",
+          "max_c"
+        ],
+        "title": "ReportedWindow"
+      },
+      "ScheduleCheck": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "AVAILABLE",
+              "PARTIAL",
+              "UNAVAILABLE"
+            ],
+            "title": "Status"
+          },
+          "known_duration_minutes": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Known Duration Minutes"
+          },
+          "total_duration_minutes": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Duration Minutes"
+          },
+          "peak_c": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Peak C"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "known_duration_minutes",
+          "total_duration_minutes",
+          "peak_c",
+          "code"
+        ],
+        "title": "ScheduleCheck"
       },
       "UMF": {
         "properties": {
@@ -698,6 +1039,41 @@
           "values"
         ],
         "title": "UMF"
+      },
+      "WindowCheck": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "AVAILABLE",
+              "UNAVAILABLE"
+            ],
+            "title": "Status"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "source_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Ref"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "code",
+          "source_ref"
+        ],
+        "title": "WindowCheck"
       }
     }
   }

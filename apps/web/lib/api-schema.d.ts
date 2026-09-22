@@ -71,6 +71,7 @@ export interface components {
             report_id: string;
             request: components["schemas"]["AnalysisRequest"];
             chemistry: components["schemas"]["ChemistryResult"];
+            process: components["schemas"]["ProcessReport"];
             /** Materials */
             materials: components["schemas"]["Material"][];
             /** Notices */
@@ -211,6 +212,28 @@ export interface components {
              * @default
              */
             clay_body: string;
+            body_window?: components["schemas"]["ReportedWindow"] | null;
+            glaze_window?: components["schemas"]["ReportedWindow"] | null;
+            schedule?: components["schemas"]["FiringSchedule"] | null;
+        };
+        /** FiringSchedule */
+        FiringSchedule: {
+            /** Start C */
+            start_c: number;
+            /** Segments */
+            segments: components["schemas"]["FiringSegment"][];
+        };
+        /** FiringSegment */
+        FiringSegment: {
+            /** Target C */
+            target_c: number;
+            /** Rate C Per Hour */
+            rate_c_per_hour: number | null;
+            /**
+             * Hold Minutes
+             * @default 0
+             */
+            hold_minutes: number;
         };
         /** Ingredient */
         Ingredient: {
@@ -280,6 +303,68 @@ export interface components {
             /** Reason */
             reason: string;
         };
+        /** ProcessReport */
+        ProcessReport: {
+            /** Engine Version */
+            engine_version: string;
+            /** Input Hash */
+            input_hash: string;
+            /** Input Snapshot */
+            input_snapshot: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+            /**
+             * Status
+             * @constant
+             */
+            status: "PARTIAL";
+            /**
+             * Checks Evidence Kind
+             * @constant
+             */
+            checks_evidence_kind: "CALCULATED";
+            /**
+             * Checks Method Kind
+             * @constant
+             */
+            checks_method_kind: "DETERMINISTIC";
+            /** Checks Qualifier */
+            checks_qualifier: string;
+            body_window: components["schemas"]["WindowCheck"];
+            glaze_window: components["schemas"]["WindowCheck"];
+            schedule: components["schemas"]["ScheduleCheck"];
+            /** Stages */
+            stages: components["schemas"]["ProcessStage"][];
+            /** Warnings */
+            warnings: string[];
+            /** Limitations */
+            limitations: string[];
+        };
+        /** ProcessStage */
+        ProcessStage: {
+            /** Id */
+            id: string;
+            /** Title */
+            title: string;
+            /**
+             * Status
+             * @constant
+             */
+            status: "UNAVAILABLE";
+            /**
+             * Evidence Kind
+             * @constant
+             */
+            evidence_kind: "PREDICTED";
+            /** Probability */
+            probability: null;
+            /** Reason */
+            reason: string;
+            /** Required Evidence */
+            required_evidence: string[];
+            /** Next Step */
+            next_step: string;
+        };
         /** Ratio */
         Ratio: {
             /**
@@ -291,6 +376,35 @@ export interface components {
             unavailable_reason: string | null;
             /** Value */
             value: number | null;
+        };
+        /** ReportedWindow */
+        ReportedWindow: {
+            /** Product Id */
+            product_id: string;
+            /** Source Ref */
+            source_ref: string;
+            /** Conditions */
+            conditions: string;
+            /** Min C */
+            min_c: number;
+            /** Max C */
+            max_c: number;
+        };
+        /** ScheduleCheck */
+        ScheduleCheck: {
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "AVAILABLE" | "PARTIAL" | "UNAVAILABLE";
+            /** Known Duration Minutes */
+            known_duration_minutes: number | null;
+            /** Total Duration Minutes */
+            total_duration_minutes: number | null;
+            /** Peak C */
+            peak_c: number | null;
+            /** Code */
+            code: string;
         };
         /** UMF */
         UMF: {
@@ -305,6 +419,18 @@ export interface components {
             values: {
                 [key: string]: number;
             } | null;
+        };
+        /** WindowCheck */
+        WindowCheck: {
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "AVAILABLE" | "UNAVAILABLE";
+            /** Code */
+            code: string;
+            /** Source Ref */
+            source_ref: string | null;
         };
     };
     responses: never;

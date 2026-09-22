@@ -143,3 +143,27 @@ test("addition stays outside the normalized base", async ({ page }) => {
   await page.getByRole("button", { name: "Reçeteyi analiz et" }).click();
   await expect(page.getByText("102 g TOPLAM", { exact: true })).toBeVisible();
 });
+
+test('sourced body range and honest outcome report', async ({ page }) => {
+  await page.getByText('Bünye · isteğe bağlı kaynaklı aralık', { exact: true }).click();
+  await page.getByLabel('Bünye · Ürün / analiz sürümü', { exact: true }).fill('Synthetic test body');
+  await page.getByLabel('Bünye · Alt sınır · °C', { exact: true }).fill('1200');
+  await page.getByLabel('Bünye · Üst sınır · °C', { exact: true }).fill('1280');
+  await page.getByLabel('Bünye · Kaynak URL / belge referansı', { exact: true }).fill('synthetic-test-only');
+  await page.getByLabel('Bünye · Atmosfer, hız ve diğer kaynak koşulları', { exact: true }).fill('Fixture only, not a commercial recommendation');
+  await page.getByLabel('Hedef sıcaklık · °C', { exact: true }).fill('1230');
+  await page.getByRole('button', { name: 'Reçeteyi analiz et' }).click();
+  const process = page.getByRole('region', { name: 'Çamur sır pişirim değerlendirmesi' });
+  await expect(process).toContainText('Bildirilen aralık içinde; uyumluluk garantisi değil.');
+  await expect(process.locator('summary').filter({ hasText: 'Tahmin mevcut değil' })).toHaveCount(6);
+  await process.getByText('Soğuma sonrası sır–bünye uyumu · Tahmin mevcut değil', { exact: true }).click();
+  await expect(process).toContainText('Uyumlu koşullarda ölçülmüş genleşme eğrileri');
+  await page.getByRole('button', { name: 'Taslağı kaydet' }).click();
+  await page.reload();
+  await page.getByRole('button', { name: 'Taslağı aç' }).click();
+  await page.getByText('Bünye · isteğe bağlı kaynaklı aralık', { exact: true }).click();
+  await expect(page.getByLabel('Bünye · Alt sınır · °C', { exact: true })).toHaveValue('1200');
+  await page.getByLabel('Hedef sıcaklık · °C', { exact: true }).fill('1300');
+  await page.getByRole('button', { name: 'Reçeteyi analiz et' }).click();
+  await expect(process).toContainText('Bildirilen aralığın üzerinde.');
+});

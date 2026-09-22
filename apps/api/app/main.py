@@ -12,6 +12,7 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 from research.chemistry.foundation import ChemistryInputError, SOURCE_METADATA, digest
 from research.chemistry.recipe import analyze_recipe
 from research.chemistry.recipe_demo import demo
+from research.process.assessment import assess_process, ProcessInputError
 
 
 class StrictModel(BaseModel):
@@ -34,12 +35,34 @@ class Ingredient(StrictModel):
         return value
 
 
+class ReportedWindow(StrictModel):
+    product_id: Annotated[str, Field(min_length=1, max_length=160)]
+    source_ref: Annotated[str, Field(min_length=1, max_length=500)]
+    conditions: Annotated[str, Field(min_length=1, max_length=1000)]
+    min_c: Annotated[float, Field(strict=True, ge=0, le=1800)]
+    max_c: Annotated[float, Field(strict=True, ge=0, le=1800)]
+
+
+class FiringSegment(StrictModel):
+    target_c: Annotated[float, Field(strict=True, ge=0, le=1800)]
+    rate_c_per_hour: Annotated[float | None, Field(strict=True, ge=0.01, le=10000)]
+    hold_minutes: Annotated[float, Field(strict=True, ge=0, le=10080)] = 0
+
+
+class FiringSchedule(StrictModel):
+    start_c: Annotated[float, Field(strict=True, ge=0, le=1800)]
+    segments: Annotated[list[FiringSegment], Field(min_length=1, max_length=100)]
+
+
 class FiringContext(StrictModel):
     # Recorded intent only: none of these fields changes the oxide calculation.
     cone: Literal["UNKNOWN", "06", "04", "6", "8", "10"] = "UNKNOWN"
     temperature_c: Annotated[float | None, Field(strict=True, ge=0, le=1800)] = None
     atmosphere: Literal["UNKNOWN", "OXIDATION", "REDUCTION", "OTHER"] = "UNKNOWN"
     clay_body: Annotated[str, Field(max_length=160)] = ""
+    body_window: ReportedWindow | None = None
+    glaze_window: ReportedWindow | None = None
+    schedule: FiringSchedule | None = None
 
 
 class AnalysisRequest(StrictModel):
@@ -118,11 +141,53 @@ class Catalogue(StrictModel):
     notice: str
 
 
+class WindowCheck(StrictModel):
+    status: Literal['AVAILABLE', 'UNAVAILABLE']
+    code: str
+    source_ref: str | None
+
+
+class ScheduleCheck(StrictModel):
+    status: Literal['AVAILABLE', 'PARTIAL', 'UNAVAILABLE']
+    known_duration_minutes: float | None
+    total_duration_minutes: float | None
+    peak_c: float | None
+    code: str
+
+
+class ProcessStage(StrictModel):
+    id: str
+    title: str
+    status: Literal['UNAVAILABLE']
+    evidence_kind: Literal['PREDICTED']
+    probability: None
+    reason: str
+    required_evidence: list[str]
+    next_step: str
+
+
+class ProcessReport(StrictModel):
+    engine_version: str
+    input_hash: str
+    input_snapshot: dict[str, JsonValue]
+    status: Literal['PARTIAL']
+    checks_evidence_kind: Literal['CALCULATED']
+    checks_method_kind: Literal['DETERMINISTIC']
+    checks_qualifier: str
+    body_window: WindowCheck
+    glaze_window: WindowCheck
+    schedule: ScheduleCheck
+    stages: list[ProcessStage]
+    warnings: list[str]
+    limitations: list[str]
+
+
 class AnalysisReport(StrictModel):
     schema_version: Literal["prototype-report/1"] = "prototype-report/1"
     report_id: str
     request: AnalysisRequest
     chemistry: ChemistryResult
+    process: ProcessReport
     materials: list[Material]
     notices: list[str]
     persistence: Literal["NOT_STORED_EXPORT_TO_KEEP"] = "NOT_STORED_EXPORT_TO_KEEP"
@@ -216,8 +281,14 @@ def materials():
 def analyze(payload: AnalysisRequest):
     analyses = deepcopy(_reference()["analyses"])
     try:
+        process = assess_process(payload.context.model_dump())
         result = analyze_recipe([r.model_dump() for r in payload.ingredients], analyses,
                                 base_mass_g=payload.base_mass_g)
+    except ProcessInputError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc).split(':')[0], path=['context'],
+            message='Pişirim aralığını, kaynak bilgilerini ve program hız/yönünü kontrol edin.'
+        )]).model_dump())
     except ChemistryInputError as exc:
         code = str(exc)
         translations = {
@@ -228,6 +299,6 @@ def analyze(payload: AnalysisRequest):
             code=code, path=["ingredients"], message=translations.get(code, "Bilimsel girdi doğrulaması başarısız; analiz bazını ve miktarları kontrol edin.")
         )]).model_dump())
     selected = {r.analysis_id for r in payload.ingredients}
-    return AnalysisReport(report_id=digest({"request": payload.model_dump(), "chemistry_hash": result["input_hash"]}),
-                          request=payload, chemistry=ChemistryResult(**result),
+    return AnalysisReport(report_id=digest({"request": payload.model_dump(), "chemistry_hash": result["input_hash"], "process_hash": process['input_hash']}),
+                          request=payload, chemistry=ChemistryResult(**result), process=process,
                           materials=[m for m in material_list() if m.analysis_id in selected], notices=NOTICES)

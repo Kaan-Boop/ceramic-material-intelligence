@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import ProcessReport from './process-report';
 import {
   api,
   numberTR as fmt,
@@ -17,7 +18,30 @@ type Draft = {
   temperature: string;
   atmosphere: "UNKNOWN" | "OXIDATION" | "REDUCTION" | "OTHER";
   clay: string;
+  bodyWindow?: WindowDraft;
+  glazeWindow?: WindowDraft;
 };
+type WindowDraft = { product: string; min: string; max: string; source: string; conditions: string };
+const EMPTY_WINDOW: WindowDraft = { product: '', min: '', max: '', source: '', conditions: '' };
+function windowRequest(w?: WindowDraft) {
+  if (!w || Object.values(w).every(v => !v.trim())) return null;
+  const min = parse(w.min), max = parse(w.max);
+  if (!w.product.trim() || !w.source.trim() || !w.conditions.trim() || !Number.isFinite(min) || !Number.isFinite(max) || min < 0 || max > 1800 || min > max)
+    throw new Error('Pişirim aralığı için ürün, kaynak, koşullar ve geçerli alt/üst °C sınırı birlikte gerekli.');
+  return { product_id: w.product.trim(), min_c: min, max_c: max, source_ref: w.source.trim(), conditions: w.conditions.trim() };
+}
+function WindowFields({ title, value, onChange }: { title: string; value?: WindowDraft; onChange: (v: WindowDraft) => void }) {
+  const w = value ?? EMPTY_WINDOW;
+  return <details><summary>{title} · isteğe bağlı kaynaklı aralık</summary>
+    <p className="helper">Üretici belgesi veya deney referansını girin. Cone değerini tahminen °C’ye çevirmeyin. Boş bırakmak uygundur.</p>
+    <div className="field-grid">{([
+      ['product', 'Ürün / analiz sürümü', 160], ['min', 'Alt sınır · °C', 12], ['max', 'Üst sınır · °C', 12],
+      ['source', 'Kaynak URL / belge referansı', 500], ['conditions', 'Atmosfer, hız ve diğer kaynak koşulları', 1000],
+    ] as const).map(([key, label, limit]) => <label className="field" key={key}>{title} · {label}
+      <input value={w[key]} maxLength={limit} inputMode={key === 'min' || key === 'max' ? 'decimal' : 'text'} onChange={e => onChange({ ...w, [key]: e.target.value })} />
+    </label>)}</div>
+  </details>;
+}
 const STORAGE = "ceramic-lab-draft-v1";
 const INITIAL: Draft = {
   name: "",
@@ -81,6 +105,8 @@ function requestFrom(d: Draft): AnalysisRequest {
       temperature_c: temperature,
       atmosphere: d.atmosphere,
       clay_body: d.clay,
+      body_window: windowRequest(d.bodyWindow),
+      glaze_window: windowRequest(d.glazeWindow),
     },
   };
 }
@@ -95,6 +121,7 @@ function validDraft(v: unknown, catalogue: Catalogue): v is Draft {
     typeof d.temperature === "string" &&
     typeof d.clay === "string" &&
     d.clay.length <= 160 &&
+    [d.bodyWindow, d.glazeWindow].every(w => w === undefined || (w !== null && typeof w === 'object' && ['product', 'min', 'max', 'source', 'conditions'].every(k => typeof w[k as keyof WindowDraft] === 'string' && w[k as keyof WindowDraft].length <= 1000))) &&
     ["UNKNOWN", "06", "04", "6", "8", "10"].includes(d.cone) &&
     ["UNKNOWN", "OXIDATION", "REDUCTION", "OTHER"].includes(d.atmosphere) &&
     Array.isArray(d.rows) &&
@@ -577,6 +604,8 @@ export default function Lab() {
                         />
                       </label>
                     </div>
+                    <WindowFields title="Bünye" value={draft.bodyWindow} onChange={bodyWindow => update({ bodyWindow })} />
+                    <WindowFields title="Sır" value={draft.glazeWindow} onChange={glazeWindow => update({ glazeWindow })} />
                     <p className="helper">
                       Cone ve sıcaklık eşdeğer değildir. Bu bilgiler mevcut
                       kimya hesabını değiştirmez.
@@ -914,6 +943,7 @@ export default function Lab() {
                       </section>
                     </>
                   )}
+                  {report && <ProcessReport report={report.process} />}
                   <div className="prediction-note">
                     <span>◌</span>
                     <div>
