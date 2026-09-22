@@ -1,0 +1,114 @@
+{
+  "source_name": "Dataset for Mix and Measure III: Accurate Quantitative Measurement of Pozzolanic Products in Limestone Calcined Clay Cements",
+  "source_url": "https://zenodo.org/records/17659041",
+  "source_type": "ACADEMIC_DATASET",
+  "source_author": [
+    "Fernandez-Sanchez, Jaime",
+    "CUESTA, ANA",
+    "De la Torre, Angeles G.",
+    "Isabel Santacruz",
+    "Leon-Reina, Laura",
+    "Aranda, Miguel A.G."
+  ],
+  "source_license": "CC-BY-4.0",
+  "commercial_use_allowed": "ALLOWED_WITH_ATTRIBUTION",
+  "attribution_required": true,
+  "share_alike_required": false,
+  "retrieval_date": "2026-09-22T08:42:06.659339+00:00",
+  "files": [
+    {
+      "source_id": "zenodo-17659041",
+      "filename": "metadata.json",
+      "source_url": "https://zenodo.org/api/records/17659041",
+      "resolved_url": "https://zenodo.org/api/records/17659041",
+      "raw_path": "raw/sha256/2467d112a32263add8848b759325b17a887491766f0d554965a5d05af79d46bc",
+      "sha256": "2467d112a32263add8848b759325b17a887491766f0d554965a5d05af79d46bc",
+      "bytes": 5043,
+      "reused": false,
+      "retrieved_at": "2026-09-22T08:42:03.660118+00:00"
+    },
+    {
+      "source_id": "zenodo-17659041",
+      "filename": "Thermal analysis.zip",
+      "source_url": "https://zenodo.org/api/records/17659041/files/Thermal%20analysis.zip/content",
+      "resolved_url": "https://zenodo.org/api/records/17659041/files/Thermal%20analysis.zip/content",
+      "raw_path": "raw/sha256/11120c487624c784b7b5ba7d146cfbbac9ad1e3264e460bc3c91ca17d4a13f39",
+      "sha256": "11120c487624c784b7b5ba7d146cfbbac9ad1e3264e460bc3c91ca17d4a13f39",
+      "bytes": 4468486,
+      "reused": false,
+      "retrieved_at": "2026-09-22T08:42:06.659339+00:00"
+    }
+  ],
+  "inventory": [
+    {
+      "name": "Thermal analysis/",
+      "bytes": 0
+    },
+    {
+      "name": "Thermal analysis/LC3-CC1-STE53_28d.001",
+      "bytes": 333245
+    },
+    {
+      "name": "Thermal analysis/LC3-CC1-STE53_7d.001",
+      "bytes": 331657
+    },
+    {
+      "name": "Thermal analysis/LC3-CC1_28d.001",
+      "bytes": 331731
+    },
+    {
+      "name": "Thermal analysis/LC3-CC1_7d.001",
+      "bytes": 332445
+    },
+    {
+      "name": "Thermal analysis/LC3-CC2-STE53_28d.001",
+      "bytes": 331809
+    },
+    {
+      "name": "Thermal analysis/LC3-CC2-STE53_7d.001",
+      "bytes": 330433
+    },
+    {
+      "name": "Thermal analysis/LC3-CC2_28d.001",
+      "bytes": 333157
+    },
+    {
+      "name": "Thermal analysis/LC3-CC2_7d.001",
+      "bytes": 331825
+    },
+    {
+      "name": "Thermal analysis/LC3-CC3-STE53_28d.001",
+      "bytes": 332397
+    },
+    {
+      "name": "Thermal analysis/LC3-CC3-STE53_7d.001",
+      "bytes": 333209
+    },
+    {
+      "name": "Thermal analysis/LC3-CC3_28d.001",
+      "bytes": 333433
+    },
+    {
+      "name": "Thermal analysis/LC3-CC3_7d.001",
+      "bytes": 333229
+    },
+    {
+      "name": "Thermal analysis/LC3-Qz-STE53_28d.001",
+      "bytes": 332157
+    },
+    {
+      "name": "Thermal analysis/LC3-Qz-STE53_7d.001",
+      "bytes": 332263
+    },
+    {
+      "name": "Thermal analysis/LC3-Qz_28d.001",
+      "bytes": 332465
+    },
+    {
+      "name": "Thermal analysis/LC3-Qz_7d.001",
+      "bytes": 332105
+    }
+  ],
+  "intended_use": "RESEARCH_ONLY_PENDING_SCHEMA_REVIEW",
+  "production_analyses_added": 0
+}
