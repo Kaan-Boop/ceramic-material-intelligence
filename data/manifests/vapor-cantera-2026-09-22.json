@@ -1,0 +1,50 @@
+{
+  "source_name": "Cantera",
+  "source_url": "https://github.com/Cantera/cantera",
+  "source_author": "Cantera Developers and copyright holders in License.txt",
+  "source_type": "PINNED_CODE_SELECTION",
+  "source_license": "BSD-3-Clause",
+  "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+  "attribution_required": true,
+  "share_alike_required": false,
+  "commit": "4a8358eb80cfeb50474386b5f9ec0b3a83519889",
+  "requested_tag": "v3.2.0",
+  "retrieval_date": "2026-09-22T08:23:47.402005+00:00",
+  "files": [
+    {
+      "source_id": "cantera",
+      "filename": "License.txt",
+      "source_url": "https://raw.githubusercontent.com/Cantera/cantera/4a8358eb80cfeb50474386b5f9ec0b3a83519889/License.txt",
+      "resolved_url": "https://raw.githubusercontent.com/Cantera/cantera/4a8358eb80cfeb50474386b5f9ec0b3a83519889/License.txt",
+      "raw_path": "raw/sha256/e92980b9712ce20e73898a97b0116889e84e07f548d6be8591e87dcad79c41bb",
+      "sha256": "e92980b9712ce20e73898a97b0116889e84e07f548d6be8591e87dcad79c41bb",
+      "bytes": 1796,
+      "reused": false,
+      "retrieved_at": "2026-09-22T08:23:45.419672+00:00"
+    },
+    {
+      "source_id": "cantera",
+      "filename": "README.rst",
+      "source_url": "https://raw.githubusercontent.com/Cantera/cantera/4a8358eb80cfeb50474386b5f9ec0b3a83519889/README.rst",
+      "resolved_url": "https://raw.githubusercontent.com/Cantera/cantera/4a8358eb80cfeb50474386b5f9ec0b3a83519889/README.rst",
+      "raw_path": "raw/sha256/f704a8c2e6d1dd0bc96356270c43910afc6fe6559b58af057371cb9d0bfbd943",
+      "sha256": "f704a8c2e6d1dd0bc96356270c43910afc6fe6559b58af057371cb9d0bfbd943",
+      "bytes": 5622,
+      "reused": false,
+      "retrieved_at": "2026-09-22T08:23:46.386066+00:00"
+    },
+    {
+      "source_id": "cantera",
+      "filename": "samples/python/thermo/vapordome.py",
+      "source_url": "https://raw.githubusercontent.com/Cantera/cantera/4a8358eb80cfeb50474386b5f9ec0b3a83519889/samples/python/thermo/vapordome.py",
+      "resolved_url": "https://raw.githubusercontent.com/Cantera/cantera/4a8358eb80cfeb50474386b5f9ec0b3a83519889/samples/python/thermo/vapordome.py",
+      "raw_path": "raw/sha256/cb84f5bd6d53dc2e129624dc6dec59c92b683eca4d4961707db0d199aa64644a",
+      "sha256": "cb84f5bd6d53dc2e129624dc6dec59c92b683eca4d4961707db0d199aa64644a",
+      "bytes": 2899,
+      "reused": false,
+      "retrieved_at": "2026-09-22T08:23:47.402005+00:00"
+    }
+  ],
+  "integration": "REFERENCE_ONLY_NOT_INSTALLED_OR_EXECUTED",
+  "rights_scope": "Selected code only; external mechanisms/data require separate review"
+}
