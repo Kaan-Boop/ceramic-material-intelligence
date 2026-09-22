@@ -1,0 +1,704 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Ceramic Glaze Lab — Local Research Prototype",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/materials": {
+      "get": {
+        "summary": "Materials",
+        "operationId": "materials_api_v1_materials_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Catalogue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analyses": {
+      "post": {
+        "summary": "Analyze",
+        "operationId": "analyze_api_v1_analyses_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalysisRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisReport"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AnalysisReport": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "prototype-report/1",
+            "title": "Schema Version",
+            "default": "prototype-report/1"
+          },
+          "report_id": {
+            "type": "string",
+            "title": "Report Id"
+          },
+          "request": {
+            "$ref": "#/components/schemas/AnalysisRequest"
+          },
+          "chemistry": {
+            "$ref": "#/components/schemas/ChemistryResult"
+          },
+          "materials": {
+            "items": {
+              "$ref": "#/components/schemas/Material"
+            },
+            "type": "array",
+            "title": "Materials"
+          },
+          "notices": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notices"
+          },
+          "persistence": {
+            "type": "string",
+            "const": "NOT_STORED_EXPORT_TO_KEEP",
+            "title": "Persistence",
+            "default": "NOT_STORED_EXPORT_TO_KEEP"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "report_id",
+          "request",
+          "chemistry",
+          "materials",
+          "notices"
+        ],
+        "title": "AnalysisReport"
+      },
+      "AnalysisRequest": {
+        "properties": {
+          "recipe_name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Recipe Name"
+          },
+          "ingredients": {
+            "items": {
+              "$ref": "#/components/schemas/Ingredient"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Ingredients"
+          },
+          "base_mass_g": {
+            "type": "number",
+            "maximum": 1000000.0,
+            "minimum": 1e-06,
+            "title": "Base Mass G",
+            "default": 100
+          },
+          "context": {
+            "$ref": "#/components/schemas/FiringContext"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "recipe_name",
+          "ingredients"
+        ],
+        "title": "AnalysisRequest"
+      },
+      "Catalogue": {
+        "properties": {
+          "materials": {
+            "items": {
+              "$ref": "#/components/schemas/Material"
+            },
+            "type": "array",
+            "title": "Materials"
+          },
+          "example": {
+            "$ref": "#/components/schemas/AnalysisRequest"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "materials",
+          "example",
+          "notice"
+        ],
+        "title": "Catalogue"
+      },
+      "ChemistryResult": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version"
+          },
+          "engine_version": {
+            "type": "string",
+            "title": "Engine Version"
+          },
+          "evidence_kind": {
+            "type": "string",
+            "const": "CALCULATED",
+            "title": "Evidence Kind"
+          },
+          "method_kind": {
+            "type": "string",
+            "const": "DETERMINISTIC",
+            "title": "Method Kind"
+          },
+          "qualifier": {
+            "type": "string",
+            "title": "Qualifier"
+          },
+          "input_snapshot": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Input Snapshot"
+          },
+          "constant_set_id": {
+            "type": "string",
+            "title": "Constant Set Id"
+          },
+          "constant_set_sha256": {
+            "type": "string",
+            "title": "Constant Set Sha256"
+          },
+          "umf_convention": {
+            "type": "string",
+            "title": "Umf Convention"
+          },
+          "input_hash": {
+            "type": "string",
+            "title": "Input Hash"
+          },
+          "normalized_ingredients": {
+            "items": {
+              "$ref": "#/components/schemas/NormalizedIngredient"
+            },
+            "type": "array",
+            "title": "Normalized Ingredients"
+          },
+          "oxide_mass_g": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Oxide Mass G"
+          },
+          "oxide_moles": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Oxide Moles"
+          },
+          "oxide_mol_pct": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Oxide Mol Pct"
+          },
+          "retained_oxide_wt_pct": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Retained Oxide Wt Pct"
+          },
+          "loi_mass_g": {
+            "type": "number",
+            "title": "Loi Mass G"
+          },
+          "retained_oxide_mass_g": {
+            "type": "number",
+            "title": "Retained Oxide Mass G"
+          },
+          "total_dry_batch_mass_g": {
+            "type": "number",
+            "title": "Total Dry Batch Mass G"
+          },
+          "umf": {
+            "$ref": "#/components/schemas/UMF"
+          },
+          "flux_distribution": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Flux Distribution"
+          },
+          "ratios": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Ratio"
+            },
+            "type": "object",
+            "title": "Ratios"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "predictions": {
+            "$ref": "#/components/schemas/Predictions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "engine_version",
+          "evidence_kind",
+          "method_kind",
+          "qualifier",
+          "input_snapshot",
+          "constant_set_id",
+          "constant_set_sha256",
+          "umf_convention",
+          "input_hash",
+          "normalized_ingredients",
+          "oxide_mass_g",
+          "oxide_moles",
+          "oxide_mol_pct",
+          "retained_oxide_wt_pct",
+          "loi_mass_g",
+          "retained_oxide_mass_g",
+          "total_dry_batch_mass_g",
+          "umf",
+          "flux_distribution",
+          "ratios",
+          "warnings",
+          "predictions"
+        ],
+        "title": "ChemistryResult"
+      },
+      "ErrorItem": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "path": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Path"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "severity": {
+            "type": "string",
+            "const": "ERROR",
+            "title": "Severity",
+            "default": "ERROR"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "path",
+          "message"
+        ],
+        "title": "ErrorItem"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/ErrorItem"
+            },
+            "type": "array",
+            "title": "Errors"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "errors"
+        ],
+        "title": "ErrorResponse"
+      },
+      "FiringContext": {
+        "properties": {
+          "cone": {
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "06",
+              "04",
+              "6",
+              "8",
+              "10"
+            ],
+            "title": "Cone",
+            "default": "UNKNOWN"
+          },
+          "temperature_c": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1800.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Temperature C"
+          },
+          "atmosphere": {
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "OXIDATION",
+              "REDUCTION",
+              "OTHER"
+            ],
+            "title": "Atmosphere",
+            "default": "UNKNOWN"
+          },
+          "clay_body": {
+            "type": "string",
+            "maxLength": 160,
+            "title": "Clay Body",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "FiringContext"
+      },
+      "Ingredient": {
+        "properties": {
+          "analysis_id": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Analysis Id"
+          },
+          "amount": {
+            "type": "number",
+            "maximum": 1000000.0,
+            "minimum": 0.0,
+            "title": "Amount"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "BASE",
+              "ADDITION"
+            ],
+            "title": "Role",
+            "default": "BASE"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "analysis_id",
+          "amount"
+        ],
+        "title": "Ingredient"
+      },
+      "JsonValue": {},
+      "Material": {
+        "properties": {
+          "analysis_id": {
+            "type": "string",
+            "title": "Analysis Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "formula": {
+            "type": "string",
+            "title": "Formula"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "qualifier": {
+            "type": "string",
+            "title": "Qualifier"
+          },
+          "basis": {
+            "type": "string",
+            "title": "Basis"
+          },
+          "loi_pct": {
+            "type": "number",
+            "title": "Loi Pct"
+          },
+          "oxides": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Oxides"
+          },
+          "source_ref": {
+            "type": "string",
+            "title": "Source Ref"
+          },
+          "source_url": {
+            "type": "string",
+            "title": "Source Url"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "analysis_id",
+          "name",
+          "formula",
+          "version",
+          "qualifier",
+          "basis",
+          "loi_pct",
+          "oxides",
+          "source_ref",
+          "source_url"
+        ],
+        "title": "Material"
+      },
+      "NormalizedIngredient": {
+        "properties": {
+          "analysis_id": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Analysis Id"
+          },
+          "amount": {
+            "type": "number",
+            "maximum": 1000000.0,
+            "minimum": 0.0,
+            "title": "Amount"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "BASE",
+              "ADDITION"
+            ],
+            "title": "Role",
+            "default": "BASE"
+          },
+          "original_amount": {
+            "type": "number",
+            "title": "Original Amount"
+          },
+          "percent_of_base": {
+            "type": "number",
+            "title": "Percent Of Base"
+          },
+          "dry_mass_g": {
+            "type": "number",
+            "title": "Dry Mass G"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "analysis_id",
+          "amount",
+          "original_amount",
+          "percent_of_base",
+          "dry_mass_g"
+        ],
+        "title": "NormalizedIngredient"
+      },
+      "Predictions": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "UNAVAILABLE",
+            "title": "Status"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "reason"
+        ],
+        "title": "Predictions"
+      },
+      "Ratio": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "AVAILABLE",
+              "UNAVAILABLE"
+            ],
+            "title": "Status"
+          },
+          "unavailable_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unavailable Reason"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "unavailable_reason",
+          "value"
+        ],
+        "title": "Ratio"
+      },
+      "UMF": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "AVAILABLE",
+              "UNAVAILABLE"
+            ],
+            "title": "Status"
+          },
+          "unavailable_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unavailable Reason"
+          },
+          "values": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Values"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "unavailable_reason",
+          "values"
+        ],
+        "title": "UMF"
+      }
+    }
+  }
+}
