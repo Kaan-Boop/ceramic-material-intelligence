@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "research-pool",
+      "title": "Kaynak havuzu: 6 yeni kaynak, 13 arşiv dosyası",
+      "queries": [{
+        "id": "acquired-sources",
+        "source": {
+          "label": "Fizik-kimya araştırma arşivi",
+          "links": [
+            {"label": "Termomekanik tuğla verisi", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8063730/"},
+            {"label": "Kil nemi ve TGA çalışması", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11123035/"},
+            {"label": "Kompozit pişmiş tuğla çalışması", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12280097/"},
+            {"label": "TA Instruments tadatakit", "url": "https://github.com/TA-Instruments/tadatakit"},
+            {"label": "pycalphad", "url": "https://github.com/pycalphad/pycalphad"},
+            {"label": "CoolProp", "url": "https://github.com/CoolProp/CoolProp"}
+          ],
+          "caveats": [
+            "Üç makalenin tam metni ve üç projenin seçilmiş dosyaları arşivlendi; açık kaynak projeler motor içine kurulmadı.",
+            "Makaleler CC BY 4.0, seçilmiş kod dosyaları MIT koşullarıyla saklandı; başka veri tabanlarının hakları bu lisanslardan türetilmez.",
+            "Kaynak artışı, birleşik fizik motorunun deneysel doğrulandığı anlamına gelmez."
+          ]
+        },
+        "columns": ["metric", "value"],
+        "rows": [
+          {"metric": "Yeni kaynak", "value": 6},
+          {"metric": "Hash ve boyutu kontrol edilen dosya", "value": 13},
+          {"metric": "Toplam bayt", "value": 477591},
+          {"metric": "Yeni solver kurulumu", "value": 0}
+        ]
+      }]
+    },
+    {
+      "id": "moisture-observations",
+      "title": "10 çalışma kaydı: gözlem ile model türevi ayrıldı",
+      "queries": [{
+        "id": "moisture-table",
+        "source": {
+          "label": "Thermogravimetric Analysis of Moisture in Natural and Thermally Treated Clay Materials — Table 2",
+          "links": [{"label": "Makale ve tablolar", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11123035/"}],
+          "filters": ["Tablo: materials-17-02231-t002", "Kapsam: 5 kil grubunun koşullandırılmış ve yeniden koşullandırılmış durumları"],
+          "caveats": [
+            "On satır on bağımsız deney olarak yorumlanmaz; beş mineral grubunun iki durumu saklandı.",
+            "Kütle kaybı raporlanmış gözlem, aktivasyon enerjisi çalışmada türetilmiş ampirik model değeridir.",
+            "Eksik bir olay sıcaklığı null olarak korundu. Tablo özetleri ham zaman serisi veya buhar debisi değildir."
+          ]
+        },
+        "columns": ["metric", "value"],
+        "rows": [
+          {"metric": "Yapılandırılmış numune durumu", "value": 10},
+          {"metric": "Mineral grubu", "value": 5},
+          {"metric": "Eksik olay sıcaklığı", "value": 1},
+          {"metric": "Eklenen ham zaman serisi", "value": 0}
+        ]
+      }]
+    }
+  ]
+}

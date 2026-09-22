@@ -1,0 +1,915 @@
+{
+  "schema_version": "moisture-table/0.1.0",
+  "source_sha256": "97078a818d65e1269f492e2861d6ca3a7a3362164a1147f1feadc573de65e614",
+  "records": [
+    {
+      "id": "PMC11123035-table2-row1",
+      "sample_label": "Na_Montmorillonite",
+      "condition": "CONDITIONED",
+      "events": [
+        {
+          "stage": "I",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 45.26,
+            "raw": "45.26",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 8.9,
+            "raw": "8.9",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        },
+        {
+          "stage": "II",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 108.3,
+            "raw": "108.3",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 1.7,
+            "raw": "1.7",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        }
+      ],
+      "activation_energy": {
+        "value": 100.0,
+        "raw": "100",
+        "unit": "kJ_per_mol",
+        "status": "AVAILABLE",
+        "uncertainty": null,
+        "evidence_kind": "PREDICTED",
+        "method_kind": "EMPIRICAL",
+        "qualifier": "REPORTED_MTGA_DERIVATION_NOT_UNIVERSAL_KINETICS"
+      },
+      "original_cells": [
+        "Na_Montmorillonite",
+        "45.26",
+        "8.9",
+        "108.3",
+        "1.7",
+        "100",
+        "−13"
+      ],
+      "source": {
+        "source_name": "Thermogravimetric Analysis of Moisture in Natural and Thermally Treated Clay Materials",
+        "source_author": "Giulia Lo Dico; Lorenzo Lisuzzo; Verónica Carcelén; Giuseppe Cavallaro; Maciej Haranczyk",
+        "source_url": "https://doi.org/10.3390/ma17102231",
+        "source_type": "PRIMARY_RESEARCH_ARTICLE",
+        "source_license": "CC-BY-4.0",
+        "license_evidence": "<permissions xmlns:ns0=\"http://www.niso.org/schemas/ali/1.0/\" xmlns:ns1=\"http://www.w3.org/1999/xlink\"><copyright-statement>© 2024 by the authors.</copyright-statement><copyright-year>2024</copyright-year><license><ns0:license_ref specific-use=\"textmining\" content-type=\"ccbylicense\">https://creativecommons.org/licenses/by/4.0/</ns0:license_ref><license-p>Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (<ext-link ext-link-type=\"uri\" ns1:href=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p></license></permissions>",
+        "source_id": "PMC11123035",
+        "table_count": 3,
+        "use_status": "RESEARCH_REFERENCE_NOT_ENGINE_PARAMETERS",
+        "processed_path": "storage/physics-pool/2026-09-22/processed/PMC11123035-tables.json",
+        "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+        "attribution_required": true,
+        "share_alike_required": false,
+        "retrieval_date": "2026-09-22T08:58:11.774756+00:00",
+        "rights_scope": "Selected files only; third-party material and external datasets require separate review"
+      },
+      "source_table_id": "materials-17-02231-t002",
+      "source_row_1based": 1,
+      "status": "STUDY_REFERENCE_ONLY",
+      "time_series_status": "UNAVAILABLE",
+      "vapor_source_status": "UNAVAILABLE",
+      "limitation": "No timestamps, absolute sample mass or calibrated species flow in this table"
+    },
+    {
+      "id": "PMC11123035-table2-row2",
+      "sample_label": "Na_Montmorillonite (Rec)",
+      "condition": "RECONDITIONED",
+      "events": [
+        {
+          "stage": "I",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 45.16,
+            "raw": "45.16",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 12.7,
+            "raw": "12.7",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        },
+        {
+          "stage": "II",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": null,
+            "raw": "-",
+            "unit": "degC",
+            "status": "UNAVAILABLE",
+            "missing_reason": "REPORTED_DASH"
+          },
+          "mass_loss": {
+            "value": 0.3,
+            "raw": "0.3",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        }
+      ],
+      "activation_energy": {
+        "value": 87.0,
+        "raw": "87",
+        "unit": "kJ_per_mol",
+        "status": "AVAILABLE",
+        "uncertainty": null,
+        "evidence_kind": "PREDICTED",
+        "method_kind": "EMPIRICAL",
+        "qualifier": "REPORTED_MTGA_DERIVATION_NOT_UNIVERSAL_KINETICS"
+      },
+      "original_cells": [
+        "Na_Montmorillonite (Rec)",
+        "45.16",
+        "12.7",
+        "-",
+        "0.3",
+        "87"
+      ],
+      "source": {
+        "source_name": "Thermogravimetric Analysis of Moisture in Natural and Thermally Treated Clay Materials",
+        "source_author": "Giulia Lo Dico; Lorenzo Lisuzzo; Verónica Carcelén; Giuseppe Cavallaro; Maciej Haranczyk",
+        "source_url": "https://doi.org/10.3390/ma17102231",
+        "source_type": "PRIMARY_RESEARCH_ARTICLE",
+        "source_license": "CC-BY-4.0",
+        "license_evidence": "<permissions xmlns:ns0=\"http://www.niso.org/schemas/ali/1.0/\" xmlns:ns1=\"http://www.w3.org/1999/xlink\"><copyright-statement>© 2024 by the authors.</copyright-statement><copyright-year>2024</copyright-year><license><ns0:license_ref specific-use=\"textmining\" content-type=\"ccbylicense\">https://creativecommons.org/licenses/by/4.0/</ns0:license_ref><license-p>Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (<ext-link ext-link-type=\"uri\" ns1:href=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p></license></permissions>",
+        "source_id": "PMC11123035",
+        "table_count": 3,
+        "use_status": "RESEARCH_REFERENCE_NOT_ENGINE_PARAMETERS",
+        "processed_path": "storage/physics-pool/2026-09-22/processed/PMC11123035-tables.json",
+        "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+        "attribution_required": true,
+        "share_alike_required": false,
+        "retrieval_date": "2026-09-22T08:58:11.774756+00:00",
+        "rights_scope": "Selected files only; third-party material and external datasets require separate review"
+      },
+      "source_table_id": "materials-17-02231-t002",
+      "source_row_1based": 2,
+      "status": "STUDY_REFERENCE_ONLY",
+      "time_series_status": "UNAVAILABLE",
+      "vapor_source_status": "UNAVAILABLE",
+      "limitation": "No timestamps, absolute sample mass or calibrated species flow in this table"
+    },
+    {
+      "id": "PMC11123035-table2-row3",
+      "sample_label": "Ca-Montmorillonite",
+      "condition": "CONDITIONED",
+      "events": [
+        {
+          "stage": "I",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 39.1,
+            "raw": "39.1",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 12.3,
+            "raw": "12.3",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        },
+        {
+          "stage": "II",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 108.0,
+            "raw": "108",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 1.9,
+            "raw": "1.9",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        }
+      ],
+      "activation_energy": {
+        "value": 82.0,
+        "raw": "82",
+        "unit": "kJ_per_mol",
+        "status": "AVAILABLE",
+        "uncertainty": null,
+        "evidence_kind": "PREDICTED",
+        "method_kind": "EMPIRICAL",
+        "qualifier": "REPORTED_MTGA_DERIVATION_NOT_UNIVERSAL_KINETICS"
+      },
+      "original_cells": [
+        "Ca-Montmorillonite",
+        "39.1",
+        "12.3",
+        "108",
+        "1.9",
+        "82",
+        "8"
+      ],
+      "source": {
+        "source_name": "Thermogravimetric Analysis of Moisture in Natural and Thermally Treated Clay Materials",
+        "source_author": "Giulia Lo Dico; Lorenzo Lisuzzo; Verónica Carcelén; Giuseppe Cavallaro; Maciej Haranczyk",
+        "source_url": "https://doi.org/10.3390/ma17102231",
+        "source_type": "PRIMARY_RESEARCH_ARTICLE",
+        "source_license": "CC-BY-4.0",
+        "license_evidence": "<permissions xmlns:ns0=\"http://www.niso.org/schemas/ali/1.0/\" xmlns:ns1=\"http://www.w3.org/1999/xlink\"><copyright-statement>© 2024 by the authors.</copyright-statement><copyright-year>2024</copyright-year><license><ns0:license_ref specific-use=\"textmining\" content-type=\"ccbylicense\">https://creativecommons.org/licenses/by/4.0/</ns0:license_ref><license-p>Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (<ext-link ext-link-type=\"uri\" ns1:href=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p></license></permissions>",
+        "source_id": "PMC11123035",
+        "table_count": 3,
+        "use_status": "RESEARCH_REFERENCE_NOT_ENGINE_PARAMETERS",
+        "processed_path": "storage/physics-pool/2026-09-22/processed/PMC11123035-tables.json",
+        "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+        "attribution_required": true,
+        "share_alike_required": false,
+        "retrieval_date": "2026-09-22T08:58:11.774756+00:00",
+        "rights_scope": "Selected files only; third-party material and external datasets require separate review"
+      },
+      "source_table_id": "materials-17-02231-t002",
+      "source_row_1based": 3,
+      "status": "STUDY_REFERENCE_ONLY",
+      "time_series_status": "UNAVAILABLE",
+      "vapor_source_status": "UNAVAILABLE",
+      "limitation": "No timestamps, absolute sample mass or calibrated species flow in this table"
+    },
+    {
+      "id": "PMC11123035-table2-row4",
+      "sample_label": "Ca-Montmorillonite (Rec)",
+      "condition": "RECONDITIONED",
+      "events": [
+        {
+          "stage": "I",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 39.1,
+            "raw": "39.1",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 12.0,
+            "raw": "12",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        },
+        {
+          "stage": "II",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 106.6,
+            "raw": "106.6",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 2.0,
+            "raw": "2",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        }
+      ],
+      "activation_energy": {
+        "value": 90.0,
+        "raw": "90",
+        "unit": "kJ_per_mol",
+        "status": "AVAILABLE",
+        "uncertainty": null,
+        "evidence_kind": "PREDICTED",
+        "method_kind": "EMPIRICAL",
+        "qualifier": "REPORTED_MTGA_DERIVATION_NOT_UNIVERSAL_KINETICS"
+      },
+      "original_cells": [
+        "Ca-Montmorillonite (Rec)",
+        "39.1",
+        "12",
+        "106.6",
+        "2",
+        "90"
+      ],
+      "source": {
+        "source_name": "Thermogravimetric Analysis of Moisture in Natural and Thermally Treated Clay Materials",
+        "source_author": "Giulia Lo Dico; Lorenzo Lisuzzo; Verónica Carcelén; Giuseppe Cavallaro; Maciej Haranczyk",
+        "source_url": "https://doi.org/10.3390/ma17102231",
+        "source_type": "PRIMARY_RESEARCH_ARTICLE",
+        "source_license": "CC-BY-4.0",
+        "license_evidence": "<permissions xmlns:ns0=\"http://www.niso.org/schemas/ali/1.0/\" xmlns:ns1=\"http://www.w3.org/1999/xlink\"><copyright-statement>© 2024 by the authors.</copyright-statement><copyright-year>2024</copyright-year><license><ns0:license_ref specific-use=\"textmining\" content-type=\"ccbylicense\">https://creativecommons.org/licenses/by/4.0/</ns0:license_ref><license-p>Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (<ext-link ext-link-type=\"uri\" ns1:href=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p></license></permissions>",
+        "source_id": "PMC11123035",
+        "table_count": 3,
+        "use_status": "RESEARCH_REFERENCE_NOT_ENGINE_PARAMETERS",
+        "processed_path": "storage/physics-pool/2026-09-22/processed/PMC11123035-tables.json",
+        "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+        "attribution_required": true,
+        "share_alike_required": false,
+        "retrieval_date": "2026-09-22T08:58:11.774756+00:00",
+        "rights_scope": "Selected files only; third-party material and external datasets require separate review"
+      },
+      "source_table_id": "materials-17-02231-t002",
+      "source_row_1based": 4,
+      "status": "STUDY_REFERENCE_ONLY",
+      "time_series_status": "UNAVAILABLE",
+      "vapor_source_status": "UNAVAILABLE",
+      "limitation": "No timestamps, absolute sample mass or calibrated species flow in this table"
+    },
+    {
+      "id": "PMC11123035-table2-row5",
+      "sample_label": "Palygorskite",
+      "condition": "CONDITIONED",
+      "events": [
+        {
+          "stage": "I",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 38.8,
+            "raw": "38.8",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 7.2,
+            "raw": "7.2",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        },
+        {
+          "stage": "II",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 180.2,
+            "raw": "180.2",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 2.2,
+            "raw": "2.2",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        }
+      ],
+      "activation_energy": {
+        "value": 164.0,
+        "raw": "164",
+        "unit": "kJ_per_mol",
+        "status": "AVAILABLE",
+        "uncertainty": null,
+        "evidence_kind": "PREDICTED",
+        "method_kind": "EMPIRICAL",
+        "qualifier": "REPORTED_MTGA_DERIVATION_NOT_UNIVERSAL_KINETICS"
+      },
+      "original_cells": [
+        "Palygorskite",
+        "38.8",
+        "7.2",
+        "180.2",
+        "2.2",
+        "164",
+        "72"
+      ],
+      "source": {
+        "source_name": "Thermogravimetric Analysis of Moisture in Natural and Thermally Treated Clay Materials",
+        "source_author": "Giulia Lo Dico; Lorenzo Lisuzzo; Verónica Carcelén; Giuseppe Cavallaro; Maciej Haranczyk",
+        "source_url": "https://doi.org/10.3390/ma17102231",
+        "source_type": "PRIMARY_RESEARCH_ARTICLE",
+        "source_license": "CC-BY-4.0",
+        "license_evidence": "<permissions xmlns:ns0=\"http://www.niso.org/schemas/ali/1.0/\" xmlns:ns1=\"http://www.w3.org/1999/xlink\"><copyright-statement>© 2024 by the authors.</copyright-statement><copyright-year>2024</copyright-year><license><ns0:license_ref specific-use=\"textmining\" content-type=\"ccbylicense\">https://creativecommons.org/licenses/by/4.0/</ns0:license_ref><license-p>Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (<ext-link ext-link-type=\"uri\" ns1:href=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p></license></permissions>",
+        "source_id": "PMC11123035",
+        "table_count": 3,
+        "use_status": "RESEARCH_REFERENCE_NOT_ENGINE_PARAMETERS",
+        "processed_path": "storage/physics-pool/2026-09-22/processed/PMC11123035-tables.json",
+        "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+        "attribution_required": true,
+        "share_alike_required": false,
+        "retrieval_date": "2026-09-22T08:58:11.774756+00:00",
+        "rights_scope": "Selected files only; third-party material and external datasets require separate review"
+      },
+      "source_table_id": "materials-17-02231-t002",
+      "source_row_1based": 5,
+      "status": "STUDY_REFERENCE_ONLY",
+      "time_series_status": "UNAVAILABLE",
+      "vapor_source_status": "UNAVAILABLE",
+      "limitation": "No timestamps, absolute sample mass or calibrated species flow in this table"
+    },
+    {
+      "id": "PMC11123035-table2-row6",
+      "sample_label": "Palygorskite (Rec)",
+      "condition": "RECONDITIONED",
+      "events": [
+        {
+          "stage": "I",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 37.7,
+            "raw": "37.7",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 7.0,
+            "raw": "7",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        },
+        {
+          "stage": "II",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 178.2,
+            "raw": "178.2",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 2.2,
+            "raw": "2.2",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        }
+      ],
+      "activation_energy": {
+        "value": 236.0,
+        "raw": "236",
+        "unit": "kJ_per_mol",
+        "status": "AVAILABLE",
+        "uncertainty": null,
+        "evidence_kind": "PREDICTED",
+        "method_kind": "EMPIRICAL",
+        "qualifier": "REPORTED_MTGA_DERIVATION_NOT_UNIVERSAL_KINETICS"
+      },
+      "original_cells": [
+        "Palygorskite (Rec)",
+        "37.7",
+        "7",
+        "178.2",
+        "2.2",
+        "236"
+      ],
+      "source": {
+        "source_name": "Thermogravimetric Analysis of Moisture in Natural and Thermally Treated Clay Materials",
+        "source_author": "Giulia Lo Dico; Lorenzo Lisuzzo; Verónica Carcelén; Giuseppe Cavallaro; Maciej Haranczyk",
+        "source_url": "https://doi.org/10.3390/ma17102231",
+        "source_type": "PRIMARY_RESEARCH_ARTICLE",
+        "source_license": "CC-BY-4.0",
+        "license_evidence": "<permissions xmlns:ns0=\"http://www.niso.org/schemas/ali/1.0/\" xmlns:ns1=\"http://www.w3.org/1999/xlink\"><copyright-statement>© 2024 by the authors.</copyright-statement><copyright-year>2024</copyright-year><license><ns0:license_ref specific-use=\"textmining\" content-type=\"ccbylicense\">https://creativecommons.org/licenses/by/4.0/</ns0:license_ref><license-p>Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (<ext-link ext-link-type=\"uri\" ns1:href=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p></license></permissions>",
+        "source_id": "PMC11123035",
+        "table_count": 3,
+        "use_status": "RESEARCH_REFERENCE_NOT_ENGINE_PARAMETERS",
+        "processed_path": "storage/physics-pool/2026-09-22/processed/PMC11123035-tables.json",
+        "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+        "attribution_required": true,
+        "share_alike_required": false,
+        "retrieval_date": "2026-09-22T08:58:11.774756+00:00",
+        "rights_scope": "Selected files only; third-party material and external datasets require separate review"
+      },
+      "source_table_id": "materials-17-02231-t002",
+      "source_row_1based": 6,
+      "status": "STUDY_REFERENCE_ONLY",
+      "time_series_status": "UNAVAILABLE",
+      "vapor_source_status": "UNAVAILABLE",
+      "limitation": "No timestamps, absolute sample mass or calibrated species flow in this table"
+    },
+    {
+      "id": "PMC11123035-table2-row7",
+      "sample_label": "Stevensite",
+      "condition": "CONDITIONED",
+      "events": [
+        {
+          "stage": "I",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 37.8,
+            "raw": "37.8",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 11.7,
+            "raw": "11.7",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        },
+        {
+          "stage": "II",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 223.6,
+            "raw": "223.6",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 0.7,
+            "raw": "0.7",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        }
+      ],
+      "activation_energy": {
+        "value": 85.0,
+        "raw": "85",
+        "unit": "kJ_per_mol",
+        "status": "AVAILABLE",
+        "uncertainty": null,
+        "evidence_kind": "PREDICTED",
+        "method_kind": "EMPIRICAL",
+        "qualifier": "REPORTED_MTGA_DERIVATION_NOT_UNIVERSAL_KINETICS"
+      },
+      "original_cells": [
+        "Stevensite",
+        "37.8",
+        "11.7",
+        "223.6",
+        "0.7",
+        "85",
+        "−3"
+      ],
+      "source": {
+        "source_name": "Thermogravimetric Analysis of Moisture in Natural and Thermally Treated Clay Materials",
+        "source_author": "Giulia Lo Dico; Lorenzo Lisuzzo; Verónica Carcelén; Giuseppe Cavallaro; Maciej Haranczyk",
+        "source_url": "https://doi.org/10.3390/ma17102231",
+        "source_type": "PRIMARY_RESEARCH_ARTICLE",
+        "source_license": "CC-BY-4.0",
+        "license_evidence": "<permissions xmlns:ns0=\"http://www.niso.org/schemas/ali/1.0/\" xmlns:ns1=\"http://www.w3.org/1999/xlink\"><copyright-statement>© 2024 by the authors.</copyright-statement><copyright-year>2024</copyright-year><license><ns0:license_ref specific-use=\"textmining\" content-type=\"ccbylicense\">https://creativecommons.org/licenses/by/4.0/</ns0:license_ref><license-p>Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (<ext-link ext-link-type=\"uri\" ns1:href=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p></license></permissions>",
+        "source_id": "PMC11123035",
+        "table_count": 3,
+        "use_status": "RESEARCH_REFERENCE_NOT_ENGINE_PARAMETERS",
+        "processed_path": "storage/physics-pool/2026-09-22/processed/PMC11123035-tables.json",
+        "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+        "attribution_required": true,
+        "share_alike_required": false,
+        "retrieval_date": "2026-09-22T08:58:11.774756+00:00",
+        "rights_scope": "Selected files only; third-party material and external datasets require separate review"
+      },
+      "source_table_id": "materials-17-02231-t002",
+      "source_row_1based": 7,
+      "status": "STUDY_REFERENCE_ONLY",
+      "time_series_status": "UNAVAILABLE",
+      "vapor_source_status": "UNAVAILABLE",
+      "limitation": "No timestamps, absolute sample mass or calibrated species flow in this table"
+    },
+    {
+      "id": "PMC11123035-table2-row8",
+      "sample_label": "Stevensite (Rec)",
+      "condition": "RECONDITIONED",
+      "events": [
+        {
+          "stage": "I",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 37.4,
+            "raw": "37.4",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 12.3,
+            "raw": "12.3",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        },
+        {
+          "stage": "II",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 221.0,
+            "raw": "221",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 0.9,
+            "raw": "0.9",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        }
+      ],
+      "activation_energy": {
+        "value": 82.0,
+        "raw": "82",
+        "unit": "kJ_per_mol",
+        "status": "AVAILABLE",
+        "uncertainty": null,
+        "evidence_kind": "PREDICTED",
+        "method_kind": "EMPIRICAL",
+        "qualifier": "REPORTED_MTGA_DERIVATION_NOT_UNIVERSAL_KINETICS"
+      },
+      "original_cells": [
+        "Stevensite (Rec)",
+        "37.4",
+        "12.3",
+        "221",
+        "0.9",
+        "82"
+      ],
+      "source": {
+        "source_name": "Thermogravimetric Analysis of Moisture in Natural and Thermally Treated Clay Materials",
+        "source_author": "Giulia Lo Dico; Lorenzo Lisuzzo; Verónica Carcelén; Giuseppe Cavallaro; Maciej Haranczyk",
+        "source_url": "https://doi.org/10.3390/ma17102231",
+        "source_type": "PRIMARY_RESEARCH_ARTICLE",
+        "source_license": "CC-BY-4.0",
+        "license_evidence": "<permissions xmlns:ns0=\"http://www.niso.org/schemas/ali/1.0/\" xmlns:ns1=\"http://www.w3.org/1999/xlink\"><copyright-statement>© 2024 by the authors.</copyright-statement><copyright-year>2024</copyright-year><license><ns0:license_ref specific-use=\"textmining\" content-type=\"ccbylicense\">https://creativecommons.org/licenses/by/4.0/</ns0:license_ref><license-p>Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (<ext-link ext-link-type=\"uri\" ns1:href=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p></license></permissions>",
+        "source_id": "PMC11123035",
+        "table_count": 3,
+        "use_status": "RESEARCH_REFERENCE_NOT_ENGINE_PARAMETERS",
+        "processed_path": "storage/physics-pool/2026-09-22/processed/PMC11123035-tables.json",
+        "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+        "attribution_required": true,
+        "share_alike_required": false,
+        "retrieval_date": "2026-09-22T08:58:11.774756+00:00",
+        "rights_scope": "Selected files only; third-party material and external datasets require separate review"
+      },
+      "source_table_id": "materials-17-02231-t002",
+      "source_row_1based": 8,
+      "status": "STUDY_REFERENCE_ONLY",
+      "time_series_status": "UNAVAILABLE",
+      "vapor_source_status": "UNAVAILABLE",
+      "limitation": "No timestamps, absolute sample mass or calibrated species flow in this table"
+    },
+    {
+      "id": "PMC11123035-table2-row9",
+      "sample_label": "Sepiolite",
+      "condition": "CONDITIONED",
+      "events": [
+        {
+          "stage": "I",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 46.7,
+            "raw": "46.7",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 10.9,
+            "raw": "10.9",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        },
+        {
+          "stage": "II",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 236.9,
+            "raw": "236.9",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 2.8,
+            "raw": "2.8",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        }
+      ],
+      "activation_energy": {
+        "value": 187.0,
+        "raw": "187",
+        "unit": "kJ_per_mol",
+        "status": "AVAILABLE",
+        "uncertainty": null,
+        "evidence_kind": "PREDICTED",
+        "method_kind": "EMPIRICAL",
+        "qualifier": "REPORTED_MTGA_DERIVATION_NOT_UNIVERSAL_KINETICS"
+      },
+      "original_cells": [
+        "Sepiolite",
+        "46.7",
+        "10.9",
+        "236.9",
+        "2.8",
+        "187",
+        "−53"
+      ],
+      "source": {
+        "source_name": "Thermogravimetric Analysis of Moisture in Natural and Thermally Treated Clay Materials",
+        "source_author": "Giulia Lo Dico; Lorenzo Lisuzzo; Verónica Carcelén; Giuseppe Cavallaro; Maciej Haranczyk",
+        "source_url": "https://doi.org/10.3390/ma17102231",
+        "source_type": "PRIMARY_RESEARCH_ARTICLE",
+        "source_license": "CC-BY-4.0",
+        "license_evidence": "<permissions xmlns:ns0=\"http://www.niso.org/schemas/ali/1.0/\" xmlns:ns1=\"http://www.w3.org/1999/xlink\"><copyright-statement>© 2024 by the authors.</copyright-statement><copyright-year>2024</copyright-year><license><ns0:license_ref specific-use=\"textmining\" content-type=\"ccbylicense\">https://creativecommons.org/licenses/by/4.0/</ns0:license_ref><license-p>Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (<ext-link ext-link-type=\"uri\" ns1:href=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p></license></permissions>",
+        "source_id": "PMC11123035",
+        "table_count": 3,
+        "use_status": "RESEARCH_REFERENCE_NOT_ENGINE_PARAMETERS",
+        "processed_path": "storage/physics-pool/2026-09-22/processed/PMC11123035-tables.json",
+        "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+        "attribution_required": true,
+        "share_alike_required": false,
+        "retrieval_date": "2026-09-22T08:58:11.774756+00:00",
+        "rights_scope": "Selected files only; third-party material and external datasets require separate review"
+      },
+      "source_table_id": "materials-17-02231-t002",
+      "source_row_1based": 9,
+      "status": "STUDY_REFERENCE_ONLY",
+      "time_series_status": "UNAVAILABLE",
+      "vapor_source_status": "UNAVAILABLE",
+      "limitation": "No timestamps, absolute sample mass or calibrated species flow in this table"
+    },
+    {
+      "id": "PMC11123035-table2-row10",
+      "sample_label": "Sepiolite (Rec)",
+      "condition": "RECONDITIONED",
+      "events": [
+        {
+          "stage": "I",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 45.0,
+            "raw": "45",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 12.2,
+            "raw": "12.2",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        },
+        {
+          "stage": "II",
+          "evidence_kind": "OBSERVED",
+          "qualifier": "REPORTED_STUDY_SUMMARY",
+          "reported_temperature": {
+            "value": 227.4,
+            "raw": "227.4",
+            "unit": "degC",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "mass_loss": {
+            "value": 2.8,
+            "raw": "2.8",
+            "unit": "wt_percent",
+            "status": "AVAILABLE",
+            "uncertainty": null
+          },
+          "temperature_semantics": "AS_REPORTED_IN_TABLE_NOT_UNIVERSAL_ONSET"
+        }
+      ],
+      "activation_energy": {
+        "value": 133.0,
+        "raw": "133",
+        "unit": "kJ_per_mol",
+        "status": "AVAILABLE",
+        "uncertainty": null,
+        "evidence_kind": "PREDICTED",
+        "method_kind": "EMPIRICAL",
+        "qualifier": "REPORTED_MTGA_DERIVATION_NOT_UNIVERSAL_KINETICS"
+      },
+      "original_cells": [
+        "Sepiolite (Rec)",
+        "45",
+        "12.2",
+        "227.4",
+        "2.8",
+        "133"
+      ],
+      "source": {
+        "source_name": "Thermogravimetric Analysis of Moisture in Natural and Thermally Treated Clay Materials",
+        "source_author": "Giulia Lo Dico; Lorenzo Lisuzzo; Verónica Carcelén; Giuseppe Cavallaro; Maciej Haranczyk",
+        "source_url": "https://doi.org/10.3390/ma17102231",
+        "source_type": "PRIMARY_RESEARCH_ARTICLE",
+        "source_license": "CC-BY-4.0",
+        "license_evidence": "<permissions xmlns:ns0=\"http://www.niso.org/schemas/ali/1.0/\" xmlns:ns1=\"http://www.w3.org/1999/xlink\"><copyright-statement>© 2024 by the authors.</copyright-statement><copyright-year>2024</copyright-year><license><ns0:license_ref specific-use=\"textmining\" content-type=\"ccbylicense\">https://creativecommons.org/licenses/by/4.0/</ns0:license_ref><license-p>Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (<ext-link ext-link-type=\"uri\" ns1:href=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p></license></permissions>",
+        "source_id": "PMC11123035",
+        "table_count": 3,
+        "use_status": "RESEARCH_REFERENCE_NOT_ENGINE_PARAMETERS",
+        "processed_path": "storage/physics-pool/2026-09-22/processed/PMC11123035-tables.json",
+        "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+        "attribution_required": true,
+        "share_alike_required": false,
+        "retrieval_date": "2026-09-22T08:58:11.774756+00:00",
+        "rights_scope": "Selected files only; third-party material and external datasets require separate review"
+      },
+      "source_table_id": "materials-17-02231-t002",
+      "source_row_1based": 10,
+      "status": "STUDY_REFERENCE_ONLY",
+      "time_series_status": "UNAVAILABLE",
+      "vapor_source_status": "UNAVAILABLE",
+      "limitation": "No timestamps, absolute sample mass or calibrated species flow in this table"
+    }
+  ],
+  "record_count": 10,
+  "distinct_mineral_groups": 5,
+  "missing_event_temperatures": 1,
+  "kinetic_models_fitted": 0,
+  "core_material_analyses_added": 0,
+  "protocol": {
+    "relative_humidity_percent": 75,
+    "conditioning_hours": 48,
+    "reconditioning_prior_drying_c": 150,
+    "reconditioning_prior_drying_hours": 24,
+    "atmosphere": "N2",
+    "sample_flow_cm3_min": 60,
+    "balance_flow_cm3_min": 40,
+    "temperature_range_c": [
+      25,
+      260
+    ],
+    "program": "MTGA; full modulation details require source review; not a constant-rate TGA trace"
+  },
+  "excluded_column": "Delta E spans paired rows; original cell text retained, not independently counted",
+  "limitations": [
+    "Ten sample states are not ten independent mineral populations",
+    "Reported observations are not a validated calibration set for our engine"
+  ]
+}
