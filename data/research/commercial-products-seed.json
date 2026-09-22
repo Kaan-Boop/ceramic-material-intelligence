@@ -3,6 +3,10 @@
   "review_date": "2026-09-22",
   "scope": "Manually reviewed product identities, not a production material dataset or popularity ranking",
   "groups": [
+    {"source_id":"refsan-856","review_date":"2026-09-23","publisher":"Refsan","brand":"Refsan","market":"TR","kind":"CLAY_BODY","source_type":"BRAND_PRODUCT_PAGE","url":"https://www.refsan.com.tr/856-seramik-camuru-vakumlu-10-kg","products":["R24004|856 Seramik Çamuru Vakumlu"]},
+    {"source_id":"refsan-956","review_date":"2026-09-23","publisher":"Refsan","brand":"Refsan","market":"TR","kind":"CLAY_BODY","source_type":"BRAND_PRODUCT_PAGE","url":"https://www.refsan.com.tr/956-super-beyaz-seramik-camuru-vakumlu-10-kg","products":["R24005|956 Süper Beyaz Seramik Çamuru Vakumlu"]},
+    {"source_id":"refsan-159","review_date":"2026-09-23","publisher":"Refsan","brand":"Refsan","market":"TR","kind":"CLAY_BODY","source_type":"BRAND_PRODUCT_PAGE","url":"https://www.refsan.com.tr/159-stoneware-camuru-vakumlu-10-kg","products":["R24003|159 Stoneware Çamuru Vakumlu"],"flags":["CONFLICTING_FIRING_WINDOWS"]},
+    {"source_id":"refsan-259","review_date":"2026-09-23","publisher":"Refsan","brand":"Refsan","market":"TR","kind":"CLAY_BODY","source_type":"BRAND_PRODUCT_PAGE","url":"https://www.refsan.com.tr/259-stoneware-vakumlu-siyah-samotlu-camur-10kg","products":["R24006|259 Stoneware Siyah Şamotlu Çamur Vakumlu"],"flags":["CONFLICTING_FIRING_WINDOWS"]},
     {"source_id":"akasya-low","publisher":"Akasya Seramik","brand":"Akasya","market":"TR","kind":"CLAY_BODY","source_type":"BRAND_CATALOGUE","url":"https://www.akasyaseramik.com/urunler-kategori/dusuk-derece-camurlar","products":[
       "|Süper Beyaz Vakumlu Seramik Çamuru","|Standart Vakumlu Seramik Çamuru","|Süper Beyaz Seramik Döküm Çamuru","|Standart Seramik Döküm Çamuru","|Kırmızı Çamur"]},
     {"source_id":"akasya-high","publisher":"Akasya Seramik","brand":"Akasya","market":"TR","kind":"CLAY_BODY","source_type":"BRAND_CATALOGUE","url":"https://www.akasyaseramik.com/urunler-kategori/yuksek-derece-camurlar","products":[

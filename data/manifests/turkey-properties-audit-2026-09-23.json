@@ -1,0 +1,246 @@
+{
+  "version": "reported-properties/1.0.0",
+  "review_date": "2026-09-23",
+  "catalogue_products": 166,
+  "enriched_products": 10,
+  "property_values": 15,
+  "conflicting_glaze_windows": [
+    "tr-refsan-159",
+    "tr-refsan-259"
+  ],
+  "candidate_analysis_count": 1,
+  "new_accepted_analyses": 0,
+  "reported_candidate_totals": {
+    "tr-refsan-656": 99.8
+  },
+  "research_comparisons_at_1210_c": [
+    {
+      "engine_version": "reported-properties/1.0.0",
+      "product_id": "tr-akasya-stoneware",
+      "stage": "GLAZE",
+      "source_ref": "https://www.akasyaseramik.com/urunler/stoneware-vakum-camuru",
+      "source_claims": [
+        {
+          "stage": "GLAZE",
+          "min_c": 1190,
+          "max_c": 1220,
+          "locator": "Sirli pisirim sicakligi"
+        }
+      ],
+      "evidence_kind": "CALCULATED",
+      "method_kind": "DETERMINISTIC",
+      "qualifier": "REPORTED_RANGE_COMPARISON_NOT_COMPATIBILITY",
+      "status": "AVAILABLE",
+      "code": "WITHIN_REPORTED_WINDOW",
+      "probability": null,
+      "input_hash": "2067bb9f153802ccef46036f665b45a1d449d0f0f77d2003bfa8ef38c99a1d08"
+    },
+    {
+      "engine_version": "reported-properties/1.0.0",
+      "product_id": "tr-akasya-porcelain",
+      "stage": "GLAZE",
+      "source_ref": "https://www.akasyaseramik.com/urunler/porselen-vakum-camuru",
+      "source_claims": [
+        {
+          "stage": "GLAZE",
+          "min_c": 1190,
+          "max_c": 1220,
+          "locator": "Sirli pisirim sicakligi"
+        }
+      ],
+      "evidence_kind": "CALCULATED",
+      "method_kind": "DETERMINISTIC",
+      "qualifier": "REPORTED_RANGE_COMPARISON_NOT_COMPATIBILITY",
+      "status": "AVAILABLE",
+      "code": "WITHIN_REPORTED_WINDOW",
+      "probability": null,
+      "input_hash": "25fccf9e5f760b3b02facc3059d2e9231899433bc73b5087fa43570bfc34d668"
+    },
+    {
+      "engine_version": "reported-properties/1.0.0",
+      "product_id": "tr-akasya-grey002",
+      "stage": "GLAZE",
+      "source_ref": "https://www.akasyaseramik.com/urunler/stoneware-samotlu-gri-vakum-camuru-0-02",
+      "source_claims": [
+        {
+          "stage": "GLAZE",
+          "min_c": 1190,
+          "max_c": 1220,
+          "locator": "Sirli pisirim sicakligi"
+        }
+      ],
+      "evidence_kind": "CALCULATED",
+      "method_kind": "DETERMINISTIC",
+      "qualifier": "REPORTED_RANGE_COMPARISON_NOT_COMPATIBILITY",
+      "status": "AVAILABLE",
+      "code": "WITHIN_REPORTED_WINDOW",
+      "probability": null,
+      "input_hash": "39f7f3dacf49ccaf309640e441ca0d9d69f85693e46596b5fff8bfd57e154f89"
+    },
+    {
+      "engine_version": "reported-properties/1.0.0",
+      "product_id": "tr-akasya-handbuilding",
+      "stage": "GLAZE",
+      "source_ref": "https://www.akasyaseramik.com/urunler/serbest-sekillendirme-samotlu-vakum-camuru",
+      "source_claims": [
+        {
+          "stage": "GLAZE",
+          "min_c": 1000,
+          "max_c": 1200,
+          "locator": "Sirli pisirim sicakligi"
+        }
+      ],
+      "evidence_kind": "CALCULATED",
+      "method_kind": "DETERMINISTIC",
+      "qualifier": "REPORTED_RANGE_COMPARISON_NOT_COMPATIBILITY",
+      "status": "AVAILABLE",
+      "code": "ABOVE_REPORTED_WINDOW",
+      "probability": null,
+      "input_hash": "40789a2c7584e23dbf7063b441e738f19b6907475e61a8691957da236ade2a9a"
+    },
+    {
+      "engine_version": "reported-properties/1.0.0",
+      "product_id": "tr-refsan-656",
+      "stage": "GLAZE",
+      "source_ref": "https://www.refsan.com.tr/656-seramik-camuru-vakumlu",
+      "source_claims": [
+        {
+          "stage": "GLAZE",
+          "min_c": 1040,
+          "max_c": 1060,
+          "locator": "Product properties"
+        }
+      ],
+      "evidence_kind": "CALCULATED",
+      "method_kind": "DETERMINISTIC",
+      "qualifier": "REPORTED_RANGE_COMPARISON_NOT_COMPATIBILITY",
+      "status": "AVAILABLE",
+      "code": "ABOVE_REPORTED_WINDOW",
+      "probability": null,
+      "input_hash": "8d7f97753dad3dd4d5d8e28c398551784d5a0c8064dbb4ccf03aca292b4bee3a"
+    },
+    {
+      "engine_version": "reported-properties/1.0.0",
+      "product_id": "tr-refsan-856",
+      "stage": "GLAZE",
+      "source_ref": "https://www.refsan.com.tr/856-seramik-camuru-vakumlu-10-kg",
+      "source_claims": [
+        {
+          "stage": "GLAZE",
+          "min_c": 1040,
+          "max_c": 1060,
+          "locator": "Product properties"
+        }
+      ],
+      "evidence_kind": "CALCULATED",
+      "method_kind": "DETERMINISTIC",
+      "qualifier": "REPORTED_RANGE_COMPARISON_NOT_COMPATIBILITY",
+      "status": "AVAILABLE",
+      "code": "ABOVE_REPORTED_WINDOW",
+      "probability": null,
+      "input_hash": "ade665f730f8c868ab5e2d8192799cd3b9bd2af26985aea5fb82ca2d4ac2f237"
+    },
+    {
+      "engine_version": "reported-properties/1.0.0",
+      "product_id": "tr-refsan-956",
+      "stage": "GLAZE",
+      "source_ref": "https://www.refsan.com.tr/956-super-beyaz-seramik-camuru-vakumlu-10-kg",
+      "source_claims": [
+        {
+          "stage": "GLAZE",
+          "min_c": 1040,
+          "max_c": 1060,
+          "locator": "Product properties"
+        }
+      ],
+      "evidence_kind": "CALCULATED",
+      "method_kind": "DETERMINISTIC",
+      "qualifier": "REPORTED_RANGE_COMPARISON_NOT_COMPATIBILITY",
+      "status": "AVAILABLE",
+      "code": "ABOVE_REPORTED_WINDOW",
+      "probability": null,
+      "input_hash": "a4eca43adf7e9f1881cfa3243fef24159d621235a071e84470b66337c8ebcda9"
+    },
+    {
+      "engine_version": "reported-properties/1.0.0",
+      "product_id": "tr-refsan-159",
+      "stage": "GLAZE",
+      "source_ref": "https://www.refsan.com.tr/159-stoneware-camuru-vakumlu-10-kg",
+      "source_claims": [
+        {
+          "stage": "GLAZE",
+          "min_c": 1180,
+          "max_c": 1220,
+          "locator": "Description / product properties"
+        },
+        {
+          "stage": "GLAZE",
+          "min_c": 1180,
+          "max_c": 1200,
+          "locator": "Lower attribute table"
+        }
+      ],
+      "evidence_kind": "CALCULATED",
+      "method_kind": "DETERMINISTIC",
+      "qualifier": "REPORTED_RANGE_COMPARISON_NOT_COMPATIBILITY",
+      "status": "UNAVAILABLE",
+      "code": "CONFLICTING_SOURCE_WINDOWS",
+      "probability": null,
+      "input_hash": "14071a549da11f3b3d952da75ce3b1dd81a080602d367bb32e0ef465ced86bac"
+    },
+    {
+      "engine_version": "reported-properties/1.0.0",
+      "product_id": "tr-refsan-259",
+      "stage": "GLAZE",
+      "source_ref": "https://www.refsan.com.tr/259-stoneware-vakumlu-siyah-samotlu-camur-10kg",
+      "source_claims": [
+        {
+          "stage": "GLAZE",
+          "min_c": 1180,
+          "max_c": 1220,
+          "locator": "Description / product properties"
+        },
+        {
+          "stage": "GLAZE",
+          "min_c": 1180,
+          "max_c": 1200,
+          "locator": "Lower attribute table"
+        }
+      ],
+      "evidence_kind": "CALCULATED",
+      "method_kind": "DETERMINISTIC",
+      "qualifier": "REPORTED_RANGE_COMPARISON_NOT_COMPATIBILITY",
+      "status": "UNAVAILABLE",
+      "code": "CONFLICTING_SOURCE_WINDOWS",
+      "probability": null,
+      "input_hash": "e0bfd0f8be59c3365a5f31fa2f28761ad59d67704babeb4051470f7b68b81ae0"
+    },
+    {
+      "engine_version": "reported-properties/1.0.0",
+      "product_id": "tr-crafist-akcini",
+      "stage": "GLAZE",
+      "source_ref": "https://www.crafist.com.tr/seramikakcini1040granul-dokum-camuru-5-kg",
+      "source_claims": [
+        {
+          "stage": "GLAZE",
+          "min_c": 1040,
+          "max_c": 1040,
+          "locator": "Reported single firing target, not a demonstrated zero-width operating window",
+          "kind": "POINT_TARGET"
+        }
+      ],
+      "evidence_kind": "CALCULATED",
+      "method_kind": "DETERMINISTIC",
+      "qualifier": "REPORTED_RANGE_COMPARISON_NOT_COMPATIBILITY",
+      "status": "UNAVAILABLE",
+      "code": "SINGLE_TARGET_NO_OPERATING_RANGE",
+      "probability": null,
+      "input_hash": "886d41a14d3308808ffb4b4eb37cc1ad4b3552bf3bfffe45005b15074fd79b0c"
+    }
+  ],
+  "limitations": [
+    "Not an adhesion, safety, surface or failure probability model.",
+    "Reuse permissions unknown; no automatic production catalogue import.",
+    "No shrinkage or absorption interpolation; methods and conditions incomplete."
+  ]
+}

@@ -46,7 +46,7 @@ def build(seed):
                 'source_author': group['publisher'], 'source_license': 'UNKNOWN_REUSE_RIGHTS',
                 'commercial_use_allowed': 'UNKNOWN', 'research_republication_allowed': 'UNKNOWN',
                 'attribution_required': 'UNKNOWN', 'share_alike_required': 'UNKNOWN',
-                'retrieval_date': seed['review_date'], 'source_document_date': group.get('document_date'),
+                'retrieval_date': group.get('review_date', seed['review_date']), 'source_document_date': group.get('document_date'),
                 'rights_layer': 'UNKNOWN_LICENSE', 'training_allowed': 'UNKNOWN',
                 'full_source_archived': False, 'raw_source_sha256': None,
                 'acquisition_method': 'MANUAL_BIBLIOGRAPHIC_IDENTITY_INDEX',
@@ -75,9 +75,14 @@ def audit(records):
 
 
 if __name__ == '__main__':
+    import argparse
+    from datetime import date
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--audit-date', type=date.fromisoformat, default=date(2026, 9, 22))
+    args = parser.parse_args()
     records = build(json.loads(SEED.read_text(encoding='utf-8')))
     output = ROOT / 'data/research/commercial-products-index.json'
     output.write_text(json.dumps(records,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     report = audit(records)
-    (ROOT / 'data/manifests/commercial-catalogue-audit-2026-09-22.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    (ROOT / f'data/manifests/commercial-catalogue-audit-{args.audit_date}.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(report,ensure_ascii=False,indent=2))
