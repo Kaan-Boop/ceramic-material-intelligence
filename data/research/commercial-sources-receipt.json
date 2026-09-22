@@ -1,0 +1,21 @@
+{
+  "schemaVersion":1,
+  "items":[{
+    "id":"commercial-inventory",
+    "title":"İlk ticari ürün envanteri: 162 kimlik, kabul edilmiş yeni kimya analizi yok",
+    "queries":[{
+      "id":"inventory-audit",
+      "source":{
+        "label":"Ticari katalog araştırması",
+        "files":[{"label":"commercial-products-seed.json"},{"label":"commercial-catalogue-audit-2026-09-22.json"},{"label":"commercial-analysis-candidates.json"}],
+        "metricDefinitions":[{"label":"Ürün sayısı","definition":"Ürün sayısı marka, ürün kodu veya adı ve ürün türü bileşiminin benzersiz sayısıdır; paket boyları ve oksit satırları ayrı ürün sayılmaz."}],
+        "caveats":["Bu sayımlar tam kimyasal analiz sayısı veya satış/popülerlik sıralaması değildir.","162 ürünün yeniden kullanım hakları belirsizdir; motor kataloğuna alınmadılar.","Türkiye, Avrupa ve ABD keşif pazarlarıdır; ürünlerin üretim ülkesi oldukları varsayılmadı.","Üç oksit tablosu adayı analiz bazı ve diğer eksikler nedeniyle karantinadadır; 1.000 üzeri doğrulanmış kayıt hedefi tamamlanmadı."],
+        "evidenceFlow":[{"kind":"validation","title":"Kimlik denetimi","detail":"Derlenen 162 kayıtta mükerrer kimlik ve eksik kaynak URL'si bulunmadı. Kabul edilmiş oksit analizi sayısı sıfır."}]
+      },
+      "columns":["tur","adet"],
+      "rows":[{"tur":"Hazır çamur bünyesi","adet":109},{"tur":"Ham kil","adet":20},{"tur":"Toz sır","adet":33}],
+      "preview":{"kind":"aggregate","note":"İlk araştırma paketinin ürün türüne göre tam sayımları.","totalRows":162},
+      "methods":[{"language":"calculation","code":"109 + 20 + 33 = 162 benzersiz ürün kimliği"}]
+    }]
+  }]
+}

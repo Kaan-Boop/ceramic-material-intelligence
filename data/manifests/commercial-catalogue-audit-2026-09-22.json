@@ -1,0 +1,62 @@
+{
+  "schema_version": "commercial-index-audit/1",
+  "grain": "one brand + product code/name + entity kind",
+  "records": 162,
+  "unique_ids": 162,
+  "duplicate_ids": 0,
+  "brands_with_indexed_products": 9,
+  "by_kind": {
+    "CLAY_BODY": 109,
+    "RAW_CLAY": 20,
+    "POWDER_GLAZE": 33
+  },
+  "clay_body_brands": 7,
+  "by_market_and_kind": {
+    "TR": {
+      "CLAY_BODY": 27,
+      "POWDER_GLAZE": 24
+    },
+    "EUROPE": {
+      "CLAY_BODY": 54,
+      "RAW_CLAY": 20
+    },
+    "USA": {
+      "CLAY_BODY": 28,
+      "POWDER_GLAZE": 9
+    }
+  },
+  "by_discovery_market": {
+    "TR": 51,
+    "EUROPE": 74,
+    "USA": 37
+  },
+  "ingredient_recipes_available": 0,
+  "accepted_oxide_analyses": 0,
+  "engine_eligible": 0,
+  "unknown_reuse_rights": 162,
+  "source_url_missing": 0,
+  "quality_flags": {
+    "PRODUCT_CODE_NOT_REPORTED": 25,
+    "TITLE_EARTHENWARE_CATEGORY_STONEWARE_CONFLICT": 1,
+    "ESC1_EQUIVALENCE_NOT_IDENTITY": 1,
+    "CURRENT_CATALOGUE_RECONCILIATION_REQUIRED": 28,
+    "ANALYSIS_BASIS_UNKNOWN": 1,
+    "LOI_UNKNOWN": 1,
+    "PDF_VISUAL_CHECK_PENDING": 1,
+    "RAW_MATERIAL_NOT_PREPARED_BODY": 20,
+    "TECHNICAL_TABLE_REVIEW_REQUIRED": 20,
+    "MANUFACTURER_RECONCILIATION_REQUIRED": 16,
+    "TURKEY_MARKET_NOT_TURKISH_MANUFACTURE": 16,
+    "SDS_IS_NOT_FULL_FORMULA": 9,
+    "GROUP_UPPER_LIMITS_NOT_PRODUCT_ANALYSIS": 9,
+    "DOCUMENT_REVISION_RECHECK_REQUIRED": 9
+  },
+  "temporal_limit": "Single review batch; no trend or complete market coverage inferred",
+  "target": {
+    "clay_brands_per_region": 20,
+    "additional_clay_products": 100,
+    "powder_glazes": 100,
+    "total_records_minimum": 1001
+  },
+  "target_completed": false
+}
