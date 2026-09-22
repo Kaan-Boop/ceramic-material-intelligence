@@ -1,0 +1,11 @@
+{
+ "schema_version":"reference-review/1",
+ "retrieval_date":"2026-09-23",
+ "record_type":"BIBLIOGRAPHIC_REVIEW_NOT_DATA_ACQUISITION",
+ "full_sources_downloaded":false,
+ "records":[
+  {"source_name":"Hamopy","source_url":"https://github.com/srouchier/hamopy","source_author":"srouchier / project contributors","source_type":"SOFTWARE_REPOSITORY","source_license":"LGPL-3.0 as reported by repository","commercial_use_allowed":"CONDITIONAL_LICENSE_REVIEW_REQUIRED","attribution_required":true,"share_alike_required":"SCOPE_DEPENDENT_LICENSE_OBLIGATIONS","reviewed":"README and linked LICENSE.txt page","status":"NOT_INSTALLED_NOT_VALIDATED_FOR_CERAMICS"},
+  {"source_name":"HygroThermFEM","source_url":"https://github.com/LBNL-ETA/HygroThermFEM","source_author":"LBNL-ETA project contributors","source_type":"SOFTWARE_REPOSITORY","source_license":"PENDING_FULL_LICENSE_REVIEW","commercial_use_allowed":"UNKNOWN","attribution_required":"UNKNOWN","share_alike_required":"UNKNOWN","reviewed":"README and dependency/test structure","status":"REFERENCE_ONLY_NOT_INSTALLED"},
+  {"source_name":"IAPWS-95 release scope","source_url":"https://iapws.org/technical-guidance/release/IAPWS-95","source_author":"IAPWS","source_type":"OFFICIAL_FORMULATION_REFERENCE","source_license":"DOCUMENT_REUSE_NOT_REVIEWED","commercial_use_allowed":"UNKNOWN_FOR_DOCUMENT_REUSE","attribution_required":"UNKNOWN","share_alike_required":"UNKNOWN","reviewed":"Official HTML description and validity limits","status":"REFERENCE_ONLY_NOT_COEFFICIENT_IMPORT"}
+ ]
+}
