@@ -1,0 +1,54 @@
+{
+  "tests_run": 5,
+  "status": "PASS",
+  "archived_file_hashes_verified": 8,
+  "validation_level": "INSTALLATION_AND_INTERNAL_CONSISTENCY_NOT_INDEPENDENT_PHYSICAL_VALIDATION",
+  "cases": [
+    {
+      "method_version": "water-properties/0.1.0-research",
+      "backend": "CoolProp HEOS Water",
+      "backend_version": "8.0.0",
+      "phase": "liquid",
+      "evidence_kind": "PREDICTED",
+      "method_kind": "DETERMINISTIC",
+      "qualifier": "EQUATION_OF_STATE_ESTIMATE",
+      "uncertainty": null,
+      "temperature_k": 300.0,
+      "pressure_pa": 101325.0,
+      "values": {
+        "density_kg_m3": 996.5569352651672,
+        "enthalpy_j_kg": 112654.89965464505,
+        "internal_energy_j_kg": 112553.22458069751,
+        "cp_j_kg_k": 4180.635776557353
+      },
+      "limitations": [
+        "Pure homogeneous water; not a porous clay drying simulation.",
+        "No energy/mass coupling or experiment validation.",
+        "Enthalpy reference convention belongs to this backend; do not mix baselines."
+      ]
+    },
+    {
+      "method_version": "water-properties/0.1.0-research",
+      "backend": "CoolProp HEOS Water",
+      "backend_version": "8.0.0",
+      "phase": "gas",
+      "evidence_kind": "PREDICTED",
+      "method_kind": "DETERMINISTIC",
+      "qualifier": "EQUATION_OF_STATE_ESTIMATE",
+      "uncertainty": null,
+      "temperature_k": 400.0,
+      "pressure_pa": 101325.0,
+      "values": {
+        "density_kg_m3": 0.5549439034904987,
+        "enthalpy_j_kg": 2730301.3859201893,
+        "internal_energy_j_kg": 2547715.3635084038,
+        "cp_j_kg_k": 2009.2902478486988
+      },
+      "limitations": [
+        "Pure homogeneous water; not a porous clay drying simulation.",
+        "No energy/mass coupling or experiment validation.",
+        "Enthalpy reference convention belongs to this backend; do not mix baselines."
+      ]
+    }
+  ]
+}

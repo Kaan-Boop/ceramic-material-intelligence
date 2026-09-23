@@ -1,0 +1,3 @@
+# Separate research environment; reviewed Windows CPython 3.12 wheels only.
+CoolProp==8.0.0 --hash=sha256:f1f78a2ee9ce703c496a42a68cde9bd6f22b2b964375c2abba39d6dc879918d3
+numpy==2.2.6 --hash=sha256:c1f9540be57940698ed329904db803cf7a402f3fc200bfe599334c9bd84a40b2
