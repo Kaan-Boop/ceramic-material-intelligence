@@ -1,0 +1,6 @@
+# Isolated reaction research environment; no source builds.
+cantera==3.2.0 --hash=sha256:258b95a4e29f9afd50788eab284e88440174302123c8b3a4a3a493904b40e238
+numpy==2.2.6 --hash=sha256:c1f9540be57940698ed329904db803cf7a402f3fc200bfe599334c9bd84a40b2
+ruamel.yaml==0.18.16 --hash=sha256:048f26d64245bae57a4f9ef6feb5b552a386830ef7a826f235ffb804c59efbba
+ruamel.yaml.clib==0.2.12 --hash=sha256:0467c5965282c62203273b838ae77c0d29d7638c8a4e3a1c8bdd3602c10904e4
+typing_extensions==4.15.0 --hash=sha256:f0fa19c6845758ab08074a0cfa8b7aecb71c999ca73d62883bc25cc018c4e548
