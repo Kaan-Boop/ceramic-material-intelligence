@@ -1,4 +1,8 @@
-"""Loopback-only research prototype. No database, kiln control or predictions."""
+"""Loopback-only prototype with scoped indicators, no calibrated outcome probabilities.
+
+No database or kiln control. Recipe chemistry and optional property-based models
+remain distinct; models never infer missing material properties from names.
+"""
 from copy import deepcopy
 from functools import lru_cache
 from typing import Annotated, Literal
@@ -13,6 +17,7 @@ from research.chemistry.foundation import ChemistryInputError, SOURCE_METADATA, 
 from research.chemistry.recipe import analyze_recipe
 from research.chemistry.recipe_demo import demo
 from research.process.assessment import assess_process, ProcessInputError
+from research.process.outcomes import assess_outcomes, OutcomeInputError
 
 
 class StrictModel(BaseModel):
@@ -204,6 +209,15 @@ class ErrorResponse(StrictModel):
     errors: list[ErrorItem]
 
 
+class OutcomeRequest(StrictModel):
+    # Per-method domain contracts reject missing/unknown fields; no silent defaults.
+    fit: dict[str, JsonValue] | None = None
+    flow: dict[str, JsonValue] | None = None
+    wetting: dict[str, JsonValue] | None = None
+    porosity: dict[str, JsonValue] | None = None
+    gloss: dict[str, JsonValue] | None = None
+
+
 NAMES = {
     "ideal_k_feldspar": "İdeal potasyum feldspat",
     "pure_silica": "Saf silika",
@@ -268,6 +282,17 @@ async def invalid_request(request, exc):
 @app.get("/api/v1/health")
 def health():
     return {"status": "ok", "mode": "LOCAL_RESEARCH_PROTOTYPE"}
+
+
+@app.post('/api/v1/outcomes/assess', response_model=dict[str, JsonValue], responses={422: {'model': ErrorResponse}})
+def outcome_indicators(payload: OutcomeRequest):
+    try:
+        return assess_outcomes(payload.model_dump(exclude_none=True))
+    except OutcomeInputError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc).split(':')[0], path=['outcomes'],
+            message='Ölçüm birimlerini, kaynak alanlarını ve modelin geçerlilik koşullarını kontrol edin.'
+        )]).model_dump())
 
 
 @app.get("/api/v1/materials", response_model=Catalogue)

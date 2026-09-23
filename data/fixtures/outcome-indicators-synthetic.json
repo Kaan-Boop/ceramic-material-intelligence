@@ -1,0 +1,7 @@
+{
+  "fit": {"body_mean_cte_per_k": 0.000006, "glaze_mean_cte_per_k": 0.000008, "low_c": 20, "high_c": 500, "same_interval_and_cooling_basis": true, "source_ref": "synthetic:outcomes-v1", "conditions": "Synthetic matched cooling interval; NOT measured clay/glaze", "input_kind": "SYNTHETIC"},
+  "flow": {"density_kg_m3": 2500, "viscosity_pa_s": 1000, "thickness_mm": 0.5, "inclination_deg": 90, "duration_s": 600, "temperature_c": 1200, "ideal_film_assumptions": true, "source_ref": "synthetic:outcomes-v1", "conditions": "Hypothetical isothermal infinite Newtonian film; no actual glaze", "input_kind": "SYNTHETIC"},
+  "wetting": {"surface_tension_n_m": 0.3, "contact_angle_deg": 60, "temperature_c": 1200, "young_dupre_assumptions": true, "source_ref": "synthetic:outcomes-v1", "conditions": "Hypothetical equilibrium smooth nonreactive substrate", "input_kind": "SYNTHETIC"},
+  "porosity": {"dry_mass_g": 100, "saturated_mass_g": 102, "suspended_mass_g": 60, "specimen_scope": "UNGLAZED_BODY", "source_ref": "synthetic:outcomes-v1", "conditions": "Invented consistent weighings, not a real physical test", "input_kind": "SYNTHETIC"},
+  "gloss": {"angle_deg": 60, "readings_gu": [28, 30, 32], "instrument_id": "SYNTHETIC-INSTRUMENT", "source_ref": "synthetic:outcomes-v1", "conditions": "Invented readings, same geometry", "input_kind": "SYNTHETIC"}
+}

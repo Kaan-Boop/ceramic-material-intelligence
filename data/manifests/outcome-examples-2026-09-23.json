@@ -1,0 +1,533 @@
+{
+  "baseline_synthetic": {
+    "engine_version": "outcome-indicators/0.1.0",
+    "input_hash": "a57f90da3b07bdb000f69b89531502f4d5b9fd6fb6385f7136e246ffc6bea539",
+    "input_snapshot": {
+      "fit": {
+        "body_mean_cte_per_k": 6e-06,
+        "glaze_mean_cte_per_k": 8e-06,
+        "low_c": 20,
+        "high_c": 500,
+        "same_interval_and_cooling_basis": true,
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Synthetic matched cooling interval; NOT measured clay/glaze",
+        "input_kind": "SYNTHETIC"
+      },
+      "flow": {
+        "density_kg_m3": 2500,
+        "viscosity_pa_s": 1000,
+        "thickness_mm": 0.5,
+        "inclination_deg": 90,
+        "duration_s": 600,
+        "temperature_c": 1200,
+        "ideal_film_assumptions": true,
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Hypothetical isothermal infinite Newtonian film; no actual glaze",
+        "input_kind": "SYNTHETIC"
+      },
+      "wetting": {
+        "surface_tension_n_m": 0.3,
+        "contact_angle_deg": 60,
+        "temperature_c": 1200,
+        "young_dupre_assumptions": true,
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Hypothetical equilibrium smooth nonreactive substrate",
+        "input_kind": "SYNTHETIC"
+      },
+      "porosity": {
+        "dry_mass_g": 100,
+        "saturated_mass_g": 102,
+        "suspended_mass_g": 60,
+        "specimen_scope": "UNGLAZED_BODY",
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Invented consistent weighings, not a real physical test",
+        "input_kind": "SYNTHETIC"
+      },
+      "gloss": {
+        "angle_deg": 60,
+        "readings_gu": [
+          28,
+          30,
+          32
+        ],
+        "instrument_id": "SYNTHETIC-INSTRUMENT",
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Invented readings, same geometry",
+        "input_kind": "SYNTHETIC"
+      }
+    },
+    "sections": {
+      "fit": {
+        "status": "AVAILABLE",
+        "evidence_kind": "PREDICTED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "free_contraction_difference_microstrain": 959.9999999999997,
+          "nominal_direction": "TENSILE_TENDENCY",
+          "temperature_interval_c": [
+            20.0,
+            500.0
+          ]
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Assumes bonding, a thicker constraining body and elastic behavior over the chosen cooling interval.",
+          "Positive: glaze wants to contract more; tensile tendency. Negative: compressive tendency.",
+          "No residual stress, adhesion strength, safe threshold or crazing/shivering probability.",
+          "Mean CTEs must cover the same interval and state; no extrapolation from room-temperature values.",
+          "Relaxation, inversion, gradients, thickness and geometry can change actual stress."
+        ],
+        "method_source": "https://www.sciencedirect.com/science/article/pii/S0921509307003656",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      },
+      "flow": {
+        "status": "AVAILABLE",
+        "evidence_kind": "PREDICTED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "mean_velocity_mm_s": 0.0020430520833333334,
+          "ideal_mean_travel_mm": 1.22583125,
+          "reynolds_rho_u_h_over_eta": 2.5538151041666666e-09,
+          "temperature_c": 1200.0
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Steady, isothermal, fully molten Newtonian film on an infinite flat incline; no slip and no surface shear.",
+          "Angle measured from horizontal. Constant thickness, viscosity and density; no crystallization or bubbles.",
+          "Travel is mean fluid motion, NOT the advancing glaze edge or shelf-run distance.",
+          "Finite glaze patches, capillarity, wetting and changing firing conditions require a different model."
+        ],
+        "method_source": "https://eng.libretexts.org/Bookshelves/Chemical_Engineering/Chemical_Engineering_Separations%3A_A_Handbook_for_Students_%28Lamm_and_Jarboe%29/01%3A_Chapters/1.02%3A_Mass_Transfer_in_Gas-liquid_Systems",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      },
+      "wetting": {
+        "status": "AVAILABLE",
+        "evidence_kind": "PREDICTED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "ideal_work_of_adhesion_j_m2": 0.44999999999999996,
+          "temperature_c": 1200.0
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Young-Dupre reversible interfacial work, not fired bond strength or percent adhesion.",
+          "Requires equilibrium contact angle and surface tension at the same temperature and atmosphere.",
+          "Ideal smooth homogeneous nonreactive substrate; rough porous reacting clay may violate these assumptions.",
+          "Room-temperature water contact angle is not a molten-glaze contact angle."
+        ],
+        "method_source": "https://pceu.kruss-scientific.com/en/know-how/glossary/adhesion",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      },
+      "porosity": {
+        "status": "AVAILABLE",
+        "evidence_kind": "CALCULATED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "water_absorption_mass_pct": 2.0,
+          "apparent_open_porosity_volume_pct": 4.761904761904762,
+          "specimen_scope": "UNGLAZED_BODY"
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Derived from supplied dry/saturated/suspended weighings under consistent saturation and fluid conditions.",
+          "Whole-specimen result does not isolate glaze porosity, closed pores or pinholes.",
+          "No ASTM compliance claimed; calibration and a complete test procedure are required."
+        ],
+        "method_source": "https://store.astm.org/standards/c373",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      },
+      "gloss": {
+        "status": "AVAILABLE",
+        "evidence_kind": "CALCULATED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "mean_gu": 30.0,
+          "angle_deg": 60.0,
+          "reading_count": 3,
+          "sample_sd_gu": 2.0
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Summary of supplied gloss readings, not a recipe-to-gloss prediction.",
+          "Gloss units are not percent reflectance; compare identical geometry and calibration.",
+          "Reading count is not independent specimen count; spread is not instrument uncertainty.",
+          "No universal matte/satin/gloss threshold is applied."
+        ],
+        "method_source": "https://www.byk-instruments.com/en-GB/appearance/micro-gloss",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      }
+    },
+    "physical_validation": "NOT_PERFORMED",
+    "overall_success_probability": null,
+    "notice": "Indicators are not a combined firing simulation or calibrated defect prediction."
+  },
+  "double_thickness_synthetic": {
+    "engine_version": "outcome-indicators/0.1.0",
+    "input_hash": "fa5d2823afcae7c488c379b4b59b70915cf0a30b6c8c33139babd0158e899344",
+    "input_snapshot": {
+      "fit": {
+        "body_mean_cte_per_k": 6e-06,
+        "glaze_mean_cte_per_k": 8e-06,
+        "low_c": 20,
+        "high_c": 500,
+        "same_interval_and_cooling_basis": true,
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Synthetic matched cooling interval; NOT measured clay/glaze",
+        "input_kind": "SYNTHETIC"
+      },
+      "flow": {
+        "density_kg_m3": 2500,
+        "viscosity_pa_s": 1000,
+        "thickness_mm": 1,
+        "inclination_deg": 90,
+        "duration_s": 600,
+        "temperature_c": 1200,
+        "ideal_film_assumptions": true,
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Hypothetical isothermal infinite Newtonian film; no actual glaze",
+        "input_kind": "SYNTHETIC"
+      },
+      "wetting": {
+        "surface_tension_n_m": 0.3,
+        "contact_angle_deg": 60,
+        "temperature_c": 1200,
+        "young_dupre_assumptions": true,
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Hypothetical equilibrium smooth nonreactive substrate",
+        "input_kind": "SYNTHETIC"
+      },
+      "porosity": {
+        "dry_mass_g": 100,
+        "saturated_mass_g": 102,
+        "suspended_mass_g": 60,
+        "specimen_scope": "UNGLAZED_BODY",
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Invented consistent weighings, not a real physical test",
+        "input_kind": "SYNTHETIC"
+      },
+      "gloss": {
+        "angle_deg": 60,
+        "readings_gu": [
+          28,
+          30,
+          32
+        ],
+        "instrument_id": "SYNTHETIC-INSTRUMENT",
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Invented readings, same geometry",
+        "input_kind": "SYNTHETIC"
+      }
+    },
+    "sections": {
+      "fit": {
+        "status": "AVAILABLE",
+        "evidence_kind": "PREDICTED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "free_contraction_difference_microstrain": 959.9999999999997,
+          "nominal_direction": "TENSILE_TENDENCY",
+          "temperature_interval_c": [
+            20.0,
+            500.0
+          ]
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Assumes bonding, a thicker constraining body and elastic behavior over the chosen cooling interval.",
+          "Positive: glaze wants to contract more; tensile tendency. Negative: compressive tendency.",
+          "No residual stress, adhesion strength, safe threshold or crazing/shivering probability.",
+          "Mean CTEs must cover the same interval and state; no extrapolation from room-temperature values.",
+          "Relaxation, inversion, gradients, thickness and geometry can change actual stress."
+        ],
+        "method_source": "https://www.sciencedirect.com/science/article/pii/S0921509307003656",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      },
+      "flow": {
+        "status": "AVAILABLE",
+        "evidence_kind": "PREDICTED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "mean_velocity_mm_s": 0.008172208333333333,
+          "ideal_mean_travel_mm": 4.903325,
+          "reynolds_rho_u_h_over_eta": 2.0430520833333333e-08,
+          "temperature_c": 1200.0
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Steady, isothermal, fully molten Newtonian film on an infinite flat incline; no slip and no surface shear.",
+          "Angle measured from horizontal. Constant thickness, viscosity and density; no crystallization or bubbles.",
+          "Travel is mean fluid motion, NOT the advancing glaze edge or shelf-run distance.",
+          "Finite glaze patches, capillarity, wetting and changing firing conditions require a different model."
+        ],
+        "method_source": "https://eng.libretexts.org/Bookshelves/Chemical_Engineering/Chemical_Engineering_Separations%3A_A_Handbook_for_Students_%28Lamm_and_Jarboe%29/01%3A_Chapters/1.02%3A_Mass_Transfer_in_Gas-liquid_Systems",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      },
+      "wetting": {
+        "status": "AVAILABLE",
+        "evidence_kind": "PREDICTED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "ideal_work_of_adhesion_j_m2": 0.44999999999999996,
+          "temperature_c": 1200.0
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Young-Dupre reversible interfacial work, not fired bond strength or percent adhesion.",
+          "Requires equilibrium contact angle and surface tension at the same temperature and atmosphere.",
+          "Ideal smooth homogeneous nonreactive substrate; rough porous reacting clay may violate these assumptions.",
+          "Room-temperature water contact angle is not a molten-glaze contact angle."
+        ],
+        "method_source": "https://pceu.kruss-scientific.com/en/know-how/glossary/adhesion",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      },
+      "porosity": {
+        "status": "AVAILABLE",
+        "evidence_kind": "CALCULATED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "water_absorption_mass_pct": 2.0,
+          "apparent_open_porosity_volume_pct": 4.761904761904762,
+          "specimen_scope": "UNGLAZED_BODY"
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Derived from supplied dry/saturated/suspended weighings under consistent saturation and fluid conditions.",
+          "Whole-specimen result does not isolate glaze porosity, closed pores or pinholes.",
+          "No ASTM compliance claimed; calibration and a complete test procedure are required."
+        ],
+        "method_source": "https://store.astm.org/standards/c373",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      },
+      "gloss": {
+        "status": "AVAILABLE",
+        "evidence_kind": "CALCULATED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "mean_gu": 30.0,
+          "angle_deg": 60.0,
+          "reading_count": 3,
+          "sample_sd_gu": 2.0
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Summary of supplied gloss readings, not a recipe-to-gloss prediction.",
+          "Gloss units are not percent reflectance; compare identical geometry and calibration.",
+          "Reading count is not independent specimen count; spread is not instrument uncertainty.",
+          "No universal matte/satin/gloss threshold is applied."
+        ],
+        "method_source": "https://www.byk-instruments.com/en-GB/appearance/micro-gloss",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      }
+    },
+    "physical_validation": "NOT_PERFORMED",
+    "overall_success_probability": null,
+    "notice": "Indicators are not a combined firing simulation or calibrated defect prediction."
+  },
+  "double_viscosity_synthetic": {
+    "engine_version": "outcome-indicators/0.1.0",
+    "input_hash": "0bb6f967f5f52aefbc22b2117a65a82d85477252138c137d395735f2e8fbd72d",
+    "input_snapshot": {
+      "fit": {
+        "body_mean_cte_per_k": 6e-06,
+        "glaze_mean_cte_per_k": 8e-06,
+        "low_c": 20,
+        "high_c": 500,
+        "same_interval_and_cooling_basis": true,
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Synthetic matched cooling interval; NOT measured clay/glaze",
+        "input_kind": "SYNTHETIC"
+      },
+      "flow": {
+        "density_kg_m3": 2500,
+        "viscosity_pa_s": 2000,
+        "thickness_mm": 0.5,
+        "inclination_deg": 90,
+        "duration_s": 600,
+        "temperature_c": 1200,
+        "ideal_film_assumptions": true,
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Hypothetical isothermal infinite Newtonian film; no actual glaze",
+        "input_kind": "SYNTHETIC"
+      },
+      "wetting": {
+        "surface_tension_n_m": 0.3,
+        "contact_angle_deg": 60,
+        "temperature_c": 1200,
+        "young_dupre_assumptions": true,
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Hypothetical equilibrium smooth nonreactive substrate",
+        "input_kind": "SYNTHETIC"
+      },
+      "porosity": {
+        "dry_mass_g": 100,
+        "saturated_mass_g": 102,
+        "suspended_mass_g": 60,
+        "specimen_scope": "UNGLAZED_BODY",
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Invented consistent weighings, not a real physical test",
+        "input_kind": "SYNTHETIC"
+      },
+      "gloss": {
+        "angle_deg": 60,
+        "readings_gu": [
+          28,
+          30,
+          32
+        ],
+        "instrument_id": "SYNTHETIC-INSTRUMENT",
+        "source_ref": "synthetic:outcomes-v1",
+        "conditions": "Invented readings, same geometry",
+        "input_kind": "SYNTHETIC"
+      }
+    },
+    "sections": {
+      "fit": {
+        "status": "AVAILABLE",
+        "evidence_kind": "PREDICTED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "free_contraction_difference_microstrain": 959.9999999999997,
+          "nominal_direction": "TENSILE_TENDENCY",
+          "temperature_interval_c": [
+            20.0,
+            500.0
+          ]
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Assumes bonding, a thicker constraining body and elastic behavior over the chosen cooling interval.",
+          "Positive: glaze wants to contract more; tensile tendency. Negative: compressive tendency.",
+          "No residual stress, adhesion strength, safe threshold or crazing/shivering probability.",
+          "Mean CTEs must cover the same interval and state; no extrapolation from room-temperature values.",
+          "Relaxation, inversion, gradients, thickness and geometry can change actual stress."
+        ],
+        "method_source": "https://www.sciencedirect.com/science/article/pii/S0921509307003656",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      },
+      "flow": {
+        "status": "AVAILABLE",
+        "evidence_kind": "PREDICTED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "mean_velocity_mm_s": 0.0010215260416666667,
+          "ideal_mean_travel_mm": 0.612915625,
+          "reynolds_rho_u_h_over_eta": 6.384537760416666e-10,
+          "temperature_c": 1200.0
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Steady, isothermal, fully molten Newtonian film on an infinite flat incline; no slip and no surface shear.",
+          "Angle measured from horizontal. Constant thickness, viscosity and density; no crystallization or bubbles.",
+          "Travel is mean fluid motion, NOT the advancing glaze edge or shelf-run distance.",
+          "Finite glaze patches, capillarity, wetting and changing firing conditions require a different model."
+        ],
+        "method_source": "https://eng.libretexts.org/Bookshelves/Chemical_Engineering/Chemical_Engineering_Separations%3A_A_Handbook_for_Students_%28Lamm_and_Jarboe%29/01%3A_Chapters/1.02%3A_Mass_Transfer_in_Gas-liquid_Systems",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      },
+      "wetting": {
+        "status": "AVAILABLE",
+        "evidence_kind": "PREDICTED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "ideal_work_of_adhesion_j_m2": 0.44999999999999996,
+          "temperature_c": 1200.0
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Young-Dupre reversible interfacial work, not fired bond strength or percent adhesion.",
+          "Requires equilibrium contact angle and surface tension at the same temperature and atmosphere.",
+          "Ideal smooth homogeneous nonreactive substrate; rough porous reacting clay may violate these assumptions.",
+          "Room-temperature water contact angle is not a molten-glaze contact angle."
+        ],
+        "method_source": "https://pceu.kruss-scientific.com/en/know-how/glossary/adhesion",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      },
+      "porosity": {
+        "status": "AVAILABLE",
+        "evidence_kind": "CALCULATED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "water_absorption_mass_pct": 2.0,
+          "apparent_open_porosity_volume_pct": 4.761904761904762,
+          "specimen_scope": "UNGLAZED_BODY"
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Derived from supplied dry/saturated/suspended weighings under consistent saturation and fluid conditions.",
+          "Whole-specimen result does not isolate glaze porosity, closed pores or pinholes.",
+          "No ASTM compliance claimed; calibration and a complete test procedure are required."
+        ],
+        "method_source": "https://store.astm.org/standards/c373",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      },
+      "gloss": {
+        "status": "AVAILABLE",
+        "evidence_kind": "CALCULATED",
+        "method_kind": "DETERMINISTIC",
+        "qualifier": "SCOPED_INDICATOR_NOT_FAILURE_PROBABILITY",
+        "values": {
+          "mean_gu": 30.0,
+          "angle_deg": 60.0,
+          "reading_count": 3,
+          "sample_sd_gu": 2.0
+        },
+        "probability": null,
+        "uncertainty": null,
+        "limitations": [
+          "Summary of supplied gloss readings, not a recipe-to-gloss prediction.",
+          "Gloss units are not percent reflectance; compare identical geometry and calibration.",
+          "Reading count is not independent specimen count; spread is not instrument uncertainty.",
+          "No universal matte/satin/gloss threshold is applied."
+        ],
+        "method_source": "https://www.byk-instruments.com/en-GB/appearance/micro-gloss",
+        "input_kind": "SYNTHETIC",
+        "source_ref": "synthetic:outcomes-v1"
+      }
+    },
+    "physical_validation": "NOT_PERFORMED",
+    "overall_success_probability": null,
+    "notice": "Indicators are not a combined firing simulation or calibrated defect prediction."
+  }
+}

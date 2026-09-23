@@ -21,6 +21,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/outcomes/assess": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Outcome Indicators */
+        post: operations["outcome_indicators_api_v1_outcomes_assess_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/materials": {
         parameters: {
             query?: never;
@@ -293,6 +310,29 @@ export interface components {
             /** Dry Mass G */
             dry_mass_g: number;
         };
+        /** OutcomeRequest */
+        OutcomeRequest: {
+            /** Fit */
+            fit?: {
+                [key: string]: components["schemas"]["JsonValue"];
+            } | null;
+            /** Flow */
+            flow?: {
+                [key: string]: components["schemas"]["JsonValue"];
+            } | null;
+            /** Wetting */
+            wetting?: {
+                [key: string]: components["schemas"]["JsonValue"];
+            } | null;
+            /** Porosity */
+            porosity?: {
+                [key: string]: components["schemas"]["JsonValue"];
+            } | null;
+            /** Gloss */
+            gloss?: {
+                [key: string]: components["schemas"]["JsonValue"];
+            } | null;
+        };
         /** Predictions */
         Predictions: {
             /**
@@ -457,6 +497,41 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+        };
+    };
+    outcome_indicators_api_v1_outcomes_assess_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OutcomeRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
