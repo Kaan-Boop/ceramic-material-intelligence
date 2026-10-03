@@ -1,0 +1,49 @@
+{
+  "schema_version": "source-candidates-v1",
+  "review_date": "2026-09-21",
+  "note": "Bibliographic pointers and original review annotations only; no article datasets acquired from these candidates.",
+  "sources": [
+    {
+      "source_id": "silky-matte-2023",
+      "source_name": "Low-gloss, silky matte glaze for porcelain tiles",
+      "source_url": "https://doi.org/10.1590/0366-69132023693913482",
+      "source_type": "JOURNAL_ARTICLE_CANDIDATE",
+      "source_author": null,
+      "source_author_missing_reason": "Verify publisher author list before acquisition",
+      "source_license": "CC-BY-NC-4.0 (linked license; display wording requires review)",
+      "license_evidence_url": "https://www.scielo.br/j/ce/a/KMrxzgzVshZptBtFnBsM6mv/?lang=en",
+      "license_link_target": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "commercial_use_allowed": "DENIED",
+      "research_use_allowed": "UNKNOWN",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "retrieval_date": "2026-09-21",
+      "layer": "NON_COMMERCIAL_DATA",
+      "acquisition_status": "METADATA_ONLY_NOT_DOWNLOADED",
+      "core_engine_eligible": false,
+      "training": "NOT_ENABLED",
+      "next_action": "Clarify intended-use permission and license discrepancy before data acquisition",
+      "scope_note": "16-formulation lead; distinguish inferred viscosity and measured surface properties"
+    },
+    {
+      "source_id": "hot-stage-glaze-2015",
+      "source_name": "Viscosity and Thermal Evolution of Density and Wetting Angle of a Commercial Glaze by Means of Hot Stage Microscopy",
+      "source_url": "https://doi.org/10.1016/j.mspro.2015.05.031",
+      "source_type": "JOURNAL_ARTICLE_CANDIDATE",
+      "source_author": "F. M. Stábile; M. Piccico; M. F. Serra; M. Rafti; G. Suárez; N. M. Rendtorff (verification pending)",
+      "source_license": "UNKNOWN",
+      "reported_license": "CC-BY-NC-ND-4.0 in author-copy preview; publisher verification pending",
+      "commercial_use_allowed": "UNKNOWN",
+      "research_use_allowed": "UNKNOWN",
+      "attribution_required": "UNKNOWN",
+      "share_alike_required": "UNKNOWN",
+      "retrieval_date": "2026-09-21",
+      "layer": "UNKNOWN_LICENSE",
+      "acquisition_status": "METADATA_ONLY_NOT_DOWNLOADED",
+      "core_engine_eligible": false,
+      "training": "NOT_ENABLED",
+      "next_action": "Verify publisher rights and original substrate/method before acquisition",
+      "scope_note": "Commercial glaze on alumina lead; not a universal clay–glaze curve"
+    }
+  ]
+}

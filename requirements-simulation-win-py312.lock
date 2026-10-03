@@ -1,0 +1,10 @@
+# Reviewed binary wheels for Windows x86_64, CPython 3.12 only.
+# Generated from storage/simulation/dependency-plan.json on 2026-09-21.
+# Separate research environment; not production dependencies.
+scikit-fem==12.0.2 --hash=sha256:34cd891f80072c0c1eb759a2371e82f0eeec91ff7c08acab96d27b6edbbe1b05
+warp-lang==1.17.0 --hash=sha256:ca35c82242a7553046f09023bbe56750b5c3d9af72625bd1a905a56d3189771d
+plotly==6.3.0 --hash=sha256:7ad806edce9d3cdd882eaebaf97c0c9e252043ed1ed3d382c3e3520ec07806d4
+narwhals==2.26.0 --hash=sha256:29326d74f107c347fd1009bd58e38d9f7c7c5b51e6de97bc93dbc325d9038b54
+numpy==2.5.3 --hash=sha256:0a59a421a32580a009e8a1751345bf829631b990dc1794b80514ab722b435def
+packaging==26.3 --hash=sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c
+scipy==1.18.1 --hash=sha256:5e4d44984abc0020154ea81b247adeddcc3ac5527b975ff798bd1ba0adc513c2

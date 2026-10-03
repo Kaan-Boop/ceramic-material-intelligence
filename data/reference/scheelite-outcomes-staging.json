@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "source_doi": "10.3390/ma13225122",
+  "source_license": "CC-BY-4.0",
+  "source_location": "Results and Discussion, section 3.2",
+  "raw_sha256": "9446bd47a291c71f60363e27717084a495024b34faac09a708b2de523a6f22dd",
+  "status": "STAGING_NOT_VALIDATED",
+  "engine_eligible": false,
+  "training_allowed": false,
+  "observations": [
+    {
+      "sample": "C1",
+      "property": "flexural_strength",
+      "value": 53,
+      "unit": "MPa",
+      "evidence_kind": "OBSERVED",
+      "qualifier": "REPORTED",
+      "extraction_method": "EXPLICIT_PROSE_VALUE",
+      "firing_target_C": 1250,
+      "heating_rate_C_per_min": 30,
+      "hold_minutes": 40,
+      "actual_specimen_temperature_C": null,
+      "uncertainty": null,
+      "replicate_raw_values": null,
+      "statistic_kind": "UNCONFIRMED",
+      "figure_crosscheck": "PENDING",
+      "limitations": ["Not an adhesion measurement", "No raw replicate values extracted", "Not transferable to arbitrary stoneware bodies"]
+    }
+  ],
+  "figure_review": {
+    "figure_id": "materials-13-05122-f008",
+    "panels": {"a":"linear_shrinkage", "b":"apparent_density", "c":"water_absorption", "d":"bending_stress"},
+    "status": "NOT_VISUALLY_REVIEWED",
+    "asset_names": ["materials-13-05122-g008a.jpg", "materials-13-05122-g008b.jpg"],
+    "access_attempt_date": "2026-09-27",
+    "access_issues": ["PMC browser verification page", "Publisher HTTP 429; no repeated requests"]
+  },
+  "supplement_check": {
+    "scope": "Archived JATS XML only",
+    "supplementary_material_elements": 0,
+    "data_availability_sections": 0,
+    "conclusion": "No structured supplement link found in archived XML; this does not prove raw data do not exist."
+  }
+}

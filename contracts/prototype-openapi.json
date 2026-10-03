@@ -21,6 +21,90 @@
         }
       }
     },
+    "/api/v1/reactions/calcite": {
+      "post": {
+        "summary": "Calcite Explorer",
+        "operationId": "calcite_explorer_api_v1_reactions_calcite_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReactionExplorerRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Calcite Explorer Api V1 Reactions Calcite Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/validation/temperature": {
+      "post": {
+        "summary": "Temperature Comparison",
+        "operationId": "temperature_comparison_api_v1_validation_temperature_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComparisonRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Temperature Comparison Api V1 Validation Temperature Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/outcomes/assess": {
       "post": {
         "summary": "Outcome Indicators",
@@ -74,6 +158,139 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Catalogue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/library": {
+      "get": {
+        "summary": "Library",
+        "operationId": "library_api_v1_library_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Library Api V1 Library Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/research/archive/recipes": {
+      "get": {
+        "summary": "Research Archive Recipes",
+        "operationId": "research_archive_recipes_api_v1_research_archive_recipes_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 200,
+              "default": "",
+              "title": "Q"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Research Archive Recipes Api V1 Research Archive Recipes Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/research/archive/recipes/{source_id}": {
+      "get": {
+        "summary": "Research Archive Recipe",
+        "operationId": "research_archive_recipe_api_v1_research_archive_recipes__source_id__get",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Source Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Research Archive Recipe Api V1 Research Archive Recipes  Source Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -396,6 +613,31 @@
         ],
         "title": "ChemistryResult"
       },
+      "ComparisonRequest": {
+        "properties": {
+          "prediction": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Prediction"
+          },
+          "observation": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Observation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "prediction",
+          "observation"
+        ],
+        "title": "ComparisonRequest"
+      },
       "ErrorItem": {
         "properties": {
           "code": {
@@ -588,6 +830,19 @@
           "rate_c_per_hour"
         ],
         "title": "FiringSegment"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
       },
       "Ingredient": {
         "properties": {
@@ -1010,6 +1265,29 @@
         ],
         "title": "Ratio"
       },
+      "ReactionExplorerRequest": {
+        "properties": {
+          "mass_g": {
+            "type": "number",
+            "maximum": 1000000.0,
+            "minimum": 1e-06,
+            "title": "Mass G"
+          },
+          "conversion": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Conversion"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "mass_g",
+          "conversion"
+        ],
+        "title": "ReactionExplorerRequest"
+      },
       "ReportedWindow": {
         "properties": {
           "product_id": {
@@ -1158,6 +1436,46 @@
           "values"
         ],
         "title": "UMF"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
       },
       "WindowCheck": {
         "properties": {

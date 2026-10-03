@@ -8,6 +8,8 @@ Amaç: seramik reçetelerini kaynaklı kimyasal hesaplara ve gerçek deney sonu�
 
 ## Buradan başlayın
 
+Yeni: [3B fizik–kimya araştırma hattı](docs/simulation/00_INDEX.md). Yerelde kurulan scikit-fem ile iki katmanlı 3B ısı/termoelastik FEM; NVIDIA Warp CPU/GPU uygunluk kontrolü; offline HTML/VTK çıktı. Yalnızca sentetik pişmiş-katı idealizasyonu; ham malzeme reaksiyonları yok, ağ yakınsaması ve fiziksel validasyon açık. [Kaynak/motor seçimi](docs/simulation/01_ENGINE_SELECTION.md) ve [sayısal kontrol raporu](docs/simulation/03_VALIDATION.md).
+
 Yeni: [M2 üçüncü edinme raporu](docs/M2_BATCH3_REPORT.md): 4 yeni açık lisanslı çalışma, 15 araştırma-kapsamlı analiz adayı ve 12 aralık-ortalama genleşme değeri. Analiz adayları karantinada; fizik motoruna veya üretim hesabına aktarılmadı.
 
 Yeni: [Sır–bünye fizik mimarisi ve çalışan termal araştırma prototipi](docs/PHYSICS_RESEARCH.md). Yerel Python CLI serbest büzülme farkı ve OAT duyarlılık üretir; örnekler sentetik, gerilme/çatlama olasılığı/kimyasal reaksiyon çözümü yoktur. M2 yanında izole araştırmadır; kimya motoru veya web MVP'si değildir.
@@ -54,13 +56,21 @@ python -m pipelines.ingestion.materials import data/fixtures/synthetic-materials
 
 Komutlar proje kökünde çalıştırılır. Sistemde `python` yoksa kurulu Python 3.12 executable'ının tam yolu kullanılmalıdır. Ağ üzerinden veri almak ayrı ve bilinçli bir işlemdir; [IMPORT_PIPELINE](docs/IMPORT_PIPELINE.md) komut ve sınırları açıklar.
 
-Planlanan stack: Next.js/React/TypeScript, FastAPI/Pydantic, bağımsız Python `ceramic_engine`, PostgreSQL/SQLAlchemy/Alembic. Sürümler implementasyon başlangıcında destek ve bağımlılık uyumuna göre sabitlenecek; henüz lockfile yok.
+Planlanan uygulama stack'i: Next.js/React/TypeScript, FastAPI/Pydantic, bağımsız Python `ceramic_engine`, PostgreSQL/SQLAlchemy/Alembic. Uygulama sürümleri implementasyon başlangıcında destek ve bağımlılık uyumuna göre sabitlenecek. Ayrı 3B araştırma ortamı için `requirements-simulation-win-py312.lock` sürüm ve SHA-256 sabitlemesi mevcut.
 
 Docker, API, database setup ve migration henüz yok. PostgreSQL kalıcılığı M5; ilk web prototipi M4'tür. Mevcut çalışır sistem dosya tabanlı intake, araştırma koleksiyonu araçları ve izole termal araştırma CLI'ıdır.
 
+## Akış ve yüzey araştırma paketi
+
+[Viskozite tabloları sayısallaştırıldı (27 Eylül)](docs/VISCOSITY_TABLE_TRANSCRIPTION_2026-09-27.md): 10 bileşim, 185 sıcaklık satırı; 185 raporlanmış deneysel değer ve 370 model tahmini ayrı. Hücre konumları, eksikler ve kaynak hash'i korunuyor. Birim/baz ve bağımsız doğrulama açık; veri motor girdisi değil.
+
+[Ek tablolar ve ıslanma verisi incelemesi (27 Eylül)](docs/MELT_EVIDENCE_BATCH2_REVIEW_2026-09-27.md): 21 Eylül'de edinilen iki koleksiyon / 10 dosya doğrulandı. Stoneware viskozite ek tabloları sayısallaştırma adayı; platin/grafit ıslanma çalışması çamur verisi değildir ve CSV'leri FTIR içerir. Motor girdisine aktarılmadı. Bu incelemede mevcut çalışma ağacının 271 yazılım testi geçti; aşağıdaki 102 testlik bölüm önceki teslimin tarihsel durumudur.
+
+[Akış kaynak raporu](docs/FLOW_SOURCE_BATCH1.md): önceki havuza ek olarak 3 kaynak / 10 dosya / 357.115 byte ve 4 yapısal makale tablosu arşivlendi. İki CC BY makale, seçili GlassPy GPL referans kodundan ayrı tutuluyor. [Paket manifesti](data/manifests/flow-acquisition-2026-09-21-batch1.json) ve [indirilmeyen adaylar](data/manifests/flow-source-candidates-2026-09-21.json) ayrı. GlassPy kurulmadı/çalıştırılmadı; yeni gerçek motor girdisi yok. Raw içerik `storage/research/flow/` altında. Kaynak havuzunun büyümesi simülasyonun fiziksel doğrulaması değildir.
+
 ## Testler
 
-Toplam 80 test: önceki M2 kontrolleri 48, yeni çalışma-adayı kontrolleri 11, termal araştırma 21. Haklar, baz/LOI, tekrar import, hash, tablo yapısı, metadata, eksik değerler, termal integral ve duyarlılık denetlenir. Bunlar UMF motoru veya fiziksel seramik doğrulaması değildir. M3'te kimya/golden/property, M4'te E2E, M5'te PostgreSQL integration/replay testleri uygulanacak.
+Toplam 102 test: önceki M2 kontrolleri 48, çalışma-adayı kontrolleri 11, termal araştırma 21, 3B simülasyon 14, yeni akış kaynak kontrolleri 8. İzole simülasyon ortamında tamamı geçti. Haklar, baz/LOI, tekrar import, hash, tablo yapısı, metadata, eksik değerler, termal integral, duyarlılık, analitik FEM ve dışa aktarma denetlenir. Bunlar UMF motoru veya fiziksel seramik doğrulaması değildir. M3'te kimya/golden/property, M4'te E2E, M5'te PostgreSQL integration/replay testleri uygulanacak.
 
 ## Veri ve lisans
 

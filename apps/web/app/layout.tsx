@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./workbench.css";
+import "./library.css";
+import "./archive.css";
+import LabNavigation from '../components/lab-navigation';
+import {ExperimentSession} from '../components/experiment-session';
 
 export const metadata: Metadata = {
   title: "Ceramic Glaze Lab · Araştırma Laboratuvarı",
@@ -12,7 +17,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="tr">
-      <body>{children}</body>
+      <body><ExperimentSession><LabNavigation />{children}</ExperimentSession></body>
     </html>
   );
 }

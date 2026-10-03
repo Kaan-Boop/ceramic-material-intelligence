@@ -1,0 +1,25 @@
+{
+  "status": "STAGING_NOT_ENGINE_APPROVED",
+  "source_doi": "10.3390/ma13081814",
+  "source_url": "https://doi.org/10.3390/ma13081814",
+  "source_locator": "Table 4",
+  "source_license": "CC-BY-4.0",
+  "attribution_required": true,
+  "source_sha256": "1143fd3ab0c1fb62a025931a9b01cd8f221b79102dd0b3ed023b196150163f93",
+  "evidence_kind": "OBSERVED",
+  "qualifier": "REPORTED_BY_PUBLICATION",
+  "unit": "micrometre",
+  "method": "Laser granulometry; Mastersizer; aquatic dispersion with ultrasound as described in section 2.4",
+  "uncertainty": null,
+  "engine_eligible": false,
+  "training_allowed": false,
+  "rows": [
+    {"sample": "SC", "mill": null, "time_min": null, "d10": "1.78", "d50": "13.20", "d90": "64.80"},
+    {"sample": "VM60", "mill": "vibratory disc", "time_min": 60, "d10": "0.85", "d50": "4.44", "d90": "21.60"},
+    {"sample": "VM120", "mill": "vibratory disc", "time_min": 120, "d10": "1.32", "d50": "6.04", "d90": "50.30"},
+    {"sample": "PM60", "mill": "planetary ball", "time_min": 60, "d10": "1.76", "d50": "6.05", "d90": "27.70"},
+    {"sample": "PM120", "mill": "planetary ball", "time_min": 120, "d10": "2.07", "d50": "6.04", "d90": "19.40"},
+    {"sample": "PM240", "mill": "planetary ball", "time_min": 240, "d10": "1.23", "d50": "4.69", "d90": "15.10"}
+  ],
+  "limitations": ["Six sample descriptions are not six independent firing repetitions.", "No uncertainty or repeat count assigned.", "Text transcription checked against JATS table text, not rendered PDF/figure review."]
+}

@@ -1,0 +1,27 @@
+{
+  "source_title": "Compound reinforcement of glaze wear resistance by prestress and second grain phase",
+  "doi": "10.1039/C9RA04279B",
+  "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9069869/fullTextXML",
+  "review_date": "2026-09-28",
+  "source_license": "CC-BY-NC-3.0",
+  "license_evidence": "https://creativecommons.org/licenses/by-nc/3.0/ in article permissions",
+  "reading_status": "MAIN_BODY_AND_TABLE_TEXT_REVIEWED",
+  "not_reviewed": ["Rendered figures", "Equation graphics", "Supplementary files", "Underlying cited studies"],
+  "fulltext_saved_locally": false,
+  "rights_layer": "NON_COMMERCIAL_DATA",
+  "commercial_use_allowed": false,
+  "training_allowed": false,
+  "engine_eligible": false,
+  "candidate_pair": "R0-G2",
+  "selection_status": "RESEARCH_CANDIDATE_ONLY",
+  "thermal_validation_status": "INSUFFICIENT_DATA",
+  "available_context": ["Identified commercial starting body powder", "Glaze oxide composition", "Spray application", "Nominal kiln heating, hold and average cooling", "Reported expansion and abrasion results"],
+  "missing_or_unverified": ["Complete body chemistry", "Raw ingredient proportions of glaze", "Measured specimen temperature timeline", "Sensor calibration/location", "Independent firing identifiers", "Uncertainty definition for reported plus-minus values", "Definitive specimen identity for DIC stress-release comparison"],
+  "critical_separations": [
+    "Table 4 and Table 5 stress values are model calculations, not independent measured stress targets.",
+    "DIC strain-derived stress requires its own method/provenance, not a direct stress sensor label.",
+    "Property-test glaze specimens had different holds and annealing from the coated tiles.",
+    "Heating dilatometry and assumed cooling response must not be silently equated.",
+    "Glaze chemistry is not a raw-material recipe or a commercial body analysis."
+  ]
+}

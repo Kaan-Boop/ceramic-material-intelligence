@@ -1,0 +1,25 @@
+{
+  "doi": "10.3390/ma13081814",
+  "source_title": "The Effect of Temperature and Milling Process on Steel Scale Utilized as a Pigment for Ceramic Glaze",
+  "source_url": "https://doi.org/10.3390/ma13081814",
+  "raw_sha256": "1143fd3ab0c1fb62a025931a9b01cd8f221b79102dd0b3ed023b196150163f93",
+  "source_license": "CC-BY-4.0",
+  "review_date": "2026-09-27",
+  "reading_status": "MAIN_BODY_AND_TABLE_TEXT_REVIEWED",
+  "reviewed_sections": ["1. Introduction", "2. Materials and Methods", "3. Results and Discussion", "4. Conclusions"],
+  "reviewed_tables": [1, 2, 3, 4],
+  "not_reviewed": ["Rendered figures", "Cited underlying papers", "Independent experimental replication"],
+  "engine_eligible": false,
+  "training_allowed": false,
+  "issues": [
+    {"severity": "HIGH", "location": "2.1", "issue": "Suspension quantity is rendered as 1.355-1.400 g/L. Do not reinterpret separators or convert to density without checking original presentation and intent."},
+    {"severity": "HIGH", "location": "3.3 vs 4", "issue": "Discussion describes matte-to-gloss change at 900 C; conclusions describe matte appearance at 800 and 900 C. Do not emit an unambiguous surface label without specimen/figure review."},
+    {"severity": "HIGH", "location": "Table 3", "issue": "Below-detection values and dashes are not zero. Fe reported as Fe2O3 equivalent is not proof all iron is hematite; XRD reports several iron phases."},
+    {"severity": "MEDIUM", "location": "2.4", "issue": "N2 is reported for TG/DTA. Do not copy that atmosphere into glaze firing records; processes are distinct."}
+  ],
+  "model_implications": [
+    "Keep particle-size distribution and milling/calcination history alongside oxide chemistry.",
+    "Separate additive mass basis, application method and firing program for each specimen.",
+    "Reported absence of visible defects is not a zero failure probability or food-contact safety result."
+  ]
+}

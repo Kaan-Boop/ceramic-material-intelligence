@@ -1,0 +1,55 @@
+{
+  "schema_version": "erratum-access-review-v1",
+  "review_date": "2026-09-27",
+  "supersedes_fields_only": "The DOI-candidate uncertainty in viscosity-original-source-audit-2026-09-27.json; numerical and scientific holds remain unchanged.",
+  "source_name": "Erratum to The viscosity of hydrous phonolites and trachytes",
+  "source_author": "Alan Whittington; Pascal Richet; Yannick Linard; Francois Holtz",
+  "source_type": "PUBLISHER_AND_DOI_REGISTRY_METADATA_REVIEW",
+  "doi": "10.1016/j.chemgeo.2004.01.002",
+  "doi_primary_verified": true,
+  "publisher_pii": "S0009254104000233",
+  "publisher_cover_date": "2004-11-15",
+  "source_url": "https://www.sciencedirect.com/science/article/pii/S0009254104000233",
+  "retrieval_date": "2026-09-27",
+  "observations": [
+    {
+      "url": "https://api.crossref.org/works/10.1016%2Fj.chemgeo.2004.01.002",
+      "result": "SUCCESS_METADATA",
+      "verified_fields": ["title", "DOI", "resource.primary.URL", "link"],
+      "license_metadata": "https://www.elsevier.com/tdm/userlicense/1.0/",
+      "license_content_version": "tdm"
+    },
+    {
+      "url": "https://api.elsevier.com/content/article/PII:S0009254104000233?httpAccept=text/plain",
+      "result": "HTTP_400_INVALID_INPUT_VIEW_PARAMETER",
+      "interpretation": "Request-format failure, not proof of an access entitlement decision."
+    },
+    {
+      "url": "https://api.elsevier.com/content/article/PII:S0009254104000233?httpAccept=text/xml",
+      "result": "SUCCESS_CORE_METADATA_ONLY",
+      "publisher_openaccess": "0",
+      "publisher_openaccessArticle": "false",
+      "publisher_openArchiveArticle": "false",
+      "body_text_present": false
+    }
+  ],
+  "evidence_storage": "ORIGINAL_STRUCTURED_REVIEW_NOTES_NOT_RAW_API_RESPONSE_ARCHIVE",
+  "source_license": "NO_OPEN_DATA_LICENSE_VERIFIED",
+  "commercial_use_allowed": "UNKNOWN",
+  "research_dataset_reuse_allowed": "UNKNOWN",
+  "attribution_required": "UNKNOWN_UNDER_UNREVIEWED_TERMS",
+  "share_alike_required": "UNKNOWN_UNDER_UNREVIEWED_TERMS",
+  "tdm_link_is_not_reuse_authorization": true,
+  "full_text_acquired": false,
+  "correction_content_reviewed": false,
+  "effect_on_staged_rows": "UNKNOWN",
+  "review_hold_samples": ["Trachyte", "Phonolite"],
+  "review_hold_temperature_rows": 44,
+  "confirmed_incorrect_rows": null,
+  "parent_dataset": "data/reference/conte-2018-viscosity-staging.json",
+  "unchanged_parent_sha256": "220adb44c5609554d5e7d1c40ac06ffd9088aa48e81e39312e5f3bc2e22ab6ee",
+  "numeric_values_changed": 0,
+  "paid_access_purchased": false,
+  "author_contacted": false,
+  "next_requirement": "Lawfully obtained full text from the user, institutional access, an authorized repository, or an author-supplied copy. No repeated identical search without new evidence."
+}

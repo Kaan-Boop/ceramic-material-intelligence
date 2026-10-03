@@ -1,0 +1,20 @@
+{
+  "source_name": "NBS Certificate of Viscosity Values, Standard Sample No. 710",
+  "source_author": "National Bureau of Standards",
+  "source_url": "https://tsapps.nist.gov/srmext/certificates/archives/710.pdf",
+  "source_type": "ARCHIVED_REFERENCE_CERTIFICATE",
+  "publication_date": "1962-06-29",
+  "retrieval_date": "2026-09-27",
+  "raw_path": "storage/research/nist-viscosity-2026-09-27/710.pdf",
+  "sha256": "a46cb6d423dc4073f23b902aca52bed36a402f5d7d5b232a727364845c6ea59d",
+  "license_evidence": "https://www.nist.gov/open/license",
+  "source_license": "NIST non-SRD works terms; attribution, as-is and modification notices apply",
+  "commercial_use_allowed": "UNKNOWN_PENDING_DISTRIBUTION_REVIEW",
+  "attribution_required": true,
+  "share_alike_required": false,
+  "purpose": "LOCAL_REFERENCE_BENCHMARK",
+  "training_allowed": "NOT_ENABLED",
+  "product_release": "NOT_APPROVED",
+  "review": "Both PDF pages visually reviewed. Equation on page 1 uses log10 poise and Celsius. Page 2 composition is informational, not a chemical-analysis standard.",
+  "modification_notice": "2026-09-27: implemented historical fitted equation with explicit poise-to-Pa.s conversion and project-restricted interval; not NIST certification of this software."
+}

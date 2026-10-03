@@ -7,7 +7,7 @@ from copy import deepcopy
 from functools import lru_cache
 from typing import Annotated, Literal
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Query
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, field_validator
@@ -18,6 +18,10 @@ from research.chemistry.recipe import analyze_recipe
 from research.chemistry.recipe_demo import demo
 from research.process.assessment import assess_process, ProcessInputError
 from research.process.outcomes import assess_outcomes, OutcomeInputError
+from research.process.validation import compare_temperature
+from research.chemistry.reaction_explorer import explore
+from research.material_library import build_library
+from research.local_recipe_archive import search_recipes, get_staged_record
 
 
 class StrictModel(BaseModel):
@@ -284,6 +288,31 @@ def health():
     return {"status": "ok", "mode": "LOCAL_RESEARCH_PROTOTYPE"}
 
 
+class ComparisonRequest(StrictModel):
+    prediction: dict[str, JsonValue]
+    observation: dict[str, JsonValue]
+
+
+class ReactionExplorerRequest(StrictModel):
+    mass_g: Annotated[float, Field(strict=True, ge=0.000001, le=1000000)]
+    conversion: Annotated[float, Field(strict=True, ge=0, le=1)]
+
+
+@app.post('/api/v1/reactions/calcite', response_model=dict[str, JsonValue])
+def calcite_explorer(payload: ReactionExplorerRequest):
+    return explore(payload.mass_g, payload.conversion)
+
+
+@app.post('/api/v1/validation/temperature', response_model=dict[str, JsonValue])
+def temperature_comparison(payload: ComparisonRequest):
+    try:
+        return compare_temperature(payload.prediction, payload.observation)
+    except OutcomeInputError as exc:
+        return JSONResponse(status_code=422, content={'errors': [{
+            'code': str(exc), 'message': 'Bağlamı, kaynakları ve eşleşen zaman/sıcaklık değerlerini kontrol edin.',
+            'path': ['comparison'], 'severity': 'ERROR'}]})
+
+
 @app.post('/api/v1/outcomes/assess', response_model=dict[str, JsonValue], responses={422: {'model': ErrorResponse}})
 def outcome_indicators(payload: OutcomeRequest):
     try:
@@ -300,6 +329,25 @@ def materials():
     return Catalogue(materials=material_list(), notice=NOTICES[0], example=AnalysisRequest(
         recipe_name="İlk araştırma · teorik karışım", ingredients=deepcopy(_reference()["ingredients"]),
         context=FiringContext(cone="6", atmosphere="OXIDATION")))
+
+
+@app.get('/api/v1/library', response_model=dict[str, JsonValue])
+def library():
+    return {'version':'local-library/1','scope':'LOCAL_RESEARCH_NOT_PUBLIC_RELEASE',
+            'records':build_library([m.model_dump() if hasattr(m,'model_dump') else m for m in material_list()])}
+
+
+@app.get('/api/v1/research/archive/recipes', response_model=dict[str, JsonValue])
+def research_archive_recipes(q: str = Query('', max_length=200), page: int = Query(1, ge=1), page_size: int = Query(20, ge=1, le=100), category: str = Query('', pattern='^(|RECIPE|GLAZE|CLAY_BODY|ANALYSIS)$')):
+    return search_recipes(q, page, page_size, category)
+
+
+@app.get('/api/v1/research/archive/recipes/{source_id}', response_model=dict[str, JsonValue])
+def research_archive_recipe(source_id: int):
+    record = get_staged_record(source_id)
+    if record is None:
+        return JSONResponse(status_code=404, content={'error': 'RESEARCH_RECORD_NOT_FOUND'})
+    return record
 
 
 @app.post("/api/v1/analyses", response_model=AnalysisReport, responses={422: {"model": ErrorResponse}})

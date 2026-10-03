@@ -1,0 +1,13 @@
+{
+  "schema_version": "simulation-research-v1",
+  "case_id": "synthetic-bilayer-cooling",
+  "description": "Fired-solid idealization only; not a real clay/glaze, firing schedule, or raw-powder simulation.",
+  "geometry_m": {"length": 0.02, "width": 0.01, "body_thickness": 0.002, "glaze_thickness": 0.0002},
+  "resolution": [12, 6, 4, 2],
+  "thermal": {"reference_c": 80.0, "bottom_c": 30.0, "top_c": 30.0},
+  "support": "RIGID_MODES_ONLY_321",
+  "materials": [
+    {"name": "Synthetic body", "k_w_m_k": 1.5, "density_kg_m3": 2300.0, "cp_j_kg_k": 850.0, "young_pa": 60000000000.0, "poisson": 0.22, "alpha_per_k": 0.000006, "valid_temperature_c": [20.0, 100.0], "source_ref": "fixture:simulation-bilayer-synthetic:v1", "state": "FIRED_SOLID_IDEALIZED", "qualifier": "SYNTHETIC"},
+    {"name": "Synthetic glaze", "k_w_m_k": 1.0, "density_kg_m3": 2500.0, "cp_j_kg_k": 800.0, "young_pa": 65000000000.0, "poisson": 0.23, "alpha_per_k": 0.000008, "valid_temperature_c": [20.0, 100.0], "source_ref": "fixture:simulation-bilayer-synthetic:v1", "state": "FIRED_SOLID_IDEALIZED", "qualifier": "SYNTHETIC"}
+  ]
+}

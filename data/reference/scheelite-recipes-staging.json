@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "source_doi": "10.3390/ma13225122",
+  "source_location": "Table 1; section 2.2",
+  "source_license": "CC-BY-4.0",
+  "status": "STAGING_NOT_VALIDATED",
+  "evidence_kind": "OBSERVED",
+  "qualifier": "REPORTED",
+  "description": "Reported nominal batch formulations, not measured final oxide compositions.",
+  "engine_eligible": false,
+  "training_allowed": false,
+  "amount_unit": "wt_percent",
+  "ingredient_order": ["kaolin", "plastic_clay", "quartz", "feldspar", "scheelite_tailings"],
+  "rows": [
+    {"sample": "C0", "amounts": [27,29,11,33,0], "note": "Tailing absence stated in prose; table dash retained conceptually as not-added, not analytical zero."},
+    {"sample": "C0.5", "amounts": [27,29,11,32.5,0.5]},
+    {"sample": "C1", "amounts": [27,29,11,32,1]},
+    {"sample": "C1.5", "amounts": [27,29,11,31.5,1.5]},
+    {"sample": "C2", "amounts": [27,29,11,31,2]},
+    {"sample": "C4", "amounts": [27,29,11,29,4]},
+    {"sample": "C6", "amounts": [27,29,11,27,6]},
+    {"sample": "C8", "amounts": [27,29,11,25,8]}
+  ],
+  "reported_processing": {
+    "mold_dimensions_mm": [60,40,7],
+    "pressing_stages": [{"pressure_MPa":13.5,"duration_s":10},{"pressure_MPa":50,"duration_s":20}],
+    "firing_targets_C": [1150,1200,1250],
+    "heating_rate_C_per_min": 30,
+    "hold_minutes": 40,
+    "cooling": "oven turned off; natural cooling",
+    "cooling_rate": null,
+    "firing_atmosphere": null,
+    "actual_specimen_temperature": null,
+    "independent_firing_count": null
+  },
+  "uncertainty": null
+}

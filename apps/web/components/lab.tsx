@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import ProcessReport from './process-report';
+import MaterialLibrary from './material-library';
+import BodyPicker from './body-picker';
+import CompositionChart from './composition-chart';
 import {
   api,
   numberTR as fmt,
@@ -371,13 +374,12 @@ export default function Lab() {
         <div className="demo-banner">
           <span className="banner-icon">i</span>
           <div>
-            <strong>Teorik demo kataloğu</strong>
+            <strong>{tab==='materials'?'Kaynaklı araştırma kütüphanesi':'Teorik demo kataloğu'}</strong>
             <p>
-              Bu dört malzeme ideal kimyasal formüllerdir; ticari ürün veya lot
-              analizi değildir. Çıktılar teorik oksit hesabıdır.
+              {tab==='materials'?'Kayıt bulunması analiz onayı değildir. Teorik girdiler, ürün kimlikleri ve inceleme bekleyen analizler ayrı etiketlenir.':'Bu dört malzeme ideal kimyasal formüllerdir; ticari ürün veya lot analizi değildir. Çıktılar teorik oksit hesabıdır.'}
             </p>
           </div>
-          <span className="tag amber">THEORETICAL</span>
+          <span className="tag amber">{tab==='materials'?'ARAŞTIRMA DİZİNİ':'THEORETICAL'}</span>
         </div>
         {error && (
           <div className="message error" role="alert">
@@ -465,6 +467,7 @@ export default function Lab() {
                                 )?.formula
                               }
                             </span>
+                            <details className="ingredient-info"><summary>Malzeme bilgisi ⓘ</summary><p>İdeal formül referansı; ticari ürün veya üretici analizi değildir.</p><CompositionChart oxides={catalogue.materials.find(m=>m.analysis_id===r.analysis_id)?.oxides??{}} basis="DRY"/><a href={`/materials/${r.analysis_id}`} target="_blank" rel="noreferrer">Ayrıntılı analiz ve kaynak ↗</a></details>
                           </div>
                           <input
                             className="amount"
@@ -594,15 +597,7 @@ export default function Lab() {
                           <option value="OTHER">Diğer</option>
                         </select>
                       </label>
-                      <label className="field">
-                        Çamur bünyesi
-                        <input
-                          maxLength={160}
-                          value={draft.clay}
-                          onChange={(e) => update({ clay: e.target.value })}
-                          placeholder="Henüz seçilmedi"
-                        />
-                      </label>
+                      <BodyPicker value={draft.clay} onChange={(clay,bodyWindow)=>update({clay,bodyWindow})}/>
                     </div>
                     <WindowFields title="Bünye" value={draft.bodyWindow} onChange={bodyWindow => update({ bodyWindow })} />
                     <WindowFields title="Sır" value={draft.glazeWindow} onChange={glazeWindow => update({ glazeWindow })} />
@@ -728,6 +723,7 @@ export default function Lab() {
                           Oksit % değerleri LOI hariç teorik oksit toplamına
                           göredir. UMF: seçilmiş akıların mol toplamı = 1.
                         </p>
+                        <CompositionChart oxides={chemistry.retained_oxide_wt_pct} basis="LOI hariç teorik oksit toplamı"/>
                         {chemistry.umf.status === "UNAVAILABLE" && (
                           <p className="message">
                             UMF hesaplanamıyor: akı mol toplamı sıfır.
@@ -959,44 +955,7 @@ export default function Lab() {
               </div>
             )}
             {tab === "materials" && (
-              <section className="material-grid">
-                {catalogue.materials.map((m) => (
-                  <article className="card" key={m.analysis_id}>
-                    <span className="tag amber">THEORETICAL</span>
-                    <h2>{m.name}</h2>
-                    <p className="formula">{m.formula}</p>
-                    <p className="helper">
-                      {m.version} · {m.basis} baz · LOI {fmt(m.loi_pct)}%
-                    </p>
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>Oksit</th>
-                          <th>Kuru analiz %</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {Object.entries(m.oxides).map(([o, n]) => (
-                          <tr key={o}>
-                            <th>{o}</th>
-                            <td>{fmt(n)}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                    <p className="helper">
-                      Raporlanmayan oksitler, bu ideal formül varsayımında sıfır
-                      kabul edilir. Ticari ürüne bu varsayım uygulanamaz.
-                    </p>
-                    <code className="hash">{m.source_ref}</code>
-                    <p>
-                      <a href={m.source_url} target="_blank" rel="noreferrer">
-                        Molar kütle kaynağı ↗
-                      </a>
-                    </p>
-                  </article>
-                ))}
-              </section>
+              <MaterialLibrary />
             )}
             {tab === "models" && (
               <section className="card model-card">

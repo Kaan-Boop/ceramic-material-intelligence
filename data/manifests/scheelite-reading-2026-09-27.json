@@ -1,0 +1,26 @@
+{
+  "doi": "10.3390/ma13225122",
+  "source_url": "https://doi.org/10.3390/ma13225122",
+  "source_license": "CC-BY-4.0",
+  "raw_sha256": "9446bd47a291c71f60363e27717084a495024b34faac09a708b2de523a6f22dd",
+  "review_date": "2026-09-27",
+  "reading_status": "MAIN_BODY_AND_TABLE_TEXT_REVIEWED",
+  "reviewed": ["Introduction", "Materials and Methods", "Results and Discussion", "Conclusions", "Table 1", "Table 2"],
+  "not_reviewed": ["Rendered figures", "Underlying cited studies", "Independent replication"],
+  "engine_eligible": false,
+  "training_allowed": false,
+  "issues": [
+    {"severity": "HIGH", "location": "Table 2 vs section 3.1", "description": "Table/prose discrepancies: kaolin Al2O3 39.4/39.5; plastic clay Al2O3 27.4/27.5; tailing CaO 44.6/44.7 and SiO2 20.7/20.8. Preserve both; do not silently reconcile."},
+    {"severity": "HIGH", "location": "Table 2 and TG discussion", "description": "LF after drying at 110 C and firing at 1000 C differs from TG total loss. Methods and mass bases are not interchangeable."},
+    {"severity": "HIGH", "location": "Section 3.2", "description": "Anorthite expansion range rendered as 10^-15 to 10^-6 C^-1 is suspicious. Do not use as a CTE input."},
+    {"severity": "HIGH", "location": "Table 2", "description": "Dashes are unreported, not confirmed zeros. Others are unidentified constituents, not a known oxide."},
+    {"severity": "MEDIUM", "location": "Sections 2.2 and 2.3", "description": "Firing rate 30 C/min differs from thermal-analysis rate 12.5 C/min. Natural cooling has no measured rate. Air atmosphere is explicitly given for thermal analysis; do not infer the firing atmosphere from electric kiln type."},
+    {"severity": "MEDIUM", "location": "Section 3.2 and references", "description": "Classification text references ISO 13006 but reference 39 names ISO 10545-3. Do not turn article classifications into verified standards compliance."}
+  ],
+  "model_implications": [
+    "Water absorption, open/closed porosity, shrinkage and strength require separate outputs; monotonic densification cannot be assumed at all temperatures.",
+    "Keep forming pressure, particle history, geometry and firing schedule with body recipes.",
+    "Eight compositions and three target temperatures do not establish 24 independent firing runs or a universal sintering law.",
+    "No glaze adhesion data: this body study cannot calibrate glaze-body bond probability."
+  ]
+}

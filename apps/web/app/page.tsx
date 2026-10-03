@@ -1,5 +1,5 @@
-import Lab from "../components/lab";
+import Workbench from "../components/workbench";
 
 export default function Page() {
-  return <Lab />;
+  return <Workbench />;
 }

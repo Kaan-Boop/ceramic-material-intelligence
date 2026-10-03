@@ -1,0 +1,2 @@
+# Offline Glazy staging only; not a chemistry engine dependency.
+PyYAML==6.0.3

@@ -21,6 +21,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/reactions/calcite": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Calcite Explorer */
+        post: operations["calcite_explorer_api_v1_reactions_calcite_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/validation/temperature": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Temperature Comparison */
+        post: operations["temperature_comparison_api_v1_validation_temperature_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/outcomes/assess": {
         parameters: {
             query?: never;
@@ -47,6 +81,57 @@ export interface paths {
         };
         /** Materials */
         get: operations["materials_api_v1_materials_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/library": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Library */
+        get: operations["library_api_v1_library_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/research/archive/recipes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Research Archive Recipes */
+        get: operations["research_archive_recipes_api_v1_research_archive_recipes_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/research/archive/recipes/{source_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Research Archive Recipe */
+        get: operations["research_archive_recipe_api_v1_research_archive_recipes__source_id__get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -188,6 +273,17 @@ export interface components {
             warnings: string[];
             predictions: components["schemas"]["Predictions"];
         };
+        /** ComparisonRequest */
+        ComparisonRequest: {
+            /** Prediction */
+            prediction: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+            /** Observation */
+            observation: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+        };
         /** ErrorItem */
         ErrorItem: {
             /** Code */
@@ -251,6 +347,11 @@ export interface components {
              * @default 0
              */
             hold_minutes: number;
+        };
+        /** HTTPValidationError */
+        HTTPValidationError: {
+            /** Detail */
+            detail?: components["schemas"]["ValidationError"][];
         };
         /** Ingredient */
         Ingredient: {
@@ -417,6 +518,13 @@ export interface components {
             /** Value */
             value: number | null;
         };
+        /** ReactionExplorerRequest */
+        ReactionExplorerRequest: {
+            /** Mass G */
+            mass_g: number;
+            /** Conversion */
+            conversion: number;
+        };
         /** ReportedWindow */
         ReportedWindow: {
             /** Product Id */
@@ -460,6 +568,19 @@ export interface components {
                 [key: string]: number;
             } | null;
         };
+        /** ValidationError */
+        ValidationError: {
+            /** Location */
+            loc: (string | number)[];
+            /** Message */
+            msg: string;
+            /** Error Type */
+            type: string;
+            /** Input */
+            input?: unknown;
+            /** Context */
+            ctx?: Record<string, never>;
+        };
         /** WindowCheck */
         WindowCheck: {
             /**
@@ -497,6 +618,76 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+        };
+    };
+    calcite_explorer_api_v1_reactions_calcite_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReactionExplorerRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    temperature_comparison_api_v1_validation_temperature_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ComparisonRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
@@ -552,6 +743,96 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Catalogue"];
+                };
+            };
+        };
+    };
+    library_api_v1_library_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+        };
+    };
+    research_archive_recipes_api_v1_research_archive_recipes_get: {
+        parameters: {
+            query?: {
+                q?: string;
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    research_archive_recipe_api_v1_research_archive_recipes__source_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                source_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

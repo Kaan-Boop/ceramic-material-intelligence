@@ -1,0 +1,373 @@
+{
+  "storage_root": "storage/research/melt-evidence",
+  "receipt_path": "receipts/12d1e97d-b784-49c5-99e5-0effbd1f0d8c.json",
+  "integrity_check": {
+    "verified_source_files": 10,
+    "verified_sources": 2
+  },
+  "schema_version": "melt-evidence-v1",
+  "created_at": "2026-09-21T16:59:36.976415+00:00",
+  "sources": {
+    "stoneware-melt-2018-supplement": {
+      "source_id": "stoneware-melt-2018-supplement",
+      "source_url": "https://doi.org/10.3390/ma11122475",
+      "source_type": "ARTICLE_SUPPLEMENT",
+      "source_license": "CC-BY-4.0",
+      "rights_partition": "CC_BY_REFERENCE",
+      "retrieval_date": "2026-09-21T16:59:18.797734+00:00",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "rights_note": "Subject to the archived license; not a product release clearance.",
+      "training": "NOT_ENABLED",
+      "product_release": "NOT_APPROVED",
+      "scientific_status": "RESEARCH_QUARANTINE",
+      "core_engine_eligible": false,
+      "source_name": "Predicting Viscosity and Surface Tension at High Temperature of Porcelain Stoneware Bodies: A Methodological Approach",
+      "source_author": "Sonia Conte; Chiara Zanelli; Matteo Ardit; Giuseppe Cruciani; Michele Dondi",
+      "doi": "10.3390/ma11122475",
+      "license_urls": [
+        "http://creativecommons.org/licenses/by/4.0/"
+      ],
+      "permissions_xml": "<permissions xmlns:ns0=\"http://www.w3.org/1999/xlink\"><copyright-statement>© 2018 by the authors.</copyright-statement><license><license-p>Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (<ext-link ns0:href=\"http://creativecommons.org/licenses/by/4.0/\" ext-link-type=\"uri\">http://creativecommons.org/licenses/by/4.0/</ext-link>).</license-p></license></permissions>",
+      "layer": "OPEN_DATA",
+      "version": "PMC6317026; archive/member hashes pinned",
+      "same_publication_as": "stoneware-melt-2018",
+      "not_a_new_independent_study": true,
+      "license_basis": "Parent JATS CC BY 4.0; explicitly linked supplementary material. Supplement-specific exception review must be recorded separately; retained in research quarantine.",
+      "archive_members": [
+        {
+          "name": "materials-11-02475-g008.gif",
+          "uncompressed_bytes": 7370,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g002.jpg",
+          "uncompressed_bytes": 27712,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-s001.pdf",
+          "uncompressed_bytes": 597382,
+          "selected": true
+        },
+        {
+          "name": "materials-11-02475-g001.gif",
+          "uncompressed_bytes": 4940,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g007.jpg",
+          "uncompressed_bytes": 79914,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g003.gif",
+          "uncompressed_bytes": 6710,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g004.gif",
+          "uncompressed_bytes": 3967,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g004.jpg",
+          "uncompressed_bytes": 98025,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g002.gif",
+          "uncompressed_bytes": 2461,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g009.gif",
+          "uncompressed_bytes": 6255,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g001.jpg",
+          "uncompressed_bytes": 88005,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g008.jpg",
+          "uncompressed_bytes": 38268,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g003.jpg",
+          "uncompressed_bytes": 36238,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g009.jpg",
+          "uncompressed_bytes": 58793,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g005.jpg",
+          "uncompressed_bytes": 33703,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g006.gif",
+          "uncompressed_bytes": 5477,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g007.gif",
+          "uncompressed_bytes": 2537,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g006.jpg",
+          "uncompressed_bytes": 56521,
+          "selected": false
+        },
+        {
+          "name": "materials-11-02475-g005.gif",
+          "uncompressed_bytes": 2699,
+          "selected": false
+        }
+      ],
+      "supplement_tables": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "access_method": "OFFICIAL_EUROPE_PMC_SUPPLEMENT_API",
+      "scraping_required": false,
+      "scope": "VITREOUS_PHASE_AND_SILICATE_MELT_MODEL_COMPARISONS_NOT_CLAY_GLAZE_WETTING",
+      "transcription_path": "staging/stoneware-melt-2018-supplement/49446a2df4ae078880f9e1990fc59ccdaa7a7d16e351c557269a18a23540e85a/pdf-text.json",
+      "transcription_sha256": "49446a2df4ae078880f9e1990fc59ccdaa7a7d16e351c557269a18a23540e85a",
+      "pdf_pages": 6
+    },
+    "zenodo-borosilicate-wetting-2025": {
+      "source_id": "zenodo-borosilicate-wetting-2025",
+      "source_url": "https://zenodo.org/records/15837287",
+      "source_type": "SELECTED_RESEARCH_DATASET_FILES",
+      "source_license": "CC-BY-4.0",
+      "rights_partition": "CC_BY_ADJACENT_DOMAIN_REFERENCE",
+      "retrieval_date": "2026-09-21T16:59:36.976415+00:00",
+      "commercial_use_allowed": "ALLOWED",
+      "attribution_required": "REQUIRED",
+      "share_alike_required": "NOT_REQUIRED",
+      "rights_note": "Subject to the archived license; not a product release clearance.",
+      "training": "NOT_ENABLED",
+      "product_release": "NOT_APPROVED",
+      "scientific_status": "RESEARCH_QUARANTINE",
+      "core_engine_eligible": false,
+      "source_name": "Influence of B2O3 on Reactive and Non-Reactive Wetting Behavior of CaO-SiO2-MgO-Al2O3-B2O3 System",
+      "source_author": "Novák, Dalibor; Řeháčková, Lenka; Novák, Vlastimil; Matýsek, Dalibor; Peikertová, Pavlína",
+      "version": "10.5281/zenodo.15837287",
+      "concept_doi": "10.5281/zenodo.15837286",
+      "article_doi": "10.3390/coatings15080967",
+      "layer": "OPEN_DATA",
+      "access_method": "VERSION_PINNED_ZENODO_API",
+      "scraping_required": false,
+      "scope": "OXIDE_MELTS_ON_PLATINUM_AND_GRAPHITE_NOT_CLAY_BODY",
+      "numeric_csv_kind": "FTIR_SPECTRA_NOT_CONTACT_ANGLE_CURVES",
+      "omitted_files": [
+        {
+          "filename": "Fig_2.tif",
+          "bytes": 9357112,
+          "reason": "FIGURE_ASSET_NOT_REQUIRED_FOR_THIS_BOUNDED_BATCH"
+        },
+        {
+          "filename": "Fig_9.tif",
+          "bytes": 5614210,
+          "reason": "FIGURE_ASSET_NOT_REQUIRED_FOR_THIS_BOUNDED_BATCH"
+        },
+        {
+          "filename": "Fig_6.tif",
+          "bytes": 7806436,
+          "reason": "FIGURE_ASSET_NOT_REQUIRED_FOR_THIS_BOUNDED_BATCH"
+        },
+        {
+          "filename": "Fig_1B.TIF",
+          "bytes": 1218670,
+          "reason": "FIGURE_ASSET_NOT_REQUIRED_FOR_THIS_BOUNDED_BATCH"
+        },
+        {
+          "filename": "Fig_5.tif",
+          "bytes": 14690062,
+          "reason": "FIGURE_ASSET_NOT_REQUIRED_FOR_THIS_BOUNDED_BATCH"
+        },
+        {
+          "filename": "Fig_1A.TIF",
+          "bytes": 1392294,
+          "reason": "FIGURE_ASSET_NOT_REQUIRED_FOR_THIS_BOUNDED_BATCH"
+        },
+        {
+          "filename": "Fig_3.tif",
+          "bytes": 6395888,
+          "reason": "FIGURE_ASSET_NOT_REQUIRED_FOR_THIS_BOUNDED_BATCH"
+        },
+        {
+          "filename": "Fig_4.tif",
+          "bytes": 13285826,
+          "reason": "FIGURE_ASSET_NOT_REQUIRED_FOR_THIS_BOUNDED_BATCH"
+        }
+      ],
+      "transcription_path": "staging/zenodo-borosilicate-wetting-2025/f937e1791d464d42a0106f420251f016bc6b741630adf810ec061de681e427c8/pdf-text.json",
+      "transcription_sha256": "f937e1791d464d42a0106f420251f016bc6b741630adf810ec061de681e427c8",
+      "pdf_pages": 20
+    }
+  },
+  "files": [
+    {
+      "source_id": "stoneware-melt-2018-supplement",
+      "filename": "parent-article.xml",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6317026/fullTextXML",
+      "resolved_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6317026/fullTextXML",
+      "raw_path": "raw/sha256/1d75b5e1b0a092363ceef927b78eb9b096839e90078ff08b9b710865188dce79",
+      "sha256": "1d75b5e1b0a092363ceef927b78eb9b096839e90078ff08b9b710865188dce79",
+      "bytes": 171364,
+      "reused": false,
+      "retrieved_at": "2026-09-21T16:59:16.281185+00:00",
+      "readable_path": "by_source/stoneware-melt-2018-supplement/1d75b5e1b0a092363ceef927b78eb9b096839e90078ff08b9b710865188dce79/parent-article.xml",
+      "source_complete": true
+    },
+    {
+      "source_id": "stoneware-melt-2018-supplement",
+      "filename": "supplementary-bundle.zip",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6317026/supplementaryFiles?inlineImages=false",
+      "resolved_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6317026/supplementaryFiles?inlineImages=false",
+      "raw_path": "raw/sha256/644ec593849901cf0e42bb93a9e13e16d1d04bc9d60fd4a0d6c8b2676776053a",
+      "sha256": "644ec593849901cf0e42bb93a9e13e16d1d04bc9d60fd4a0d6c8b2676776053a",
+      "bytes": 1016971,
+      "reused": false,
+      "retrieved_at": "2026-09-21T16:59:17.346472+00:00",
+      "readable_path": "by_source/stoneware-melt-2018-supplement/644ec593849901cf0e42bb93a9e13e16d1d04bc9d60fd4a0d6c8b2676776053a/supplementary-bundle.zip",
+      "source_complete": true
+    },
+    {
+      "source_id": "stoneware-melt-2018-supplement",
+      "filename": "materials-11-02475-s001.pdf",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6317026/supplementaryFiles?inlineImages=false",
+      "resolved_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6317026/supplementaryFiles?inlineImages=false",
+      "raw_path": "raw/sha256/43fb9ce2b12683b1563978a315f44da45a2e28e784f41b059be9f28e5308f0ce",
+      "sha256": "43fb9ce2b12683b1563978a315f44da45a2e28e784f41b059be9f28e5308f0ce",
+      "bytes": 597382,
+      "reused": false,
+      "retrieved_at": "2026-09-21T16:59:17.351087+00:00",
+      "readable_path": "by_source/stoneware-melt-2018-supplement/43fb9ce2b12683b1563978a315f44da45a2e28e784f41b059be9f28e5308f0ce/materials-11-02475-s001.pdf",
+      "archive_member": "materials-11-02475-s001.pdf",
+      "parent_archive_sha256": "644ec593849901cf0e42bb93a9e13e16d1d04bc9d60fd4a0d6c8b2676776053a",
+      "source_complete": true
+    },
+    {
+      "source_id": "zenodo-borosilicate-wetting-2025",
+      "filename": "zenodo-record.json",
+      "source_url": "https://zenodo.org/api/records/15837287",
+      "resolved_url": "https://zenodo.org/api/records/15837287",
+      "raw_path": "raw/sha256/ec0bec1c0b67b9735d5942e83dfac8370027db2be9de7c29a8a0599e6df8758b",
+      "sha256": "ec0bec1c0b67b9735d5942e83dfac8370027db2be9de7c29a8a0599e6df8758b",
+      "bytes": 8002,
+      "reused": false,
+      "retrieved_at": "2026-09-21T16:59:20.023457+00:00",
+      "readable_path": "by_source/zenodo-borosilicate-wetting-2025/ec0bec1c0b67b9735d5942e83dfac8370027db2be9de7c29a8a0599e6df8758b/zenodo-record.json",
+      "source_complete": true
+    },
+    {
+      "source_id": "zenodo-borosilicate-wetting-2025",
+      "filename": "ReadMe.txt",
+      "source_url": "https://zenodo.org/api/records/15837287/files/ReadMe.txt/content",
+      "resolved_url": "https://zenodo.org/api/records/15837287/files/ReadMe.txt/content",
+      "raw_path": "raw/sha256/8aa44c3e6dc855f0fc64e318b11ad844dc187f180db9197984c3a2fc0138ba1a",
+      "sha256": "8aa44c3e6dc855f0fc64e318b11ad844dc187f180db9197984c3a2fc0138ba1a",
+      "bytes": 857,
+      "reused": false,
+      "retrieved_at": "2026-09-21T16:59:20.919360+00:00",
+      "readable_path": "by_source/zenodo-borosilicate-wetting-2025/8aa44c3e6dc855f0fc64e318b11ad844dc187f180db9197984c3a2fc0138ba1a/ReadMe.txt",
+      "upstream_checksum": "md5:3e9ad04ed319975a4d7fafaa0ac84786",
+      "source_complete": true
+    },
+    {
+      "source_id": "zenodo-borosilicate-wetting-2025",
+      "filename": "FTIR_Sample_1_Graphite_RAW.CSV",
+      "source_url": "https://zenodo.org/api/records/15837287/files/FTIR_Sample_1_Graphite_RAW.CSV/content",
+      "resolved_url": "https://zenodo.org/api/records/15837287/files/FTIR_Sample_1_Graphite_RAW.CSV/content",
+      "raw_path": "raw/sha256/067548d575655def65340847ed8ff03dea237e94c70d7853a67c86cb9a4383dd",
+      "sha256": "067548d575655def65340847ed8ff03dea237e94c70d7853a67c86cb9a4383dd",
+      "bytes": 217052,
+      "reused": false,
+      "retrieved_at": "2026-09-21T16:59:22.231875+00:00",
+      "readable_path": "by_source/zenodo-borosilicate-wetting-2025/067548d575655def65340847ed8ff03dea237e94c70d7853a67c86cb9a4383dd/FTIR_Sample_1_Graphite_RAW.CSV",
+      "upstream_checksum": "md5:ab8d6eeca440bfad268bd58a75c39749",
+      "source_complete": true
+    },
+    {
+      "source_id": "zenodo-borosilicate-wetting-2025",
+      "filename": "FTIR_Sample_4_Graphite_RAW.CSV",
+      "source_url": "https://zenodo.org/api/records/15837287/files/FTIR_Sample_4_Graphite_RAW.CSV/content",
+      "resolved_url": "https://zenodo.org/api/records/15837287/files/FTIR_Sample_4_Graphite_RAW.CSV/content",
+      "raw_path": "raw/sha256/b23015bdb96aef198162b8e371870a21e98bf66862bdf884f9ff8de86d800175",
+      "sha256": "b23015bdb96aef198162b8e371870a21e98bf66862bdf884f9ff8de86d800175",
+      "bytes": 216990,
+      "reused": false,
+      "retrieved_at": "2026-09-21T16:59:23.174297+00:00",
+      "readable_path": "by_source/zenodo-borosilicate-wetting-2025/b23015bdb96aef198162b8e371870a21e98bf66862bdf884f9ff8de86d800175/FTIR_Sample_4_Graphite_RAW.CSV",
+      "upstream_checksum": "md5:037bd330917166318a2500340b1d7831",
+      "source_complete": true
+    },
+    {
+      "source_id": "zenodo-borosilicate-wetting-2025",
+      "filename": "FTIR_Sample_1_Platinum_RAW.CSV",
+      "source_url": "https://zenodo.org/api/records/15837287/files/FTIR_Sample_1_Platinum_RAW.CSV/content",
+      "resolved_url": "https://zenodo.org/api/records/15837287/files/FTIR_Sample_1_Platinum_RAW.CSV/content",
+      "raw_path": "raw/sha256/721244950c26eb74cbf6c15bff53fb5e1f4eeb7e6e6908caa8cb7666dc494fbb",
+      "sha256": "721244950c26eb74cbf6c15bff53fb5e1f4eeb7e6e6908caa8cb7666dc494fbb",
+      "bytes": 217029,
+      "reused": false,
+      "retrieved_at": "2026-09-21T16:59:24.064778+00:00",
+      "readable_path": "by_source/zenodo-borosilicate-wetting-2025/721244950c26eb74cbf6c15bff53fb5e1f4eeb7e6e6908caa8cb7666dc494fbb/FTIR_Sample_1_Platinum_RAW.CSV",
+      "upstream_checksum": "md5:d94c43806df3d54a5e06a1d4ea55ac3e",
+      "source_complete": true
+    },
+    {
+      "source_id": "zenodo-borosilicate-wetting-2025",
+      "filename": "FTIR_Sample_4_Platinum_RAW.CSV",
+      "source_url": "https://zenodo.org/api/records/15837287/files/FTIR_Sample_4_Platinum_RAW.CSV/content",
+      "resolved_url": "https://zenodo.org/api/records/15837287/files/FTIR_Sample_4_Platinum_RAW.CSV/content",
+      "raw_path": "raw/sha256/565e161b12ce030c24bcc47ee6f2212ae9984e2d759ce0400e1427234ca514fd",
+      "sha256": "565e161b12ce030c24bcc47ee6f2212ae9984e2d759ce0400e1427234ca514fd",
+      "bytes": 216984,
+      "reused": false,
+      "retrieved_at": "2026-09-21T16:59:25.150825+00:00",
+      "readable_path": "by_source/zenodo-borosilicate-wetting-2025/565e161b12ce030c24bcc47ee6f2212ae9984e2d759ce0400e1427234ca514fd/FTIR_Sample_4_Platinum_RAW.CSV",
+      "upstream_checksum": "md5:3aa8be94f45604b0601d3dcba48c4da3",
+      "source_complete": true
+    },
+    {
+      "source_id": "zenodo-borosilicate-wetting-2025",
+      "filename": "coatings-15-00967.pdf",
+      "source_url": "https://zenodo.org/api/records/15837287/files/coatings-15-00967.pdf/content",
+      "resolved_url": "https://zenodo.org/api/records/15837287/files/coatings-15-00967.pdf/content",
+      "raw_path": "raw/sha256/176c7b04f95be9cb9ba63f224c9da54ff4a63d87903659f35c40958bda36c39d",
+      "sha256": "176c7b04f95be9cb9ba63f224c9da54ff4a63d87903659f35c40958bda36c39d",
+      "bytes": 16822607,
+      "reused": false,
+      "retrieved_at": "2026-09-21T16:59:36.060089+00:00",
+      "readable_path": "by_source/zenodo-borosilicate-wetting-2025/176c7b04f95be9cb9ba63f224c9da54ff4a63d87903659f35c40958bda36c39d/coatings-15-00967.pdf",
+      "upstream_checksum": "md5:935e398cbbdb97bc0d8e0bdc8d2c0c58",
+      "source_complete": true
+    }
+  ],
+  "failures": {},
+  "code_hashes": {
+    "melt_evidence.py": "c731d0f34977b7059052572f1ecd2439dbd97c3d10152013cc98414b7c8783de",
+    "acquire.py": "9cfe2cf553c758e0a8bde092c63bf6a7840612448077de0d4d37168404db8e40",
+    "flow_sources.py": "360c79f2653d3f1139d0501cfcf90f55076a80a0ba53dbcb9640376a24d83f03"
+  },
+  "counts": {
+    "completed_collections": 2,
+    "failed_collections": 0,
+    "completed_files": 10,
+    "completed_file_bytes": 19485238
+  },
+  "note": "Collection count is not independent-study count. Bundle contains selected PDF; parent article repeats prior archive. All remain research-only."
+}

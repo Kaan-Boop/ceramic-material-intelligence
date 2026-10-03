@@ -58,6 +58,27 @@ class OutcomeTests(unittest.TestCase):
     def test_missing_all_unavailable(self):
         self.assertTrue(all(s['status']=='UNAVAILABLE' for s in assess_outcomes({})['sections'].values()))
 
+    def test_missing_sections_explain_property_requirements(self):
+        sections = assess_outcomes({})['sections']
+        self.assertIn('viscosity_pa_s', sections['flow']['requirements']['required_properties'])
+        for section in sections.values():
+            self.assertTrue(section['requirements']['acquisition'])
+            self.assertTrue(section['requirements']['compatibility'])
+            self.assertTrue(section['requirements']['not_provided'])
+            self.assertIsNone(section['probability'])
+
+    def test_requirements_are_not_mutable_global_state(self):
+        report = assess_outcomes({})
+        report['sections']['flow']['requirements']['required_properties'].clear()
+        self.assertIn('viscosity_pa_s', assess_outcomes({})['sections']['flow']['requirements']['required_properties'])
+
+    def test_extreme_numbers_produce_controlled_errors(self):
+        for value in (10**400, -(10**400), float('inf'), float('-inf'), float('nan')):
+            with self.subTest(value_type=type(value).__name__):
+                self.data['flow']['viscosity_pa_s'] = value
+                with self.assertRaises(OutcomeInputError):
+                    self.report()
+
     def test_invalid_and_assumptions(self):
         changes = [('fit','same_interval_and_cooling_basis',False), ('fit','high_c',10),
                    ('flow','viscosity_pa_s',0), ('flow','ideal_film_assumptions',False),

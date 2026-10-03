@@ -62,15 +62,17 @@ class Collector:
         self.entries = []
         self.last_request = 0.0
 
-    def fetch(self, url):
+    def fetch(self, url, *, max_bytes=MAX_BYTES):
+        if type(max_bytes) is not int or not 0 < max_bytes <= 32 * 1024 * 1024:
+            raise ValueError("INVALID_DOWNLOAD_SIZE_LIMIT")
         checked_url(url)
         time.sleep(max(0, 1.0 - (time.monotonic() - self.last_request)))
         self.last_request = time.monotonic()
         request = Request(url, headers={"User-Agent": "CeramicLabResearch/0.1 (bounded public data download)"})
         with build_opener(ReviewedRedirects).open(request, timeout=30) as response:
             checked_url(response.url)
-            raw = response.read(MAX_BYTES + 1)
-            if len(raw) > MAX_BYTES:
+            raw = response.read(max_bytes + 1)
+            if len(raw) > max_bytes:
                 raise ValueError("DOWNLOAD_SIZE_LIMIT")
             return raw, response.url
 

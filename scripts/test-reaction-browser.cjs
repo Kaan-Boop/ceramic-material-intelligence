@@ -1,0 +1,22 @@
+const fs=require('node:fs');
+const T=require(['C:/Users/MONSTER/.Codex/tarayici/lib/tarayici.js','C:/Users/MONSTER/.claude/tarayici/lib/tarayici.js'].find(p=>fs.existsSync(p)));
+const assert=require('node:assert/strict');
+(async()=>{const {page,kapat}=await T.ac();const errors=[];page.on('pageerror',e=>errors.push(e.message));try{
+ await T.git(page,'http://127.0.0.1:3000/explore');
+ await page.getByText('Korunan toplam:',{exact:true}).waitFor();
+ assert.equal(await page.locator('.reaction-species button').count(),3);
+ await T.tikla(page,'.reaction-species button:nth-child(3)');
+ await page.getByText('Teorik gaz kütlesi.',{exact:false}).waitFor();
+ await page.locator('input[type=range]').fill('100');
+ await page.waitForFunction(()=>document.querySelector('.reaction-species button b')?.textContent==='0 g');
+ console.log(await T.ekranGoruntusu(page,'reaction-desktop'));
+ await T.yaz(page,'input[aria-label="Başlangıç kütlesi"]','-1');
+ await page.getByRole('alert').filter({hasText:'pozitif'}).waitFor();
+ assert.equal(await page.locator('.reaction-species').count(),0);
+ await T.yaz(page,'input[aria-label="Başlangıç kütlesi"]','100');
+ await page.getByText('Korunan toplam:',{exact:true}).waitFor();
+ await page.setViewportSize({width:390,height:844});
+ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+ console.log(await T.ekranGoruntusu(page,'reaction-mobile'));
+ assert.deepEqual(errors,[]);console.log('PASS: API chart, information selection, extent endpoint, invalid mass, recovery, mobile');
+}finally{await kapat();}})().catch(e=>{console.error(e);process.exitCode=1});

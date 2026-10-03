@@ -9,7 +9,39 @@ import json
 import math
 import statistics
 
-VERSION = 'outcome-indicators/0.1.0'
+VERSION = 'outcome-indicators/0.2.0'
+REQUIREMENTS = {
+    'fit': {
+        'required_properties': ['body_mean_cte_per_k', 'glaze_mean_cte_per_k', 'low_c', 'high_c'],
+        'compatibility': 'Same temperature interval, material state and cooling basis.',
+        'acquisition': 'Matched body and glaze dilatometry; retain curves and measurement method.',
+        'not_provided': 'Residual stress, bond strength and crack probability.',
+    },
+    'flow': {
+        'required_properties': ['density_kg_m3', 'viscosity_pa_s', 'thickness_mm', 'inclination_deg', 'duration_s', 'temperature_c'],
+        'compatibility': 'Molten-state properties at the modeled temperature; steady Newtonian film assumptions.',
+        'acquisition': 'Traceable melt viscosity and density, layer thickness and controlled isothermal conditions.',
+        'not_provided': 'Actual advancing glaze edge or runoff during a varying firing schedule.',
+    },
+    'wetting': {
+        'required_properties': ['surface_tension_n_m', 'contact_angle_deg', 'temperature_c'],
+        'compatibility': 'Same melt/substrate pair, temperature and atmosphere; equilibrium nonreactive interface.',
+        'acquisition': 'High-temperature contact-angle and surface-tension measurements with substrate preparation recorded.',
+        'not_provided': 'Fired adhesion strength or percent adhesion.',
+    },
+    'porosity': {
+        'required_properties': ['dry_mass_g', 'saturated_mass_g', 'suspended_mass_g', 'specimen_scope'],
+        'compatibility': 'Same specimen and consistent saturation and weighing procedure.',
+        'acquisition': 'Dry, saturated and immersed weighings with balance and saturation method recorded.',
+        'not_provided': 'Closed pores, isolated glaze porosity or pre-firing pore prediction.',
+    },
+    'gloss': {
+        'required_properties': ['angle_deg', 'readings_gu', 'instrument_id'],
+        'compatibility': 'Same measurement geometry and calibrated instrument.',
+        'acquisition': 'Gloss-meter readings on fired specimens; distinguish spots from independent specimens.',
+        'not_provided': 'Recipe-to-matte/gloss prediction.',
+    },
+}
 SOURCES = {
     'fit': 'https://www.sciencedirect.com/science/article/pii/S0921509307003656',
     'flow': 'https://eng.libretexts.org/Bookshelves/Chemical_Engineering/Chemical_Engineering_Separations%3A_A_Handbook_for_Students_%28Lamm_and_Jarboe%29/01%3A_Chapters/1.02%3A_Mass_Transfer_in_Gas-liquid_Systems',
@@ -25,7 +57,9 @@ class OutcomeInputError(ValueError):
 
 def num(d, key, low, high):
     v = d.get(key)
-    if isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) or not low <= v <= high:
+    # Check bounds before float conversion/isfinite: arbitrarily large JSON integers
+    # must produce the same controlled domain error as other invalid numbers.
+    if isinstance(v, bool) or not isinstance(v, (int, float)) or not low <= v <= high or not math.isfinite(v):
         raise OutcomeInputError('INVALID_NUMBER:' + key)
     return float(v)
 
@@ -159,6 +193,7 @@ def assess_outcomes(payload):
             sections[name] = method(data)
             sections[name]['input_kind'] = data['input_kind']
             sections[name]['source_ref'] = data['source_ref']
+        sections[name]['requirements'] = deepcopy(REQUIREMENTS[name])
     encoded = json.dumps({'version': VERSION, 'input': snapshot}, sort_keys=True, allow_nan=False).encode()
     return dict(engine_version=VERSION, input_hash=hashlib.sha256(encoded).hexdigest(),
                 input_snapshot=snapshot, sections=sections, physical_validation='NOT_PERFORMED',

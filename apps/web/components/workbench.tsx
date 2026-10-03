@@ -1,0 +1,19 @@
+'use client';
+import Link from 'next/link';
+import {useEffect,useState} from 'react';
+import ExperimentContext from './experiment-context';
+export default function Workbench(){
+ const [status,setStatus]=useState('Kontrol ediliyor');
+ useEffect(()=>{const c=new AbortController();fetch('/api/v1/health',{signal:c.signal}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(r=>setStatus(r.status==='ok'?'Hesap motoru bağlı':'Motor yanıtı tanınmadı')).catch(()=>{if(!c.signal.aborted)setStatus('Hesap motoruna ulaşılamıyor');});return()=>c.abort();},[]);
+ return <main className="bench"><header className="bench-heading"><div><p className="eyebrow">MALZEME · KİMYA · DENEY</p><h1>Laboratuvar <em>masam.</em></h1><p>Bir soruyla başla. Malzemeyi tanı, hesabı incele, deneyle karşılaştır.</p></div><div className="bench-status" role="status"><span>BAĞLANTI</span><strong>{status}</strong><small>Bağlantı durumu, bilimsel doğrulama değildir.</small></div></header>
+ <div className="bench-layout"><section className="bench-panel bench-tools"><div className="bench-section-heading"><h2>Bugün neyi araştırıyorsun?</h2><span>ÇALIŞMA ARAÇLARI</span></div>
+ <Link className="bench-tool" href="/analyze"><span className="bench-number">01</span><div><small>REÇETE VE MALZEME</small><h3>Karışımın kimyasını gör</h3><p>Malzemeler, miktarlar, oksit katkıları ve UMF. Dört teorik malzemeyle başla.</p><span className="bench-tag">Hesaplanan · teorik analiz</span></div><b aria-hidden="true">↗</b></Link>
+ <Link className="bench-tool" href="/explore"><span className="bench-number">02</span><div><small>DÖNÜŞÜM ATLASI</small><h3>Madde nereye gidiyor?</h3><p>Kalsitin dönüşümünü, kalan katıyı ve oluşan gaz kütlesini grafikle incele.</p><span className="bench-tag">Varsayımlı kütle dengesi</span></div><b aria-hidden="true">↗</b></Link>
+ <Link className="bench-tool" href="/experiments"><span className="bench-number">03</span><div><small>DENEY VE DOĞRULAMA</small><h3>Modeli ölçümle karşılaştır</h3><p>Sıcaklık serilerini yan yana gör. Hataları hesapla, deney dosyanı kaydet ve yeniden aç.</p><span className="bench-tag">Ölçüm girişi · karşılaştırma</span></div><b aria-hidden="true">↗</b></Link>
+ <div className="bench-next"><span>SONRAKİ GELİŞTİRME</span><strong>Isı–zaman çalışma alanı</strong><p>Mevcut ısı modelinin kontrollü arayüz bağlantısı henüz tamamlanmadı. Şu anda otomatik pişirim sonucu üretmez.</p></div>
+ </section><aside className="bench-side"><section className="bench-panel"><p className="eyebrow">ÇALIŞMANA DEVAM ET</p><h2>Deney dosyan yanında.</h2><p>Kaydettiğin JSON dosyasını deney defterinde açabilirsin. Açılan eski rapor, yeniden hesaplanana kadar güncel sonuç sayılmaz.</p><Link className="bench-action" href="/experiments">Deney defterini aç →</Link><small>Otomatik kayıt yok. Sayfadan ayrılmadan dosyanı indir.</small></section>
+ <ExperimentContext />
+ <section className="bench-panel bench-checklist"><h2>Hesaptan önce</h2><ol><li><strong>Malzeme kimliği</strong><span>Ürün, analiz sürümü ve kütle bazı belli mi?</span></li><li><strong>Deney koşulları</strong><span>Numune, uygulama ve pişirim kaydı aynı mı?</span></li><li><strong>Ölçümün kaynağı</strong><span>Birim, yöntem ve sensör konumu kayıtlı mı?</span></li></ol></section></aside></div>
+ <section className="bench-evidence" aria-label="Bilimsel bilgi türleri"><div><b>Hesaplanan</b><p>Verilen girdi ve belirtilen yönteme bağlı sonuç.</p></div><div><b>Gözlenen</b><p>Deney veya cihaz ölçümü; yöntem ve kaynak gerekir.</p></div><div><b>Tahmin edilen</b><p>Modelin kapsamı ve belirsizliğiyle birlikte okunur.</p></div></section>
+ <footer className="bench-foot">Bu masa araştırmayı destekler; pişirim, tutunma veya güvenli kullanım garantisi vermez. Deney kimlikleri masayla ortaktır; reçete ve dönüşüm hesapları henüz deney kaydına otomatik bağlanmaz.</footer></main>;
+}

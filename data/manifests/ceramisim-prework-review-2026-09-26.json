@@ -1,0 +1,408 @@
+{
+  "schema_version": "prework-review/1.0",
+  "reviewed_on": "2026-09-26",
+  "attachment_sha256": "de12538ce10b5aecc23ebf3918fbbab19c54dc67afdd186b984163c7c770529c",
+  "attachment_bytes": 40294,
+  "scope": "INTERNAL_REVIEW_ONLY_NOT_CATALOGUE_OR_TRAINING",
+  "source": {
+    "source_name": "User-supplied CeramiSim preparation",
+    "source_url": "urn:sha256:de12538ce10b5aecc23ebf3918fbbab19c54dc67afdd186b984163c7c770529c",
+    "source_type": "USER_SUPPLIED_UNVERIFIED",
+    "source_author": "UNKNOWN",
+    "source_license": "UNKNOWN",
+    "retrieval_date": "2026-09-26",
+    "commercial_use_allowed": "UNKNOWN",
+    "attribution_required": "UNKNOWN",
+    "share_alike_required": "UNKNOWN"
+  },
+  "candidates": [
+    {
+      "material_key": "potash_feldspar",
+      "material_name": "Potas Feldispat",
+      "attachment_line": 272,
+      "reported_numeric_literals": {"SiO2": "66.0", "Al2O3": "18.0", "K2O": "12.0", "Na2O": "3.0", "CaO": "0.5", "MgO": "0.0", "ZnO": "0.0"},
+      "reported_oxides": {
+        "SiO2": 66.0,
+        "Al2O3": 18.0,
+        "K2O": 12.0,
+        "Na2O": 3.0,
+        "CaO": 0.5,
+        "MgO": 0.0,
+        "ZnO": 0.0
+      },
+      "reported_oxide_total": 99.5,
+      "difference_to_100_arithmetic_only": 0.5,
+      "analysis_basis": "UNKNOWN",
+      "loi_pct": null,
+      "status": "quarantined",
+      "issues": [
+        {
+          "code": "MISSING_IDENTITY",
+          "path": "analysis_version",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "PURPOSE_NOT_ALLOWED",
+          "path": "rights",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "RECORD_REVIEW_REQUIRED",
+          "path": "record",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_DATE_UNKNOWN",
+          "path": "analysis_date",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_METHOD_UNKNOWN",
+          "path": "method",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_BASIS_UNKNOWN",
+          "path": "analysis_basis",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "INCOMPLETE_CHEMISTRY",
+          "path": "coverage",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "OMITTED_OXIDES_UNDEFINED",
+          "path": "omitted_oxides_statement",
+          "severity": "REVIEW_REQUIRED"
+        }
+      ]
+    },
+    {
+      "material_key": "kaolin",
+      "material_name": "Kaolin (EPK)",
+      "attachment_line": 273,
+      "reported_numeric_literals": {"SiO2": "46.5", "Al2O3": "38.5", "K2O": "0.5", "Na2O": "0.2", "CaO": "0.2", "MgO": "0.1", "ZnO": "0.0"},
+      "reported_oxides": {
+        "SiO2": 46.5,
+        "Al2O3": 38.5,
+        "K2O": 0.5,
+        "Na2O": 0.2,
+        "CaO": 0.2,
+        "MgO": 0.1,
+        "ZnO": 0.0
+      },
+      "reported_oxide_total": 86.0,
+      "difference_to_100_arithmetic_only": 14.0,
+      "analysis_basis": "UNKNOWN",
+      "loi_pct": null,
+      "status": "quarantined",
+      "issues": [
+        {
+          "code": "MISSING_IDENTITY",
+          "path": "analysis_version",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "PURPOSE_NOT_ALLOWED",
+          "path": "rights",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "RECORD_REVIEW_REQUIRED",
+          "path": "record",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_DATE_UNKNOWN",
+          "path": "analysis_date",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_METHOD_UNKNOWN",
+          "path": "method",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_BASIS_UNKNOWN",
+          "path": "analysis_basis",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "INCOMPLETE_CHEMISTRY",
+          "path": "coverage",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "OMITTED_OXIDES_UNDEFINED",
+          "path": "omitted_oxides_statement",
+          "severity": "REVIEW_REQUIRED"
+        }
+      ]
+    },
+    {
+      "material_key": "silica",
+      "material_name": "Kuvars / Silis",
+      "attachment_line": 274,
+      "reported_numeric_literals": {"SiO2": "99.5", "Al2O3": "0.3", "K2O": "0.0", "Na2O": "0.0", "CaO": "0.1", "MgO": "0.0", "ZnO": "0.0"},
+      "reported_oxides": {
+        "SiO2": 99.5,
+        "Al2O3": 0.3,
+        "K2O": 0.0,
+        "Na2O": 0.0,
+        "CaO": 0.1,
+        "MgO": 0.0,
+        "ZnO": 0.0
+      },
+      "reported_oxide_total": 99.9,
+      "difference_to_100_arithmetic_only": 0.09999999999999432,
+      "analysis_basis": "UNKNOWN",
+      "loi_pct": null,
+      "status": "quarantined",
+      "issues": [
+        {
+          "code": "MISSING_IDENTITY",
+          "path": "analysis_version",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "PURPOSE_NOT_ALLOWED",
+          "path": "rights",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "RECORD_REVIEW_REQUIRED",
+          "path": "record",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_DATE_UNKNOWN",
+          "path": "analysis_date",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_METHOD_UNKNOWN",
+          "path": "method",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_BASIS_UNKNOWN",
+          "path": "analysis_basis",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "INCOMPLETE_CHEMISTRY",
+          "path": "coverage",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "OMITTED_OXIDES_UNDEFINED",
+          "path": "omitted_oxides_statement",
+          "severity": "REVIEW_REQUIRED"
+        }
+      ]
+    },
+    {
+      "material_key": "whiting",
+      "material_name": "Kalsit (Whiting)",
+      "attachment_line": 275,
+      "reported_numeric_literals": {"SiO2": "0.0", "Al2O3": "0.0", "K2O": "0.0", "Na2O": "0.0", "CaO": "56.1", "MgO": "0.0", "ZnO": "0.0"},
+      "reported_oxides": {
+        "SiO2": 0.0,
+        "Al2O3": 0.0,
+        "K2O": 0.0,
+        "Na2O": 0.0,
+        "CaO": 56.1,
+        "MgO": 0.0,
+        "ZnO": 0.0
+      },
+      "reported_oxide_total": 56.1,
+      "difference_to_100_arithmetic_only": 43.9,
+      "analysis_basis": "UNKNOWN",
+      "loi_pct": null,
+      "status": "quarantined",
+      "issues": [
+        {
+          "code": "MISSING_IDENTITY",
+          "path": "analysis_version",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "PURPOSE_NOT_ALLOWED",
+          "path": "rights",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "RECORD_REVIEW_REQUIRED",
+          "path": "record",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_DATE_UNKNOWN",
+          "path": "analysis_date",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_METHOD_UNKNOWN",
+          "path": "method",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_BASIS_UNKNOWN",
+          "path": "analysis_basis",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "INCOMPLETE_CHEMISTRY",
+          "path": "coverage",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "OMITTED_OXIDES_UNDEFINED",
+          "path": "omitted_oxides_statement",
+          "severity": "REVIEW_REQUIRED"
+        }
+      ]
+    },
+    {
+      "material_key": "talc",
+      "material_name": "Talk",
+      "attachment_line": 276,
+      "reported_numeric_literals": {"SiO2": "61.5", "Al2O3": "0.5", "K2O": "0.0", "Na2O": "0.0", "CaO": "0.5", "MgO": "31.0", "ZnO": "0.0"},
+      "reported_oxides": {
+        "SiO2": 61.5,
+        "Al2O3": 0.5,
+        "K2O": 0.0,
+        "Na2O": 0.0,
+        "CaO": 0.5,
+        "MgO": 31.0,
+        "ZnO": 0.0
+      },
+      "reported_oxide_total": 93.5,
+      "difference_to_100_arithmetic_only": 6.5,
+      "analysis_basis": "UNKNOWN",
+      "loi_pct": null,
+      "status": "quarantined",
+      "issues": [
+        {
+          "code": "MISSING_IDENTITY",
+          "path": "analysis_version",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "PURPOSE_NOT_ALLOWED",
+          "path": "rights",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "RECORD_REVIEW_REQUIRED",
+          "path": "record",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_DATE_UNKNOWN",
+          "path": "analysis_date",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_METHOD_UNKNOWN",
+          "path": "method",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_BASIS_UNKNOWN",
+          "path": "analysis_basis",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "INCOMPLETE_CHEMISTRY",
+          "path": "coverage",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "OMITTED_OXIDES_UNDEFINED",
+          "path": "omitted_oxides_statement",
+          "severity": "REVIEW_REQUIRED"
+        }
+      ]
+    },
+    {
+      "material_key": "zinc_oxide",
+      "material_name": "Çinko Oksit",
+      "attachment_line": 277,
+      "reported_numeric_literals": {"SiO2": "0.0", "Al2O3": "0.0", "K2O": "0.0", "Na2O": "0.0", "CaO": "0.0", "MgO": "0.0", "ZnO": "99.5"},
+      "reported_oxides": {
+        "SiO2": 0.0,
+        "Al2O3": 0.0,
+        "K2O": 0.0,
+        "Na2O": 0.0,
+        "CaO": 0.0,
+        "MgO": 0.0,
+        "ZnO": 99.5
+      },
+      "reported_oxide_total": 99.5,
+      "difference_to_100_arithmetic_only": 0.5,
+      "analysis_basis": "UNKNOWN",
+      "loi_pct": null,
+      "status": "quarantined",
+      "issues": [
+        {
+          "code": "MISSING_IDENTITY",
+          "path": "analysis_version",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "PURPOSE_NOT_ALLOWED",
+          "path": "rights",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "RECORD_REVIEW_REQUIRED",
+          "path": "record",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_DATE_UNKNOWN",
+          "path": "analysis_date",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_METHOD_UNKNOWN",
+          "path": "method",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "ANALYSIS_BASIS_UNKNOWN",
+          "path": "analysis_basis",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "INCOMPLETE_CHEMISTRY",
+          "path": "coverage",
+          "severity": "REVIEW_REQUIRED"
+        },
+        {
+          "code": "OMITTED_OXIDES_UNDEFINED",
+          "path": "omitted_oxides_statement",
+          "severity": "REVIEW_REQUIRED"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "received": 6,
+    "accepted": 0,
+    "quarantined": 6,
+    "rejected": 0
+  },
+  "training_permission": "UNKNOWN_NOT_APPROVED",
+  "source_code_executed": false,
+  "production_data_changed": false,
+  "limitations": [
+    "Literal parser is intentionally narrow; unsupported syntax stops review.",
+    "Difference from 100 is NOT a measured or inferred LOI.",
+    "Reported zero values are preserved, not scientifically verified.",
+    "Unreported oxides remain unknown; values are not normalized.",
+    "This does not validate the UI, model equations or legal rights."
+  ]
+}

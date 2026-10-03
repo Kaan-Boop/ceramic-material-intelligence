@@ -1,0 +1,39 @@
+{
+  "schema_version": "viscosity-source-audit-v1",
+  "review_date": "2026-09-27",
+  "parent_dataset": "data/reference/conte-2018-viscosity-staging.json",
+  "parent_dataset_sha256": "220adb44c5609554d5e7d1c40ac06ffd9088aa48e81e39312e5f3bc2e22ab6ee",
+  "report": "docs/VISCOSITY_ORIGINAL_SOURCE_AUDIT_2026-09-27.md",
+  "scope": "BIBLIOGRAPHIC_AND_METHOD_SCREENING_NOT_COMPLETE_PRIMARY_DATA_VERIFICATION",
+  "rights_defaults": {
+    "source_license": "UNKNOWN_FOR_DATA_REUSE",
+    "commercial_use_allowed": "UNKNOWN",
+    "research_dataset_reuse_allowed": "UNKNOWN",
+    "training_allowed": "UNKNOWN",
+    "product_release_approved": false,
+    "full_text_files_downloaded": 0,
+    "retained_content": "BIBLIOGRAPHIC_METADATA_AND_ORIGINAL_REVIEW_NOTES"
+  },
+  "experimental_references": [
+    {"parent_reference": 32, "doi": "10.1016/S0377-0273(00)00226-2", "authors": "Giordano; Dingwell; Romano", "year": 2000, "title": "Viscosity of a Teide phonolite in the welding interval", "samples": ["G.2000"], "temperature_rows": 22, "source_url": "https://iris.uniroma3.it/handle/11590/157552", "review_level": "INSTITUTIONAL_ABSTRACT", "original_rows_verified": false},
+    {"parent_reference": 33, "doi": "10.1016/j.chemgeo.2004.08.032", "authors": "Giordano; Romano; Papale; Dingwell", "year": 2004, "title": "The viscosity of trachytes, and comparison with basalts, phonolites, and rhyolites", "samples": ["IGC", "MNV"], "temperature_rows": 36, "source_url": "https://www.sciencedirect.com/science/article/abs/pii/S0009254104003304", "review_level": "PUBLISHER_EXCERPTS_AND_INSTITUTIONAL_RECORD", "original_rows_verified": false},
+    {"parent_reference": 34, "doi": "10.1016/j.chemgeo.2006.01.007", "authors": "Giordano; Mangiacapra; Potuzak; Russell; Romano; Dingwell; Di Muro", "year": 2006, "title": "An expanded non-Arrhenian model for silicate melt viscosity: A treatment for metaluminous, peraluminous and peralkaline liquids", "samples": ["MST", "CI_OF", "MDV"], "temperature_rows": 58, "source_url": "https://www.eoas.ubc.ca/~krussell/epapers/cg_getal06.pdf", "review_level": "SELECTED_PDF_TEXT_SECTIONS_NOT_VISUALLY_VERIFIED", "original_rows_verified": false},
+    {"parent_reference": 35, "doi": "10.1016/S0009-2541(03)00208-0", "authors": "Romano; Giordano; Papale; Mincione; Dingwell; Rosi", "year": 2003, "title": "The dry and hydrous viscosities of alkaline melts from Vesuvius and Phlegrean Fields", "samples": ["AMS-B1", "AMS-D1"], "temperature_rows": 25, "source_url": "https://iris.uniroma3.it/handle/11590/146434", "review_level": "INSTITUTIONAL_ABSTRACT", "original_rows_verified": false},
+    {"parent_reference": 36, "doi": "10.1016/S0009-2541(00)00317-X", "authors": "Whittington; Richet; Linard; Holtz", "year": 2001, "title": "The viscosity of hydrous phonolites and trachytes", "samples": ["Trachyte", "Phonolite"], "temperature_rows": 44, "source_url": "https://www.sciencedirect.com/science/article/abs/pii/S000925410000317X", "review_level": "PUBLISHER_INDEXED_ABSTRACT_AND_ERRATUM_RELATION", "original_rows_verified": false, "erratum": {"presence_confirmed_by_publisher": true, "year": 2004, "journal_volume_page": "Chemical Geology 211:391", "doi_candidate": "10.1016/j.chemgeo.2004.01.002", "doi_primary_verified": false, "content_reviewed": false, "effect_on_staged_rows": "UNKNOWN", "review_hold_samples": ["Trachyte", "Phonolite"], "review_hold_temperature_rows": 44}}
+  ],
+  "model_references": [
+    {"parent_reference": 19, "doi": "10.1016/j.epsl.2008.03.038", "authors": "Giordano; Russell; Dingwell", "year": 2008, "title": "Viscosity of magmatic liquids: A model", "source_url": "https://www.eoas.ubc.ca/~krussell/VISCOSITY/grdViscosity_files/grdViscosityPaper.pdf", "reported_calibration_measurements": 1774, "reported_appendix_control_measurements": 257, "calibration_supplement_acquired": false, "staged_row_calibration_overlap": "UNKNOWN", "independent_validation_approved": false},
+    {"parent_reference": 17, "authors": "Alexander Fluegel", "year": 2007, "title": "Glass viscosity calculation based on a global statistical modelling approach", "source_url": "https://glassproperties.com/viscosity/Viscosity_2006_AFluegel.pdf", "data_origin": "SCIGLASS_COMPILATION", "underlying_database_acquired": false, "staged_row_calibration_overlap": "UNKNOWN", "independent_validation_approved": false}
+  ],
+  "candidate_findings": [
+    {"source_reference": 34, "source_locator": "Table 1, physical PDF page 4", "samples": ["MST", "CI_OF"], "finding": "Table text states wt.% oxides and FeOtot; sample values resemble rounded S3 values.", "status": "TEXT_ONLY_MATCH_CANDIDATE_REQUIRES_VISUAL_AND_COMPLETE_ROW_CHECK", "staging_updated": false}
+  ],
+  "decision": {
+    "scientific_status": "RESEARCH_QUARANTINE",
+    "independent_validation_approved": false,
+    "core_engine_eligible": false,
+    "original_numeric_data_modified": false,
+    "new_measurements_acquired": 0,
+    "erratum_review_hold_is_not_confirmed_error": true
+  }
+}

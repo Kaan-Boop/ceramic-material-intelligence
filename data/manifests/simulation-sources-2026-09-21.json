@@ -1,0 +1,140 @@
+{
+  "schema_version": "simulation-source-archive-v1",
+  "retrieval_date": "2026-09-21T13:07:05.542412+00:00",
+  "source_count": 2,
+  "file_count": 8,
+  "bytes": 89122,
+  "sources": [
+    {
+      "source_id": "scikit-fem",
+      "source_name": "kinnala/scikit-fem",
+      "source_url": "https://github.com/kinnala/scikit-fem",
+      "source_type": "PINNED_OPEN_SOURCE_CODE_SELECTION",
+      "source_author": "scikit-fem developers",
+      "source_license": "BSD-3-Clause",
+      "license_evidence": "https://raw.githubusercontent.com/kinnala/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/LICENSE",
+      "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+      "attribution_required": true,
+      "share_alike_required": false,
+      "version": "12.0.2",
+      "commit": "a9c43abbc3b17c36a059132c9f571447b755920e",
+      "rights_scope": "Selected source files only; dependencies, patents and third-party datasets retain separate rights",
+      "material_reference_data": false
+    },
+    {
+      "source_id": "nvidia-warp",
+      "source_name": "NVIDIA/warp",
+      "source_url": "https://github.com/NVIDIA/warp",
+      "source_type": "PINNED_OPEN_SOURCE_CODE_SELECTION",
+      "source_author": "NVIDIA CORPORATION & AFFILIATES",
+      "source_license": "Apache-2.0",
+      "license_evidence": "https://raw.githubusercontent.com/NVIDIA/warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/LICENSE.md",
+      "commercial_use_allowed": "ALLOWED_WITH_LICENSE_CONDITIONS",
+      "attribution_required": true,
+      "share_alike_required": false,
+      "version": "v1.17.0",
+      "commit": "f4c57f26f1e3936a89afd283e39fcabf6d548dc7",
+      "rights_scope": "Selected source files only; dependencies, patents and third-party datasets retain separate rights",
+      "material_reference_data": false
+    }
+  ],
+  "files": [
+    {
+      "source_id": "scikit-fem",
+      "filename": "LICENSE",
+      "source_url": "https://raw.githubusercontent.com/kinnala/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/LICENSE",
+      "resolved_url": "https://raw.githubusercontent.com/kinnala/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/LICENSE",
+      "raw_path": "raw/sha256/383a8df7a707975913b2439594903a9b7e4f31372da3cd7be9b096ce1839ed34",
+      "sha256": "383a8df7a707975913b2439594903a9b7e4f31372da3cd7be9b096ce1839ed34",
+      "bytes": 1469,
+      "reused": false,
+      "retrieved_at": "2026-09-21T13:06:58.932149+00:00",
+      "readable_path": "by_source/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/LICENSE"
+    },
+    {
+      "source_id": "scikit-fem",
+      "filename": "README.md",
+      "source_url": "https://raw.githubusercontent.com/kinnala/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/kinnala/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/README.md",
+      "raw_path": "raw/sha256/8e6b6b8b1251288e28e7d4efa574487f614b2b3530ec80c919eecaaea95e5165",
+      "sha256": "8e6b6b8b1251288e28e7d4efa574487f614b2b3530ec80c919eecaaea95e5165",
+      "bytes": 36124,
+      "reused": false,
+      "retrieved_at": "2026-09-21T13:06:59.479326+00:00",
+      "readable_path": "by_source/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/README.md"
+    },
+    {
+      "source_id": "scikit-fem",
+      "filename": "docs/examples/ex11.py",
+      "source_url": "https://raw.githubusercontent.com/kinnala/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/docs/examples/ex11.py",
+      "resolved_url": "https://raw.githubusercontent.com/kinnala/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/docs/examples/ex11.py",
+      "raw_path": "raw/sha256/a2bbca188e7df15641a2450277634847837772609bcb3cedb22ea0785f16f136",
+      "sha256": "a2bbca188e7df15641a2450277634847837772609bcb3cedb22ea0785f16f136",
+      "bytes": 1010,
+      "reused": false,
+      "retrieved_at": "2026-09-21T13:07:00.470475+00:00",
+      "readable_path": "by_source/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/docs/examples/ex11.py"
+    },
+    {
+      "source_id": "scikit-fem",
+      "filename": "docs/examples/ex19.py",
+      "source_url": "https://raw.githubusercontent.com/kinnala/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/docs/examples/ex19.py",
+      "resolved_url": "https://raw.githubusercontent.com/kinnala/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/docs/examples/ex19.py",
+      "raw_path": "raw/sha256/90a4491d8c3abdae6a9942693e8a2e06621da290a645fc81a8bc76e39403e7f8",
+      "sha256": "90a4491d8c3abdae6a9942693e8a2e06621da290a645fc81a8bc76e39403e7f8",
+      "bytes": 3749,
+      "reused": false,
+      "retrieved_at": "2026-09-21T13:07:01.437927+00:00",
+      "readable_path": "by_source/scikit-fem/a9c43abbc3b17c36a059132c9f571447b755920e/docs/examples/ex19.py"
+    },
+    {
+      "source_id": "nvidia-warp",
+      "filename": "LICENSE.md",
+      "source_url": "https://raw.githubusercontent.com/NVIDIA/warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/LICENSE.md",
+      "resolved_url": "https://raw.githubusercontent.com/NVIDIA/warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/LICENSE.md",
+      "raw_path": "raw/sha256/47107323a174bfffeaffdc5b778152c3f9bdf66b2ecec4229542480d5937bcf9",
+      "sha256": "47107323a174bfffeaffdc5b778152c3f9bdf66b2ecec4229542480d5937bcf9",
+      "bytes": 11431,
+      "reused": false,
+      "retrieved_at": "2026-09-21T13:07:02.471755+00:00",
+      "readable_path": "by_source/nvidia-warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/LICENSE.md"
+    },
+    {
+      "source_id": "nvidia-warp",
+      "filename": "README.md",
+      "source_url": "https://raw.githubusercontent.com/NVIDIA/warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/NVIDIA/warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/README.md",
+      "raw_path": "raw/sha256/fde3d9ac6f949ca16ebc7a64e6f240e2573661b70b7c9ccce0031760e5f235a3",
+      "sha256": "fde3d9ac6f949ca16ebc7a64e6f240e2573661b70b7c9ccce0031760e5f235a3",
+      "bytes": 20403,
+      "reused": false,
+      "retrieved_at": "2026-09-21T13:07:03.456178+00:00",
+      "readable_path": "by_source/nvidia-warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/README.md"
+    },
+    {
+      "source_id": "nvidia-warp",
+      "filename": "warp/examples/fem/example_diffusion_3d.py",
+      "source_url": "https://raw.githubusercontent.com/NVIDIA/warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/warp/examples/fem/example_diffusion_3d.py",
+      "resolved_url": "https://raw.githubusercontent.com/NVIDIA/warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/warp/examples/fem/example_diffusion_3d.py",
+      "raw_path": "raw/sha256/40ad76126b2ec33c6c57899d7373306b0d13b7607570055544d5618910d3a9da",
+      "sha256": "40ad76126b2ec33c6c57899d7373306b0d13b7607570055544d5618910d3a9da",
+      "bytes": 7693,
+      "reused": false,
+      "retrieved_at": "2026-09-21T13:07:04.492752+00:00",
+      "readable_path": "by_source/nvidia-warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/warp/examples/fem/example_diffusion_3d.py"
+    },
+    {
+      "source_id": "nvidia-warp",
+      "filename": "warp/examples/fem/example_diffusion.py",
+      "source_url": "https://raw.githubusercontent.com/NVIDIA/warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/warp/examples/fem/example_diffusion.py",
+      "resolved_url": "https://raw.githubusercontent.com/NVIDIA/warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/warp/examples/fem/example_diffusion.py",
+      "raw_path": "raw/sha256/912fd96fc6ad9a366a32bfd376fb8a99e66dfb9ec455864bfb0ac8aab01fb0dd",
+      "sha256": "912fd96fc6ad9a366a32bfd376fb8a99e66dfb9ec455864bfb0ac8aab01fb0dd",
+      "bytes": 7243,
+      "reused": false,
+      "retrieved_at": "2026-09-21T13:07:05.541401+00:00",
+      "readable_path": "by_source/nvidia-warp/f4c57f26f1e3936a89afd283e39fcabf6d548dc7/warp/examples/fem/example_diffusion.py"
+    }
+  ],
+  "access_method": "Direct official GitHub raw exports at pinned commits; one request/second; 8 MiB/file limit; no site scraping; no upstream code executed"
+}
