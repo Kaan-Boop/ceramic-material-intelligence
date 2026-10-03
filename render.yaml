@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ceramic-material-intelligence-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile.api
+    dockerContext: .
+    healthCheckPath: /api/v1/health
+    autoDeployTrigger: commit
