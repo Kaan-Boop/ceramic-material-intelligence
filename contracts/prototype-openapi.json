@@ -225,6 +225,17 @@
               "default": 20,
               "title": "Page Size"
             }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(|RECIPE|GLAZE|CLAY_BODY|ANALYSIS)$",
+              "default": "",
+              "title": "Category"
+            }
           }
         ],
         "responses": {

@@ -775,6 +775,7 @@ export interface operations {
                 q?: string;
                 page?: number;
                 page_size?: number;
+                category?: string;
             };
             header?: never;
             path?: never;
