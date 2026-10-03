@@ -1,0 +1,9 @@
+.git
+.github
+screenshots
+storage/local-glazy
+storage/prototype
+apps/web/node_modules
+apps/web/.next
+*.pyc
+__pycache__
