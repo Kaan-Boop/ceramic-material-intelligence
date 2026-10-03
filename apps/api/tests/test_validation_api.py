@@ -25,3 +25,9 @@ class ValidationApiTests(unittest.TestCase):
     def test_missing_fields(self):
         self.payload['prediction']={}
         self.assertEqual(self.client.post('/api/v1/validation/temperature',json=self.payload).status_code,422)
+
+    def test_health_probe(self):
+        r = self.client.get('/api/v1/health')
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.json()['status'], 'ok')
+        self.assertEqual(r.json()['service'], 'ceramic-api')

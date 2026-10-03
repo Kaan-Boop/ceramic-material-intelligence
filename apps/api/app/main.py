@@ -254,6 +254,12 @@ app = FastAPI(title="Ceramic Glaze Lab — Local Research Prototype", version="0
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "testserver"])
 
 
+@app.get("/api/v1/health", response_model=dict[str, str])
+def health() -> dict[str, str]:
+    """Deployment probe; does not load the research archive or run chemistry."""
+    return {"status": "ok", "service": "ceramic-api", "version": app.version}
+
+
 @app.middleware("http")
 async def local_boundary(request: Request, call_next):
     # No public deployment/auth is offered by this prototype. Bound streamed body too.
