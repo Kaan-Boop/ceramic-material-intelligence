@@ -21,6 +21,10 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 
 Unsupported endpoint route açılmaz. `/simulate`, `/predictions`, `/ai-explanations` bu sürümde yok.
 
+## Web dağıtımı
+
+Web uygulaması `/api/v1/*` isteklerini `API_ORIGIN` ortam değişkenine yönlendirir. Yerel geliştirmede varsayılan değer `http://127.0.0.1:8000`'dır. Vercel dağıtımında FastAPI servisinin kök adresi, sondaki `/` olmadan `API_ORIGIN` olarak tanımlanmalıdır. Backend dağıtılmadan production arşiv ve analiz istekleri çalışmaz; bu durum frontend build başarısı ile karıştırılmamalıdır.
+
 ## Analiz isteği
 
 `input` discriminated union:
