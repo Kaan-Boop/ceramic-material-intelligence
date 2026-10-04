@@ -11,6 +11,7 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 | GET /material-analyses/{id} | Exact analiz sürümü, baz ve kaynak | M4 |
 | GET /oxides | Desteklenen oksitler ve sabit/policy metadata | M4 |
 | POST /analyses | Geçici hesap; `persist=false` varsayılanı | M4 |
+| POST /simulations/capabilities | Genel senaryoyu doğrular; hedef çıktılar için AVAILABLE/PARTIAL/UNAVAILABLE kapısı döndürür, fiziksel sonuç üretmez | M4 |
 | POST /analyses, persist=true | Yeni immutable AnalysisRun | M5 |
 | GET /analyses/{id} | Yetkili kaydedilmiş sonuç | M5 |
 | GET/POST /recipes | Kayıtlar / yeni Recipe+ilk revision | M5 |
@@ -20,6 +21,16 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 | GET /recipes/{id}/similar | Yetkili exact revision'a göre yakınlık | M8 |
 
 Unsupported endpoint route açılmaz. `/simulate`, `/predictions`, `/ai-explanations` bu sürümde yok.
+
+## Genel simülasyon kapasite isteği
+
+`POST /api/v1/simulations/capabilities` gövdeyi, engobe/sır/katkı katmanlarını,
+bisque/final firing programını, geometriyi ve kullanıcının `requested_outputs`
+hedefini alır. `property_inventory`, çözülmüş analiz snapshot'ında mevcut
+özelliklerin açık listesidir; sunucu bunu malzeme isminden çıkarmaz. Yanıtta
+senaryo `input_hash` değeri ve her hedef için durum bulunur. Bu endpoint henüz
+`melt_fraction`, sıcaklığa bağlı `viscosity`, renk, yüzey veya kusur olasılığı
+hesaplamaz; bu hedefleri `UNAVAILABLE` döndürür.
 
 ## Web dağıtımı
 

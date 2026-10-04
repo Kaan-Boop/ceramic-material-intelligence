@@ -3,6 +3,8 @@
 No database or kiln control. Recipe chemistry and optional property-based models
 remain distinct; models never infer missing material properties from names.
 """
+from __future__ import annotations
+
 from copy import deepcopy
 from functools import lru_cache
 from typing import Annotated, Literal
@@ -22,6 +24,16 @@ from research.process.validation import compare_temperature
 from research.chemistry.reaction_explorer import explore
 from research.material_library import build_library
 from research.local_recipe_archive import search_recipes, get_staged_record
+from research.simulation.capabilities import assess_capabilities
+from research.simulation.scenario import (
+    FiringSchedule as ScenarioFiringSchedule,
+    FiringSegment as ScenarioFiringSegment,
+    GeometrySpec as ScenarioGeometrySpec,
+    LayerSpec as ScenarioLayerSpec,
+    MaterialRef as ScenarioMaterialRef,
+    SimulationScenario,
+    SimulationTarget as ScenarioTarget,
+)
 
 
 class StrictModel(BaseModel):
@@ -292,6 +304,141 @@ async def invalid_request(request, exc):
 @app.get("/api/v1/health")
 def health():
     return {"status": "ok", "mode": "LOCAL_RESEARCH_PROTOTYPE"}
+
+
+class SimulationMaterialRef(StrictModel):
+    analysis_id: Annotated[str, Field(min_length=1, max_length=200)]
+    role: Literal["BODY", "ENGOBE", "GLAZE", "ADDITION", "OVERGLAZE"]
+    amount_g: Annotated[float | None, Field(strict=True, gt=0, le=1_000_000)] = None
+    layer_id: Annotated[str | None, Field(min_length=1, max_length=120)] = None
+
+
+class SimulationLayer(StrictModel):
+    layer_id: Annotated[str, Field(min_length=1, max_length=120)]
+    materials: Annotated[list[SimulationMaterialRef], Field(min_length=1, max_length=100)]
+    application_method: Literal["NONE", "DIP", "BRUSH", "SPRAY", "POUR", "SCREEN", "OTHER"] = "NONE"
+    coat_count: Annotated[int, Field(strict=True, ge=0, le=100)] = 0
+    dry_thickness_um: Annotated[float | None, Field(strict=True, ge=0, le=1_000_000)] = None
+    wet_thickness_um: Annotated[float | None, Field(strict=True, ge=0, le=1_000_000)] = None
+    drying_minutes: Annotated[float | None, Field(strict=True, ge=0, le=1_000_000)] = None
+
+
+class SimulationFiringSegment(StrictModel):
+    target_c: Annotated[float, Field(strict=True, ge=0, le=1800)]
+    rate_c_per_hour: Annotated[float | None, Field(strict=True, gt=0, le=10000)] = None
+    hold_minutes: Annotated[float, Field(strict=True, ge=0, le=10080)] = 0
+
+
+class SimulationFiringSchedule(StrictModel):
+    name: Annotated[str, Field(min_length=1, max_length=120)]
+    start_c: Annotated[float, Field(strict=True, ge=0, le=1800)]
+    segments: Annotated[list[SimulationFiringSegment], Field(min_length=1, max_length=100)]
+    atmosphere: Annotated[str, Field(min_length=1, max_length=80)] = "UNKNOWN"
+
+
+class SimulationGeometry(StrictModel):
+    kind: Literal["TILE", "PLATE", "CYLINDER", "SPHERE", "CUSTOM"]
+    thickness_mm: Annotated[float, Field(strict=True, gt=0, le=10_000)]
+    length_mm: Annotated[float | None, Field(strict=True, ge=0, le=100_000)] = None
+    width_mm: Annotated[float | None, Field(strict=True, ge=0, le=100_000)] = None
+    diameter_mm: Annotated[float | None, Field(strict=True, ge=0, le=100_000)] = None
+
+
+class SimulationTarget(StrictModel):
+    objective: Annotated[str, Field(min_length=1, max_length=500)]
+    requested_outputs: Annotated[list[str], Field(max_length=50)] = Field(default_factory=list)
+    reference_temperature_c: Annotated[float | None, Field(strict=True, ge=0, le=1800)] = None
+
+
+class SimulationScenarioRequest(StrictModel):
+    scenario_id: Annotated[str, Field(min_length=1, max_length=160)]
+    body: SimulationLayer
+    layers: Annotated[list[SimulationLayer], Field(max_length=100)] = Field(default_factory=list)
+    bisque: SimulationFiringSchedule | None = None
+    final_firing: SimulationFiringSchedule
+    geometry: SimulationGeometry
+    target: SimulationTarget
+    metadata: dict[str, str] = Field(default_factory=dict)
+    # This is an immutable input inventory, not an implicit database lookup.
+    property_inventory: dict[str, list[str]] = Field(default_factory=dict)
+
+
+def _scenario_layer(layer: SimulationLayer) -> ScenarioLayerSpec:
+    return ScenarioLayerSpec(
+        layer_id=layer.layer_id,
+        materials=tuple(
+            ScenarioMaterialRef(
+                analysis_id=material.analysis_id,
+                role=material.role,
+                amount_g=material.amount_g,
+                layer_id=material.layer_id,
+            )
+            for material in layer.materials
+        ),
+        application_method=layer.application_method,
+        coat_count=layer.coat_count,
+        dry_thickness_um=layer.dry_thickness_um,
+        wet_thickness_um=layer.wet_thickness_um,
+        drying_minutes=layer.drying_minutes,
+    )
+
+
+def _scenario_schedule(schedule: SimulationFiringSchedule) -> ScenarioFiringSchedule:
+    return ScenarioFiringSchedule(
+        name=schedule.name,
+        start_c=schedule.start_c,
+        segments=tuple(
+            ScenarioFiringSegment(
+                target_c=segment.target_c,
+                rate_c_per_hour=segment.rate_c_per_hour,
+                hold_minutes=segment.hold_minutes,
+            )
+            for segment in schedule.segments
+        ),
+        atmosphere=schedule.atmosphere,
+    )
+
+
+def _scenario_from_request(payload: SimulationScenarioRequest) -> SimulationScenario:
+    return SimulationScenario(
+        scenario_id=payload.scenario_id,
+        body=_scenario_layer(payload.body),
+        layers=tuple(_scenario_layer(layer) for layer in payload.layers),
+        bisque=_scenario_schedule(payload.bisque) if payload.bisque else None,
+        final_firing=_scenario_schedule(payload.final_firing),
+        geometry=ScenarioGeometrySpec(
+            kind=payload.geometry.kind,
+            thickness_mm=payload.geometry.thickness_mm,
+            length_mm=payload.geometry.length_mm,
+            width_mm=payload.geometry.width_mm,
+            diameter_mm=payload.geometry.diameter_mm,
+        ),
+        target=ScenarioTarget(
+            objective=payload.target.objective,
+            requested_outputs=tuple(payload.target.requested_outputs),
+            reference_temperature_c=payload.target.reference_temperature_c,
+        ),
+        metadata=dict(payload.metadata),
+    )
+
+
+@app.post('/api/v1/simulations/capabilities', response_model=dict[str, JsonValue], responses={422: {'model': ErrorResponse}})
+def simulation_capabilities(payload: SimulationScenarioRequest):
+    """Validate a generic scenario and report supported outputs only.
+
+    This endpoint is intentionally a capability gate. It does not run a kiln,
+    infer material properties, or return surface/defect probabilities.
+    """
+    try:
+        scenario = _scenario_from_request(payload)
+        inventory = {key: set(values) for key, values in payload.property_inventory.items()}
+        return assess_capabilities(scenario, inventory)
+    except ValueError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code='INVALID_SIMULATION_SCENARIO',
+            path=['scenario'],
+            message=str(exc),
+        )]).model_dump())
 
 
 class ComparisonRequest(StrictModel):

@@ -49,8 +49,16 @@ def assess_capabilities(
         for layer in scenario.layers
         if layer.layer_id != "body"
         for ref in layer.materials
-        if ref.role in {"GLAZE", "OVERGLAZE", "ENGOBE"}
+        if ref.role in {"GLAZE", "OVERGLAZE"}
     )
+    if not coating_ids:
+        coating_ids = tuple(
+            ref.analysis_id
+            for layer in scenario.layers
+            if layer.layer_id != "body"
+            for ref in layer.materials
+            if ref.role == "ENGOBE"
+        )
     has_cte = bool(coating_ids) and all("cte" in inventory.get(material_id, set()) for material_id in (*body_ids, *coating_ids))
     output_status: dict[str, dict] = {}
     for output in scenario.target.requested_outputs:
