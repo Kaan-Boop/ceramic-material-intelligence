@@ -16,6 +16,9 @@ Recipe -> RecipeRevision -> RecipeIngredient -> MaterialAnalysis
                  v
              AnalysisRun -> AnalysisRunMaterial -> MaterialAnalysis
 
+ComparisonRun -> AnalysisRun / RecipeRevision
+             `-> ExternalReferenceSnapshot -> Source / license manifest
+
 Experiment -> TestSpecimen -> Observation
                    |        `-> ImageAsset
                    |-> RecipeRevision
@@ -45,6 +48,8 @@ Experiment -> TestSpecimen -> Observation
 | RecipeIngredient | PK id; FK revision_id, analysis_id? | order, unresolved_label?, amount, unit, role, amount_basis | M5 |
 | AnalysisRun | PK id; FK owner_id, recipe_revision_id?, dataset_snapshot_id? | input snapshot/hash, engine/constants/convention/policy versions, result schema, results JSONB | M5 |
 | AnalysisRunMaterial | PK (run_id, analysis_id); iki FK | exact checksum; kaynak etkisi sorguları | M5 |
+| ComparisonRun | PK id; FK owner_id?, internal_analysis_run_id?, recipe_revision_id? | internal/external engine versions, external source snapshot, input hash, comparison result JSONB, status (`COMPARED`/`PARTIAL`), limitations | M5 |
+| ExternalReferenceSnapshot | PK id; FK comparison_run_id | source name, repository ref, archive checksum, recipe-name mapping, raw report JSONB, retrieved_at | M5 |
 | ClayBody | PK id; FK owner_id? | manufacturer/product, name | M6 |
 | ClayBodyRevision | PK id; FK clay_body_id, analysis_id? | version, lot/reference; fired properties Observation/Measurement üzerinden | M6 |
 | Experiment | PK id; FK owner_id | question, plan, controls, replicate plan | M6 |
@@ -98,5 +103,7 @@ Sık aranan kimya/kimlikler ilişkisel. Değişken capture metadata ve immutable
 ## Provenance zinciri
 
 AnalysisRun -> RecipeRevision / inline input snapshot -> exact MaterialAnalysis -> SourceRecord -> raw checksum + RightsPolicy; ayrıca constants/convention/engine sürümleri.
+
+ComparisonRun aynı snapshot için kendi `AnalysisRun` sonucunu ve harici hesaplayıcı raporunu ayrı tutar. Harici rapor üretim kimyasının üzerine yazılmaz; repository/ref/checksum ve isim eşlemesi saklanmadan sayısal fark yeniden üretilebilir kabul edilmez. Harici kaynağın erişimi veya lisansı kaybolursa eski ComparisonRun raporu korunabilir, ancak yeni replay durumu `UNAVAILABLE` olabilir.
 
 Hash tek başına reproducibility sağlamaz: girdinin izinli kopyası ve eski motor/policy sürümünün çalıştırılabilir artifact'i saklanmalıdır. Replay iki modu ayırır: ORIGINAL_VERSION ve LATEST_ENGINE_REANALYSIS. İkincisi yeni AnalysisRun oluşturur.

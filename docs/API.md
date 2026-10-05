@@ -63,6 +63,10 @@ parça yüzdesi aynı semantik olmadığı için bu durum sessizce dönüştür�
 Yanıt `comparison-run-v1` içinde `internal`, `external`, oksit bazında `delta`
 ve `delta_pct`, uyarılar ve sınırlamalar bulunur.
 
+Web prototipi bu yanıtı `comparison-run-<hash>.json` adıyla snapshot olarak
+indirebilir. Bu dosya geçici/export niteliğindedir; M5 kalıcı `ComparisonRun`
+tablosu ve yetkilendirilmiş replay endpoint’i gelene kadar sunucu kaydı sayılmaz.
+
 ## Web dağıtımı
 
 Web uygulaması `/api/v1/*` isteklerini `API_ORIGIN` ortam değişkenine yönlendirir. Yerel geliştirmede varsayılan değer `http://127.0.0.1:8000`'dır. Vercel dağıtımında FastAPI servisinin kök adresi, sondaki `/` olmadan `API_ORIGIN` olarak tanımlanmalıdır. Backend dağıtılmadan production arşiv ve analiz istekleri çalışmaz; bu durum frontend build başarısı ile karıştırılmamalıdır.
