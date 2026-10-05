@@ -50,6 +50,25 @@ export type SimulationChemistryReport = {
   limitations: string[];
 };
 
+export type OpenGlazeReferenceReport = {
+  evidence_kind: "CALCULATED";
+  method_kind: "DETERMINISTIC_EXTERNAL_REFERENCE";
+  source: "OpenGlaze";
+  report: {
+    success: boolean;
+    umf_formula?: Record<string, number>;
+    ratios?: Record<string, number>;
+    thermal_expansion?: number;
+    surface_prediction?: string;
+    surface_confidence?: string;
+    limit_warnings?: string[];
+    missing_materials?: string[];
+    warnings?: string[];
+    recommendations?: string[];
+  };
+  limitations: string[];
+};
+
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`/api/v1/${path}`, {
     ...init,

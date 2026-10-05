@@ -9,6 +9,7 @@ from copy import deepcopy
 from functools import lru_cache
 import os
 import sys
+from pathlib import Path
 from typing import Annotated, Literal
 
 from fastapi import FastAPI, Request, Query
@@ -596,7 +597,9 @@ def openglaze_umf_reference(payload: OpenGlazeReferenceRequest):
     downloaded, license-reviewed checkout. Its result never replaces the
     deterministic Ceramic Material Intelligence chemistry report.
     """
-    repo_root = os.environ.get('OPENGLAZE_REPO_ROOT', '').strip()
+    configured_root = os.environ.get('OPENGLAZE_REPO_ROOT', '').strip()
+    bundled_root = Path(__file__).resolve().parents[3] / 'storage' / 'external' / 'openglaze' / 'source' / 'openglaze-master'
+    repo_root = configured_root or (str(bundled_root) if bundled_root.is_dir() else '')
     if not repo_root:
         return JSONResponse(status_code=503, content={
             'status': 'UNAVAILABLE',
