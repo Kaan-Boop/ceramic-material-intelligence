@@ -8,7 +8,7 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 |---|---|---|
 | GET /materials | İzinli ürün listesi; query/filter/cursor | M4 |
 | GET /materials/{id} | Ürün kimliği ve analiz sürümleri | M4 |
-| GET /material-analyses/{id} | Exact analiz sürümü, baz ve kaynak | M4 |
+| GET /material-analyses/{analysis_id} | Exact local analysis record, provenance and engine eligibility | M4 |
 | GET /oxides | Desteklenen oksitler ve sabit/policy metadata | M4 |
 | POST /analyses | Geçici hesap; `persist=false` varsayılanı | M4 |
 | POST /simulations/capabilities | Genel senaryoyu doğrular; hedef çıktılar için AVAILABLE/PARTIAL/UNAVAILABLE kapısı döndürür, fiziksel sonuç üretmez | M4 |
@@ -26,9 +26,10 @@ Unsupported endpoint route açılmaz. `/simulate`, `/predictions`, `/ai-explanat
 
 `POST /api/v1/simulations/capabilities` gövdeyi, engobe/sır/katkı katmanlarını,
 bisque/final firing programını, geometriyi ve kullanıcının `requested_outputs`
-hedefini alır. `property_inventory`, çözülmüş analiz snapshot'ında mevcut
-özelliklerin açık listesidir; sunucu bunu malzeme isminden çıkarmaz. Yanıtta
-senaryo `input_hash` değeri ve her hedef için durum bulunur. Bu endpoint henüz
+hedefini alır. Malzeme özellikleri istemciden kabul edilmez; sunucu exact
+`analysis_id` değerlerini yerel kütüphaneden çözerek `material_resolutions` ve
+`property_inventory_source` alanlarını üretir. Yanıtta senaryo `input_hash`
+değeri ve her hedef için durum bulunur. Bu endpoint henüz
 `melt_fraction`, sıcaklığa bağlı `viscosity`, renk, yüzey veya kusur olasılığı
 hesaplamaz; bu hedefleri `UNAVAILABLE` döndürür.
 

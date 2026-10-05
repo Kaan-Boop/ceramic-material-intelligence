@@ -25,6 +25,7 @@ from research.chemistry.reaction_explorer import explore
 from research.material_library import build_library
 from research.local_recipe_archive import search_recipes, get_staged_record
 from research.simulation.capabilities import assess_capabilities
+from research.material_resolver import MaterialResolutionError, resolve_material, resolve_materials
 from research.simulation.scenario import (
     FiringSchedule as ScenarioFiringSchedule,
     FiringSegment as ScenarioFiringSegment,
@@ -359,8 +360,6 @@ class SimulationScenarioRequest(StrictModel):
     geometry: SimulationGeometry
     target: SimulationTarget
     metadata: dict[str, str] = Field(default_factory=dict)
-    # This is an immutable input inventory, not an implicit database lookup.
-    property_inventory: dict[str, list[str]] = Field(default_factory=dict)
 
 
 def _scenario_layer(layer: SimulationLayer) -> ScenarioLayerSpec:
@@ -431,8 +430,29 @@ def simulation_capabilities(payload: SimulationScenarioRequest):
     """
     try:
         scenario = _scenario_from_request(payload)
-        inventory = {key: set(values) for key, values in payload.property_inventory.items()}
-        return assess_capabilities(scenario, inventory)
+        material_ids = tuple(ref.analysis_id for ref in scenario.body.materials)
+        material_ids += tuple(ref.analysis_id for layer in scenario.layers for ref in layer.materials)
+        records, inventory = resolve_materials(material_ids)
+        report = assess_capabilities(scenario, inventory)
+        report["material_resolutions"] = [
+            {
+                "analysis_id": record["id"],
+                "version": record["version"],
+                "status": record["status"],
+                "engine_eligible": record["engine_eligible"],
+                "source_name": record["source_name"],
+                "source_url": record["source_url"],
+            }
+            for record in records
+        ]
+        report["property_inventory_source"] = "SERVER_RESOLVED_LOCAL_LIBRARY"
+        return report
+    except MaterialResolutionError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code='UNKNOWN_MATERIAL_ANALYSIS',
+            path=['scenario', 'materials'],
+            message='Malzeme adı yerine katalogdaki exact analysis_id ve sürüm kullanılmalı.',
+        )]).model_dump())
     except ValueError as exc:
         return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
             code='INVALID_SIMULATION_SCENARIO',
@@ -488,6 +508,33 @@ def materials():
 def library():
     return {'version':'local-library/1','scope':'LOCAL_RESEARCH_NOT_PUBLIC_RELEASE',
             'records':build_library([m.model_dump() if hasattr(m,'model_dump') else m for m in material_list()])}
+
+
+@app.get('/api/v1/material-analyses/{analysis_id:path}', response_model=dict[str, JsonValue])
+def material_analysis(analysis_id: str):
+    """Return one exact local analysis record with provenance and eligibility."""
+    try:
+        record = resolve_material(analysis_id)
+    except MaterialResolutionError:
+        return JSONResponse(status_code=404, content={'error': 'MATERIAL_ANALYSIS_NOT_FOUND'})
+    return {
+        'analysis_id': record['id'],
+        'name': record['name'],
+        'version': record['version'],
+        'status': record['status'],
+        'engine_eligible': record['engine_eligible'],
+        'basis': record['basis'],
+        'formula': record['formula'],
+        'oxides': record['oxides'],
+        'loi_pct': record['loi'],
+        'source_name': record['source_name'],
+        'source_url': record['source_url'],
+        'license': record['license'],
+        'flags': record['flags'],
+        'windows': record['windows'],
+        'uses': record['uses'],
+        'note': record['note'],
+    }
 
 
 @app.get('/api/v1/research/archive/recipes', response_model=dict[str, JsonValue])

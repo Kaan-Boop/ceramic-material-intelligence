@@ -49,9 +49,6 @@ export default function SimulationPanel({ catalogue, recipeRows }: { catalogue: 
     setReport(null);
     setBusy(true);
     try {
-      const inventory = Object.fromEntries(
-        [...new Set([bodyId, ...recipeRows.map((row) => row.analysis_id)])].map((id) => [id, ["oxide_analysis"]]),
-      );
       const result = await api<SimulationCapabilityReport>("simulations/capabilities", {
         method: "POST",
         body: JSON.stringify({
@@ -66,7 +63,6 @@ export default function SimulationPanel({ catalogue, recipeRows }: { catalogue: 
           final_firing: { name: "user-target", start_c: 20, segments: [{ target_c: target, rate_c_per_hour: null, hold_minutes: 0 }], atmosphere: "UNKNOWN" },
           geometry: { kind: "TILE", thickness_mm: 8, length_mm: 100, width_mm: 100 },
           target: { objective: "Kullanıcının seçtiği hedefler", requested_outputs: selected, reference_temperature_c: 20 },
-          property_inventory: inventory,
         }),
       });
       setReport(result);

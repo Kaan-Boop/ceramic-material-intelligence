@@ -12,12 +12,12 @@ def payload():
         "scenario_id": "api-generic-001",
         "body": {
             "layer_id": "body",
-            "materials": [{"analysis_id": "body/porcelain-001", "role": "BODY", "amount_g": 1000}],
+            "materials": [{"analysis_id": "ideal_kaolinite", "role": "BODY", "amount_g": 1000}],
         },
         "layers": [
             {
                 "layer_id": "engobe",
-                "materials": [{"analysis_id": "engobe/iron-001", "role": "ENGOBE"}],
+                "materials": [{"analysis_id": "ideal_k_feldspar", "role": "ENGOBE"}],
                 "application_method": "DIP",
                 "coat_count": 1,
                 "dry_thickness_um": 200,
@@ -25,8 +25,8 @@ def payload():
             {
                 "layer_id": "glaze",
                 "materials": [
-                    {"analysis_id": "glaze/base-001", "role": "GLAZE"},
-                    {"analysis_id": "oxide/copper-001", "role": "ADDITION", "amount_g": 4},
+                    {"analysis_id": "pure_silica", "role": "GLAZE"},
+                    {"analysis_id": "pure_calcite", "role": "ADDITION", "amount_g": 4},
                 ],
                 "application_method": "BRUSH",
                 "coat_count": 3,
@@ -46,12 +46,6 @@ def payload():
             "objective": "Compare fit and firing timeline",
             "requested_outputs": ["oxide_composition", "firing_timeline", "fit_risk", "melt_fraction"],
         },
-        "property_inventory": {
-            "body/porcelain-001": ["oxide_analysis", "cte"],
-            "engobe/iron-001": ["oxide_analysis"],
-            "glaze/base-001": ["oxide_analysis", "cte"],
-            "oxide/copper-001": ["oxide_analysis"],
-        },
     }
 
 
@@ -66,8 +60,10 @@ class SimulationAPITests(unittest.TestCase):
         self.assertEqual(result['schema_version'], 'simulation-capabilities-v1')
         self.assertEqual(result['outputs']['oxide_composition']['status'], 'AVAILABLE')
         self.assertEqual(result['outputs']['firing_timeline']['status'], 'AVAILABLE')
-        self.assertEqual(result['outputs']['fit_risk']['status'], 'PARTIAL')
+        self.assertEqual(result['outputs']['fit_risk']['status'], 'UNAVAILABLE')
         self.assertEqual(result['outputs']['melt_fraction']['status'], 'UNAVAILABLE')
+        self.assertEqual(result['property_inventory_source'], 'SERVER_RESOLVED_LOCAL_LIBRARY')
+        self.assertTrue(all(item['engine_eligible'] for item in result['material_resolutions']))
 
     def test_same_snapshot_replays_same_hash(self):
         request = payload()
@@ -88,6 +84,25 @@ class SimulationAPITests(unittest.TestCase):
         response = self.client.post('/api/v1/simulations/capabilities', json=request)
         self.assertEqual(response.status_code, 422)
         self.assertEqual(response.json()['errors'][0]['code'], 'INVALID_INPUT')
+
+    def test_unknown_analysis_id_is_rejected_even_when_shape_is_valid(self):
+        request = payload()
+        request['body']['materials'][0]['analysis_id'] = 'body/unknown'
+        response = self.client.post('/api/v1/simulations/capabilities', json=request)
+        self.assertEqual(response.status_code, 422)
+        self.assertEqual(response.json()['errors'][0]['code'], 'UNKNOWN_MATERIAL_ANALYSIS')
+
+    def test_exact_material_analysis_endpoint_exposes_provenance(self):
+        response = self.client.get('/api/v1/material-analyses/pure_silica')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['analysis_id'], 'pure_silica')
+        self.assertEqual(response.json()['status'], 'THEORETICAL')
+        self.assertTrue(response.json()['engine_eligible'])
+        self.assertIn('source_url', response.json())
+
+    def test_material_analysis_endpoint_does_not_fuzzy_match_names(self):
+        response = self.client.get('/api/v1/material-analyses/Saf%20silika')
+        self.assertEqual(response.status_code, 404)
 
 
 if __name__ == '__main__':
