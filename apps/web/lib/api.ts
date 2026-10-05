@@ -30,6 +30,26 @@ export type SimulationCapabilityReport = {
   property_inventory_source?: string;
 };
 
+export type SimulationChemistryReport = {
+  schema_version: "simulation-chemistry-v1";
+  evidence_kind: "CALCULATED";
+  method_kind: "DETERMINISTIC";
+  scenario_input_hash: string;
+  layer_results: Array<{
+    layer_id: string;
+    layer_scope: string;
+    retained_oxide_wt_pct: Record<string, number>;
+    oxide_mass_g: Record<string, number>;
+    oxide_mol_pct: Record<string, number>;
+    umf: { status: "AVAILABLE" | "UNAVAILABLE"; values: Record<string, number> | null; unavailable_reason?: string | null };
+    ratios: Record<string, { status: "AVAILABLE" | "UNAVAILABLE"; value: number | null; unavailable_reason?: string | null }>;
+    warnings: string[];
+    limitations: string[];
+  }>;
+  material_resolutions: SimulationCapabilityReport["material_resolutions"];
+  limitations: string[];
+};
+
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`/api/v1/${path}`, {
     ...init,
