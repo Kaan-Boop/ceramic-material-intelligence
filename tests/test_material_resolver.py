@@ -1,7 +1,7 @@
 """Exact analysis resolution never falls back to fuzzy material names."""
 import unittest
 
-from research.material_resolver import MaterialResolutionError, resolve_materials, resolve_material
+from research.material_resolver import MaterialResolutionError, library_snapshot, resolve_engine_analysis, resolve_materials, resolve_material
 
 
 class MaterialResolverTests(unittest.TestCase):
@@ -16,6 +16,14 @@ class MaterialResolverTests(unittest.TestCase):
         for value in ("Saf silika", "generic-feldspar", ""):
             with self.assertRaises(MaterialResolutionError):
                 resolve_material(value)
+
+    def test_engine_adapter_returns_complete_snapshot_only_for_eligible_record(self):
+        analysis = resolve_engine_analysis("pure_silica")
+        self.assertTrue(analysis["complete"])
+        self.assertEqual(analysis["analysis_id"], "pure_silica")
+        research_only = next(record for record in library_snapshot() if record["kind"] == "CLAY_BODY")
+        with self.assertRaises(MaterialResolutionError):
+            resolve_engine_analysis(research_only["id"])
 
 
 if __name__ == "__main__":

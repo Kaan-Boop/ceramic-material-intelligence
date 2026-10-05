@@ -25,6 +25,7 @@ from research.chemistry.reaction_explorer import explore
 from research.material_library import build_library
 from research.local_recipe_archive import search_recipes, get_staged_record
 from research.simulation.capabilities import assess_capabilities
+from research.simulation.chemistry import ScenarioChemistryError, analyze_layer, scenario_material_roles
 from research.material_resolver import MaterialResolutionError, resolve_material, resolve_materials
 from research.simulation.scenario import (
     FiringSchedule as ScenarioFiringSchedule,
@@ -362,6 +363,30 @@ class SimulationScenarioRequest(StrictModel):
     metadata: dict[str, str] = Field(default_factory=dict)
 
 
+class ScenarioRecipeIngredient(StrictModel):
+    analysis_id: Annotated[str, Field(min_length=1, max_length=200)]
+    amount: Annotated[float, Field(strict=True, ge=0, le=1_000_000)]
+    role: Literal["BASE", "ADDITION"]
+
+    @field_validator("amount")
+    @classmethod
+    def recipe_amount_precision(cls, value):
+        if 0 < value < 0.000001:
+            raise ValueError("Non-zero recipe amounts must be at least 0.000001")
+        return value
+
+
+class ScenarioRecipeLayer(StrictModel):
+    layer_id: Annotated[str, Field(min_length=1, max_length=120)]
+    base_mass_g: Annotated[float, Field(strict=True, gt=0, le=1_000_000)] = 100
+    ingredients: Annotated[list[ScenarioRecipeIngredient], Field(min_length=1, max_length=100)]
+
+
+class SimulationChemistryRequest(StrictModel):
+    scenario: SimulationScenarioRequest
+    recipes: Annotated[list[ScenarioRecipeLayer], Field(min_length=1, max_length=100)]
+
+
 def _scenario_layer(layer: SimulationLayer) -> ScenarioLayerSpec:
     return ScenarioLayerSpec(
         layer_id=layer.layer_id,
@@ -452,6 +477,80 @@ def simulation_capabilities(payload: SimulationScenarioRequest):
             code='UNKNOWN_MATERIAL_ANALYSIS',
             path=['scenario', 'materials'],
             message='Malzeme adı yerine katalogdaki exact analysis_id ve sürüm kullanılmalı.',
+        )]).model_dump())
+    except ValueError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code='INVALID_SIMULATION_SCENARIO',
+            path=['scenario'],
+            message=str(exc),
+        )]).model_dump())
+
+
+@app.post('/api/v1/simulations/chemistry', response_model=dict[str, JsonValue], responses={422: {'model': ErrorResponse}})
+def simulation_chemistry(payload: SimulationChemistryRequest):
+    """Calculate deterministic dry-batch chemistry for declared scenario layers.
+
+    This is intentionally not a firing or surface simulator. Every recipe row
+    is resolved from the server's exact local analysis snapshot and research-
+    only catalogue records are rejected instead of being treated as chemistry.
+    """
+    try:
+        scenario = _scenario_from_request(payload.scenario)
+        material_ids = tuple(ref.analysis_id for ref in scenario.body.materials)
+        material_ids += tuple(ref.analysis_id for layer in scenario.layers for ref in layer.materials)
+        records, _inventory = resolve_materials(material_ids)
+        role_map = scenario_material_roles(scenario)
+        layer_results = []
+        for recipe in payload.recipes:
+            result = analyze_layer(
+                layer_id=recipe.layer_id,
+                ingredients=[item.model_dump() for item in recipe.ingredients],
+                base_mass_g=recipe.base_mass_g,
+                scenario_materials=role_map,
+            )
+            layer_results.append(result)
+        return {
+            'schema_version': 'simulation-chemistry-v1',
+            'evidence_kind': 'CALCULATED',
+            'method_kind': 'DETERMINISTIC',
+            'scenario_input_hash': scenario.input_hash(),
+            'layer_results': layer_results,
+            'material_resolutions': [
+                {
+                    'analysis_id': record['id'],
+                    'version': record['version'],
+                    'status': record['status'],
+                    'engine_eligible': record['engine_eligible'],
+                    'source_name': record['source_name'],
+                    'source_url': record['source_url'],
+                }
+                for record in records
+            ],
+            'limitations': [
+                'Katman raporları kuru baz oksit, mol ve UMF muhasebesidir.',
+                'Pişirim, faz, erime, viskozite, yüzey ve kusur sonucu hesaplanmaz.',
+                'Aynı senaryodaki bünye ve kaplama kimyaları ayrı raporlanır; arayüz reaksiyonu çıkarılmaz.',
+            ],
+        }
+    except MaterialResolutionError as exc:
+        code = 'MATERIAL_NOT_ENGINE_ELIGIBLE' if 'MATERIAL_NOT_ENGINE_ELIGIBLE' in str(exc) else 'UNKNOWN_MATERIAL_ANALYSIS'
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=code,
+            path=['recipes', 'ingredients'],
+            message='Her kimya girdisi exact ve engine-eligible bir analiz sürümüne bağlanmalıdır.',
+        )]).model_dump())
+    except ScenarioChemistryError as exc:
+        code = 'MATERIAL_NOT_ENGINE_ELIGIBLE' if 'MATERIAL_NOT_ENGINE_ELIGIBLE' in str(exc) else 'SCENARIO_CHEMISTRY_UNAVAILABLE'
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=code,
+            path=['recipes'],
+            message=str(exc),
+        )]).model_dump())
+    except ChemistryInputError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code='INVALID_CHEMISTRY_INPUT',
+            path=['recipes'],
+            message=str(exc),
         )]).model_dump())
     except ValueError as exc:
         return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(

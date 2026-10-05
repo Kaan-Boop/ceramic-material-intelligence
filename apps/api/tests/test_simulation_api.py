@@ -117,6 +117,42 @@ class SimulationAPITests(unittest.TestCase):
         self.assertFalse(resolved['engine_eligible'])
         self.assertEqual(result['outputs']['oxide_composition']['status'], 'UNAVAILABLE')
 
+    def test_layer_chemistry_returns_separate_deterministic_reports(self):
+        request = {
+            'scenario': payload(),
+            'recipes': [
+                {'layer_id': 'body', 'base_mass_g': 500, 'ingredients': [
+                    {'analysis_id': 'ideal_kaolinite', 'amount': 100, 'role': 'BASE'},
+                ]},
+                {'layer_id': 'engobe', 'base_mass_g': 100, 'ingredients': [
+                    {'analysis_id': 'ideal_k_feldspar', 'amount': 100, 'role': 'BASE'},
+                ]},
+                {'layer_id': 'glaze', 'base_mass_g': 100, 'ingredients': [
+                    {'analysis_id': 'pure_silica', 'amount': 100, 'role': 'BASE'},
+                    {'analysis_id': 'pure_calcite', 'amount': 5, 'role': 'ADDITION'},
+                ]},
+            ],
+        }
+        response = self.client.post('/api/v1/simulations/chemistry', json=request)
+        self.assertEqual(response.status_code, 200)
+        result = response.json()
+        self.assertEqual(result['schema_version'], 'simulation-chemistry-v1')
+        self.assertEqual([item['layer_id'] for item in result['layer_results']], ['body', 'engobe', 'glaze'])
+        self.assertEqual(result['layer_results'][2]['evidence_kind'], 'CALCULATED')
+        self.assertEqual(result['layer_results'][2]['umf']['status'], 'AVAILABLE')
+        self.assertIn('Pişirim', result['limitations'][1])
+
+    def test_layer_chemistry_rejects_research_only_analysis(self):
+        body = next(record for record in library_snapshot() if record['kind'] == 'CLAY_BODY')
+        scenario = payload()
+        scenario['body']['materials'][0]['analysis_id'] = body['id']
+        request = {'scenario': scenario, 'recipes': [{
+            'layer_id': 'body', 'ingredients': [{'analysis_id': body['id'], 'amount': 100, 'role': 'BASE'}],
+        }]}
+        response = self.client.post('/api/v1/simulations/chemistry', json=request)
+        self.assertEqual(response.status_code, 422)
+        self.assertEqual(response.json()['errors'][0]['code'], 'MATERIAL_NOT_ENGINE_ELIGIBLE')
+
 
 if __name__ == '__main__':
     unittest.main()

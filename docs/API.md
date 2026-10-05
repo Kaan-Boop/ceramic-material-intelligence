@@ -13,6 +13,7 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 | GET /oxides | Desteklenen oksitler ve sabit/policy metadata | M4 |
 | POST /analyses | Geçici hesap; `persist=false` varsayılanı | M4 |
 | POST /simulations/capabilities | Genel senaryoyu doğrular; hedef çıktılar için AVAILABLE/PARTIAL/UNAVAILABLE kapısı döndürür, fiziksel sonuç üretmez | M4 |
+| POST /simulations/chemistry | Senaryo katmanlarının açık reçetelerini ayrı ayrı kuru baz oksit/mol/UMF raporuna bağlar; firing veya yüzey sonucu üretmez | M4 |
 | POST /analyses, persist=true | Yeni immutable AnalysisRun | M5 |
 | GET /analyses/{id} | Yetkili kaydedilmiş sonuç | M5 |
 | GET/POST /recipes | Kayıtlar / yeni Recipe+ilk revision | M5 |
@@ -40,6 +41,13 @@ analizi sayılmaz. Böyle bir kayıt senaryoda seçilirse çözülür, fakat mot
 sunucu tarafındaki özellik envanterine `oxide_analysis` eklenmediği için kimya
 çıktısı `UNAVAILABLE` kalır. Kütüphane keşfi ile hesap motoru uygunluğu
 bilinçli olarak birbirinden ayrılır.
+
+`POST /api/v1/simulations/chemistry` aynı exact senaryoyu ve her hesaplanacak
+katman için ayrı reçete girdisini alır. Bu istekte `BASE` miktarları parça,
+`ADDITION` miktarları kuru baz yüzdesidir; fiziksel senaryo içindeki
+`amount_g` alanıyla karıştırılmaz. Her katmanın sonucu ayrı kimya girdileri ve
+provenance snapshot taşır. Araştırma dizini kaydı veya eksik analiz varsa
+endpoint 422 döndürür; sessiz teorik eşleştirme yapmaz.
 
 ## Web dağıtımı
 

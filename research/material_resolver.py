@@ -4,6 +4,7 @@ Names are presentation data only. A simulation may use a material only when
 its exact local record is present; research-only records remain visible but do
 not silently become chemistry inputs.
 """
+from copy import deepcopy
 from functools import lru_cache
 
 from research.chemistry.recipe_demo import demo
@@ -40,6 +41,24 @@ def resolve_material(analysis_id: str) -> dict:
         if record["id"] == analysis_id:
             return dict(record)
     raise MaterialResolutionError(f"UNKNOWN_MATERIAL_ANALYSIS: {analysis_id}")
+
+
+def resolve_engine_analysis(analysis_id: str) -> dict:
+    """Return the complete chemistry-engine snapshot for an eligible record.
+
+    The public library projection intentionally contains presentation and
+    provenance fields only. This adapter keeps the chemistry engine coupled to
+    an exact, versioned local snapshot rather than to display names or client
+    supplied oxide maps.
+    """
+    record = resolve_material(analysis_id)
+    if not record.get("engine_eligible"):
+        raise MaterialResolutionError(f"MATERIAL_NOT_ENGINE_ELIGIBLE: {analysis_id}")
+    analysis = deepcopy(demo()["input_snapshot"]["analyses"].get(analysis_id))
+    if not isinstance(analysis, dict):
+        raise MaterialResolutionError(f"ENGINE_ANALYSIS_SNAPSHOT_MISSING: {analysis_id}")
+    analysis["analysis_id"] = analysis_id
+    return analysis
 
 
 def resolve_materials(analysis_ids: tuple[str, ...] | list[str]) -> tuple[list[dict], dict[str, set[str]]]:
