@@ -14,6 +14,7 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 | POST /analyses | Geçici hesap; `persist=false` varsayılanı | M4 |
 | POST /simulations/capabilities | Genel senaryoyu doğrular; hedef çıktılar için AVAILABLE/PARTIAL/UNAVAILABLE kapısı döndürür, fiziksel sonuç üretmez | M4 |
 | POST /simulations/chemistry | Senaryo katmanlarının açık reçetelerini ayrı ayrı kuru baz oksit/mol/UMF raporuna bağlar; firing veya yüzey sonucu üretmez | M4 |
+| POST /references/openglaze/umf | Yerel olarak etkinleştirilmiş OpenGlaze CLI çıktısını harici karşılaştırma olarak döndürür; çekirdek sonucu değiştirmez | Araştırma |
 | POST /analyses, persist=true | Yeni immutable AnalysisRun | M5 |
 | GET /analyses/{id} | Yetkili kaydedilmiş sonuç | M5 |
 | GET/POST /recipes | Kayıtlar / yeni Recipe+ilk revision | M5 |
@@ -48,6 +49,12 @@ katman için ayrı reçete girdisini alır. Bu istekte `BASE` miktarları parça
 `amount_g` alanıyla karıştırılmaz. Her katmanın sonucu ayrı kimya girdileri ve
 provenance snapshot taşır. Araştırma dizini kaydı veya eksik analiz varsa
 endpoint 422 döndürür; sessiz teorik eşleştirme yapmaz.
+
+`POST /api/v1/references/openglaze/umf` yalnızca `OPENGLAZE_REPO_ROOT` ortam
+değişkeni lisans incelemesinden geçmiş yerel checkout’a işaret ediyorsa çalışır.
+Sonuç `DETERMINISTIC_EXTERNAL_REFERENCE` olarak etiketlenir; OpenGlaze raporu
+ölçülmüş deney, yüzey garantisi veya gıda güvenliği kanıtı değildir. Kaynak
+etkin değilse endpoint 503 ve `EXTERNAL_REFERENCE_NOT_CONFIGURED` döndürür.
 
 ## Web dağıtımı
 

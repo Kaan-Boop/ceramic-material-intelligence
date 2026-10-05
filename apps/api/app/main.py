@@ -7,6 +7,8 @@ from __future__ import annotations
 
 from copy import deepcopy
 from functools import lru_cache
+import os
+import sys
 from typing import Annotated, Literal
 
 from fastapi import FastAPI, Request, Query
@@ -27,6 +29,7 @@ from research.local_recipe_archive import search_recipes, get_staged_record
 from research.simulation.capabilities import assess_capabilities
 from research.simulation.chemistry import ScenarioChemistryError, analyze_layer, scenario_material_roles
 from research.material_resolver import MaterialResolutionError, resolve_material, resolve_materials
+from research.external.openglaze_adapter import OpenGlazeReferenceError, run_umf_reference
 from research.simulation.scenario import (
     FiringSchedule as ScenarioFiringSchedule,
     FiringSegment as ScenarioFiringSegment,
@@ -570,9 +573,53 @@ class ReactionExplorerRequest(StrictModel):
     conversion: Annotated[float, Field(strict=True, ge=0, le=1)]
 
 
+class ExternalReferenceIngredient(StrictModel):
+    name: Annotated[str, Field(min_length=1, max_length=160)]
+    amount: Annotated[float, Field(strict=True, gt=0, le=1000000)]
+
+
+class OpenGlazeReferenceRequest(StrictModel):
+    ingredients: Annotated[list[ExternalReferenceIngredient], Field(min_length=1, max_length=100)]
+    cone: Annotated[int, Field(strict=True, ge=-20, le=20)]
+
+
 @app.post('/api/v1/reactions/calcite', response_model=dict[str, JsonValue])
 def calcite_explorer(payload: ReactionExplorerRequest):
     return explore(payload.mass_g, payload.conversion)
+
+
+@app.post('/api/v1/references/openglaze/umf', response_model=dict[str, JsonValue])
+def openglaze_umf_reference(payload: OpenGlazeReferenceRequest):
+    """Run the optional OpenGlaze CLI as an explicitly external reference.
+
+    The route is disabled unless ``OPENGLAZE_REPO_ROOT`` points to a locally
+    downloaded, license-reviewed checkout. Its result never replaces the
+    deterministic Ceramic Material Intelligence chemistry report.
+    """
+    repo_root = os.environ.get('OPENGLAZE_REPO_ROOT', '').strip()
+    if not repo_root:
+        return JSONResponse(status_code=503, content={
+            'status': 'UNAVAILABLE',
+            'code': 'EXTERNAL_REFERENCE_NOT_CONFIGURED',
+            'message': 'OpenGlaze referans kaynağı bu çalışma ortamında etkin değil.',
+            'evidence_kind': 'CALCULATED',
+            'method_kind': 'DETERMINISTIC_EXTERNAL_REFERENCE',
+        })
+    try:
+        return run_umf_reference(
+            [item.model_dump() for item in payload.ingredients],
+            cone=payload.cone,
+            repo_root=repo_root,
+            python_executable=os.environ.get('OPENGLAZE_PYTHON', sys.executable),
+        )
+    except OpenGlazeReferenceError:
+        return JSONResponse(status_code=503, content={
+            'status': 'UNAVAILABLE',
+            'code': 'EXTERNAL_REFERENCE_EXECUTION_FAILED',
+            'message': 'OpenGlaze referans hesabı çalıştırılamadı; çekirdek rapor kullanılmaya devam eder.',
+            'evidence_kind': 'CALCULATED',
+            'method_kind': 'DETERMINISTIC_EXTERNAL_REFERENCE',
+        })
 
 
 @app.post('/api/v1/validation/temperature', response_model=dict[str, JsonValue])
