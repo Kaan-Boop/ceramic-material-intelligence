@@ -583,6 +583,13 @@ class OpenGlazeReferenceRequest(StrictModel):
     ingredients: Annotated[list[ExternalReferenceIngredient], Field(min_length=1, max_length=100)]
     cone: Annotated[int, Field(strict=True, ge=-20, le=20)]
 
+    @field_validator('cone')
+    @classmethod
+    def nonzero_cone(cls, value: int) -> int:
+        if value == 0:
+            raise ValueError('Cone 0 geçerli bir referans değildir.')
+        return value
+
 
 @app.post('/api/v1/reactions/calcite', response_model=dict[str, JsonValue])
 def calcite_explorer(payload: ReactionExplorerRequest):
