@@ -8,6 +8,7 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 |---|---|---|
 | GET /materials | İzinli ürün listesi; query/filter/cursor | M4 |
 | GET /materials/{id} | Ürün kimliği ve analiz sürümleri | M4 |
+| GET /library | Yerel araştırma kütüphanesi; teorik, ürün dizini ve karantina kayıtlarını durum/izin alanlarıyla döndürür | M4 |
 | GET /material-analyses/{analysis_id} | Exact local analysis record, provenance and engine eligibility | M4 |
 | GET /oxides | Desteklenen oksitler ve sabit/policy metadata | M4 |
 | POST /analyses | Geçici hesap; `persist=false` varsayılanı | M4 |
@@ -32,6 +33,13 @@ hedefini alır. Malzeme özellikleri istemciden kabul edilmez; sunucu exact
 değeri ve her hedef için durum bulunur. Bu endpoint henüz
 `melt_fraction`, sıcaklığa bağlı `viscosity`, renk, yüzey veya kusur olasılığı
 hesaplamaz; bu hedefleri `UNAVAILABLE` döndürür.
+
+`/library` içindeki `RESEARCH_ONLY` ve `QUARANTINED` kayıtlar araştırma
+kataloğunda görünür; ürün adı veya katalog pişirim aralığı tek başına oksit
+analizi sayılmaz. Böyle bir kayıt senaryoda seçilirse çözülür, fakat motorun
+sunucu tarafındaki özellik envanterine `oxide_analysis` eklenmediği için kimya
+çıktısı `UNAVAILABLE` kalır. Kütüphane keşfi ile hesap motoru uygunluğu
+bilinçli olarak birbirinden ayrılır.
 
 ## Web dağıtımı
 

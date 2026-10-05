@@ -5,6 +5,7 @@ import unittest
 from fastapi.testclient import TestClient
 
 from apps.api.app.main import app
+from research.material_resolver import library_snapshot
 
 
 def payload():
@@ -103,6 +104,18 @@ class SimulationAPITests(unittest.TestCase):
     def test_material_analysis_endpoint_does_not_fuzzy_match_names(self):
         response = self.client.get('/api/v1/material-analyses/Saf%20silika')
         self.assertEqual(response.status_code, 404)
+
+    def test_research_only_body_is_visible_but_not_promoted_to_chemistry(self):
+        body = next(record for record in library_snapshot() if record['kind'] == 'CLAY_BODY')
+        request = payload()
+        request['body']['materials'][0]['analysis_id'] = body['id']
+        response = self.client.post('/api/v1/simulations/capabilities', json=request)
+        self.assertEqual(response.status_code, 200)
+        result = response.json()
+        resolved = next(item for item in result['material_resolutions'] if item['analysis_id'] == body['id'])
+        self.assertEqual(resolved['status'], 'RESEARCH_ONLY')
+        self.assertFalse(resolved['engine_eligible'])
+        self.assertEqual(result['outputs']['oxide_composition']['status'], 'UNAVAILABLE')
 
 
 if __name__ == '__main__':

@@ -19,6 +19,15 @@ export type SimulationCapabilityReport = {
   material_ids: string[];
   outputs: Record<string, CapabilityOutput>;
   limitations: string[];
+  material_resolutions?: Array<{
+    analysis_id: string;
+    version: string;
+    status: string;
+    engine_eligible: boolean;
+    source_name: string;
+    source_url: string;
+  }>;
+  property_inventory_source?: string;
 };
 
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
