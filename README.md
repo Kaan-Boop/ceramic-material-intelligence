@@ -23,6 +23,8 @@ Yeni: [23 kaynaklık arşiv ve fizibilite PDF'sinin kabul incelemesi](docs/SOURC
 5. [Veri modeli](docs/DATA_MODEL.md)
 6. [Yol haritası](docs/ROADMAP.md)
 
+Harici açık kaynak araştırma havuzu için [repository manifestini](data/manifests/external-repositories-2026-10-05.json) ve [kullanım/lisans sınırlarını](docs/EXTERNAL_OPEN_SOURCE_SOURCES.md) inceleyin. Bu kaynaklar üretim motoruna sessizce kopyalanmaz; yalnızca lisansı ve bilimsel kapsamı açıkça belirtilmiş karşılaştırma/araştırma yüzeyleridir.
+
 ## Tasarım belgeleri
 
 | Belge | Kapsam |

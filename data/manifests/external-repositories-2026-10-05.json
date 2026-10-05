@@ -1,0 +1,103 @@
+{
+  "manifest_version": "1.0",
+  "retrieved_at": "2026-10-05",
+  "purpose": "Isolated research references and benchmark tooling; no external source is silently copied into the production chemistry engine.",
+  "repositories": [
+    {
+      "name": "OpenGlaze",
+      "url": "https://github.com/KyaniteLabs/openglaze",
+      "ref": "master",
+      "local_path": "storage/external/openglaze/source/openglaze-master",
+      "archive_sha256": "ee1bda0842c59731c07330ecefded5bae19719f41cd8371f550ac88b2eafa7e6",
+      "license": "MIT",
+      "commercial_use": "allowed_with_notice",
+      "intended_use": "reference_engine_and_comparison_harness",
+      "integration_status": "downloaded; skill installed globally; no source copied into core",
+      "notes": "Directly relevant UMF, recipe analysis, CTE estimation and substitution utilities. Results remain independent reference outputs and are not treated as measured truth."
+    },
+    {
+      "name": "pycalphad",
+      "url": "https://github.com/pycalphad/pycalphad",
+      "ref": "0.11.2",
+      "local_path": "storage/external/pycalphad/source/pycalphad-0.11.2",
+      "archive_sha256": "1179ff125a9b002024625dc322f3827b556aadec6fb0f656d387bda75cd37f13",
+      "license": "MIT",
+      "commercial_use": "allowed_with_notice",
+      "intended_use": "future_phase_equilibrium_research_only",
+      "integration_status": "downloaded; not installed or enabled",
+      "notes": "Requires a provenance-controlled ceramic oxide thermodynamic database (TDB). The library alone cannot predict glaze phases."
+    },
+    {
+      "name": "GlazyBench",
+      "url": "https://github.com/ziazhai/GlazyBench",
+      "ref": "main",
+      "local_path": "storage/external/glazybench/source/GlazyBench-main",
+      "archive_sha256": "636b9eff03e83b1763d7bda04afb9e560e7ec60d2df399463234fbc846ba33a0",
+      "license": "CC BY-NC-SA 4.0",
+      "commercial_use": "not_allowed_without_separate_permission",
+      "intended_use": "non_commercial_benchmark_audit_only",
+      "integration_status": "quarantined; not a production training set",
+      "notes": "Metadata-only benchmark release. License, dataset lineage and non-commercial terms prevent bundling into a commercial product or model."
+    },
+    {
+      "name": "LIPGLOSS-CALC",
+      "url": "https://github.com/PieterMostert/LIPGLOSS-CALC",
+      "ref": "master",
+      "local_path": "storage/external/lipgloss-calc/source/LIPGLOSS-CALC-master",
+      "archive_sha256": "a9ac2dce03b0041cba4fe97b8f3cf80f725235ffebb5ad50d303495a8eef7e25",
+      "license": "GPL-3.0-only",
+      "commercial_use": "requires_gpl_compliance",
+      "intended_use": "algorithm_review_only",
+      "integration_status": "downloaded; no code copied",
+      "notes": "Useful constrained UMF/linear-programming reference. GPL code is kept outside the application source."
+    },
+    {
+      "name": "LIPGLOSS2",
+      "url": "https://github.com/PieterMostert/LIPGLOSS2",
+      "ref": "master",
+      "local_path": "storage/external/lipgloss2/source/LIPGLOSS2-master",
+      "archive_sha256": "29ef3391cb96125fb2a5289bab9f7481fe8078e7095998be95d43cd86f21ada4",
+      "license": "GPL-3.0-only",
+      "commercial_use": "requires_gpl_compliance",
+      "intended_use": "algorithm_review_only",
+      "integration_status": "downloaded; no code copied",
+      "notes": "CVXOPT-based glaze recipe optimizer reference. Its dependency and GPL boundary are not part of the MVP."
+    },
+    {
+      "name": "Cantera",
+      "url": "https://github.com/Cantera/cantera",
+      "ref": "main",
+      "local_path": "storage/external/cantera/source/cantera-main",
+      "archive_sha256": "aaabb8eb731c1522abd9697558fa24cb9789cd504380dbb6e35d98fbce64d227",
+      "license": "BSD-style permissive",
+      "commercial_use": "allowed_with_notice",
+      "intended_use": "generic_kinetics_reference_only",
+      "integration_status": "downloaded; not enabled",
+      "notes": "Generic thermochemistry/kinetics toolkit. It has no validated ceramic glaze mechanism or oxide-melt database, so it is not a glaze predictor."
+    },
+    {
+      "name": "pymatgen",
+      "url": "https://github.com/materialsproject/pymatgen",
+      "ref": "main",
+      "local_path": "storage/external/pymatgen/source/pymatgen-main",
+      "archive_sha256": "91a17f7b184dcd4254c9390e8dc587e818da9b8c77753d9b8fe39fe6551989ce",
+      "license": "MIT",
+      "commercial_use": "allowed_with_notice",
+      "intended_use": "future_materials_and_phase_data_adapter",
+      "integration_status": "downloaded; not installed",
+      "notes": "Useful structure/phase utilities, not a glaze chemistry model. Materials Project records require their own API and data-use review."
+    },
+    {
+      "name": "matminer",
+      "url": "https://github.com/hackingmaterials/matminer",
+      "ref": "main",
+      "local_path": "storage/external/matminer/source/matminer-main",
+      "archive_sha256": "8cb7c17b247bcabdb58ea87651d2f2d5b408cffca97fc80a6628b4454098c7a1",
+      "license": "BSD-style permissive",
+      "commercial_use": "allowed_with_notice",
+      "intended_use": "future_feature_engineering_reference",
+      "integration_status": "downloaded; not installed",
+      "notes": "Feature engineering utilities are relevant only after a rights-filtered, measured dataset and leakage-safe split exist."
+    }
+  ]
+}
