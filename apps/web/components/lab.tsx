@@ -5,6 +5,7 @@ import ProcessReport from './process-report';
 import MaterialLibrary from './material-library';
 import BodyPicker from './body-picker';
 import CompositionChart from './composition-chart';
+import SimulationPanel from './simulation-panel';
 import {
   api,
   numberTR as fmt,
@@ -141,7 +142,7 @@ function validDraft(v: unknown, catalogue: Catalogue): v is Draft {
 }
 
 export default function Lab() {
-  const [tab, setTab] = useState<"analyze" | "materials" | "models">("analyze");
+  const [tab, setTab] = useState<"analyze" | "materials" | "models" | "simulation">("analyze");
   const [catalogue, setCatalogue] = useState<Catalogue | null>(null);
   const [draft, setDraft] = useState<Draft>(INITIAL);
   const [report, setReport] = useState<Report | null>(null);
@@ -314,6 +315,12 @@ export default function Lab() {
           >
             <span>03</span> Model sınırları
           </button>
+          <button
+            className={tab === "simulation" ? "nav-active" : ""}
+            onClick={() => setTab("simulation")}
+          >
+            <span>04</span> Simülasyon hedefi
+          </button>
         </nav>
         <div className="rail-bottom">
           <span className="status-dot" /> YEREL PROTOTİP · v0.1
@@ -335,7 +342,9 @@ export default function Lab() {
               ? "REÇETE ANALİZİ"
               : tab === "materials"
                 ? "MALZEMELER"
-                : "MODEL SINIRLARI"}
+                : tab === "models"
+                  ? "MODEL SINIRLARI"
+                  : "SİMÜLASYON HEDEFİ"}
           </span>
           <span className="version">PYTHON ENGINE · 0.1</span>
         </header>
@@ -351,9 +360,13 @@ export default function Lab() {
                 <>
                   Analizin <em>kaynağı.</em>
                 </>
-              ) : (
+              ) : tab === "models" ? (
                 <>
                   Bildiğimiz ve <em>bilmediğimiz.</em>
+                </>
+              ) : (
+                <>
+                  Hedefini <em>tanımla.</em>
                 </>
               )}
             </h1>
@@ -362,7 +375,9 @@ export default function Lab() {
                 ? "Reçeteni oluştur, kimyasını incele, bir sonraki deneyini bilinçli planla."
                 : tab === "materials"
                   ? "Her hesap, seçilen malzeme analizinin varsayımları kadar anlamlıdır."
-                  : "Hesaplanan değer, ölçülmüş sonuç ve tahmin aynı şey değildir."}
+                  : tab === "models"
+                    ? "Hesaplanan değer, ölçülmüş sonuç ve tahmin aynı şey değildir."
+                    : "Farklı malzeme kombinasyonları için hangi çıktının desteklendiğini seç ve gör."}
             </p>
           </div>
           <span className="edition">
@@ -374,12 +389,12 @@ export default function Lab() {
         <div className="demo-banner">
           <span className="banner-icon">i</span>
           <div>
-            <strong>{tab==='materials'?'Kaynaklı araştırma kütüphanesi':'Teorik demo kataloğu'}</strong>
+            <strong>{tab==='materials'?'Kaynaklı araştırma kütüphanesi':tab==='simulation'?'Senaryo kapsam geçidi':'Teorik demo kataloğu'}</strong>
             <p>
-              {tab==='materials'?'Kayıt bulunması analiz onayı değildir. Teorik girdiler, ürün kimlikleri ve inceleme bekleyen analizler ayrı etiketlenir.':'Bu dört malzeme ideal kimyasal formüllerdir; ticari ürün veya lot analizi değildir. Çıktılar teorik oksit hesabıdır.'}
+              {tab==='materials'?'Kayıt bulunması analiz onayı değildir. Teorik girdiler, ürün kimlikleri ve inceleme bekleyen analizler ayrı etiketlenir.':tab==='simulation'?'Bu ekran fiziksel sonuç üretmez; seçilen hedef için veri ve model kapsamını açıkça raporlar.':'Bu dört malzeme ideal kimyasal formüllerdir; ticari ürün veya lot analizi değildir. Çıktılar teorik oksit hesabıdır.'}
             </p>
           </div>
-          <span className="tag amber">{tab==='materials'?'ARAŞTIRMA DİZİNİ':'THEORETICAL'}</span>
+          <span className="tag amber">{tab==='materials'?'ARAŞTIRMA DİZİNİ':tab==='simulation'?'KAPSAM · HESAP DEĞİL':'THEORETICAL'}</span>
         </div>
         {error && (
           <div className="message error" role="alert">
@@ -956,6 +971,9 @@ export default function Lab() {
             )}
             {tab === "materials" && (
               <MaterialLibrary />
+            )}
+            {tab === "simulation" && (
+              <SimulationPanel catalogue={catalogue} recipeRows={draft.rows} />
             )}
             {tab === "models" && (
               <section className="card model-card">

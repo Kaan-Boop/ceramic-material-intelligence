@@ -5,6 +5,22 @@ export type Report = components["schemas"]["AnalysisReport"];
 export type AnalysisRequest = components["schemas"]["AnalysisRequest"];
 export type Material = components["schemas"]["Material"];
 
+export type CapabilityOutput = {
+  status: "AVAILABLE" | "PARTIAL" | "UNAVAILABLE";
+  evidence_kind: "CALCULATED" | "PREDICTED";
+  method_kind: "DETERMINISTIC" | "UNAVAILABLE";
+  reason: string;
+};
+
+export type SimulationCapabilityReport = {
+  schema_version: "simulation-capabilities-v1";
+  scenario_id: string;
+  input_hash: string;
+  material_ids: string[];
+  outputs: Record<string, CapabilityOutput>;
+  limitations: string[];
+};
+
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`/api/v1/${path}`, {
     ...init,
