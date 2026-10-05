@@ -29,7 +29,7 @@ from research.material_library import build_library
 from research.local_recipe_archive import search_recipes, get_staged_record
 from research.simulation.capabilities import assess_capabilities
 from research.simulation.chemistry import ScenarioChemistryError, analyze_layer, scenario_material_roles
-from research.material_resolver import MaterialResolutionError, resolve_material, resolve_materials
+from research.material_resolver import MaterialResolutionError, resolve_engine_analysis, resolve_material, resolve_materials
 from research.external.openglaze_adapter import OpenGlazeReferenceError, run_umf_reference
 from research.simulation.scenario import (
     FiringSchedule as ScenarioFiringSchedule,
@@ -591,6 +591,20 @@ class OpenGlazeReferenceRequest(StrictModel):
         return value
 
 
+class ChemistryComparisonRequest(StrictModel):
+    ingredients: Annotated[list[Ingredient], Field(min_length=1, max_length=100)]
+    base_mass_g: Annotated[float, Field(strict=True, gt=0, le=1_000_000)] = 100
+    cone: Annotated[int, Field(strict=True, ge=-20, le=20)]
+    external_names: dict[str, Annotated[str, Field(min_length=1, max_length=160)]] = Field(default_factory=dict)
+
+    @field_validator('cone')
+    @classmethod
+    def nonzero_cone(cls, value: int) -> int:
+        if value == 0:
+            raise ValueError('Cone 0 geçerli bir referans değildir.')
+        return value
+
+
 @app.post('/api/v1/reactions/calcite', response_model=dict[str, JsonValue])
 def calcite_explorer(payload: ReactionExplorerRequest):
     return explore(payload.mass_g, payload.conversion)
@@ -632,6 +646,108 @@ def openglaze_umf_reference(payload: OpenGlazeReferenceRequest):
         })
 
 
+def _comparison_value_delta(internal: float | None, external: float | None) -> dict:
+    if internal is None or external is None:
+        return {'status': 'UNAVAILABLE', 'internal': internal, 'external': external, 'delta': None, 'delta_pct': None}
+    delta = external - internal
+    return {
+        'status': 'AVAILABLE',
+        'internal': internal,
+        'external': external,
+        'delta': delta,
+        'delta_pct': (delta / internal * 100) if internal else None,
+    }
+
+
+@app.post('/api/v1/references/openglaze/compare', response_model=dict[str, JsonValue])
+def compare_with_openglaze(payload: ChemistryComparisonRequest):
+    """Compare our exact local chemistry snapshot with OpenGlaze.
+
+    This endpoint is a reproducibility aid, not a consensus engine. It only
+    compares UMF-equivalent fields and preserves the external report and
+    material-name limitations separately.
+    """
+    if any(row.role == 'ADDITION' for row in payload.ingredients):
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code='EXTERNAL_REFERENCE_ADDITIONS_UNSUPPORTED',
+            path=['ingredients'],
+            message='OpenGlaze karşılaştırması şu anda yalnızca BASE parçalarını destekler; ADDITION satırları ayrı semantics gerektirir.',
+        )]).model_dump())
+    try:
+        records, _inventory = resolve_materials(tuple(row.analysis_id for row in payload.ingredients))
+        analyses = {row.analysis_id: resolve_engine_analysis(row.analysis_id) for row in payload.ingredients}
+        internal = analyze_recipe([row.model_dump() for row in payload.ingredients], analyses, base_mass_g=payload.base_mass_g)
+        by_id = {record['id']: record for record in records}
+        external_ingredients = [
+            {
+                'name': payload.external_names.get(row.analysis_id, by_id[row.analysis_id]['name']),
+                'amount': row.amount,
+            }
+            for row in payload.ingredients
+        ]
+        configured_root = os.environ.get('OPENGLAZE_REPO_ROOT', '').strip()
+        bundled_root = Path(__file__).resolve().parents[3] / 'storage' / 'external' / 'openglaze' / 'source' / 'openglaze-master'
+        repo_root = configured_root or (str(bundled_root) if bundled_root.is_dir() else '')
+        if not repo_root:
+            return {
+                'schema_version': 'comparison-run-v1',
+                'status': 'PARTIAL',
+                'evidence_kind': 'CALCULATED',
+                'method_kind': 'DETERMINISTIC',
+                'internal': internal,
+                'external': {'status': 'UNAVAILABLE', 'reason': 'EXTERNAL_REFERENCE_NOT_CONFIGURED'},
+                'differences': {},
+                'warnings': ['Harici OpenGlaze kaynağı etkin değil; yalnızca kendi motorumuzun raporu üretildi.'],
+                'limitations': ['Bu bir motor karşılaştırmasıdır; deneysel doğrulama değildir.'],
+            }
+        external = run_umf_reference(
+            external_ingredients,
+            cone=payload.cone,
+            repo_root=repo_root,
+            python_executable=os.environ.get('OPENGLAZE_PYTHON', sys.executable),
+        )
+        ext_report = external['report']
+        internal_umf = internal['umf'].get('values') or {}
+        external_umf = ext_report.get('umf_formula') or {}
+        oxide_keys = sorted(set(internal_umf) | set(external_umf))
+        umf_differences = {oxide: _comparison_value_delta(internal_umf.get(oxide), external_umf.get(oxide)) for oxide in oxide_keys}
+        internal_ratio = internal['ratios']['SiO2_to_Al2O3_molar'].get('value')
+        external_ratio = (ext_report.get('ratios') or {}).get('sio2_al2o3')
+        status = 'COMPARED' if ext_report.get('success') and not ext_report.get('missing_materials') else 'PARTIAL'
+        warnings = [
+            'İki motorun malzeme adları aynı fiziksel ürünü temsil etmiyorsa sayısal fark anlamlı bir doğrulama değildir.',
+            'OpenGlaze çıktısı yaklaşık/harici referanstır; ölçülmüş sır, CTE veya yüzey sonucu değildir.',
+        ]
+        if ext_report.get('missing_materials'):
+            warnings.append('OpenGlaze bazı malzemeleri tanımadı: ' + ', '.join(ext_report['missing_materials']))
+        return {
+            'schema_version': 'comparison-run-v1',
+            'status': status,
+            'evidence_kind': 'CALCULATED',
+            'method_kind': 'DETERMINISTIC',
+            'input_hash': digest({'internal': internal['input_hash'], 'external': external_ingredients, 'cone': payload.cone}),
+            'internal': {
+                'engine_version': internal['engine_version'],
+                'input_hash': internal['input_hash'],
+                'umf_convention': internal['umf_convention'],
+                'umf': internal['umf'],
+                'ratios': internal['ratios'],
+            },
+            'external': external,
+            'differences': {
+                'umf': umf_differences,
+                'SiO2_to_Al2O3_molar': _comparison_value_delta(internal_ratio, external_ratio),
+                'thermal_expansion': {'status': 'UNAVAILABLE', 'reason': 'Çekirdek motorumuzda bu karşılaştırma için doğrulanmış CTE değeri yok.'},
+            },
+            'warnings': warnings,
+            'limitations': ['Fark tablosu yalnızca seçilmiş sayısal alanları karşılaştırır; hangi motorun doğru olduğunu ilan etmez.', 'Gerçek doğrulama için aynı hammaddelerle test karosu ve ölçüm gerekir.'],
+        }
+    except (MaterialResolutionError, ChemistryInputError, OpenGlazeReferenceError) as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code='REFERENCE_COMPARISON_UNAVAILABLE',
+            path=['ingredients'],
+            message=str(exc),
+        )]).model_dump())
 @app.post('/api/v1/validation/temperature', response_model=dict[str, JsonValue])
 def temperature_comparison(payload: ComparisonRequest):
     try:

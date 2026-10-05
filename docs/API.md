@@ -15,6 +15,7 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 | POST /simulations/capabilities | Genel senaryoyu doğrular; hedef çıktılar için AVAILABLE/PARTIAL/UNAVAILABLE kapısı döndürür, fiziksel sonuç üretmez | M4 |
 | POST /simulations/chemistry | Senaryo katmanlarının açık reçetelerini ayrı ayrı kuru baz oksit/mol/UMF raporuna bağlar; firing veya yüzey sonucu üretmez | M4 |
 | POST /references/openglaze/umf | Yerel olarak etkinleştirilmiş OpenGlaze CLI çıktısını harici karşılaştırma olarak döndürür; çekirdek sonucu değiştirmez | Araştırma |
+| POST /references/openglaze/compare | Exact yerel analiz snapshot’ı ile OpenGlaze UMF/SiO₂:Al₂O₃ çıktısını oksit bazında karşılaştırır; doğruluk sıralaması üretmez | Araştırma |
 | POST /analyses, persist=true | Yeni immutable AnalysisRun | M5 |
 | GET /analyses/{id} | Yetkili kaydedilmiş sonuç | M5 |
 | GET/POST /recipes | Kayıtlar / yeni Recipe+ilk revision | M5 |
@@ -55,6 +56,12 @@ değişkeni lisans incelemesinden geçmiş yerel checkout’a işaret ediyorsa �
 Sonuç `DETERMINISTIC_EXTERNAL_REFERENCE` olarak etiketlenir; OpenGlaze raporu
 ölçülmüş deney, yüzey garantisi veya gıda güvenliği kanıtı değildir. Kaynak
 etkin değilse endpoint 503 ve `EXTERNAL_REFERENCE_NOT_CONFIGURED` döndürür.
+
+`POST /api/v1/references/openglaze/compare` yalnızca `BASE` satırlarını kabul
+eder. `ADDITION` satırlarının kuru baz yüzdesi ile harici reçete parser’ının
+parça yüzdesi aynı semantik olmadığı için bu durum sessizce dönüştürülmez.
+Yanıt `comparison-run-v1` içinde `internal`, `external`, oksit bazında `delta`
+ve `delta_pct`, uyarılar ve sınırlamalar bulunur.
 
 ## Web dağıtımı
 

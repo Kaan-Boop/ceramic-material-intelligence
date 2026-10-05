@@ -69,6 +69,29 @@ export type OpenGlazeReferenceReport = {
   limitations: string[];
 };
 
+export type OpenGlazeComparisonReport = {
+  schema_version: "comparison-run-v1";
+  status: "COMPARED" | "PARTIAL";
+  evidence_kind: "CALCULATED";
+  method_kind: "DETERMINISTIC";
+  input_hash: string;
+  internal: {
+    engine_version: string;
+    input_hash: string;
+    umf_convention: string;
+    umf: { status: "AVAILABLE" | "UNAVAILABLE"; values: Record<string, number> | null };
+    ratios: Record<string, { status: "AVAILABLE" | "UNAVAILABLE"; value: number | null }>;
+  };
+  external: OpenGlazeReferenceReport;
+  differences: {
+    umf: Record<string, { status: string; internal: number | null; external: number | null; delta: number | null; delta_pct: number | null }>;
+    SiO2_to_Al2O3_molar: { status: string; internal: number | null; external: number | null; delta: number | null; delta_pct: number | null };
+    thermal_expansion: { status: string; reason: string };
+  };
+  warnings: string[];
+  limitations: string[];
+};
+
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`/api/v1/${path}`, {
     ...init,
