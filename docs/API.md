@@ -17,6 +17,8 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 | POST /references/openglaze/umf | Yerel olarak etkinleştirilmiş OpenGlaze CLI çıktısını harici karşılaştırma olarak döndürür; çekirdek sonucu değiştirmez | Araştırma |
 | POST /references/openglaze/compare | Exact yerel analiz snapshot’ı ile OpenGlaze UMF/SiO₂:Al₂O₃ çıktısını oksit bazında karşılaştırır; doğruluk sıralaması üretmez | Araştırma |
 | POST /references/openglaze/replay | İndirilen `comparison-run-v1` snapshot’ının hash ve fark tablosunu yeniden kontrol eder; OpenGlaze’i tekrar çalıştırmaz | Araştırma |
+| POST /references/openglaze/runs | Bir `comparison-run-v1` snapshot’ını yerel immutable arşive idempotent biçimde kaydeder | M5 köprüsü |
+| GET /references/openglaze/runs/{comparison_id} | Yerel arşivden snapshot’ı checksum ve replay kontrolüyle döndürür | M5 köprüsü |
 | POST /analyses, persist=true | Yeni immutable AnalysisRun | M5 |
 | GET /analyses/{id} | Yetkili kaydedilmiş sonuç | M5 |
 | GET/POST /recipes | Kayıtlar / yeni Recipe+ilk revision | M5 |
@@ -71,6 +73,13 @@ bütünlüğünü ve input hash'ini kontrol eder; geçmişteki OpenGlaze checkou
 yeniden çalıştırmadığı için kaynağın bugün hâlâ erişilebilir olduğunu kanıtlamaz.
 Dosya geçici/export niteliğindedir; M5 kalıcı `ComparisonRun` tablosu ve
 yetkilendirilmiş erişim politikası gelene kadar sunucu kaydı sayılmaz.
+
+M5 köprüsünde web istemcisi aynı snapshot’ı `POST /references/openglaze/runs`
+ile yerel dosya arşivine kaydedebilir. Varsayılan kök
+`storage/comparison-runs`'tır; `COMPARISON_ARCHIVE_ROOT` ile değiştirilebilir.
+Arşiv kaydı `comparison_id=input_hash` ile adlandırılır, atomik yazılır ve aynı
+kimlikte farklı payload sessizce üzerine yazılmaz. Bu dosya arşivi PostgreSQL
+değildir; kullanıcı yetkilendirmesi, yedekleme ve paylaşım politikası içermez.
 
 ## Web dağıtımı
 

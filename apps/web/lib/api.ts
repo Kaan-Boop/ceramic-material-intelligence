@@ -101,6 +101,14 @@ export type ComparisonReplayReport = {
   limitations?: string[];
 };
 
+export type ComparisonArchiveResponse = {
+  status: "CREATED" | "EXISTS" | "AVAILABLE";
+  comparison_id: string;
+  snapshot_sha256: string;
+  replay: ComparisonReplayReport;
+  snapshot?: OpenGlazeComparisonReport;
+};
+
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`/api/v1/${path}`, {
     ...init,

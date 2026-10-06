@@ -32,6 +32,12 @@ from research.simulation.chemistry import ScenarioChemistryError, analyze_layer,
 from research.material_resolver import MaterialResolutionError, resolve_engine_analysis, resolve_material, resolve_materials
 from research.external.openglaze_adapter import OpenGlazeReferenceError, run_umf_reference
 from research.external.comparison import compare_calculated_reports, replay_comparison_snapshot
+from research.external.comparison_archive import (
+    DEFAULT_ARCHIVE_ROOT,
+    ComparisonArchiveError,
+    load_comparison_snapshot,
+    save_comparison_snapshot,
+)
 from research.simulation.scenario import (
     FiringSchedule as ScenarioFiringSchedule,
     FiringSegment as ScenarioFiringSegment,
@@ -612,6 +618,11 @@ class ComparisonReplayRequest(StrictModel):
     snapshot: dict[str, JsonValue]
 
 
+def _comparison_archive_root() -> Path:
+    configured = os.environ.get('COMPARISON_ARCHIVE_ROOT', '').strip()
+    return Path(configured).resolve() if configured else DEFAULT_ARCHIVE_ROOT
+
+
 @app.post('/api/v1/reactions/calcite', response_model=dict[str, JsonValue])
 def calcite_explorer(payload: ReactionExplorerRequest):
     return explore(payload.mass_g, payload.conversion)
@@ -728,6 +739,40 @@ def replay_openglaze_comparison(payload: ComparisonReplayRequest):
             code='INVALID_COMPARISON_SNAPSHOT',
             path=['snapshot'],
             message=f'Karşılaştırma snapshot biçimi doğrulanamadı: {exc}',
+        )]).model_dump())
+
+
+@app.post('/api/v1/references/openglaze/runs', response_model=dict[str, JsonValue])
+def save_openglaze_comparison(payload: ComparisonReplayRequest):
+    """Persist one immutable comparison snapshot in the local archive."""
+    try:
+        return save_comparison_snapshot(payload.snapshot, _comparison_archive_root())
+    except ComparisonArchiveError as exc:
+        code = str(exc)
+        status = 409 if code == 'COMPARISON_ID_CONFLICT' else 422
+        return JSONResponse(status_code=status, content=ErrorResponse(errors=[ErrorItem(
+            code=code,
+            path=['snapshot'],
+            message='Karşılaştırma snapshot kaydı güvenli biçimde oluşturulamadı.',
+        )]).model_dump())
+
+
+@app.get('/api/v1/references/openglaze/runs/{comparison_id}', response_model=dict[str, JsonValue])
+def get_openglaze_comparison(comparison_id: str):
+    """Load one archived comparison and verify its checksum before returning it."""
+    try:
+        return load_comparison_snapshot(comparison_id, _comparison_archive_root())
+    except FileNotFoundError:
+        return JSONResponse(status_code=404, content=ErrorResponse(errors=[ErrorItem(
+            code='COMPARISON_NOT_FOUND',
+            path=['comparison_id'],
+            message='Karşılaştırma arşivde bulunamadı.',
+        )]).model_dump())
+    except ComparisonArchiveError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc),
+            path=['comparison_id'],
+            message='Karşılaştırma arşiv kaydı veya checksum doğrulanamadı.',
         )]).model_dump())
 
 
