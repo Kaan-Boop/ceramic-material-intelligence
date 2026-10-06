@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { api, type ValidationArchiveResponse } from '../lib/api';
 import { OUTCOME_REFERENCE_EVENT, OUTCOME_REFERENCE_STORAGE } from './outcome-assessor';
+import { useExperimentSession } from './experiment-session';
 
 type Observable = 'gloss_mean_gu' | 'water_absorption_mass_pct' | 'apparent_open_porosity_volume_pct';
 type Observation = {
@@ -52,6 +53,7 @@ type LinkedAnalysis = { report_id: string; recipe_name: string; input_hash: stri
 type LinkedOutcome = { input_hash: string };
 
 export default function OutcomeValidation() {
+  const { draft } = useExperimentSession();
   const [experimentId, setExperimentId] = useState('');
   const [context, setContext] = useState(initialContext);
   const [calculatedText, setCalculatedText] = useState('');
@@ -76,6 +78,17 @@ export default function OutcomeValidation() {
       localStorage.removeItem(ANALYSIS_REFERENCE_STORAGE);
     }
   }, []);
+
+  useEffect(() => {
+    const draftContext = draft.context;
+    setContext(current => ({
+      ...current,
+      body_analysis_id: current.body_analysis_id || draftContext.body_revision,
+      glaze_revision_id: current.glaze_revision_id || draftContext.glaze_revision,
+      firing_run_id: current.firing_run_id || draftContext.firing_run_id,
+      application_id: current.application_id || draftContext.application_revision,
+    }));
+  }, [draft.context]);
 
   useEffect(() => {
     function loadOutcomeReference() {
@@ -147,8 +160,8 @@ export default function OutcomeValidation() {
       <label className="field">Deney kimliği<input value={experimentId} maxLength={160} onChange={event => { setExperimentId(event.target.value); setReport(null); }} placeholder="Örn. cone6-white-stoneware-01" /></label>
       {Object.entries(context).map(([key, value]) => <label className="field" key={key}>{({ body_analysis_id: 'Bünye analiz sürümü', glaze_revision_id: 'Sır reçete sürümü', firing_run_id: 'Pişirim kaydı', application_id: 'Uygulama kaydı' } as Record<string, string>)[key]}<input value={value} maxLength={200} onChange={event => { setContext(current => ({ ...current, [key]: event.target.value })); setReport(null); }} /></label>)}
     </div>
-    <label className="field">Hesaplanan rapor JSON'u<textarea className="outcome-json" value={calculatedText} onChange={event => { setCalculatedText(event.target.value); setReport(null); }} placeholder={'/outcomes/assess yanıtını buraya yapıştırın…'} rows={6} /></label>
-    <p className="helper">Rapor, hesaplanan bölümün `sections` alanını içermeli. Bu alanı değiştirmiyoruz; yalnızca kayıtlı snapshot olarak kullanıyoruz.</p>
+    <label className="field">Hesaplanan rapor JSON'u<textarea className="outcome-json" value={calculatedText} onChange={event => { setCalculatedText(event.target.value); setLinkedOutcome(null); setReport(null); }} placeholder={'Ölçüm özetini üst panelden aktarın…'} rows={6} /></label>
+    <p className="helper">Üst panelden aktarılan raporun `sections` alanı burada snapshot olarak kullanılır. Deney ekranındaki bünye, sır, pişirim ve uygulama kimlikleri boşsa elle tamamlayın.</p>
     <div className="outcome-observations"><div className="experiment-heading"><h3>Numune gözlemleri</h3><button type="button" onClick={() => setObservations(current => [...current, emptyObservation()])} disabled={observations.length >= 100 || busy}>+ Gözlem</button></div>
       {observations.map((row, index) => <div className="outcome-row" key={index}>
         <label className="field">Ölçüm<select value={row.observable} onChange={event => updateObservation(index, { observable: event.target.value as Observable, unit: units[event.target.value as Observable] })}>{Object.entries(observableLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
