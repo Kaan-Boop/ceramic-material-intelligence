@@ -11,6 +11,9 @@ type AssessReport = {
   notice: string;
 };
 
+export const OUTCOME_REFERENCE_STORAGE = 'ceramic-lab-outcome-reference-v1';
+export const OUTCOME_REFERENCE_EVENT = 'ceramic-lab-outcome-reference-updated';
+
 const initial = { source_ref: '', conditions: '', input_kind: 'MEASURED' as 'MEASURED' | 'REPORTED' | 'SYNTHETIC' };
 
 export default function OutcomeAssessor() {
@@ -45,6 +48,12 @@ export default function OutcomeAssessor() {
     }
   }
 
+  function linkForValidation() {
+    if (!report) return;
+    localStorage.setItem(OUTCOME_REFERENCE_STORAGE, JSON.stringify({ version: 1, report }));
+    window.dispatchEvent(new Event(OUTCOME_REFERENCE_EVENT));
+  }
+
   return <section className="card outcome-assessor" aria-label="Ölçüm özeti hesaplayıcı">
     <div className="experiment-heading"><div><p className="eyebrow">03 / ÖLÇÜM ÖZETİ</p><h2>Numune ölçümünü hesapla</h2></div><span className="tag">CALCULATED</span></div>
     <p className="experiment-notice"><strong>Bu bir ölçüm özeti motorudur.</strong> Verilen tartım veya cihaz okumalarından türetilmiş değer çıkarır; reçeteden gloss/porozite tahmini yapmaz.</p>
@@ -53,6 +62,6 @@ export default function OutcomeAssessor() {
     {mode === 'porosity' ? <div className="experiment-fields"><label className="field">Kuru kütle · g<input inputMode="decimal" value={porosity.dry_mass_g} onChange={event => setPorosity(current => ({ ...current, dry_mass_g: event.target.value }))} /></label><label className="field">Doymuş kütle · g<input inputMode="decimal" value={porosity.saturated_mass_g} onChange={event => setPorosity(current => ({ ...current, saturated_mass_g: event.target.value }))} /></label><label className="field">Askıda kütle · g<input inputMode="decimal" value={porosity.suspended_mass_g} onChange={event => setPorosity(current => ({ ...current, suspended_mass_g: event.target.value }))} /></label><label className="field">Numune kapsamı<select value={porosity.specimen_scope} onChange={event => setPorosity(current => ({ ...current, specimen_scope: event.target.value }))}><option value="UNGLAZED_BODY">UNGLAZED_BODY</option><option value="WHOLE_GLAZED_SPECIMEN">WHOLE_GLAZED_SPECIMEN</option></select></label></div> : <div className="experiment-fields"><label className="field">Geometri · derece<input inputMode="numeric" value={gloss.angle_deg} onChange={event => setGloss(current => ({ ...current, angle_deg: event.target.value }))} /></label><label className="field">Cihaz kimliği<input value={gloss.instrument_id} onChange={event => setGloss(current => ({ ...current, instrument_id: event.target.value }))} /></label><label className="field">Gloss okumaları · GU<input value={gloss.readings_gu} onChange={event => setGloss(current => ({ ...current, readings_gu: event.target.value }))} placeholder="Örn. 42, 45, 43" /></label></div>}
     {error && <p className="experiment-error" role="alert">{error}</p>}
     <button className="experiment-primary" type="button" onClick={() => void assess()} disabled={busy}>{busy ? 'Hesaplanıyor…' : 'Ölçüm özetini hesapla'}</button>
-    {report && <div className="assessor-result" role="status"><div className="experiment-heading"><h3>{mode === 'porosity' ? 'Porozite sonucu' : 'Gloss sonucu'}</h3><code>{report.input_hash.slice(0, 16)}…</code></div>{Object.entries(report.sections).map(([key, section]) => <div className="assessor-section" key={key}><span className="tag">{section.evidence_kind} · {section.method_kind}</span><h4>{key}</h4>{section.values && Object.entries(section.values).map(([valueKey, value]) => <p key={valueKey}><strong>{valueKey}</strong>: {typeof value === 'number' ? value.toLocaleString('tr-TR', { maximumFractionDigits: 3 }) : value ?? '—'}</p>)}{section.limitations?.slice(0, 2).map(limitation => <small key={limitation}>{limitation}</small>)}</div>)}<p className="helper">{report.notice}</p></div>}
+    {report && <div className="assessor-result" role="status"><div className="experiment-heading"><h3>{mode === 'porosity' ? 'Porozite sonucu' : 'Gloss sonucu'}</h3><code>{report.input_hash.slice(0, 16)}…</code></div>{Object.entries(report.sections).map(([key, section]) => <div className="assessor-section" key={key}><span className="tag">{section.evidence_kind} · {section.method_kind}</span><h4>{key}</h4>{section.values && Object.entries(section.values).map(([valueKey, value]) => <p key={valueKey}><strong>{valueKey}</strong>: {typeof value === 'number' ? value.toLocaleString('tr-TR', { maximumFractionDigits: 3 }) : value ?? '—'}</p>)}{section.limitations?.slice(0, 2).map(limitation => <small key={limitation}>{limitation}</small>)}</div>)}<p className="helper">{report.notice}</p><div className="simulation-actions"><button type="button" onClick={linkForValidation}>Doğrulama paneline aktar</button><span className="helper">Bu yalnızca hesap snapshot’ını taşır; bağımsız numune ölçümünü ayrıca girin.</span></div></div>}
   </section>;
 }

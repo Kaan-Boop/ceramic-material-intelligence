@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { api, type ValidationArchiveResponse } from '../lib/api';
+import { OUTCOME_REFERENCE_EVENT, OUTCOME_REFERENCE_STORAGE } from './outcome-assessor';
 
 type Observable = 'gloss_mean_gu' | 'water_absorption_mass_pct' | 'apparent_open_porosity_volume_pct';
 type Observation = {
@@ -48,6 +49,7 @@ const emptyObservation = (): Observation => ({
 const initialContext = { body_analysis_id: '', glaze_revision_id: '', firing_run_id: '', application_id: '' };
 const ANALYSIS_REFERENCE_STORAGE = 'ceramic-lab-analysis-reference-v1';
 type LinkedAnalysis = { report_id: string; recipe_name: string; input_hash: string; material_count: number };
+type LinkedOutcome = { input_hash: string };
 
 export default function OutcomeValidation() {
   const [experimentId, setExperimentId] = useState('');
@@ -59,6 +61,7 @@ export default function OutcomeValidation() {
   const [error, setError] = useState('');
   const [linkedAnalysis, setLinkedAnalysis] = useState<LinkedAnalysis | null>(null);
   const [archive, setArchive] = useState<ValidationArchiveResponse | null>(null);
+  const [linkedOutcome, setLinkedOutcome] = useState<LinkedOutcome | null>(null);
 
   useEffect(() => {
     try {
@@ -72,6 +75,25 @@ export default function OutcomeValidation() {
     } catch {
       localStorage.removeItem(ANALYSIS_REFERENCE_STORAGE);
     }
+  }, []);
+
+  useEffect(() => {
+    function loadOutcomeReference() {
+      try {
+        const raw = localStorage.getItem(OUTCOME_REFERENCE_STORAGE);
+        if (!raw) return;
+        const envelope = JSON.parse(raw) as { version?: number; report?: { input_hash?: string; sections?: unknown } };
+        if (envelope.version !== 1 || !envelope.report?.input_hash || !envelope.report.sections) return;
+        setCalculatedText(JSON.stringify(envelope.report, null, 2));
+        setLinkedOutcome({ input_hash: envelope.report.input_hash });
+        setReport(null);
+      } catch {
+        localStorage.removeItem(OUTCOME_REFERENCE_STORAGE);
+      }
+    }
+    loadOutcomeReference();
+    window.addEventListener(OUTCOME_REFERENCE_EVENT, loadOutcomeReference);
+    return () => window.removeEventListener(OUTCOME_REFERENCE_EVENT, loadOutcomeReference);
   }, []);
 
   function updateObservation(index: number, patch: Partial<Observation>) {
@@ -120,6 +142,7 @@ export default function OutcomeValidation() {
     <div className="experiment-heading"><div><p className="eyebrow">04 / GÖZLENEN SONUÇLAR</p><h2>Hesap ile numuneyi bağla</h2></div><span className="tag">OBSERVED ↔ CALCULATED</span></div>
     <p className="experiment-notice"><strong>Bu panel tahmin üretmez.</strong> Daha önce üretilmiş hesap raporundaki ölçülebilir bölümleri fiziksel numune gözlemleriyle karşılaştırır. Sonuç kabul, güvenlik veya genelleme onayı değildir.</p>
     {linkedAnalysis && <div className="experiment-notice outcome-linked"><strong>CALCULATED kimya snapshot’ı bağlandı.</strong><p>{linkedAnalysis.recipe_name} · {linkedAnalysis.material_count} malzeme · {linkedAnalysis.input_hash.slice(0, 16)}…</p><p>Bu snapshot reçete kimyasını taşır; gloss, su emmesi veya porozite sonucu içermez. Outcome karşılaştırması için ayrıca hesaplanmış `sections` raporu gerekir.</p><button type="button" onClick={() => { localStorage.removeItem(ANALYSIS_REFERENCE_STORAGE); setLinkedAnalysis(null); }}>Bağlantıyı kaldır</button></div>}
+    {linkedOutcome && <div className="experiment-notice outcome-linked"><strong>CALCULATED ölçüm özeti bağlandı.</strong><p>{linkedOutcome.input_hash.slice(0, 16)}… · JSON alanı dolduruldu.</p><p>Bu raporun hesaplanan tarafıdır. Aynı okumaları gözlenen tarafa kopyalamayın; bağımsız numune ölçümü girin.</p><button type="button" onClick={() => { localStorage.removeItem(OUTCOME_REFERENCE_STORAGE); setLinkedOutcome(null); setCalculatedText(''); setReport(null); }}>Bağlantıyı kaldır</button></div>}
     <div className="experiment-fields">
       <label className="field">Deney kimliği<input value={experimentId} maxLength={160} onChange={event => { setExperimentId(event.target.value); setReport(null); }} placeholder="Örn. cone6-white-stoneware-01" /></label>
       {Object.entries(context).map(([key, value]) => <label className="field" key={key}>{({ body_analysis_id: 'Bünye analiz sürümü', glaze_revision_id: 'Sır reçete sürümü', firing_run_id: 'Pişirim kaydı', application_id: 'Uygulama kaydı' } as Record<string, string>)[key]}<input value={value} maxLength={200} onChange={event => { setContext(current => ({ ...current, [key]: event.target.value })); setReport(null); }} /></label>)}
