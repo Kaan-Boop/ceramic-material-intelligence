@@ -47,6 +47,7 @@ function WindowFields({ title, value, onChange }: { title: string; value?: Windo
   </details>;
 }
 const STORAGE = "ceramic-lab-draft-v1";
+const ANALYSIS_REFERENCE_STORAGE = "ceramic-lab-analysis-reference-v1";
 const INITIAL: Draft = {
   name: "",
   mass: "100",
@@ -272,6 +273,15 @@ export default function Lab() {
     a.download = `ceramic-report-${report.report_id.slice(0, 12)}.json`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  function sendToExperiment() {
+    if (!report || stale) return;
+    try {
+      localStorage.setItem(ANALYSIS_REFERENCE_STORAGE, JSON.stringify({ version: 1, saved_at: new Date().toISOString(), report }));
+      window.location.href = "/experiments";
+    } catch {
+      setError("Analiz snapshot'ı tarayıcıya aktarılamadı. Önce JSON raporunu indirerek saklayın.");
+    }
   }
 
   const total = draft.rows
@@ -722,6 +732,9 @@ export default function Lab() {
                           </button>
                           <button onClick={download} disabled={stale}>
                             JSON raporu indir ↓
+                          </button>
+                          <button onClick={sendToExperiment} disabled={stale}>
+                            Deneye bağla ↗
                           </button>
                         </div>
                       </>

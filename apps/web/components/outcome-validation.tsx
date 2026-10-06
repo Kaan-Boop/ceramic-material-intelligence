@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../lib/api';
 
 type Observable = 'gloss_mean_gu' | 'water_absorption_mass_pct' | 'apparent_open_porosity_volume_pct';
@@ -46,6 +46,8 @@ const emptyObservation = (): Observation => ({
   observable: 'gloss_mean_gu', value: '', unit: 'GU', specimen_id: '', source_ref: '', method: '', status: 'MEASURED',
 });
 const initialContext = { body_analysis_id: '', glaze_revision_id: '', firing_run_id: '', application_id: '' };
+const ANALYSIS_REFERENCE_STORAGE = 'ceramic-lab-analysis-reference-v1';
+type LinkedAnalysis = { report_id: string; recipe_name: string; input_hash: string; material_count: number };
 
 export default function OutcomeValidation() {
   const [experimentId, setExperimentId] = useState('');
@@ -55,6 +57,20 @@ export default function OutcomeValidation() {
   const [report, setReport] = useState<ValidationReport | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [linkedAnalysis, setLinkedAnalysis] = useState<LinkedAnalysis | null>(null);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(ANALYSIS_REFERENCE_STORAGE);
+      if (!raw) return;
+      const envelope = JSON.parse(raw) as { version?: number; report?: { report_id?: string; request?: { recipe_name?: string }; chemistry?: { input_hash?: string }; materials?: unknown[] } };
+      const report = envelope.report;
+      if (envelope.version !== 1 || !report?.report_id || !report.request?.recipe_name || !report.chemistry?.input_hash) return;
+      setLinkedAnalysis({ report_id: report.report_id, recipe_name: report.request.recipe_name, input_hash: report.chemistry.input_hash, material_count: Array.isArray(report.materials) ? report.materials.length : 0 });
+    } catch {
+      localStorage.removeItem(ANALYSIS_REFERENCE_STORAGE);
+    }
+  }, []);
 
   function updateObservation(index: number, patch: Partial<Observation>) {
     setObservations(current => current.map((row, rowIndex) => rowIndex === index ? { ...row, ...patch } : row));
@@ -89,6 +105,7 @@ export default function OutcomeValidation() {
   return <section className="card outcome-panel" aria-label="Gözlenen sonuç doğrulaması">
     <div className="experiment-heading"><div><p className="eyebrow">04 / GÖZLENEN SONUÇLAR</p><h2>Hesap ile numuneyi bağla</h2></div><span className="tag">OBSERVED ↔ CALCULATED</span></div>
     <p className="experiment-notice"><strong>Bu panel tahmin üretmez.</strong> Daha önce üretilmiş hesap raporundaki ölçülebilir bölümleri fiziksel numune gözlemleriyle karşılaştırır. Sonuç kabul, güvenlik veya genelleme onayı değildir.</p>
+    {linkedAnalysis && <div className="experiment-notice outcome-linked"><strong>CALCULATED kimya snapshot’ı bağlandı.</strong><p>{linkedAnalysis.recipe_name} · {linkedAnalysis.material_count} malzeme · {linkedAnalysis.input_hash.slice(0, 16)}…</p><p>Bu snapshot reçete kimyasını taşır; gloss, su emmesi veya porozite sonucu içermez. Outcome karşılaştırması için ayrıca hesaplanmış `sections` raporu gerekir.</p><button type="button" onClick={() => { localStorage.removeItem(ANALYSIS_REFERENCE_STORAGE); setLinkedAnalysis(null); }}>Bağlantıyı kaldır</button></div>}
     <div className="experiment-fields">
       <label className="field">Deney kimliği<input value={experimentId} maxLength={160} onChange={event => { setExperimentId(event.target.value); setReport(null); }} placeholder="Örn. cone6-white-stoneware-01" /></label>
       {Object.entries(context).map(([key, value]) => <label className="field" key={key}>{({ body_analysis_id: 'Bünye analiz sürümü', glaze_revision_id: 'Sır reçete sürümü', firing_run_id: 'Pişirim kaydı', application_id: 'Uygulama kaydı' } as Record<string, string>)[key]}<input value={value} maxLength={200} onChange={event => { setContext(current => ({ ...current, [key]: event.target.value })); setReport(null); }} /></label>)}
