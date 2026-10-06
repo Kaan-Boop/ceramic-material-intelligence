@@ -31,6 +31,12 @@ from research.process.experiment_archive import (
     load_experiment_validation,
     save_experiment_validation,
 )
+from research.process.experiment_record import (
+    ExperimentRecordError,
+    build_record,
+    load_experiment_record,
+    save_experiment_record,
+)
 from research.chemistry.reaction_explorer import explore
 from research.material_library import build_library
 from research.local_recipe_archive import search_recipes, get_staged_record
@@ -288,9 +294,37 @@ class ExperimentValidationArchiveRequest(StrictModel):
     report: dict[str, JsonValue]
 
 
+class ExperimentRecordContext(StrictModel):
+    body_revision: Annotated[str, Field(max_length=200)] = ""
+    glaze_revision: Annotated[str, Field(max_length=200)] = ""
+    application_revision: Annotated[str, Field(max_length=200)] = ""
+    firing_run_id: Annotated[str, Field(max_length=200)] = ""
+
+
+class ExperimentRecordRequest(StrictModel):
+    experiment_id: Annotated[str, Field(min_length=1, max_length=160)]
+    specimen_id: Annotated[str, Field(min_length=1, max_length=200)]
+    record_kind: Literal["REAL", "SYNTHETIC"] = "REAL"
+    question: Annotated[str, Field(max_length=500)] = ""
+    source_ref: Annotated[str, Field(min_length=1, max_length=500)]
+    context: ExperimentRecordContext = Field(default_factory=ExperimentRecordContext)
+    analysis_report_id: Annotated[str | None, Field(min_length=1, max_length=200)] = None
+    chemistry_input_hash: Annotated[str | None, Field(min_length=1, max_length=200)] = None
+    notes: Annotated[str, Field(max_length=2000)] = ""
+
+
+class ExperimentRecordArchiveRequest(StrictModel):
+    record: dict[str, JsonValue]
+
+
 def _experiment_archive_root() -> Path:
     configured = os.environ.get('EXPERIMENT_ARCHIVE_ROOT', '').strip()
     return Path(configured).resolve() if configured else DEFAULT_EXPERIMENT_ARCHIVE_ROOT
+
+
+def _experiment_record_root() -> Path:
+    configured = os.environ.get('EXPERIMENT_RECORD_ROOT', '').strip()
+    return Path(configured).resolve() if configured else Path(__file__).resolve().parents[3] / 'storage' / 'experiments'
 
 
 NAMES = {
@@ -858,6 +892,33 @@ def validate_observed_outcomes(payload: ExperimentValidationRequest):
             code=str(exc).split(':')[0],
             path=['observations'],
             message='Gözlem kayıtlarını, birimleri ve karşılaştırılan hesap bölümünü kontrol edin.',
+        )]).model_dump())
+
+
+@app.post('/api/v1/experiments', response_model=dict[str, JsonValue], responses={422: {'model': ErrorResponse}})
+def create_experiment_record(payload: ExperimentRecordRequest):
+    """Create or reuse an immutable experiment/specimen context record."""
+    try:
+        record = build_record(payload.model_dump())
+        return save_experiment_record(record, _experiment_record_root())
+    except ExperimentRecordError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc), path=['record'], message='Deney kaydı oluşturulamadı veya doğrulanamadı.'
+        )]).model_dump())
+
+
+@app.get('/api/v1/experiments/{record_id}', response_model=dict[str, JsonValue])
+def get_experiment_record(record_id: str):
+    """Load one immutable experiment/specimen context record."""
+    try:
+        return load_experiment_record(record_id, _experiment_record_root())
+    except FileNotFoundError:
+        return JSONResponse(status_code=404, content=ErrorResponse(errors=[ErrorItem(
+            code='EXPERIMENT_RECORD_NOT_FOUND', path=['record_id'], message='Deney kaydı bulunamadı.'
+        )]).model_dump())
+    except ExperimentRecordError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc), path=['record_id'], message='Deney kaydı veya checksum doğrulanamadı.'
         )]).model_dump())
 
 

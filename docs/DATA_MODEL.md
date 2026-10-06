@@ -52,7 +52,7 @@ Experiment -> TestSpecimen -> Observation
 | ExternalReferenceSnapshot | PK id; FK comparison_run_id | source name, repository ref, archive checksum, recipe-name mapping, raw report JSONB, retrieved_at | M5 |
 | ClayBody | PK id; FK owner_id? | manufacturer/product, name | M6 |
 | ClayBodyRevision | PK id; FK clay_body_id, analysis_id? | version, lot/reference; fired properties Observation/Measurement üzerinden | M6 |
-| Experiment | PK id; FK owner_id | question, plan, controls, replicate plan | M6 |
+| Experiment | PK id; FK owner_id | question, plan, controls, replicate plan; ilk API köprüsü `experiment-record-v1` ile yerel immutable snapshot | M6 |
 | ApplicationRecord | PK id | method, dry_thickness?, unit, measurement_method, coats?, suspension, drying | M6 |
 | Kiln | PK id; FK owner_id | model, energy, sensor/calibration refs | M6 |
 | FiringSchedule | PK id; FK owner_id | name | M6 |
