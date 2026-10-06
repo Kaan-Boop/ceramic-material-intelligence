@@ -63,7 +63,7 @@ Experiment -> TestSpecimen -> Observation
 | ConeObservation | PK id; FK firing_run_id, specimen_id? | system, code string, cone_type, bend, location, image_id? | M6 |
 | TestSpecimen | PK id; FK experiment_id?, recipe_revision_id, clay_revision_id?, application_id?, firing_run_id? | owner, kiln_position, replicate, demo flag | M6 |
 | PropertyDefinition | PK id | version, quantity, allowed unit/method, observation domain | M6 |
-| Observation | PK id; FK specimen_id, property_definition_id, observer_id?, source_record_id? | value, unit, method, assessed_at, assessment_status, uncertainty | M6 |
+| Observation | PK id; FK specimen_id, property_definition_id, observer_id?, source_record_id? | value, unit, method, assessed_at, assessment_status, uncertainty; ilk API köprüsü `experiment-observation-v1` | M6 |
 | ImageAsset | PK id; FK specimen_id, owner_id, rights_policy_id | storage_key, checksum, capture metadata, EXIF policy | M6 |
 | Source | PK id | name, type, homepage, publisher | M2/M5 |
 | SourceRecord | PK id; FK source_id, rights_policy_id, ingestion_run_id? | exact URL, authors, date, retrieved_at, raw checksum/location, parser version | M2/M5 |

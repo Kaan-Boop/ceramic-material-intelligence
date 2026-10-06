@@ -37,6 +37,12 @@ from research.process.experiment_record import (
     load_experiment_record,
     save_experiment_record,
 )
+from research.process.experiment_observation import (
+    ExperimentObservationError,
+    build_observation,
+    list_observations,
+    save_observation,
+)
 from research.chemistry.reaction_explorer import explore
 from research.material_library import build_library
 from research.local_recipe_archive import search_recipes, get_staged_record
@@ -325,6 +331,11 @@ def _experiment_archive_root() -> Path:
 def _experiment_record_root() -> Path:
     configured = os.environ.get('EXPERIMENT_RECORD_ROOT', '').strip()
     return Path(configured).resolve() if configured else Path(__file__).resolve().parents[3] / 'storage' / 'experiments'
+
+
+def _experiment_observation_root() -> Path:
+    configured = os.environ.get('EXPERIMENT_OBSERVATION_ROOT', '').strip()
+    return Path(configured).resolve() if configured else Path(__file__).resolve().parents[3] / 'storage' / 'observations'
 
 
 NAMES = {
@@ -919,6 +930,39 @@ def get_experiment_record(record_id: str):
     except ExperimentRecordError as exc:
         return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
             code=str(exc), path=['record_id'], message='Deney kaydı veya checksum doğrulanamadı.'
+        )]).model_dump())
+
+
+@app.post('/api/v1/experiments/{record_id}/observations', response_model=dict[str, JsonValue], responses={422: {'model': ErrorResponse}})
+def create_experiment_observation(record_id: str, payload: ObservedOutcome):
+    """Store one immutable observation linked to an existing experiment record."""
+    try:
+        load_experiment_record(record_id, _experiment_record_root())
+        observation = build_observation(record_id, payload.model_dump())
+        return save_observation(observation, _experiment_observation_root())
+    except FileNotFoundError:
+        return JSONResponse(status_code=404, content=ErrorResponse(errors=[ErrorItem(
+            code='EXPERIMENT_RECORD_NOT_FOUND', path=['record_id'], message='Gözlem eklenmeden önce deney kaydı oluşturulmalı.'
+        )]).model_dump())
+    except ExperimentObservationError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc), path=['observation'], message='Gözlem kaydı oluşturulamadı veya doğrulanamadı.'
+        )]).model_dump())
+
+
+@app.get('/api/v1/experiments/{record_id}/observations', response_model=list[dict[str, JsonValue]])
+def get_experiment_observations(record_id: str):
+    """List checksum-verified observations linked to an experiment record."""
+    try:
+        load_experiment_record(record_id, _experiment_record_root())
+        return list_observations(record_id, _experiment_observation_root())
+    except FileNotFoundError:
+        return JSONResponse(status_code=404, content=ErrorResponse(errors=[ErrorItem(
+            code='EXPERIMENT_RECORD_NOT_FOUND', path=['record_id'], message='Deney kaydı bulunamadı.'
+        )]).model_dump())
+    except ExperimentObservationError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc), path=['record_id'], message='Gözlem arşivi veya checksum doğrulanamadı.'
         )]).model_dump())
 
 
