@@ -16,6 +16,7 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 | POST /simulations/chemistry | Senaryo katmanlarının açık reçetelerini ayrı ayrı kuru baz oksit/mol/UMF raporuna bağlar; firing veya yüzey sonucu üretmez | M4 |
 | POST /references/openglaze/umf | Yerel olarak etkinleştirilmiş OpenGlaze CLI çıktısını harici karşılaştırma olarak döndürür; çekirdek sonucu değiştirmez | Araştırma |
 | POST /references/openglaze/compare | Exact yerel analiz snapshot’ı ile OpenGlaze UMF/SiO₂:Al₂O₃ çıktısını oksit bazında karşılaştırır; doğruluk sıralaması üretmez | Araştırma |
+| POST /references/openglaze/replay | İndirilen `comparison-run-v1` snapshot’ının hash ve fark tablosunu yeniden kontrol eder; OpenGlaze’i tekrar çalıştırmaz | Araştırma |
 | POST /analyses, persist=true | Yeni immutable AnalysisRun | M5 |
 | GET /analyses/{id} | Yetkili kaydedilmiş sonuç | M5 |
 | GET/POST /recipes | Kayıtlar / yeni Recipe+ilk revision | M5 |
@@ -64,8 +65,12 @@ Yanıt `comparison-run-v1` içinde `internal`, `external`, oksit bazında `delta
 ve `delta_pct`, uyarılar ve sınırlamalar bulunur.
 
 Web prototipi bu yanıtı `comparison-run-<hash>.json` adıyla snapshot olarak
-indirebilir. Bu dosya geçici/export niteliğindedir; M5 kalıcı `ComparisonRun`
-tablosu ve yetkilendirilmiş replay endpoint’i gelene kadar sunucu kaydı sayılmaz.
+indirebilir. Snapshot içinde karşılaştırmada kullanılan harici adlar, miktarlar
+ve cone da bulunur. `POST /references/openglaze/replay` bu dosyanın aritmetik
+bütünlüğünü ve input hash'ini kontrol eder; geçmişteki OpenGlaze checkout'unu
+yeniden çalıştırmadığı için kaynağın bugün hâlâ erişilebilir olduğunu kanıtlamaz.
+Dosya geçici/export niteliğindedir; M5 kalıcı `ComparisonRun` tablosu ve
+yetkilendirilmiş erişim politikası gelene kadar sunucu kaydı sayılmaz.
 
 ## Web dağıtımı
 

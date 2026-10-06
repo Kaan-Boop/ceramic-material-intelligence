@@ -31,7 +31,7 @@ from research.simulation.capabilities import assess_capabilities
 from research.simulation.chemistry import ScenarioChemistryError, analyze_layer, scenario_material_roles
 from research.material_resolver import MaterialResolutionError, resolve_engine_analysis, resolve_material, resolve_materials
 from research.external.openglaze_adapter import OpenGlazeReferenceError, run_umf_reference
-from research.external.comparison import compare_calculated_reports
+from research.external.comparison import compare_calculated_reports, replay_comparison_snapshot
 from research.simulation.scenario import (
     FiringSchedule as ScenarioFiringSchedule,
     FiringSegment as ScenarioFiringSegment,
@@ -606,6 +606,12 @@ class ChemistryComparisonRequest(StrictModel):
         return value
 
 
+class ComparisonReplayRequest(StrictModel):
+    """Previously exported comparison snapshot to verify arithmetically."""
+
+    snapshot: dict[str, JsonValue]
+
+
 @app.post('/api/v1/reactions/calcite', response_model=dict[str, JsonValue])
 def calcite_explorer(payload: ReactionExplorerRequest):
     return explore(payload.mass_g, payload.conversion)
@@ -677,17 +683,17 @@ def compare_with_openglaze(payload: ChemistryComparisonRequest):
         bundled_root = Path(__file__).resolve().parents[3] / 'storage' / 'external' / 'openglaze' / 'source' / 'openglaze-master'
         repo_root = configured_root or (str(bundled_root) if bundled_root.is_dir() else '')
         if not repo_root:
-            return {
-                'schema_version': 'comparison-run-v1',
-                'status': 'PARTIAL',
-                'evidence_kind': 'CALCULATED',
-                'method_kind': 'DETERMINISTIC',
-                'internal': internal,
-                'external': {'status': 'UNAVAILABLE', 'reason': 'EXTERNAL_REFERENCE_NOT_CONFIGURED'},
-                'differences': {},
-                'warnings': ['Harici OpenGlaze kaynağı etkin değil; yalnızca kendi motorumuzun raporu üretildi.'],
-                'limitations': ['Bu bir motor karşılaştırmasıdır; deneysel doğrulama değildir.'],
-            }
+            return compare_calculated_reports(
+                internal,
+                {
+                    'source': 'OpenGlaze',
+                    'status': 'UNAVAILABLE',
+                    'reason': 'EXTERNAL_REFERENCE_NOT_CONFIGURED',
+                    'report': {'success': False, 'missing_materials': []},
+                },
+                external_ingredients=external_ingredients,
+                cone=payload.cone,
+            )
         external = run_umf_reference(
             external_ingredients,
             cone=payload.cone,
@@ -706,6 +712,25 @@ def compare_with_openglaze(payload: ChemistryComparisonRequest):
             path=['ingredients'],
             message=str(exc),
         )]).model_dump())
+
+
+@app.post('/api/v1/references/openglaze/replay', response_model=dict[str, JsonValue])
+def replay_openglaze_comparison(payload: ComparisonReplayRequest):
+    """Verify a downloaded comparison snapshot without rerunning OpenGlaze.
+
+    This endpoint checks the stored comparison arithmetic and input hash. It
+    intentionally does not fetch or execute the historical external source.
+    """
+    try:
+        return replay_comparison_snapshot(payload.snapshot)
+    except (TypeError, ValueError, KeyError) as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code='INVALID_COMPARISON_SNAPSHOT',
+            path=['snapshot'],
+            message=f'Karşılaştırma snapshot biçimi doğrulanamadı: {exc}',
+        )]).model_dump())
+
+
 @app.post('/api/v1/validation/temperature', response_model=dict[str, JsonValue])
 def temperature_comparison(payload: ComparisonRequest):
     try:

@@ -92,6 +92,15 @@ export type OpenGlazeComparisonReport = {
   limitations: string[];
 };
 
+export type ComparisonReplayReport = {
+  status: "PASS" | "FAIL" | "UNAVAILABLE";
+  input_hash_matches?: boolean;
+  differences_match?: boolean;
+  recomputed_input_hash?: string;
+  reason?: string;
+  limitations?: string[];
+};
+
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`/api/v1/${path}`, {
     ...init,

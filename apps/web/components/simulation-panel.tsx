@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { api, type Catalogue, type OpenGlazeComparisonReport, type OpenGlazeReferenceReport, type SimulationCapabilityReport, type SimulationChemistryReport } from "../lib/api";
+import { api, type Catalogue, type ComparisonReplayReport, type OpenGlazeComparisonReport, type OpenGlazeReferenceReport, type SimulationCapabilityReport, type SimulationChemistryReport } from "../lib/api";
 import { firingLabel, kinds, statuses, type LibraryRecord } from "../lib/library";
 import CompositionChart from "./composition-chart";
 
@@ -43,6 +43,7 @@ export default function SimulationPanel({ catalogue, recipeRows }: { catalogue: 
   const [chemistry, setChemistry] = useState<SimulationChemistryReport | null>(null);
   const [externalReference, setExternalReference] = useState<OpenGlazeReferenceReport | null>(null);
   const [comparison, setComparison] = useState<OpenGlazeComparisonReport | null>(null);
+  const [comparisonReplay, setComparisonReplay] = useState<ComparisonReplayReport | null>(null);
   const [busy, setBusy] = useState(false);
   const [chemistryBusy, setChemistryBusy] = useState(false);
   const [referenceBusy, setReferenceBusy] = useState(false);
@@ -87,6 +88,7 @@ export default function SimulationPanel({ catalogue, recipeRows }: { catalogue: 
     setChemistry(null);
     setExternalReference(null);
     setComparison(null);
+    setComparisonReplay(null);
   }
 
   function scenarioPayload(target: number) {
@@ -144,6 +146,7 @@ export default function SimulationPanel({ catalogue, recipeRows }: { catalogue: 
     setChemistry(null);
     setExternalReference(null);
     setComparison(null);
+    setComparisonReplay(null);
     setChemistryBusy(true);
     try {
       const recipes: ChemistryRecipe[] = [{ layer_id: "body", base_mass_g: 100, ingredients: [{ analysis_id: bodyId, amount: 100, role: "BASE" }] }];
@@ -173,6 +176,7 @@ export default function SimulationPanel({ catalogue, recipeRows }: { catalogue: 
     setError("");
     setExternalReference(null);
     setComparison(null);
+    setComparisonReplay(null);
     setReferenceBusy(true);
     try {
       const result = await api<OpenGlazeReferenceReport>("references/openglaze/umf", {
@@ -199,6 +203,7 @@ export default function SimulationPanel({ catalogue, recipeRows }: { catalogue: 
     }
     setError("");
     setComparison(null);
+    setComparisonReplay(null);
     setReferenceBusy(true);
     try {
       const external_names = Object.fromEntries(ingredients.map((row) => [row.analysis_id, externalAliases[row.analysis_id] ?? materialNames.get(row.analysis_id) ?? ""]));
@@ -223,6 +228,20 @@ export default function SimulationPanel({ catalogue, recipeRows }: { catalogue: 
     anchor.download = `comparison-run-${comparison.input_hash.slice(0, 12)}.json`;
     anchor.click();
     URL.revokeObjectURL(url);
+  }
+
+  async function verifyComparisonSnapshot() {
+    if (!comparison) return;
+    setError("");
+    try {
+      const result = await api<ComparisonReplayReport>("references/openglaze/replay", {
+        method: "POST",
+        body: JSON.stringify({ snapshot: comparison }),
+      });
+      setComparisonReplay(result);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Snapshot bütünlüğü doğrulanamadı.");
+    }
   }
 
   return <section className="card simulation-panel" aria-label="Simülasyon hedefleri">
@@ -251,6 +270,6 @@ export default function SimulationPanel({ catalogue, recipeRows }: { catalogue: 
     {report && <div className="simulation-report" role="status"><div className="simulation-report-head"><strong>Bu senaryo için kapsam</strong><small>{report.input_hash.slice(0, 12)}…</small></div>{report.material_resolutions && <details className="simulation-resolutions" open><summary>Çözülen analiz sürümleri ({report.material_resolutions.length})</summary><ul>{report.material_resolutions.map((material) => <li key={material.analysis_id}><strong>{material.analysis_id}</strong><span>{material.status} · {material.version}</span><small>{material.engine_eligible ? "Kimya motoruna uygun" : "Katalogda, hesap dışı"} · {material.source_name}</small></li>)}</ul></details>}<div className="simulation-status-grid">{Object.entries(report.outputs).map(([id, item]) => <article key={id} className={`simulation-status ${item.status.toLowerCase()}`}><span className="tag">{statusLabel[item.status]}</span><strong>{OUTPUTS.find(([key]) => key === id)?.[1] ?? id}</strong><p>{item.reason}</p><small>{item.evidence_kind} · {item.method_kind}</small></article>)}</div><p className="helper">Bu rapor fiziksel sonuç veya olasılık değildir; yalnızca mevcut veri/model kapsamını bildirir.</p></div>}
     {chemistry && <div className="simulation-report chemistry-report" role="status"><div className="simulation-report-head"><strong>Katman kimyası · CALCULATED</strong><small>{chemistry.scenario_input_hash.slice(0, 12)}…</small></div><p className="helper">Bu sonuç kuru baz oksit muhasebesidir. Bünye ve kaplama ayrı hesaplanır; arayüz reaksiyonu veya pişmiş yüzey tahmini değildir.</p><div className="chemistry-layer-grid">{chemistry.layer_results.map((layer) => <article className="simulation-status" key={layer.layer_id}><strong>{layer.layer_id}</strong><CompositionChart oxides={layer.retained_oxide_wt_pct} basis="DRY · retained oxide"/><small>UMF: {layer.umf.status === "AVAILABLE" ? "mevcut" : layer.umf.unavailable_reason ?? "kullanılamaz"} · SiO₂/Al₂O₃: {layer.ratios.SiO2_to_Al2O3_molar?.value == null ? "—" : layer.ratios.SiO2_to_Al2O3_molar.value.toLocaleString("tr-TR", { maximumFractionDigits: 3 })}</small></article>)}</div><p className="helper">{chemistry.limitations.join(" ")}</p></div>}
     {externalReference && <div className="simulation-report simulation-reference" role="status"><div className="simulation-report-head"><strong>OpenGlaze karşılaştırması · HARİCİ REFERANS</strong><small>{externalReference.method_kind}</small></div><p className="helper">Bu rapor kendi kimya motorumuzun yerine geçmez. Farklı bir hesaplayıcının çıktısıdır; eksik malzeme, convention ve limit uyarıları ayrıca değerlendirilmelidir.</p><div className="reference-grid"><article className="simulation-status"><small>UMF · OpenGlaze</small><strong>{externalReference.report.umf_formula ? `${Object.keys(externalReference.report.umf_formula).length} oksit` : "Üretilemedi"}</strong><p>{externalReference.report.umf_formula ? Object.entries(externalReference.report.umf_formula).map(([oxide, value]) => `${oxide} ${value.toLocaleString("tr-TR", { maximumFractionDigits: 3 })}`).join(" · ") : "UMF raporu bulunamadı."}</p></article><article className="simulation-status"><small>Yaklaşık CTE</small><strong>{externalReference.report.thermal_expansion == null ? "—" : externalReference.report.thermal_expansion.toLocaleString("tr-TR", { maximumFractionDigits: 2 })}</strong><p>Harici model tahmini; ölçülmüş dilatometre değeri değildir.</p></article><article className="simulation-status"><small>Yüzey göstergesi</small><strong>{externalReference.report.surface_prediction ?? "—"}</strong><p>{externalReference.report.surface_confidence ? `Harici güven etiketi: ${externalReference.report.surface_confidence}` : "Güven etiketi yok."}</p></article></div>{externalReference.report.limit_warnings?.length ? <ul className="reference-warnings">{externalReference.report.limit_warnings.map((warning) => <li key={warning}>{warning}</li>)}</ul> : null}<p className="helper">{externalReference.limitations.join(" ")}</p></div>}
-    {comparison && <div className="simulation-report simulation-reference" role="status"><div className="simulation-report-head"><strong>Motor farkları · {comparison.status}</strong><small>{comparison.input_hash.slice(0, 12)}…</small></div><p className="helper">Farklar, aynı reçete girdisinin iki hesaplama yaklaşımındaki sayısal ayrışmasını gösterir; doğruluk sıralaması değildir.</p><div className="reference-grid"><article className="simulation-status"><small>SiO₂ / Al₂O₃</small><strong>{comparison.differences.SiO2_to_Al2O3_molar.delta == null ? "—" : comparison.differences.SiO2_to_Al2O3_molar.delta.toLocaleString("tr-TR", { maximumFractionDigits: 3 })}</strong><p>İç: {comparison.differences.SiO2_to_Al2O3_molar.internal?.toLocaleString("tr-TR", { maximumFractionDigits: 3 }) ?? "—"} · Harici: {comparison.differences.SiO2_to_Al2O3_molar.external?.toLocaleString("tr-TR", { maximumFractionDigits: 3 }) ?? "—"}</p></article><article className="simulation-status"><small>UMF farkı</small><strong>{Object.keys(comparison.differences.umf).length} oksit</strong><p>{Object.entries(comparison.differences.umf).map(([oxide, value]) => `${oxide}: ${value.delta == null ? "—" : value.delta.toLocaleString("tr-TR", { maximumFractionDigits: 3 })}`).join(" · ")}</p></article><article className="simulation-status"><small>CTE</small><strong>UNAVAILABLE</strong><p>{comparison.differences.thermal_expansion.reason}</p></article></div><ul className="reference-warnings">{comparison.warnings.map((warning) => <li key={warning}>{warning}</li>)}</ul><div className="simulation-actions"><button className="text-button" type="button" onClick={exportComparison}>ComparisonRun JSON indir</button></div><p className="helper">{comparison.limitations.join(" ")} Bu dosya snapshot export’udur; henüz sunucu veritabanına kaydedilmiş bir kayıt değildir.</p></div>}
+    {comparison && <div className="simulation-report simulation-reference" role="status"><div className="simulation-report-head"><strong>Motor farkları · {comparison.status}</strong><small>{comparison.input_hash.slice(0, 12)}…</small></div><p className="helper">Farklar, aynı reçete girdisinin iki hesaplama yaklaşımındaki sayısal ayrışmasını gösterir; doğruluk sıralaması değildir.</p><div className="reference-grid"><article className="simulation-status"><small>SiO₂ / Al₂O₃</small><strong>{comparison.differences.SiO2_to_Al2O3_molar.delta == null ? "—" : comparison.differences.SiO2_to_Al2O3_molar.delta.toLocaleString("tr-TR", { maximumFractionDigits: 3 })}</strong><p>İç: {comparison.differences.SiO2_to_Al2O3_molar.internal?.toLocaleString("tr-TR", { maximumFractionDigits: 3 }) ?? "—"} · Harici: {comparison.differences.SiO2_to_Al2O3_molar.external?.toLocaleString("tr-TR", { maximumFractionDigits: 3 }) ?? "—"}</p></article><article className="simulation-status"><small>UMF farkı</small><strong>{Object.keys(comparison.differences.umf).length} oksit</strong><p>{Object.entries(comparison.differences.umf).map(([oxide, value]) => `${oxide}: ${value.delta == null ? "—" : value.delta.toLocaleString("tr-TR", { maximumFractionDigits: 3 })}`).join(" · ")}</p></article><article className="simulation-status"><small>CTE</small><strong>UNAVAILABLE</strong><p>{comparison.differences.thermal_expansion.reason}</p></article></div><ul className="reference-warnings">{comparison.warnings.map((warning) => <li key={warning}>{warning}</li>)}</ul><div className="simulation-actions"><button className="text-button" type="button" onClick={exportComparison}>ComparisonRun JSON indir</button><button className="text-button" type="button" onClick={() => void verifyComparisonSnapshot()}>Snapshot bütünlüğünü doğrula</button></div>{comparisonReplay && <div className={`simulation-status ${comparisonReplay.status.toLowerCase()}`}><strong>Snapshot: {comparisonReplay.status}</strong><p>{comparisonReplay.status === "PASS" ? "Hash ve fark tablosu yeniden hesaplanan sonuçla eşleşiyor." : comparisonReplay.reason ?? "Snapshot doğrulaması başarısız veya kapsam dışı."}</p></div>}<p className="helper">{comparison.limitations.join(" ")} Bu dosya snapshot export’udur; henüz sunucu veritabanına kaydedilmiş bir kayıt değildir.</p></div>}
   </section>;
 }

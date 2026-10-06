@@ -1,7 +1,11 @@
 """Comparison reports preserve uncertainty and do not invent missing values."""
 import unittest
 
-from research.external.comparison import compare_calculated_reports, value_delta
+from research.external.comparison import (
+    compare_calculated_reports,
+    replay_comparison_snapshot,
+    value_delta,
+)
 
 
 class ExternalComparisonTests(unittest.TestCase):
@@ -42,6 +46,52 @@ class ExternalComparisonTests(unittest.TestCase):
         self.assertEqual(result["status"], "PARTIAL")
         self.assertIsNone(result["differences"]["umf"]["CaO"]["external"])
         self.assertTrue(any("tanımadı" in warning for warning in result["warnings"]))
+
+    def test_replay_snapshot_passes_without_rerunning_external_engine(self):
+        internal = {
+            "input_hash": "internal-hash",
+            "engine_version": "engine/1",
+            "input_snapshot": {"ingredients": [{"analysis_id": "a", "amount": 100}]},
+            "umf_convention": "standard-flux-v1",
+            "umf": {"values": {"SiO2": 3.0, "CaO": 0.5}},
+            "ratios": {"SiO2_to_Al2O3_molar": {"value": 6.0}},
+        }
+        external = {
+            "source": "OpenGlaze",
+            "report": {
+                "success": True,
+                "missing_materials": [],
+                "umf_formula": {"SiO2": 3.2, "CaO": 0.4},
+                "ratios": {"sio2_al2o3": 6.4},
+            },
+        }
+        snapshot = compare_calculated_reports(
+            internal,
+            external,
+            external_ingredients=[{"name": "Silica", "amount": 100}],
+            cone=6,
+        )
+
+        replay = replay_comparison_snapshot(snapshot)
+
+        self.assertEqual(replay["status"], "PASS")
+        self.assertTrue(replay["input_hash_matches"])
+        self.assertTrue(replay["differences_match"])
+
+        snapshot["differences"]["umf"]["CaO"]["delta"] = 999
+        tampered = replay_comparison_snapshot(snapshot)
+        self.assertEqual(tampered["status"], "FAIL")
+        self.assertTrue(tampered["input_hash_matches"])
+        self.assertFalse(tampered["differences_match"])
+
+    def test_replay_snapshot_requires_input_envelope(self):
+        replay = replay_comparison_snapshot({
+            "schema_version": "comparison-run-v1",
+            "internal": {},
+            "external": {},
+        })
+        self.assertEqual(replay["status"], "UNAVAILABLE")
+        self.assertEqual(replay["reason"], "MISSING_INPUT_SNAPSHOT")
 
 
 if __name__ == "__main__":
