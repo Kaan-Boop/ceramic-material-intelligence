@@ -1,12 +1,18 @@
 # Ceramic Glaze Lab
 
-Ceramic Material Intelligence Platform — M2 veri altyapısı ve ilk araştırma koleksiyonu
+Ceramic Material Intelligence Platform — yerel kimya ve fizik araştırma prototipi
 
-Durum: M1 tamamlandı. **M2 veri altyapısı ve ilk açık veri edinimi çalışıyor; gerçek motor referans seti eksik olduğundan M2 bütünüyle tamamlanmış sayılmıyor.** Web uygulaması ve kimya motoru henüz yok.
+Durum: Kaynaklı kimya hesabı, web/API prototipi ve kapsamı sınırlı fizik araştırma modülleri mevcut. Gerçek malzeme referans seti ve deneysel doğrulama eksik; bütünleşik ve doğrulanmış sır–bünye pişirim tahmini henüz yok. Aşağıdaki M2 belgeleri ilk veri edinim aşamasının tarihsel kayıtlarıdır.
 
 Amaç: seramik reçetelerini kaynaklı kimyasal hesaplara ve gerçek deney sonuçlarına bağlayan responsive araştırma uygulaması geliştirmek.
 
 ## Buradan başlayın
+
+Yeni: [Zamana bağlı, katmanlı 1B fırın ısı çekirdeği](docs/KILN_THERMAL_1D.md).
+Ayrı gaz/duvar sıcaklıkları, taşınım + ışınım, kalınlık boyunca iletim,
+ısıtma/bekletme/soğuma ve enerji bilançosu. Standart Python; yerel CLI/API,
+JSON/CSV çıktıları ve analitik yakınsama testleri. Yalnızca inert sabit
+özellikli plaka; erime/reaksiyon/sinterleşme veya kusur olasılığı hesaplamaz.
 
 Yeni: [3B fizik–kimya araştırma hattı](docs/simulation/00_INDEX.md). Yerelde kurulan scikit-fem ile iki katmanlı 3B ısı/termoelastik FEM; NVIDIA Warp CPU/GPU uygunluk kontrolü; offline HTML/VTK çıktı. Yalnızca sentetik pişmiş-katı idealizasyonu; ham malzeme reaksiyonları yok, ağ yakınsaması ve fiziksel validasyon açık. [Kaynak/motor seçimi](docs/simulation/01_ENGINE_SELECTION.md) ve [sayısal kontrol raporu](docs/simulation/03_VALIDATION.md).
 

@@ -44,6 +44,7 @@ from research.process.experiment_observation import (
     save_observation,
 )
 from research.chemistry.reaction_explorer import explore
+from research.thermal.kiln_1d import ThermalInputError, simulate as simulate_kiln_thermal
 from research.material_library import build_library
 from research.local_recipe_archive import search_recipes, get_staged_record
 from research.simulation.capabilities import assess_capabilities
@@ -70,6 +71,12 @@ from research.simulation.scenario import (
 
 class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
+
+
+class KilnThermalRequest(StrictModel):
+    # The framework-independent engine owns the complete, strict case contract.
+    # No catalogue names are silently converted to thermal properties.
+    case: dict[str, JsonValue]
 
 
 Amount = Annotated[float, Field(strict=True, ge=0, le=1_000_000)]
@@ -405,11 +412,6 @@ async def invalid_request(request, exc):
     ]).model_dump())
 
 
-@app.get("/api/v1/health")
-def health():
-    return {"status": "ok", "mode": "LOCAL_RESEARCH_PROTOTYPE"}
-
-
 class SimulationMaterialRef(StrictModel):
     analysis_id: Annotated[str, Field(min_length=1, max_length=200)]
     role: Literal["BODY", "ENGOBE", "GLAZE", "ADDITION", "OVERGLAZE"]
@@ -546,6 +548,19 @@ def _scenario_from_request(payload: SimulationScenarioRequest) -> SimulationScen
         ),
         metadata=dict(payload.metadata),
     )
+
+
+@app.post('/api/v1/simulations/thermal-1d', response_model=dict[str, JsonValue], responses={422: {'model': ErrorResponse}})
+def simulation_thermal_1d(payload: KilnThermalRequest):
+    """Bounded, local, transient conduction; declared properties, no kiln control."""
+    try:
+        return simulate_kiln_thermal(payload.case)
+    except ThermalInputError as exc:
+        code, _, field = str(exc).partition(':')
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=code, path=['case'] + ([field] if field else []),
+            message='Isı modeli çalıştırılamadı: ' + str(exc),
+        )]).model_dump())
 
 
 @app.post('/api/v1/simulations/capabilities', response_model=dict[str, JsonValue], responses={422: {'model': ErrorResponse}})

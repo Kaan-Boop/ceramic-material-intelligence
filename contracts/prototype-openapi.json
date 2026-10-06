@@ -8,13 +8,149 @@
     "/api/v1/health": {
       "get": {
         "summary": "Health",
+        "description": "Deployment probe; does not load the research archive or run chemistry.",
         "operationId": "health_api_v1_health_get",
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Health Api V1 Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/simulations/thermal-1d": {
+      "post": {
+        "summary": "Simulation Thermal 1D",
+        "description": "Bounded, local, transient conduction; declared properties, no kiln control.",
+        "operationId": "simulation_thermal_1d_api_v1_simulations_thermal_1d_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KilnThermalRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Simulation Thermal 1D Api V1 Simulations Thermal 1D Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/simulations/capabilities": {
+      "post": {
+        "summary": "Simulation Capabilities",
+        "description": "Validate a generic scenario and report supported outputs only.\n\nThis endpoint is intentionally a capability gate. It does not run a kiln,\ninfer material properties, or return surface/defect probabilities.",
+        "operationId": "simulation_capabilities_api_v1_simulations_capabilities_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulationScenarioRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Simulation Capabilities Api V1 Simulations Capabilities Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/simulations/chemistry": {
+      "post": {
+        "summary": "Simulation Chemistry",
+        "description": "Calculate deterministic dry-batch chemistry for declared scenario layers.\n\nThis is intentionally not a firing or surface simulator. Every recipe row\nis resolved from the server's exact local analysis snapshot and research-\nonly catalogue records are rejected instead of being treated as chemistry.",
+        "operationId": "simulation_chemistry_api_v1_simulations_chemistry_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulationChemistryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Simulation Chemistry Api V1 Simulations Chemistry Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
@@ -46,6 +182,222 @@
                   },
                   "type": "object",
                   "title": "Response Calcite Explorer Api V1 Reactions Calcite Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/references/openglaze/umf": {
+      "post": {
+        "summary": "Openglaze Umf Reference",
+        "description": "Run the optional OpenGlaze CLI as an explicitly external reference.\n\nThe route is disabled unless ``OPENGLAZE_REPO_ROOT`` points to a locally\ndownloaded, license-reviewed checkout. Its result never replaces the\ndeterministic Ceramic Material Intelligence chemistry report.",
+        "operationId": "openglaze_umf_reference_api_v1_references_openglaze_umf_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenGlazeReferenceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Openglaze Umf Reference Api V1 References Openglaze Umf Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/references/openglaze/compare": {
+      "post": {
+        "summary": "Compare With Openglaze",
+        "description": "Compare our exact local chemistry snapshot with OpenGlaze.\n\nThis endpoint is a reproducibility aid, not a consensus engine. It only\ncompares UMF-equivalent fields and preserves the external report and\nmaterial-name limitations separately.",
+        "operationId": "compare_with_openglaze_api_v1_references_openglaze_compare_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChemistryComparisonRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Compare With Openglaze Api V1 References Openglaze Compare Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/references/openglaze/replay": {
+      "post": {
+        "summary": "Replay Openglaze Comparison",
+        "description": "Verify a downloaded comparison snapshot without rerunning OpenGlaze.\n\nThis endpoint checks the stored comparison arithmetic and input hash. It\nintentionally does not fetch or execute the historical external source.",
+        "operationId": "replay_openglaze_comparison_api_v1_references_openglaze_replay_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComparisonReplayRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Replay Openglaze Comparison Api V1 References Openglaze Replay Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/references/openglaze/runs": {
+      "post": {
+        "summary": "Save Openglaze Comparison",
+        "description": "Persist one immutable comparison snapshot in the local archive.",
+        "operationId": "save_openglaze_comparison_api_v1_references_openglaze_runs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComparisonReplayRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Save Openglaze Comparison Api V1 References Openglaze Runs Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/references/openglaze/runs/{comparison_id}": {
+      "get": {
+        "summary": "Get Openglaze Comparison",
+        "description": "Load one archived comparison and verify its checksum before returning it.",
+        "operationId": "get_openglaze_comparison_api_v1_references_openglaze_runs__comparison_id__get",
+        "parameters": [
+          {
+            "name": "comparison_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Comparison Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Get Openglaze Comparison Api V1 References Openglaze Runs  Comparison Id  Get"
                 }
               }
             }
@@ -147,6 +499,322 @@
         }
       }
     },
+    "/api/v1/validation/outcomes": {
+      "post": {
+        "summary": "Validate Observed Outcomes",
+        "description": "Link measured/reported specimen observations to a calculated report.",
+        "operationId": "validate_observed_outcomes_api_v1_validation_outcomes_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExperimentValidationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Validate Observed Outcomes Api V1 Validation Outcomes Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/experiments": {
+      "post": {
+        "summary": "Create Experiment Record",
+        "description": "Create or reuse an immutable experiment/specimen context record.",
+        "operationId": "create_experiment_record_api_v1_experiments_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExperimentRecordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Create Experiment Record Api V1 Experiments Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/experiments/{record_id}": {
+      "get": {
+        "summary": "Get Experiment Record",
+        "description": "Load one immutable experiment/specimen context record.",
+        "operationId": "get_experiment_record_api_v1_experiments__record_id__get",
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Get Experiment Record Api V1 Experiments  Record Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/experiments/{record_id}/observations": {
+      "post": {
+        "summary": "Create Experiment Observation",
+        "description": "Store one immutable observation linked to an existing experiment record.",
+        "operationId": "create_experiment_observation_api_v1_experiments__record_id__observations_post",
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ObservedOutcome"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Create Experiment Observation Api V1 Experiments  Record Id  Observations Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get Experiment Observations",
+        "description": "List checksum-verified observations linked to an experiment record.",
+        "operationId": "get_experiment_observations_api_v1_experiments__record_id__observations_get",
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/JsonValue"
+                    }
+                  },
+                  "title": "Response Get Experiment Observations Api V1 Experiments  Record Id  Observations Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/validation/runs": {
+      "post": {
+        "summary": "Save Validation Run",
+        "description": "Persist one immutable observed/calculated validation report locally.",
+        "operationId": "save_validation_run_api_v1_validation_runs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExperimentValidationArchiveRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Save Validation Run Api V1 Validation Runs Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/validation/runs/{run_id}": {
+      "get": {
+        "summary": "Get Validation Run",
+        "description": "Load one immutable validation report after checksum verification.",
+        "operationId": "get_validation_run_api_v1_validation_runs__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Get Validation Run Api V1 Validation Runs  Run Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/materials": {
       "get": {
         "summary": "Materials",
@@ -180,6 +848,50 @@
                   },
                   "type": "object",
                   "title": "Response Library Api V1 Library Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/material-analyses/{analysis_id}": {
+      "get": {
+        "summary": "Material Analysis",
+        "description": "Return one exact local analysis record with provenance and eligibility.",
+        "operationId": "material_analysis_api_v1_material_analyses__analysis_id__get",
+        "parameters": [
+          {
+            "name": "analysis_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Analysis Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Material Analysis Api V1 Material Analyses  Analysis Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -466,6 +1178,48 @@
         ],
         "title": "Catalogue"
       },
+      "ChemistryComparisonRequest": {
+        "properties": {
+          "ingredients": {
+            "items": {
+              "$ref": "#/components/schemas/Ingredient"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Ingredients"
+          },
+          "base_mass_g": {
+            "type": "number",
+            "maximum": 1000000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Base Mass G",
+            "default": 100
+          },
+          "cone": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": -20.0,
+            "title": "Cone"
+          },
+          "external_names": {
+            "additionalProperties": {
+              "type": "string",
+              "maxLength": 160,
+              "minLength": 1
+            },
+            "type": "object",
+            "title": "External Names"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "ingredients",
+          "cone"
+        ],
+        "title": "ChemistryComparisonRequest"
+      },
       "ChemistryResult": {
         "properties": {
           "schema_version": {
@@ -624,6 +1378,24 @@
         ],
         "title": "ChemistryResult"
       },
+      "ComparisonReplayRequest": {
+        "properties": {
+          "snapshot": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Snapshot"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "snapshot"
+        ],
+        "title": "ComparisonReplayRequest",
+        "description": "Previously exported comparison snapshot to verify arithmetically."
+      },
       "ComparisonRequest": {
         "properties": {
           "prediction": {
@@ -698,6 +1470,195 @@
           "errors"
         ],
         "title": "ErrorResponse"
+      },
+      "ExperimentRecordContext": {
+        "properties": {
+          "body_revision": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Body Revision",
+            "default": ""
+          },
+          "glaze_revision": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Glaze Revision",
+            "default": ""
+          },
+          "application_revision": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Application Revision",
+            "default": ""
+          },
+          "firing_run_id": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Firing Run Id",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "ExperimentRecordContext"
+      },
+      "ExperimentRecordRequest": {
+        "properties": {
+          "experiment_id": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Experiment Id"
+          },
+          "specimen_id": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Specimen Id"
+          },
+          "record_kind": {
+            "type": "string",
+            "enum": [
+              "REAL",
+              "SYNTHETIC"
+            ],
+            "title": "Record Kind",
+            "default": "REAL"
+          },
+          "question": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Question",
+            "default": ""
+          },
+          "source_ref": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Source Ref"
+          },
+          "context": {
+            "$ref": "#/components/schemas/ExperimentRecordContext"
+          },
+          "analysis_report_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Report Id"
+          },
+          "chemistry_input_hash": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chemistry Input Hash"
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Notes",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "experiment_id",
+          "specimen_id",
+          "source_ref"
+        ],
+        "title": "ExperimentRecordRequest"
+      },
+      "ExperimentValidationArchiveRequest": {
+        "properties": {
+          "report": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Report"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "report"
+        ],
+        "title": "ExperimentValidationArchiveRequest"
+      },
+      "ExperimentValidationRequest": {
+        "properties": {
+          "experiment_id": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Experiment Id"
+          },
+          "context": {
+            "$ref": "#/components/schemas/ValidationContext"
+          },
+          "calculated_report": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Calculated Report"
+          },
+          "observations": {
+            "items": {
+              "$ref": "#/components/schemas/ObservedOutcome"
+            },
+            "type": "array",
+            "maxItems": 1000,
+            "minItems": 1,
+            "title": "Observations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "experiment_id",
+          "context",
+          "calculated_report",
+          "observations"
+        ],
+        "title": "ExperimentValidationRequest"
+      },
+      "ExternalReferenceIngredient": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "amount": {
+            "type": "number",
+            "maximum": 1000000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Amount"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "amount"
+        ],
+        "title": "ExternalReferenceIngredient"
       },
       "FiringContext": {
         "properties": {
@@ -888,6 +1849,23 @@
         "title": "Ingredient"
       },
       "JsonValue": {},
+      "KilnThermalRequest": {
+        "properties": {
+          "case": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Case"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "case"
+        ],
+        "title": "KilnThermalRequest"
+      },
       "Material": {
         "properties": {
           "analysis_id": {
@@ -996,6 +1974,95 @@
           "dry_mass_g"
         ],
         "title": "NormalizedIngredient"
+      },
+      "ObservedOutcome": {
+        "properties": {
+          "observable": {
+            "type": "string",
+            "enum": [
+              "gloss_mean_gu",
+              "water_absorption_mass_pct",
+              "apparent_open_porosity_volume_pct"
+            ],
+            "title": "Observable"
+          },
+          "value": {
+            "type": "number",
+            "maximum": 2000.0,
+            "minimum": 0.0,
+            "title": "Value"
+          },
+          "unit": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "title": "Unit"
+          },
+          "specimen_id": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Specimen Id"
+          },
+          "source_ref": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Source Ref"
+          },
+          "method": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Method"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "MEASURED",
+              "REPORTED"
+            ],
+            "title": "Status"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "observable",
+          "value",
+          "unit",
+          "specimen_id",
+          "source_ref",
+          "method",
+          "status"
+        ],
+        "title": "ObservedOutcome"
+      },
+      "OpenGlazeReferenceRequest": {
+        "properties": {
+          "ingredients": {
+            "items": {
+              "$ref": "#/components/schemas/ExternalReferenceIngredient"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Ingredients"
+          },
+          "cone": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": -20.0,
+            "title": "Cone"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "ingredients",
+          "cone"
+        ],
+        "title": "OpenGlazeReferenceRequest"
       },
       "OutcomeRequest": {
         "properties": {
@@ -1343,6 +2410,71 @@
         ],
         "title": "ReportedWindow"
       },
+      "ScenarioRecipeIngredient": {
+        "properties": {
+          "analysis_id": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Analysis Id"
+          },
+          "amount": {
+            "type": "number",
+            "maximum": 1000000.0,
+            "minimum": 0.0,
+            "title": "Amount"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "BASE",
+              "ADDITION"
+            ],
+            "title": "Role"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "analysis_id",
+          "amount",
+          "role"
+        ],
+        "title": "ScenarioRecipeIngredient"
+      },
+      "ScenarioRecipeLayer": {
+        "properties": {
+          "layer_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Layer Id"
+          },
+          "base_mass_g": {
+            "type": "number",
+            "maximum": 1000000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Base Mass G",
+            "default": 100
+          },
+          "ingredients": {
+            "items": {
+              "$ref": "#/components/schemas/ScenarioRecipeIngredient"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Ingredients"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "layer_id",
+          "ingredients"
+        ],
+        "title": "ScenarioRecipeLayer"
+      },
       "ScheduleCheck": {
         "properties": {
           "status": {
@@ -1403,6 +2535,406 @@
         ],
         "title": "ScheduleCheck"
       },
+      "SimulationChemistryRequest": {
+        "properties": {
+          "scenario": {
+            "$ref": "#/components/schemas/SimulationScenarioRequest"
+          },
+          "recipes": {
+            "items": {
+              "$ref": "#/components/schemas/ScenarioRecipeLayer"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Recipes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenario",
+          "recipes"
+        ],
+        "title": "SimulationChemistryRequest"
+      },
+      "SimulationFiringSchedule": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "start_c": {
+            "type": "number",
+            "maximum": 1800.0,
+            "minimum": 0.0,
+            "title": "Start C"
+          },
+          "segments": {
+            "items": {
+              "$ref": "#/components/schemas/SimulationFiringSegment"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Segments"
+          },
+          "atmosphere": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Atmosphere",
+            "default": "UNKNOWN"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "start_c",
+          "segments"
+        ],
+        "title": "SimulationFiringSchedule"
+      },
+      "SimulationFiringSegment": {
+        "properties": {
+          "target_c": {
+            "type": "number",
+            "maximum": 1800.0,
+            "minimum": 0.0,
+            "title": "Target C"
+          },
+          "rate_c_per_hour": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 10000.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rate C Per Hour"
+          },
+          "hold_minutes": {
+            "type": "number",
+            "maximum": 10080.0,
+            "minimum": 0.0,
+            "title": "Hold Minutes",
+            "default": 0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "target_c"
+        ],
+        "title": "SimulationFiringSegment"
+      },
+      "SimulationGeometry": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "TILE",
+              "PLATE",
+              "CYLINDER",
+              "SPHERE",
+              "CUSTOM"
+            ],
+            "title": "Kind"
+          },
+          "thickness_mm": {
+            "type": "number",
+            "maximum": 10000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Thickness Mm"
+          },
+          "length_mm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Length Mm"
+          },
+          "width_mm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Width Mm"
+          },
+          "diameter_mm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Diameter Mm"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "thickness_mm"
+        ],
+        "title": "SimulationGeometry"
+      },
+      "SimulationLayer": {
+        "properties": {
+          "layer_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Layer Id"
+          },
+          "materials": {
+            "items": {
+              "$ref": "#/components/schemas/SimulationMaterialRef"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Materials"
+          },
+          "application_method": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "DIP",
+              "BRUSH",
+              "SPRAY",
+              "POUR",
+              "SCREEN",
+              "OTHER"
+            ],
+            "title": "Application Method",
+            "default": "NONE"
+          },
+          "coat_count": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Coat Count",
+            "default": 0
+          },
+          "dry_thickness_um": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dry Thickness Um"
+          },
+          "wet_thickness_um": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wet Thickness Um"
+          },
+          "drying_minutes": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Drying Minutes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "layer_id",
+          "materials"
+        ],
+        "title": "SimulationLayer"
+      },
+      "SimulationMaterialRef": {
+        "properties": {
+          "analysis_id": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Analysis Id"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "BODY",
+              "ENGOBE",
+              "GLAZE",
+              "ADDITION",
+              "OVERGLAZE"
+            ],
+            "title": "Role"
+          },
+          "amount_g": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount G"
+          },
+          "layer_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Layer Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "analysis_id",
+          "role"
+        ],
+        "title": "SimulationMaterialRef"
+      },
+      "SimulationScenarioRequest": {
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Scenario Id"
+          },
+          "body": {
+            "$ref": "#/components/schemas/SimulationLayer"
+          },
+          "layers": {
+            "items": {
+              "$ref": "#/components/schemas/SimulationLayer"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Layers"
+          },
+          "bisque": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimulationFiringSchedule"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "final_firing": {
+            "$ref": "#/components/schemas/SimulationFiringSchedule"
+          },
+          "geometry": {
+            "$ref": "#/components/schemas/SimulationGeometry"
+          },
+          "target": {
+            "$ref": "#/components/schemas/SimulationTarget"
+          },
+          "metadata": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "body",
+          "final_firing",
+          "geometry",
+          "target"
+        ],
+        "title": "SimulationScenarioRequest"
+      },
+      "SimulationTarget": {
+        "properties": {
+          "objective": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Objective"
+          },
+          "requested_outputs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 50,
+            "title": "Requested Outputs"
+          },
+          "reference_temperature_c": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1800.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Temperature C"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "objective"
+        ],
+        "title": "SimulationTarget"
+      },
       "UMF": {
         "properties": {
           "status": {
@@ -1447,6 +2979,69 @@
           "values"
         ],
         "title": "UMF"
+      },
+      "ValidationContext": {
+        "properties": {
+          "body_analysis_id": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Body Analysis Id"
+          },
+          "glaze_revision_id": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Glaze Revision Id"
+          },
+          "firing_run_id": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Firing Run Id"
+          },
+          "application_id": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Application Id"
+          },
+          "analysis_report_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Report Id"
+          },
+          "chemistry_input_hash": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chemistry Input Hash"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "body_analysis_id",
+          "glaze_revision_id",
+          "firing_run_id",
+          "application_id"
+        ],
+        "title": "ValidationContext"
       },
       "ValidationError": {
         "properties": {

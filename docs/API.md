@@ -14,6 +14,7 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 | POST /analyses | Geçici hesap; `persist=false` varsayılanı | M4 |
 | POST /simulations/capabilities | Genel senaryoyu doğrular; hedef çıktılar için AVAILABLE/PARTIAL/UNAVAILABLE kapısı döndürür, fiziksel sonuç üretmez | M4 |
 | POST /simulations/chemistry | Senaryo katmanlarının açık reçetelerini ayrı ayrı kuru baz oksit/mol/UMF raporuna bağlar; firing veya yüzey sonucu üretmez | M4 |
+| POST /simulations/thermal-1d | Açık termal özellikler + ayrı gaz/duvar tarihçesiyle inert katmanlı plakanın zaman/konum sıcaklığını ve enerji bilançosunu hesaplar | Yerel araştırma |
 | POST /references/openglaze/umf | Yerel olarak etkinleştirilmiş OpenGlaze CLI çıktısını harici karşılaştırma olarak döndürür; çekirdek sonucu değiştirmez | Araştırma |
 | POST /references/openglaze/compare | Exact yerel analiz snapshot’ı ile OpenGlaze UMF/SiO₂:Al₂O₃ çıktısını oksit bazında karşılaştırır; doğruluk sıralaması üretmez | Araştırma |
 | POST /references/openglaze/replay | İndirilen `comparison-run-v1` snapshot’ının hash ve fark tablosunu yeniden kontrol eder; OpenGlaze’i tekrar çalıştırmaz | Araştırma |
@@ -38,6 +39,17 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 Unsupported endpoint route açılmaz. `/simulate`, `/predictions`, `/ai-explanations` bu sürümde yok.
 
 ## Genel simülasyon kapasite isteği
+
+`POST /api/v1/simulations/thermal-1d` ayrı ve uygulanmış bir araştırma
+endpoint'idir. Gövde `{"case": ...}`; tam sözleşme ve çalıştırılabilir örnek
+[1B termal model](KILN_THERMAL_1D.md) ve
+[sentetik fixture](../data/fixtures/kiln-thermal-1d-synthetic.json) içindedir.
+Malzeme adı/UMF üzerinden termal özellik tahmin etmez. Yanıt
+`kiln-thermal-1d-report-v1`, `PREDICTED / DETERMINISTIC`, tam girdi snapshot'ı,
+mesh, zaman serisi ve enerji bilançosu içerir. Fiziksel doğrulama yapılmadı;
+belirsizlik `null`. Eksik özellik, geçerlilik aşımı ve çözücü yakınsamama
+durumları ayrı hata kodlarıyla 422 döner. Faz, reaksiyon, sinterleşme ve kusur
+olasılıkları bu endpoint'te de mevcut değildir. Web arayüzü henüz çağırmaz.
 
 `POST /api/v1/simulations/capabilities` gövdeyi, engobe/sır/katkı katmanlarını,
 bisque/final firing programını, geometriyi ve kullanıcının `requested_outputs`

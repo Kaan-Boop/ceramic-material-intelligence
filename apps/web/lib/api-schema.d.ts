@@ -11,10 +11,80 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Health */
+        /**
+         * Health
+         * @description Deployment probe; does not load the research archive or run chemistry.
+         */
         get: operations["health_api_v1_health_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/simulations/thermal-1d": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Simulation Thermal 1D
+         * @description Bounded, local, transient conduction; declared properties, no kiln control.
+         */
+        post: operations["simulation_thermal_1d_api_v1_simulations_thermal_1d_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/simulations/capabilities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Simulation Capabilities
+         * @description Validate a generic scenario and report supported outputs only.
+         *
+         *     This endpoint is intentionally a capability gate. It does not run a kiln,
+         *     infer material properties, or return surface/defect probabilities.
+         */
+        post: operations["simulation_capabilities_api_v1_simulations_capabilities_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/simulations/chemistry": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Simulation Chemistry
+         * @description Calculate deterministic dry-batch chemistry for declared scenario layers.
+         *
+         *     This is intentionally not a firing or surface simulator. Every recipe row
+         *     is resolved from the server's exact local analysis snapshot and research-
+         *     only catalogue records are rejected instead of being treated as chemistry.
+         */
+        post: operations["simulation_chemistry_api_v1_simulations_chemistry_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -32,6 +102,117 @@ export interface paths {
         put?: never;
         /** Calcite Explorer */
         post: operations["calcite_explorer_api_v1_reactions_calcite_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/references/openglaze/umf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Openglaze Umf Reference
+         * @description Run the optional OpenGlaze CLI as an explicitly external reference.
+         *
+         *     The route is disabled unless ``OPENGLAZE_REPO_ROOT`` points to a locally
+         *     downloaded, license-reviewed checkout. Its result never replaces the
+         *     deterministic Ceramic Material Intelligence chemistry report.
+         */
+        post: operations["openglaze_umf_reference_api_v1_references_openglaze_umf_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/references/openglaze/compare": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Compare With Openglaze
+         * @description Compare our exact local chemistry snapshot with OpenGlaze.
+         *
+         *     This endpoint is a reproducibility aid, not a consensus engine. It only
+         *     compares UMF-equivalent fields and preserves the external report and
+         *     material-name limitations separately.
+         */
+        post: operations["compare_with_openglaze_api_v1_references_openglaze_compare_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/references/openglaze/replay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Replay Openglaze Comparison
+         * @description Verify a downloaded comparison snapshot without rerunning OpenGlaze.
+         *
+         *     This endpoint checks the stored comparison arithmetic and input hash. It
+         *     intentionally does not fetch or execute the historical external source.
+         */
+        post: operations["replay_openglaze_comparison_api_v1_references_openglaze_replay_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/references/openglaze/runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Save Openglaze Comparison
+         * @description Persist one immutable comparison snapshot in the local archive.
+         */
+        post: operations["save_openglaze_comparison_api_v1_references_openglaze_runs_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/references/openglaze/runs/{comparison_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Openglaze Comparison
+         * @description Load one archived comparison and verify its checksum before returning it.
+         */
+        get: operations["get_openglaze_comparison_api_v1_references_openglaze_runs__comparison_id__get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -72,6 +253,130 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/validation/outcomes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Validate Observed Outcomes
+         * @description Link measured/reported specimen observations to a calculated report.
+         */
+        post: operations["validate_observed_outcomes_api_v1_validation_outcomes_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/experiments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Experiment Record
+         * @description Create or reuse an immutable experiment/specimen context record.
+         */
+        post: operations["create_experiment_record_api_v1_experiments_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/experiments/{record_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Experiment Record
+         * @description Load one immutable experiment/specimen context record.
+         */
+        get: operations["get_experiment_record_api_v1_experiments__record_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/experiments/{record_id}/observations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Experiment Observations
+         * @description List checksum-verified observations linked to an experiment record.
+         */
+        get: operations["get_experiment_observations_api_v1_experiments__record_id__observations_get"];
+        put?: never;
+        /**
+         * Create Experiment Observation
+         * @description Store one immutable observation linked to an existing experiment record.
+         */
+        post: operations["create_experiment_observation_api_v1_experiments__record_id__observations_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/validation/runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Save Validation Run
+         * @description Persist one immutable observed/calculated validation report locally.
+         */
+        post: operations["save_validation_run_api_v1_validation_runs_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/validation/runs/{run_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Validation Run
+         * @description Load one immutable validation report after checksum verification.
+         */
+        get: operations["get_validation_run_api_v1_validation_runs__run_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/materials": {
         parameters: {
             query?: never;
@@ -98,6 +403,26 @@ export interface paths {
         };
         /** Library */
         get: operations["library_api_v1_library_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/material-analyses/{analysis_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Material Analysis
+         * @description Return one exact local analysis record with provenance and eligibility.
+         */
+        get: operations["material_analysis_api_v1_material_analyses__analysis_id__get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -206,6 +531,22 @@ export interface components {
             /** Notice */
             notice: string;
         };
+        /** ChemistryComparisonRequest */
+        ChemistryComparisonRequest: {
+            /** Ingredients */
+            ingredients: components["schemas"]["Ingredient"][];
+            /**
+             * Base Mass G
+             * @default 100
+             */
+            base_mass_g: number;
+            /** Cone */
+            cone: number;
+            /** External Names */
+            external_names?: {
+                [key: string]: string;
+            };
+        };
         /** ChemistryResult */
         ChemistryResult: {
             /** Schema Version */
@@ -273,6 +614,16 @@ export interface components {
             warnings: string[];
             predictions: components["schemas"]["Predictions"];
         };
+        /**
+         * ComparisonReplayRequest
+         * @description Previously exported comparison snapshot to verify arithmetically.
+         */
+        ComparisonReplayRequest: {
+            /** Snapshot */
+            snapshot: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+        };
         /** ComparisonRequest */
         ComparisonRequest: {
             /** Prediction */
@@ -303,6 +654,85 @@ export interface components {
         ErrorResponse: {
             /** Errors */
             errors: components["schemas"]["ErrorItem"][];
+        };
+        /** ExperimentRecordContext */
+        ExperimentRecordContext: {
+            /**
+             * Body Revision
+             * @default
+             */
+            body_revision: string;
+            /**
+             * Glaze Revision
+             * @default
+             */
+            glaze_revision: string;
+            /**
+             * Application Revision
+             * @default
+             */
+            application_revision: string;
+            /**
+             * Firing Run Id
+             * @default
+             */
+            firing_run_id: string;
+        };
+        /** ExperimentRecordRequest */
+        ExperimentRecordRequest: {
+            /** Experiment Id */
+            experiment_id: string;
+            /** Specimen Id */
+            specimen_id: string;
+            /**
+             * Record Kind
+             * @default REAL
+             * @enum {string}
+             */
+            record_kind: "REAL" | "SYNTHETIC";
+            /**
+             * Question
+             * @default
+             */
+            question: string;
+            /** Source Ref */
+            source_ref: string;
+            context?: components["schemas"]["ExperimentRecordContext"];
+            /** Analysis Report Id */
+            analysis_report_id?: string | null;
+            /** Chemistry Input Hash */
+            chemistry_input_hash?: string | null;
+            /**
+             * Notes
+             * @default
+             */
+            notes: string;
+        };
+        /** ExperimentValidationArchiveRequest */
+        ExperimentValidationArchiveRequest: {
+            /** Report */
+            report: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+        };
+        /** ExperimentValidationRequest */
+        ExperimentValidationRequest: {
+            /** Experiment Id */
+            experiment_id: string;
+            context: components["schemas"]["ValidationContext"];
+            /** Calculated Report */
+            calculated_report: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+            /** Observations */
+            observations: components["schemas"]["ObservedOutcome"][];
+        };
+        /** ExternalReferenceIngredient */
+        ExternalReferenceIngredient: {
+            /** Name */
+            name: string;
+            /** Amount */
+            amount: number;
         };
         /** FiringContext */
         FiringContext: {
@@ -367,6 +797,13 @@ export interface components {
             role: "BASE" | "ADDITION";
         };
         JsonValue: unknown;
+        /** KilnThermalRequest */
+        KilnThermalRequest: {
+            /** Case */
+            case: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+        };
         /** Material */
         Material: {
             /** Analysis Id */
@@ -410,6 +847,36 @@ export interface components {
             percent_of_base: number;
             /** Dry Mass G */
             dry_mass_g: number;
+        };
+        /** ObservedOutcome */
+        ObservedOutcome: {
+            /**
+             * Observable
+             * @enum {string}
+             */
+            observable: "gloss_mean_gu" | "water_absorption_mass_pct" | "apparent_open_porosity_volume_pct";
+            /** Value */
+            value: number;
+            /** Unit */
+            unit: string;
+            /** Specimen Id */
+            specimen_id: string;
+            /** Source Ref */
+            source_ref: string;
+            /** Method */
+            method: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "MEASURED" | "REPORTED";
+        };
+        /** OpenGlazeReferenceRequest */
+        OpenGlazeReferenceRequest: {
+            /** Ingredients */
+            ingredients: components["schemas"]["ExternalReferenceIngredient"][];
+            /** Cone */
+            cone: number;
         };
         /** OutcomeRequest */
         OutcomeRequest: {
@@ -538,6 +1005,30 @@ export interface components {
             /** Max C */
             max_c: number;
         };
+        /** ScenarioRecipeIngredient */
+        ScenarioRecipeIngredient: {
+            /** Analysis Id */
+            analysis_id: string;
+            /** Amount */
+            amount: number;
+            /**
+             * Role
+             * @enum {string}
+             */
+            role: "BASE" | "ADDITION";
+        };
+        /** ScenarioRecipeLayer */
+        ScenarioRecipeLayer: {
+            /** Layer Id */
+            layer_id: string;
+            /**
+             * Base Mass G
+             * @default 100
+             */
+            base_mass_g: number;
+            /** Ingredients */
+            ingredients: components["schemas"]["ScenarioRecipeIngredient"][];
+        };
         /** ScheduleCheck */
         ScheduleCheck: {
             /**
@@ -554,6 +1045,117 @@ export interface components {
             /** Code */
             code: string;
         };
+        /** SimulationChemistryRequest */
+        SimulationChemistryRequest: {
+            scenario: components["schemas"]["SimulationScenarioRequest"];
+            /** Recipes */
+            recipes: components["schemas"]["ScenarioRecipeLayer"][];
+        };
+        /** SimulationFiringSchedule */
+        SimulationFiringSchedule: {
+            /** Name */
+            name: string;
+            /** Start C */
+            start_c: number;
+            /** Segments */
+            segments: components["schemas"]["SimulationFiringSegment"][];
+            /**
+             * Atmosphere
+             * @default UNKNOWN
+             */
+            atmosphere: string;
+        };
+        /** SimulationFiringSegment */
+        SimulationFiringSegment: {
+            /** Target C */
+            target_c: number;
+            /** Rate C Per Hour */
+            rate_c_per_hour?: number | null;
+            /**
+             * Hold Minutes
+             * @default 0
+             */
+            hold_minutes: number;
+        };
+        /** SimulationGeometry */
+        SimulationGeometry: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "TILE" | "PLATE" | "CYLINDER" | "SPHERE" | "CUSTOM";
+            /** Thickness Mm */
+            thickness_mm: number;
+            /** Length Mm */
+            length_mm?: number | null;
+            /** Width Mm */
+            width_mm?: number | null;
+            /** Diameter Mm */
+            diameter_mm?: number | null;
+        };
+        /** SimulationLayer */
+        SimulationLayer: {
+            /** Layer Id */
+            layer_id: string;
+            /** Materials */
+            materials: components["schemas"]["SimulationMaterialRef"][];
+            /**
+             * Application Method
+             * @default NONE
+             * @enum {string}
+             */
+            application_method: "NONE" | "DIP" | "BRUSH" | "SPRAY" | "POUR" | "SCREEN" | "OTHER";
+            /**
+             * Coat Count
+             * @default 0
+             */
+            coat_count: number;
+            /** Dry Thickness Um */
+            dry_thickness_um?: number | null;
+            /** Wet Thickness Um */
+            wet_thickness_um?: number | null;
+            /** Drying Minutes */
+            drying_minutes?: number | null;
+        };
+        /** SimulationMaterialRef */
+        SimulationMaterialRef: {
+            /** Analysis Id */
+            analysis_id: string;
+            /**
+             * Role
+             * @enum {string}
+             */
+            role: "BODY" | "ENGOBE" | "GLAZE" | "ADDITION" | "OVERGLAZE";
+            /** Amount G */
+            amount_g?: number | null;
+            /** Layer Id */
+            layer_id?: string | null;
+        };
+        /** SimulationScenarioRequest */
+        SimulationScenarioRequest: {
+            /** Scenario Id */
+            scenario_id: string;
+            body: components["schemas"]["SimulationLayer"];
+            /** Layers */
+            layers?: components["schemas"]["SimulationLayer"][];
+            bisque?: components["schemas"]["SimulationFiringSchedule"] | null;
+            final_firing: components["schemas"]["SimulationFiringSchedule"];
+            geometry: components["schemas"]["SimulationGeometry"];
+            target: components["schemas"]["SimulationTarget"];
+            /** Metadata */
+            metadata?: {
+                [key: string]: string;
+            };
+        };
+        /** SimulationTarget */
+        SimulationTarget: {
+            /** Objective */
+            objective: string;
+            /** Requested Outputs */
+            requested_outputs?: string[];
+            /** Reference Temperature C */
+            reference_temperature_c?: number | null;
+        };
         /** UMF */
         UMF: {
             /**
@@ -567,6 +1169,21 @@ export interface components {
             values: {
                 [key: string]: number;
             } | null;
+        };
+        /** ValidationContext */
+        ValidationContext: {
+            /** Body Analysis Id */
+            body_analysis_id: string;
+            /** Glaze Revision Id */
+            glaze_revision_id: string;
+            /** Firing Run Id */
+            firing_run_id: string;
+            /** Application Id */
+            application_id: string;
+            /** Analysis Report Id */
+            analysis_report_id?: string | null;
+            /** Chemistry Input Hash */
+            chemistry_input_hash?: string | null;
         };
         /** ValidationError */
         ValidationError: {
@@ -617,7 +1234,114 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+        };
+    };
+    simulation_thermal_1d_api_v1_simulations_thermal_1d_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KilnThermalRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    simulation_capabilities_api_v1_simulations_capabilities_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SimulationScenarioRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    simulation_chemistry_api_v1_simulations_chemistry_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SimulationChemistryRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
@@ -634,6 +1358,179 @@ export interface operations {
                 "application/json": components["schemas"]["ReactionExplorerRequest"];
             };
         };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    openglaze_umf_reference_api_v1_references_openglaze_umf_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OpenGlazeReferenceRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    compare_with_openglaze_api_v1_references_openglaze_compare_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChemistryComparisonRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    replay_openglaze_comparison_api_v1_references_openglaze_replay_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ComparisonReplayRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    save_openglaze_comparison_api_v1_references_openglaze_runs_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ComparisonReplayRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_openglaze_comparison_api_v1_references_openglaze_runs__comparison_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                comparison_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
         responses: {
             /** @description Successful Response */
             200: {
@@ -727,6 +1624,247 @@ export interface operations {
             };
         };
     };
+    validate_observed_outcomes_api_v1_validation_outcomes_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExperimentValidationRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_experiment_record_api_v1_experiments_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExperimentRecordRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_experiment_record_api_v1_experiments__record_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                record_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_experiment_observations_api_v1_experiments__record_id__observations_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                record_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    }[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_experiment_observation_api_v1_experiments__record_id__observations_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                record_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ObservedOutcome"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    save_validation_run_api_v1_validation_runs_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExperimentValidationArchiveRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_validation_run_api_v1_validation_runs__run_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     materials_api_v1_materials_get: {
         parameters: {
             query?: never;
@@ -765,6 +1903,39 @@ export interface operations {
                     "application/json": {
                         [key: string]: components["schemas"]["JsonValue"];
                     };
+                };
+            };
+        };
+    };
+    material_analysis_api_v1_material_analyses__analysis_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                analysis_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

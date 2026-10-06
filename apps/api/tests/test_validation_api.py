@@ -27,6 +27,8 @@ class ValidationApiTests(unittest.TestCase):
         self.assertEqual(self.client.post('/api/v1/validation/temperature',json=self.payload).status_code,422)
 
     def test_health_probe(self):
+        routes = [route for route in app.routes if getattr(route, 'path', None) == '/api/v1/health']
+        self.assertEqual(len(routes), 1, 'Runtime and OpenAPI must use the same health endpoint')
         r = self.client.get('/api/v1/health')
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.json()['status'], 'ok')
