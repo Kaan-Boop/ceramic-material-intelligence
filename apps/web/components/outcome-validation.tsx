@@ -53,7 +53,7 @@ type LinkedAnalysis = { report_id: string; recipe_name: string; input_hash: stri
 type LinkedOutcome = { input_hash: string };
 
 export default function OutcomeValidation() {
-  const { draft } = useExperimentSession();
+  const { draft, setArchive: setExperimentArchive } = useExperimentSession();
   const [experimentId, setExperimentId] = useState('');
   const [context, setContext] = useState(initialContext);
   const [calculatedText, setCalculatedText] = useState('');
@@ -146,6 +146,11 @@ export default function OutcomeValidation() {
     try {
       const result = await api<ValidationArchiveResponse>('validation/runs', { method: 'POST', body: JSON.stringify({ report }) });
       setArchive(result);
+      setExperimentArchive(current => current.some(entry => {
+        if (!entry || typeof entry !== 'object') return false;
+        const candidate = entry as { report?: { input_hash?: unknown } };
+        return candidate.report?.input_hash === report.input_hash;
+      }) ? current : [...current, { archive_kind: 'OUTCOME_VALIDATION', saved_at: new Date().toISOString(), report }]);
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : 'Deney raporu arşivlenemedi.');
     }

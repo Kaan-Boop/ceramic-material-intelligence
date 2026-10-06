@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { api } from '../lib/api';
+import { useExperimentSession } from './experiment-session';
 
 type Mode = 'porosity' | 'gloss';
 type AssessReport = {
@@ -17,6 +18,7 @@ export const OUTCOME_REFERENCE_EVENT = 'ceramic-lab-outcome-reference-updated';
 const initial = { source_ref: '', conditions: '', input_kind: 'MEASURED' as 'MEASURED' | 'REPORTED' | 'SYNTHETIC' };
 
 export default function OutcomeAssessor() {
+  const { setArchive } = useExperimentSession();
   const [mode, setMode] = useState<Mode>('porosity');
   const [common, setCommon] = useState(initial);
   const [porosity, setPorosity] = useState({ dry_mass_g: '', saturated_mass_g: '', suspended_mass_g: '', specimen_scope: 'UNGLAZED_BODY' });
@@ -51,6 +53,11 @@ export default function OutcomeAssessor() {
   function linkForValidation() {
     if (!report) return;
     localStorage.setItem(OUTCOME_REFERENCE_STORAGE, JSON.stringify({ version: 1, report }));
+    setArchive(current => current.some(entry => {
+      if (!entry || typeof entry !== 'object') return false;
+      const candidate = entry as { report?: { input_hash?: unknown } };
+      return candidate.report?.input_hash === report.input_hash;
+    }) ? current : [...current, { archive_kind: 'OUTCOME_ASSESSMENT', saved_at: new Date().toISOString(), report }]);
     window.dispatchEvent(new Event(OUTCOME_REFERENCE_EVENT));
   }
 

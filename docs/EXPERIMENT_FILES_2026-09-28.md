@@ -1,6 +1,15 @@
 # Adım 1 — Taşınabilir deney dosyası
 
 Mevcut /experiments ekranına sürümlü JSON taslağı kaydetme/açma eklendi.
+
+## Arşivlenen hesap ve sonuçlar
+
+Deney ekranındaki ölçüm özeti `Doğrulama paneline aktar` ile bağlandığında, aynı
+`ceramic-experiment` dosyasının `archived_reports` dizisine `OUTCOME_ASSESSMENT`
+kaydı eklenir. Gözlenen numune ile hesaplanan ölçüm özeti karşılaştırması
+`OUTCOME_VALIDATION` kaydı olarak eklenir. Bu kayıtlar mevcut dosya sürümünü
+değiştirmeden yerel snapshot olarak tutulur; dosyayı açmak arşivi otomatik olarak
+bilimsel olarak doğrulanmış hale getirmez. Aynı `input_hash` ikinci kez eklenmez.
 Yeni bağımlılık, dış servis veya sunucu saklama alanı yoktur.
 
 ## Kapsam
