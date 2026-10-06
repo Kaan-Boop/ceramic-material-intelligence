@@ -20,6 +20,8 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 | POST /references/openglaze/runs | Bir `comparison-run-v1` snapshot’ını yerel immutable arşive idempotent biçimde kaydeder | M5 köprüsü |
 | GET /references/openglaze/runs/{comparison_id} | Yerel arşivden snapshot’ı checksum ve replay kontrolüyle döndürür | M5 köprüsü |
 | POST /validation/outcomes | Ölçülmüş veya raporlanmış numune gözlemlerini hesaplanmış outcome bölümleriyle bağlar; kabul/başarı onayı vermez | M6 başlangıcı |
+| POST /validation/runs | Bir `experiment-validation-v1` raporunu yerel immutable arşive idempotent biçimde kaydeder | M6 köprüsü |
+| GET /validation/runs/{run_id} | Deney doğrulama raporunu checksum kontrolüyle döndürür | M6 köprüsü |
 | POST /analyses, persist=true | Yeni immutable AnalysisRun | M5 |
 | GET /analyses/{id} | Yetkili kaydedilmiş sonuç | M5 |
 | GET/POST /recipes | Kayıtlar / yeni Recipe+ilk revision | M5 |
@@ -88,6 +90,13 @@ porozite yüzdesi. Her kayıt `specimen_id`, yöntem, kaynak ve `MEASURED` veya
 `REPORTED` durumunu taşır. Aynı numunenin tekrarları bağımsız deney sayılmaz.
 Yanıt residual'ı `observed - calculated` olarak verir; `COMPARED` veya
 `PARTIAL` durumu deneysel doğrulama sertifikası değildir.
+
+Kimya analizinden deneye aktarılan `analysis_report_id` ve
+`chemistry_input_hash`, bünye veya sır revision'ı yerine geçmez; yalnızca
+hangi hesap snapshot'ının kullanıldığını gösteren provenance alanlarıdır.
+Deney raporu `POST /validation/runs` ile `storage/experiment-runs` altında
+checksum'lı yerel arşive alınabilir. Bu arşiv de henüz PostgreSQL, kullanıcı
+yetkilendirmesi veya bulut yedeklemesi değildir.
 
 ## Web dağıtımı
 

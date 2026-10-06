@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { api } from '../lib/api';
+import { api, type ValidationArchiveResponse } from '../lib/api';
 
 type Observable = 'gloss_mean_gu' | 'water_absorption_mass_pct' | 'apparent_open_porosity_volume_pct';
 type Observation = {
@@ -58,6 +58,7 @@ export default function OutcomeValidation() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [linkedAnalysis, setLinkedAnalysis] = useState<LinkedAnalysis | null>(null);
+  const [archive, setArchive] = useState<ValidationArchiveResponse | null>(null);
 
   useEffect(() => {
     try {
@@ -67,6 +68,7 @@ export default function OutcomeValidation() {
       const report = envelope.report;
       if (envelope.version !== 1 || !report?.report_id || !report.request?.recipe_name || !report.chemistry?.input_hash) return;
       setLinkedAnalysis({ report_id: report.report_id, recipe_name: report.request.recipe_name, input_hash: report.chemistry.input_hash, material_count: Array.isArray(report.materials) ? report.materials.length : 0 });
+      setExperimentId(current => current || `${report.request?.recipe_name}-experiment`);
     } catch {
       localStorage.removeItem(ANALYSIS_REFERENCE_STORAGE);
     }
@@ -86,7 +88,7 @@ export default function OutcomeValidation() {
       if (!calculatedReport || typeof calculatedReport !== 'object') throw new Error('Hesaplanan rapor geçerli bir JSON nesnesi olmalı.');
       const payload = {
         experiment_id: experimentId.trim(),
-        context,
+        context: { ...context, analysis_report_id: linkedAnalysis?.report_id, chemistry_input_hash: linkedAnalysis?.input_hash },
         calculated_report: calculatedReport,
         observations: observations.map(row => ({ ...row, value: Number(row.value.replace(',', '.')), unit: units[row.observable] })),
       };
@@ -94,11 +96,23 @@ export default function OutcomeValidation() {
       setBusy(true);
       const result = await api<ValidationReport>('validation/outcomes', { method: 'POST', body: JSON.stringify(payload) });
       setReport(result);
+      setArchive(null);
     } catch (cause) {
       if (cause instanceof SyntaxError) setError('Hesaplanan rapor JSON olarak okunamadı.');
       else setError(cause instanceof Error ? cause.message : 'Gözlemler karşılaştırılamadı.');
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function archiveReport() {
+    if (!report) return;
+    setError('');
+    try {
+      const result = await api<ValidationArchiveResponse>('validation/runs', { method: 'POST', body: JSON.stringify({ report }) });
+      setArchive(result);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : 'Deney raporu arşivlenemedi.');
     }
   }
 
@@ -125,6 +139,6 @@ export default function OutcomeValidation() {
     </div>
     {error && <p className="experiment-error" role="alert">{error}</p>}
     <button className="experiment-primary" type="button" onClick={() => void submit()} disabled={busy}>{busy ? 'Karşılaştırılıyor…' : 'Gözlemleri karşılaştır'}</button>
-    {report && <div className="outcome-results" role="status"><div className="experiment-heading"><h3>Karşılaştırma · {report.status}</h3><code>{report.input_hash.slice(0, 16)}…</code></div><div className="outcome-result-grid">{Object.entries(report.comparisons).map(([key, comparison]) => <article className={`outcome-result ${comparison.status.toLowerCase()}`} key={key}><span className="tag">{comparison.status === 'AVAILABLE' ? 'CALCULATED ↔ OBSERVED' : 'UNAVAILABLE'}</span><h4>{observableLabels[key as Observable] ?? key}</h4>{comparison.status === 'AVAILABLE' ? <><strong>{comparison.residual_observed_minus_calculated?.toLocaleString('tr-TR', { maximumFractionDigits: 3 })} {comparison.unit}</strong><p>Hesaplanan: {comparison.calculated?.toLocaleString('tr-TR', { maximumFractionDigits: 3 })} · Gözlenen: {comparison.observed?.toLocaleString('tr-TR', { maximumFractionDigits: 3 })}</p><small>{comparison.observation_count} kayıt · {comparison.independent_specimen_count} bağımsız numune</small></> : <p>{comparison.reason}</p>}</article>)}</div>{report.warnings.map(warning => <p className="helper" key={warning}>{warning}</p>)}<details><summary>Sınırlamalar</summary><ul>{report.limitations.map(limitation => <li key={limitation}>{limitation}</li>)}</ul></details></div>}
+    {report && <div className="outcome-results" role="status"><div className="experiment-heading"><h3>Karşılaştırma · {report.status}</h3><code>{report.input_hash.slice(0, 16)}…</code></div><div className="outcome-result-grid">{Object.entries(report.comparisons).map(([key, comparison]) => <article className={`outcome-result ${comparison.status.toLowerCase()}`} key={key}><span className="tag">{comparison.status === 'AVAILABLE' ? 'CALCULATED ↔ OBSERVED' : 'UNAVAILABLE'}</span><h4>{observableLabels[key as Observable] ?? key}</h4>{comparison.status === 'AVAILABLE' ? <><strong>{comparison.residual_observed_minus_calculated?.toLocaleString('tr-TR', { maximumFractionDigits: 3 })} {comparison.unit}</strong><p>Hesaplanan: {comparison.calculated?.toLocaleString('tr-TR', { maximumFractionDigits: 3 })} · Gözlenen: {comparison.observed?.toLocaleString('tr-TR', { maximumFractionDigits: 3 })}</p><small>{comparison.observation_count} kayıt · {comparison.independent_specimen_count} bağımsız numune</small></> : <p>{comparison.reason}</p>}</article>)}</div>{report.warnings.map(warning => <p className="helper" key={warning}>{warning}</p>)}<div className="simulation-actions"><button type="button" onClick={() => void archiveReport()}>Deney raporunu yerel arşive kaydet</button>{archive && <span className="helper">Arşiv: {archive.status} · {archive.run_id.slice(0, 16)}…</span>}</div><details><summary>Sınırlamalar</summary><ul>{report.limitations.map(limitation => <li key={limitation}>{limitation}</li>)}</ul></details></div>}
   </section>;
 }

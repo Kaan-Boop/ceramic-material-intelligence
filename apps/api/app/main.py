@@ -25,6 +25,12 @@ from research.process.assessment import assess_process, ProcessInputError
 from research.process.outcomes import assess_outcomes, OutcomeInputError
 from research.process.validation import compare_temperature
 from research.process.experiment_validation import ExperimentValidationError, compare_observed_outcomes
+from research.process.experiment_archive import (
+    DEFAULT_ARCHIVE_ROOT as DEFAULT_EXPERIMENT_ARCHIVE_ROOT,
+    ExperimentArchiveError,
+    load_experiment_validation,
+    save_experiment_validation,
+)
 from research.chemistry.reaction_explorer import explore
 from research.material_library import build_library
 from research.local_recipe_archive import search_recipes, get_staged_record
@@ -253,6 +259,8 @@ class ValidationContext(StrictModel):
     glaze_revision_id: Annotated[str, Field(min_length=1, max_length=200)]
     firing_run_id: Annotated[str, Field(min_length=1, max_length=200)]
     application_id: Annotated[str, Field(min_length=1, max_length=200)]
+    analysis_report_id: Annotated[str | None, Field(min_length=1, max_length=200)] = None
+    chemistry_input_hash: Annotated[str | None, Field(min_length=1, max_length=200)] = None
 
 
 class ObservedOutcome(StrictModel):
@@ -274,6 +282,15 @@ class ExperimentValidationRequest(StrictModel):
     context: ValidationContext
     calculated_report: dict[str, JsonValue]
     observations: Annotated[list[ObservedOutcome], Field(min_length=1, max_length=1000)]
+
+
+class ExperimentValidationArchiveRequest(StrictModel):
+    report: dict[str, JsonValue]
+
+
+def _experiment_archive_root() -> Path:
+    configured = os.environ.get('EXPERIMENT_ARCHIVE_ROOT', '').strip()
+    return Path(configured).resolve() if configured else DEFAULT_EXPERIMENT_ARCHIVE_ROOT
 
 
 NAMES = {
@@ -841,6 +858,40 @@ def validate_observed_outcomes(payload: ExperimentValidationRequest):
             code=str(exc).split(':')[0],
             path=['observations'],
             message='Gözlem kayıtlarını, birimleri ve karşılaştırılan hesap bölümünü kontrol edin.',
+        )]).model_dump())
+
+
+@app.post('/api/v1/validation/runs', response_model=dict[str, JsonValue], responses={422: {'model': ErrorResponse}})
+def save_validation_run(payload: ExperimentValidationArchiveRequest):
+    """Persist one immutable observed/calculated validation report locally."""
+    try:
+        return save_experiment_validation(payload.report, _experiment_archive_root())
+    except ExperimentArchiveError as exc:
+        code = str(exc)
+        status = 409 if code == 'EXPERIMENT_RUN_ID_CONFLICT' else 422
+        return JSONResponse(status_code=status, content=ErrorResponse(errors=[ErrorItem(
+            code=code,
+            path=['report'],
+            message='Deney doğrulama raporu güvenli biçimde arşivlenemedi.',
+        )]).model_dump())
+
+
+@app.get('/api/v1/validation/runs/{run_id}', response_model=dict[str, JsonValue])
+def get_validation_run(run_id: str):
+    """Load one immutable validation report after checksum verification."""
+    try:
+        return load_experiment_validation(run_id, _experiment_archive_root())
+    except FileNotFoundError:
+        return JSONResponse(status_code=404, content=ErrorResponse(errors=[ErrorItem(
+            code='EXPERIMENT_RUN_NOT_FOUND',
+            path=['run_id'],
+            message='Deney doğrulama kaydı arşivde bulunamadı.',
+        )]).model_dump())
+    except ExperimentArchiveError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc),
+            path=['run_id'],
+            message='Deney doğrulama arşiv kaydı veya checksum doğrulanamadı.',
         )]).model_dump())
 
 

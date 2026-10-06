@@ -109,6 +109,13 @@ export type ComparisonArchiveResponse = {
   snapshot?: OpenGlazeComparisonReport;
 };
 
+export type ValidationArchiveResponse = {
+  status: "CREATED" | "EXISTS" | "AVAILABLE";
+  run_id: string;
+  report_sha256: string;
+  report?: unknown;
+};
+
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`/api/v1/${path}`, {
     ...init,
