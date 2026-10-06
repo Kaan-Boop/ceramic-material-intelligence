@@ -22,6 +22,7 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 | POST /validation/outcomes | Ölçülmüş veya raporlanmış numune gözlemlerini hesaplanmış outcome bölümleriyle bağlar; kabul/başarı onayı vermez | M6 başlangıcı |
 | POST /validation/runs | Bir `experiment-validation-v1` raporunu yerel immutable arşive idempotent biçimde kaydeder | M6 köprüsü |
 | GET /validation/runs/{run_id} | Deney doğrulama raporunu checksum kontrolüyle döndürür | M6 köprüsü |
+| POST /outcomes/assess | Ölçülmüş/reported tartım veya gloss okumalarından deterministik sonuç özeti üretir; yüzey tahmini yapmaz | M6 ölçüm köprüsü |
 | POST /analyses, persist=true | Yeni immutable AnalysisRun | M5 |
 | GET /analyses/{id} | Yetkili kaydedilmiş sonuç | M5 |
 | GET/POST /recipes | Kayıtlar / yeni Recipe+ilk revision | M5 |
