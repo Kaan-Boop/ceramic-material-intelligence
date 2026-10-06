@@ -24,6 +24,7 @@ from research.chemistry.recipe_demo import demo
 from research.process.assessment import assess_process, ProcessInputError
 from research.process.outcomes import assess_outcomes, OutcomeInputError
 from research.process.validation import compare_temperature
+from research.process.experiment_validation import ExperimentValidationError, compare_observed_outcomes
 from research.chemistry.reaction_explorer import explore
 from research.material_library import build_library
 from research.local_recipe_archive import search_recipes, get_staged_record
@@ -245,6 +246,34 @@ class OutcomeRequest(StrictModel):
     wetting: dict[str, JsonValue] | None = None
     porosity: dict[str, JsonValue] | None = None
     gloss: dict[str, JsonValue] | None = None
+
+
+class ValidationContext(StrictModel):
+    body_analysis_id: Annotated[str, Field(min_length=1, max_length=200)]
+    glaze_revision_id: Annotated[str, Field(min_length=1, max_length=200)]
+    firing_run_id: Annotated[str, Field(min_length=1, max_length=200)]
+    application_id: Annotated[str, Field(min_length=1, max_length=200)]
+
+
+class ObservedOutcome(StrictModel):
+    observable: Literal[
+        "gloss_mean_gu",
+        "water_absorption_mass_pct",
+        "apparent_open_porosity_volume_pct",
+    ]
+    value: Annotated[float, Field(strict=True, ge=0, le=2000)]
+    unit: Annotated[str, Field(min_length=1, max_length=20)]
+    specimen_id: Annotated[str, Field(min_length=1, max_length=200)]
+    source_ref: Annotated[str, Field(min_length=1, max_length=500)]
+    method: Annotated[str, Field(min_length=1, max_length=500)]
+    status: Literal["MEASURED", "REPORTED"]
+
+
+class ExperimentValidationRequest(StrictModel):
+    experiment_id: Annotated[str, Field(min_length=1, max_length=160)]
+    context: ValidationContext
+    calculated_report: dict[str, JsonValue]
+    observations: Annotated[list[ObservedOutcome], Field(min_length=1, max_length=1000)]
 
 
 NAMES = {
@@ -794,6 +823,24 @@ def outcome_indicators(payload: OutcomeRequest):
         return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
             code=str(exc).split(':')[0], path=['outcomes'],
             message='Ölçüm birimlerini, kaynak alanlarını ve modelin geçerlilik koşullarını kontrol edin.'
+        )]).model_dump())
+
+
+@app.post('/api/v1/validation/outcomes', response_model=dict[str, JsonValue], responses={422: {'model': ErrorResponse}})
+def validate_observed_outcomes(payload: ExperimentValidationRequest):
+    """Link measured/reported specimen observations to a calculated report."""
+    try:
+        return compare_observed_outcomes(
+            payload.calculated_report,
+            [observation.model_dump() for observation in payload.observations],
+            experiment_id=payload.experiment_id,
+            context=payload.context.model_dump(),
+        )
+    except ExperimentValidationError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc).split(':')[0],
+            path=['observations'],
+            message='Gözlem kayıtlarını, birimleri ve karşılaştırılan hesap bölümünü kontrol edin.',
         )]).model_dump())
 
 

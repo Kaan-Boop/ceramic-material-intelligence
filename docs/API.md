@@ -19,6 +19,7 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 | POST /references/openglaze/replay | İndirilen `comparison-run-v1` snapshot’ının hash ve fark tablosunu yeniden kontrol eder; OpenGlaze’i tekrar çalıştırmaz | Araştırma |
 | POST /references/openglaze/runs | Bir `comparison-run-v1` snapshot’ını yerel immutable arşive idempotent biçimde kaydeder | M5 köprüsü |
 | GET /references/openglaze/runs/{comparison_id} | Yerel arşivden snapshot’ı checksum ve replay kontrolüyle döndürür | M5 köprüsü |
+| POST /validation/outcomes | Ölçülmüş veya raporlanmış numune gözlemlerini hesaplanmış outcome bölümleriyle bağlar; kabul/başarı onayı vermez | M6 başlangıcı |
 | POST /analyses, persist=true | Yeni immutable AnalysisRun | M5 |
 | GET /analyses/{id} | Yetkili kaydedilmiş sonuç | M5 |
 | GET/POST /recipes | Kayıtlar / yeni Recipe+ilk revision | M5 |
@@ -80,6 +81,13 @@ ile yerel dosya arşivine kaydedebilir. Varsayılan kök
 Arşiv kaydı `comparison_id=input_hash` ile adlandırılır, atomik yazılır ve aynı
 kimlikte farklı payload sessizce üzerine yazılmaz. Bu dosya arşivi PostgreSQL
 değildir; kullanıcı yetkilendirmesi, yedekleme ve paylaşım politikası içermez.
+
+`POST /validation/outcomes` şu an yalnızca doğrudan eşleştirilebilen ölçümleri
+kabul eder: gloss ortalaması (GU), su emmesi kütle yüzdesi ve görünür açık
+porozite yüzdesi. Her kayıt `specimen_id`, yöntem, kaynak ve `MEASURED` veya
+`REPORTED` durumunu taşır. Aynı numunenin tekrarları bağımsız deney sayılmaz.
+Yanıt residual'ı `observed - calculated` olarak verir; `COMPARED` veya
+`PARTIAL` durumu deneysel doğrulama sertifikası değildir.
 
 ## Web dağıtımı
 
