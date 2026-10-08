@@ -28,6 +28,49 @@
         }
       }
     },
+    "/api/v1/simulations/thermal-1d/compare": {
+      "post": {
+        "summary": "Simulation Thermal Comparison",
+        "description": "Run predictions from the case; explicitly pair a declared specimen sensor trace.",
+        "operationId": "simulation_thermal_comparison_api_v1_simulations_thermal_1d_compare_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KilnThermalComparisonRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "type": "object",
+                  "title": "Response Simulation Thermal Comparison Api V1 Simulations Thermal 1D Compare Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/simulations/thermal-1d": {
       "post": {
         "summary": "Simulation Thermal 1D",
@@ -711,6 +754,108 @@
                     }
                   },
                   "title": "Response Get Experiment Observations Api V1 Experiments  Record Id  Observations Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/experiments/{record_id}/measurements": {
+      "post": {
+        "summary": "Create Experiment Measurement",
+        "description": "Archive one empirical specimen measurement; no prediction is produced.",
+        "operationId": "create_experiment_measurement_api_v1_experiments__record_id__measurements_post",
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LabMeasurementRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LabMeasurementArchiveResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get Experiment Measurements",
+        "description": "List checksum-verified empirical measurements for a real specimen record.",
+        "operationId": "get_experiment_measurements_api_v1_experiments__record_id__measurements_get",
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LabMeasurementArchiveResponse"
+                  },
+                  "title": "Response Get Experiment Measurements Api V1 Experiments  Record Id  Measurements Get"
                 }
               }
             }
@@ -1849,6 +1994,23 @@
         "title": "Ingredient"
       },
       "JsonValue": {},
+      "KilnThermalComparisonRequest": {
+        "properties": {
+          "experiment": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Experiment"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "experiment"
+        ],
+        "title": "KilnThermalComparisonRequest"
+      },
       "KilnThermalRequest": {
         "properties": {
           "case": {
@@ -1865,6 +2027,223 @@
           "case"
         ],
         "title": "KilnThermalRequest"
+      },
+      "LabMeasurementArchiveResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "CREATED",
+              "EXISTS",
+              "AVAILABLE"
+            ],
+            "title": "Status"
+          },
+          "measurement_id": {
+            "type": "string",
+            "title": "Measurement Id"
+          },
+          "measurement_sha256": {
+            "type": "string",
+            "title": "Measurement Sha256"
+          },
+          "measurement": {
+            "$ref": "#/components/schemas/LabMeasurementSnapshot"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "measurement_id",
+          "measurement_sha256",
+          "measurement"
+        ],
+        "title": "LabMeasurementArchiveResponse"
+      },
+      "LabMeasurementRequest": {
+        "properties": {
+          "observable": {
+            "type": "string",
+            "enum": [
+              "drying_linear_shrinkage_pct",
+              "firing_linear_shrinkage_pct",
+              "glaze_runout_distance_mm",
+              "water_absorption_mass_pct",
+              "gloss_mean_gu",
+              "glaze_surface_class",
+              "optical_transmission_class",
+              "glaze_adhesion_assessment",
+              "defect_observation"
+            ],
+            "title": "Observable"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 20
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
+          },
+          "specimen_id": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Specimen Id"
+          },
+          "source_ref": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Source Ref"
+          },
+          "method": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Method"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "MEASURED",
+              "REPORTED",
+              "OBSERVED",
+              "OBSERVED_PRESENT",
+              "OBSERVED_ABSENT",
+              "NOT_ASSESSED",
+              "REPORTED_PRESENT",
+              "REPORTED_ABSENT"
+            ],
+            "title": "Status"
+          },
+          "uncertainty": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uncertainty"
+          },
+          "uncertainty_kind": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "STANDARD_UNCERTAINTY",
+                  "EXPANDED_UNCERTAINTY",
+                  "REPEAT_SD",
+                  "INSTRUMENT_RESOLUTION",
+                  "REPORTED_UNSPECIFIED"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uncertainty Kind"
+          },
+          "replicate_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Replicate Id"
+          },
+          "conditions": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Conditions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "observable",
+          "specimen_id",
+          "source_ref",
+          "method",
+          "status"
+        ],
+        "title": "LabMeasurementRequest",
+        "description": "Empirical record; this endpoint does not calculate or predict its value."
+      },
+      "LabMeasurementSnapshot": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "lab-measurement-v1",
+            "title": "Schema Version"
+          },
+          "engine_version": {
+            "type": "string",
+            "title": "Engine Version"
+          },
+          "evidence_kind": {
+            "type": "string",
+            "const": "OBSERVED",
+            "title": "Evidence Kind"
+          },
+          "method_kind": {
+            "type": "string",
+            "const": "EMPIRICAL",
+            "title": "Method Kind"
+          },
+          "record_id": {
+            "type": "string",
+            "title": "Record Id"
+          },
+          "measurement_id": {
+            "type": "string",
+            "title": "Measurement Id"
+          },
+          "measurement": {
+            "$ref": "#/components/schemas/LabMeasurementRequest"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "engine_version",
+          "evidence_kind",
+          "method_kind",
+          "record_id",
+          "measurement_id",
+          "measurement"
+        ],
+        "title": "LabMeasurementSnapshot"
       },
       "Material": {
         "properties": {

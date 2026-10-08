@@ -1,0 +1,49 @@
+{
+  "schema_version": "kiln-thermal-comparison-request-v1",
+  "case": {
+    "schema_version": "kiln-thermal-1d-v1",
+    "case_id": "synthetic-equilibrium-manual-oracle",
+    "area_m2": 0.01,
+    "initial_temperature_c": 20,
+    "max_step_s": 30,
+    "layers": [{
+      "layer_id": "inert_substrate", "thickness_m": 0.02, "cells": 8,
+      "conductivity_w_m_k": 1.2, "density_kg_m3": 2200, "specific_heat_j_kg_k": 900,
+      "valid_temperature_c": [0, 1300], "state": "INERT_SOLID_CONSTANT_PROPERTIES",
+      "source_ref": "fixture:invented-inert-solid", "input_kind": "SYNTHETIC"
+    }],
+    "boundary": {
+      "left": {"h_w_m2_k": 20, "emissivity": 0.8, "source_ref": "fixture:invented-boundary", "input_kind": "SYNTHETIC"},
+      "right": {"h_w_m2_k": 20, "emissivity": 0.8, "source_ref": "fixture:invented-boundary", "input_kind": "SYNTHETIC"}
+    },
+    "schedule": {
+      "basis": "PRESCRIBED_ENVIRONMENT", "source_ref": "fixture:constant-environment", "input_kind": "SYNTHETIC",
+      "points": [{"time_s": 0, "gas_c": 20, "wall_c": 20}, {"time_s": 60, "gas_c": 20, "wall_c": 20}]
+    }
+  },
+  "context": {
+    "body_revision": "fixture:inert-substrate-v1", "glaze_revision": "NOT_APPLICABLE",
+    "application_revision": "NOT_APPLICABLE", "firing_run_id": "fixture:equilibrium-001",
+    "specimen_id": "fixture:specimen-001", "sensor_location": "fixture:substrate-midpoint"
+  },
+  "probe": {"kind": "LAYER_MIDPOINT", "layer_id": "inert_substrate"},
+  "time_origin_ref": "fixture:shared-start",
+  "alignment": {"method": "LINEAR", "max_interval_s": 30},
+  "observation": {
+    "record": {
+      "context": {
+        "body_revision": "fixture:inert-substrate-v1", "glaze_revision": "NOT_APPLICABLE",
+        "application_revision": "NOT_APPLICABLE", "firing_run_id": "fixture:equilibrium-001",
+        "specimen_id": "fixture:specimen-001", "sensor_location": "fixture:substrate-midpoint"
+      },
+      "source_ref": "fixture:hand-authored-18-22-20-C-not-real-measurements",
+      "evidence_kind": "OBSERVED", "data_kind": "SYNTHETIC", "temperature_basis": "SPECIMEN",
+      "unit": "degC", "method_version": "manual-test-oracle-v1",
+      "samples": [{"time_s": 0, "temperature_c": 18}, {"time_s": 15, "temperature_c": 22}, {"time_s": 60, "temperature_c": 20}]
+    },
+    "probe": {"kind": "LAYER_MIDPOINT", "layer_id": "inert_substrate"},
+    "time_origin_ref": "fixture:shared-start",
+    "sensor": {"sensor_id": "fixture:no-real-sensor", "method": "MANUAL_SYNTHETIC_TEST_VALUES", "calibration_ref": null, "standard_uncertainty_c": null},
+    "dataset_role": "UNSPECIFIED"
+  }
+}

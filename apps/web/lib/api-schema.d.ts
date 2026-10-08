@@ -24,6 +24,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/simulations/thermal-1d/compare": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Simulation Thermal Comparison
+         * @description Run predictions from the case; explicitly pair a declared specimen sensor trace.
+         */
+        post: operations["simulation_thermal_comparison_api_v1_simulations_thermal_1d_compare_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/simulations/thermal-1d": {
         parameters: {
             query?: never;
@@ -331,6 +351,30 @@ export interface paths {
          * @description Store one immutable observation linked to an existing experiment record.
          */
         post: operations["create_experiment_observation_api_v1_experiments__record_id__observations_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/experiments/{record_id}/measurements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Experiment Measurements
+         * @description List checksum-verified empirical measurements for a real specimen record.
+         */
+        get: operations["get_experiment_measurements_api_v1_experiments__record_id__measurements_get"];
+        put?: never;
+        /**
+         * Create Experiment Measurement
+         * @description Archive one empirical specimen measurement; no prediction is produced.
+         */
+        post: operations["create_experiment_measurement_api_v1_experiments__record_id__measurements_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -797,12 +841,93 @@ export interface components {
             role: "BASE" | "ADDITION";
         };
         JsonValue: unknown;
+        /** KilnThermalComparisonRequest */
+        KilnThermalComparisonRequest: {
+            /** Experiment */
+            experiment: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+        };
         /** KilnThermalRequest */
         KilnThermalRequest: {
             /** Case */
             case: {
                 [key: string]: components["schemas"]["JsonValue"];
             };
+        };
+        /** LabMeasurementArchiveResponse */
+        LabMeasurementArchiveResponse: {
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "CREATED" | "EXISTS" | "AVAILABLE";
+            /** Measurement Id */
+            measurement_id: string;
+            /** Measurement Sha256 */
+            measurement_sha256: string;
+            measurement: components["schemas"]["LabMeasurementSnapshot"];
+        };
+        /**
+         * LabMeasurementRequest
+         * @description Empirical record; this endpoint does not calculate or predict its value.
+         */
+        LabMeasurementRequest: {
+            /**
+             * Observable
+             * @enum {string}
+             */
+            observable: "drying_linear_shrinkage_pct" | "firing_linear_shrinkage_pct" | "glaze_runout_distance_mm" | "water_absorption_mass_pct" | "gloss_mean_gu" | "glaze_surface_class" | "optical_transmission_class" | "glaze_adhesion_assessment" | "defect_observation";
+            /** Value */
+            value?: number | string | null;
+            /** Unit */
+            unit?: string | null;
+            /** Specimen Id */
+            specimen_id: string;
+            /** Source Ref */
+            source_ref: string;
+            /** Method */
+            method: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "MEASURED" | "REPORTED" | "OBSERVED" | "OBSERVED_PRESENT" | "OBSERVED_ABSENT" | "NOT_ASSESSED" | "REPORTED_PRESENT" | "REPORTED_ABSENT";
+            /** Uncertainty */
+            uncertainty?: number | null;
+            /** Uncertainty Kind */
+            uncertainty_kind?: ("STANDARD_UNCERTAINTY" | "EXPANDED_UNCERTAINTY" | "REPEAT_SD" | "INSTRUMENT_RESOLUTION" | "REPORTED_UNSPECIFIED") | null;
+            /** Replicate Id */
+            replicate_id?: string | null;
+            /** Conditions */
+            conditions?: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+        };
+        /** LabMeasurementSnapshot */
+        LabMeasurementSnapshot: {
+            /**
+             * Schema Version
+             * @constant
+             */
+            schema_version: "lab-measurement-v1";
+            /** Engine Version */
+            engine_version: string;
+            /**
+             * Evidence Kind
+             * @constant
+             */
+            evidence_kind: "OBSERVED";
+            /**
+             * Method Kind
+             * @constant
+             */
+            method_kind: "EMPIRICAL";
+            /** Record Id */
+            record_id: string;
+            /** Measurement Id */
+            measurement_id: string;
+            measurement: components["schemas"]["LabMeasurementRequest"];
         };
         /** Material */
         Material: {
@@ -1237,6 +1362,41 @@ export interface operations {
                     "application/json": {
                         [key: string]: string;
                     };
+                };
+            };
+        };
+    };
+    simulation_thermal_comparison_api_v1_simulations_thermal_1d_compare_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KilnThermalComparisonRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
@@ -1784,6 +1944,81 @@ export interface operations {
                     "application/json": {
                         [key: string]: components["schemas"]["JsonValue"];
                     };
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_experiment_measurements_api_v1_experiments__record_id__measurements_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                record_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LabMeasurementArchiveResponse"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_experiment_measurement_api_v1_experiments__record_id__measurements_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                record_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LabMeasurementRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LabMeasurementArchiveResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Unprocessable Entity */

@@ -54,6 +54,19 @@ class KilnThermalAPITests(unittest.TestCase):
         self.assertIn('/api/v1/simulations/thermal-1d', schema["paths"])
         self.assertEqual(schema["components"]["schemas"]["KilnThermalRequest"]["required"], ["case"])
 
+    def test_comparison_endpoint_retains_physical_validation_boundary(self):
+        from research.thermal.validation import evaluate
+        request = json.loads(FIXTURE.with_name('kiln-thermal-comparison-synthetic.json').read_text(encoding='utf-8'))
+        response = self.client.post('/api/v1/simulations/thermal-1d/compare', json={'experiment': request})
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(response.json(), evaluate(request))
+        self.assertEqual(response.json()['physical_validation'], 'NOT_ESTABLISHED')
+        self.assertEqual(response.json()['observed_real_specimen_count'], 0)
+        request['observation']['record']['data_kind'] = 'REAL'
+        rejected = self.client.post('/api/v1/simulations/thermal-1d/compare', json={'experiment': request})
+        self.assertEqual(rejected.status_code, 422)
+        self.assertEqual(rejected.json()['errors'][0]['code'], 'REAL_SYNTHETIC_MISMATCH')
+
 
 if __name__ == "__main__":
     unittest.main()

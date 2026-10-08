@@ -43,8 +43,15 @@ from research.process.experiment_observation import (
     list_observations,
     save_observation,
 )
+from research.process.lab_measurement import (
+    LabMeasurementError,
+    build_measurement,
+    list_measurements,
+    save_measurement,
+)
 from research.chemistry.reaction_explorer import explore
 from research.thermal.kiln_1d import ThermalInputError, simulate as simulate_kiln_thermal
+from research.thermal.validation import ThermalComparisonError, evaluate as compare_kiln_thermal
 from research.material_library import build_library
 from research.local_recipe_archive import search_recipes, get_staged_record
 from research.simulation.capabilities import assess_capabilities
@@ -77,6 +84,10 @@ class KilnThermalRequest(StrictModel):
     # The framework-independent engine owns the complete, strict case contract.
     # No catalogue names are silently converted to thermal properties.
     case: dict[str, JsonValue]
+
+
+class KilnThermalComparisonRequest(StrictModel):
+    experiment: dict[str, JsonValue]
 
 
 Amount = Annotated[float, Field(strict=True, ge=0, le=1_000_000)]
@@ -296,6 +307,54 @@ class ObservedOutcome(StrictModel):
     status: Literal["MEASURED", "REPORTED"]
 
 
+class LabMeasurementRequest(StrictModel):
+    """Empirical record; this endpoint does not calculate or predict its value."""
+    observable: Literal[
+        "drying_linear_shrinkage_pct",
+        "firing_linear_shrinkage_pct",
+        "glaze_runout_distance_mm",
+        "water_absorption_mass_pct",
+        "gloss_mean_gu",
+        "glaze_surface_class",
+        "optical_transmission_class",
+        "glaze_adhesion_assessment",
+        "defect_observation",
+    ]
+    value: Annotated[float, Field(strict=True)] | Annotated[str, Field(strict=True)] | None = None
+    unit: Annotated[str | None, Field(max_length=20)] = None
+    specimen_id: Annotated[str, Field(min_length=1, max_length=200)]
+    source_ref: Annotated[str, Field(min_length=1, max_length=500)]
+    method: Annotated[str, Field(min_length=1, max_length=500)]
+    status: Literal[
+        "MEASURED", "REPORTED", "OBSERVED", "OBSERVED_PRESENT", "OBSERVED_ABSENT",
+        "NOT_ASSESSED", "REPORTED_PRESENT", "REPORTED_ABSENT",
+    ]
+    uncertainty: Annotated[float | None, Field(strict=True, ge=0)] = None
+    uncertainty_kind: Literal[
+        "STANDARD_UNCERTAINTY", "EXPANDED_UNCERTAINTY", "REPEAT_SD",
+        "INSTRUMENT_RESOLUTION", "REPORTED_UNSPECIFIED",
+    ] | None = None
+    replicate_id: Annotated[str | None, Field(min_length=1, max_length=120)] = None
+    conditions: dict[str, JsonValue] = Field(default_factory=dict)
+
+
+class LabMeasurementSnapshot(StrictModel):
+    schema_version: Literal['lab-measurement-v1']
+    engine_version: str
+    evidence_kind: Literal['OBSERVED']
+    method_kind: Literal['EMPIRICAL']
+    record_id: str
+    measurement_id: str
+    measurement: LabMeasurementRequest
+
+
+class LabMeasurementArchiveResponse(StrictModel):
+    status: Literal['CREATED', 'EXISTS', 'AVAILABLE']
+    measurement_id: str
+    measurement_sha256: str
+    measurement: LabMeasurementSnapshot
+
+
 class ExperimentValidationRequest(StrictModel):
     experiment_id: Annotated[str, Field(min_length=1, max_length=160)]
     context: ValidationContext
@@ -343,6 +402,11 @@ def _experiment_record_root() -> Path:
 def _experiment_observation_root() -> Path:
     configured = os.environ.get('EXPERIMENT_OBSERVATION_ROOT', '').strip()
     return Path(configured).resolve() if configured else Path(__file__).resolve().parents[3] / 'storage' / 'observations'
+
+
+def _experiment_measurement_root() -> Path:
+    configured = os.environ.get('EXPERIMENT_MEASUREMENT_ROOT', '').strip()
+    return Path(configured).resolve() if configured else Path(__file__).resolve().parents[3] / 'storage' / 'measurements'
 
 
 NAMES = {
@@ -548,6 +612,19 @@ def _scenario_from_request(payload: SimulationScenarioRequest) -> SimulationScen
         ),
         metadata=dict(payload.metadata),
     )
+
+
+@app.post('/api/v1/simulations/thermal-1d/compare', response_model=dict[str, JsonValue], responses={422: {'model': ErrorResponse}})
+def simulation_thermal_comparison(payload: KilnThermalComparisonRequest):
+    """Run predictions from the case; explicitly pair a declared specimen sensor trace."""
+    try:
+        return compare_kiln_thermal(payload.experiment)
+    except (ThermalComparisonError, ThermalInputError, OutcomeInputError) as exc:
+        code, _, field = str(exc).partition(':')
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=code, path=['experiment'] + ([field] if field else []),
+            message='Sıcaklık karşılaştırması yapılamadı: ' + str(exc),
+        )]).model_dump())
 
 
 @app.post('/api/v1/simulations/thermal-1d', response_model=dict[str, JsonValue], responses={422: {'model': ErrorResponse}})
@@ -978,6 +1055,63 @@ def get_experiment_observations(record_id: str):
     except ExperimentObservationError as exc:
         return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
             code=str(exc), path=['record_id'], message='Gözlem arşivi veya checksum doğrulanamadı.'
+        )]).model_dump())
+
+
+@app.post('/api/v1/experiments/{record_id}/measurements', response_model=LabMeasurementArchiveResponse, responses={409: {'model': ErrorResponse}, 422: {'model': ErrorResponse}})
+def create_experiment_measurement(record_id: str, payload: LabMeasurementRequest):
+    """Archive one empirical specimen measurement; no prediction is produced."""
+    try:
+        loaded = load_experiment_record(record_id, _experiment_record_root())
+        if loaded['record'].get('record_kind') != 'REAL':
+            return JSONResponse(status_code=409, content=ErrorResponse(errors=[ErrorItem(
+                code='MEASUREMENT_REQUIRES_REAL_EXPERIMENT', path=['record_id'],
+                message='Laboratuvar ölçümü sentetik deney kaydına bağlanamaz.',
+            )]).model_dump())
+        if payload.specimen_id != loaded['record'].get('specimen_id'):
+            return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+                code='SPECIMEN_ID_MISMATCH', path=['specimen_id'],
+                message='Ölçümdeki numune kimliği deney kaydındaki numuneyle eşleşmiyor.',
+            )]).model_dump())
+        measurement = build_measurement(record_id, payload.model_dump())
+        return save_measurement(measurement, _experiment_measurement_root())
+    except FileNotFoundError:
+        return JSONResponse(status_code=404, content=ErrorResponse(errors=[ErrorItem(
+            code='EXPERIMENT_RECORD_NOT_FOUND', path=['record_id'], message='Ölçüm eklenmeden önce deney kaydı oluşturulmalı.'
+        )]).model_dump())
+    except ExperimentRecordError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc), path=['record_id'], message='Deney kaydı kimliği veya içeriği doğrulanamadı.'
+        )]).model_dump())
+    except LabMeasurementError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc).split(':')[0], path=['measurement'],
+            message='Ölçüm değerini, birimini, yöntemini ve durumunu kontrol edin.',
+        )]).model_dump())
+
+
+@app.get('/api/v1/experiments/{record_id}/measurements', response_model=list[LabMeasurementArchiveResponse])
+def get_experiment_measurements(record_id: str):
+    """List checksum-verified empirical measurements for a real specimen record."""
+    try:
+        loaded = load_experiment_record(record_id, _experiment_record_root())
+        if loaded['record'].get('record_kind') != 'REAL':
+            return JSONResponse(status_code=409, content=ErrorResponse(errors=[ErrorItem(
+                code='MEASUREMENT_REQUIRES_REAL_EXPERIMENT', path=['record_id'],
+                message='Laboratuvar ölçüm arşivi sentetik deney kaydına açılmaz.',
+            )]).model_dump())
+        return list_measurements(record_id, _experiment_measurement_root())
+    except FileNotFoundError:
+        return JSONResponse(status_code=404, content=ErrorResponse(errors=[ErrorItem(
+            code='EXPERIMENT_RECORD_NOT_FOUND', path=['record_id'], message='Deney kaydı bulunamadı.'
+        )]).model_dump())
+    except ExperimentRecordError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc), path=['record_id'], message='Deney kaydı kimliği veya içeriği doğrulanamadı.'
+        )]).model_dump())
+    except LabMeasurementError as exc:
+        return JSONResponse(status_code=422, content=ErrorResponse(errors=[ErrorItem(
+            code=str(exc), path=['record_id'], message='Ölçüm arşivi veya checksum doğrulanamadı.'
         )]).model_dump())
 
 

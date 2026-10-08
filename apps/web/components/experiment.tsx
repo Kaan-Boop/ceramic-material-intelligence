@@ -92,9 +92,9 @@ export default function Experiment() {
   const timeRange = Math.max(1, times[times.length-1]-times[0]);
   const points = (key:'predicted'|'observed') => rows.map((r,i) => `${40+520*(times[i]-times[0])/timeRange},${190-150*(Number(r[key].replace(',','.'))-low)/range}`).join(' ');
   return <main className="experiment-shell">
-    <nav className="experiment-nav" aria-label="Çalışma alanları"><Link href="/">← Laboratuvar masam</Link><span>Deney ve ölçüm</span></nav>
+    <nav className="experiment-nav" aria-label="Çalışma alanları"><Link href="/">← Laboratuvar masam</Link><span>Deney ve ölçüm</span> · <Link href="/experiments/measurements">Numune kayıtları →</Link></nav>
     <header><p className="eyebrow">CERAMIC GLAZE LAB / DENEY DEFTERİ</p><h1>Deney ve <em>doğrulama</em></h1><p>Modelin söylediği ile numunenin gösterdiğini aynı yerde incele.</p></header>
-    <div className="experiment-notice"><strong>Bu ekran simülasyon üretmez.</strong> Mevcut model çıktısı ve numune ölçümlerini karşılaştırır. Fırın programı, numune sıcaklığı değildir. Veriler sunucuda saklanmaz.</div>
+    <div className="experiment-notice"><strong>Bu ekran simülasyon üretmez.</strong> Mevcut model çıktısı ve numune ölçümlerini karşılaştırır. Fırın programı, numune sıcaklığı değildir. Bu karşılaştırma taslağı sunucuda saklanmaz. Kalıcı ölçüm kayıtları için <Link href="/experiments/measurements">Numune kayıtları</Link> bölümünü kullan.</div>
     <section className="card" aria-label="Deney dosyası">
       <h2>Deney dosyası</h2>
       <p>Taslağı ve {archive.length} arşiv raporunu bilgisayarına kaydet. İndirilen dosya özel deney bilgilerini içerir; şifreli değildir. Taslak uygulama içi sayfa geçişlerinde korunur; sayfayı yenilemek veya kapatmak bellekteki çalışmayı siler. Kalıcı otomatik kayıt yoktur.</p>

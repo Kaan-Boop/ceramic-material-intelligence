@@ -14,36 +14,41 @@ CONTEXT = {'body_revision', 'glaze_revision', 'application_revision',
            'firing_run_id', 'specimen_id', 'sensor_location'}
 
 
+def validate_temperature_record(record, kind):
+    """Validate one existing temperature-record contract without calculating metrics."""
+    required = {'context', 'source_ref', 'evidence_kind', 'data_kind',
+                'temperature_basis', 'unit', 'samples', 'method_version'}
+    if not isinstance(record, dict) or set(record) != required:
+        raise OutcomeInputError('INVALID_COMPARISON_FIELDS')
+    if kind not in ('PREDICTED', 'OBSERVED') or record['evidence_kind'] != kind or record['unit'] != 'degC':
+        raise OutcomeInputError('INCOMPATIBLE_QUANTITY')
+    if record['temperature_basis'] != 'SPECIMEN':
+        raise OutcomeInputError('SPECIMEN_TEMPERATURE_REQUIRED')
+    if record['data_kind'] not in ('REAL', 'SYNTHETIC'):
+        raise OutcomeInputError('INVALID_DATA_KIND')
+    context = record['context']
+    if not isinstance(context, dict) or set(context) != CONTEXT:
+        raise OutcomeInputError('MISSING_SYSTEM_CONTEXT')
+    for value in [*context.values(), record['source_ref'], record['method_version']]:
+        if not isinstance(value, str) or not value.strip():
+            raise OutcomeInputError('MISSING_PROVENANCE')
+    if not isinstance(record['samples'], list) or not 1 <= len(record['samples']) <= 10001:
+        raise OutcomeInputError('INVALID_SAMPLES')
+    previous = -1
+    for row in record['samples']:
+        if not isinstance(row, dict) or set(row) != {'time_s', 'temperature_c'}:
+            raise OutcomeInputError('INVALID_SAMPLE_FIELDS')
+        time = num(row, 'time_s', 0, 1e8)
+        num(row, 'temperature_c', -273.15, 2000)
+        if time <= previous:
+            raise OutcomeInputError('TIME_MUST_INCREASE')
+        previous = time
+
+
 def compare_temperature(prediction, observation):
     """Compare identical timestamps and context, retaining both input snapshots."""
-    for record, kind in ((prediction, 'PREDICTED'), (observation, 'OBSERVED')):
-        required = {'context', 'source_ref', 'evidence_kind', 'data_kind',
-                    'temperature_basis', 'unit', 'samples', 'method_version'}
-        if not isinstance(record, dict) or set(record) != required:
-            raise OutcomeInputError('INVALID_COMPARISON_FIELDS')
-        if record['evidence_kind'] != kind or record['unit'] != 'degC':
-            raise OutcomeInputError('INCOMPATIBLE_QUANTITY')
-        if record['temperature_basis'] != 'SPECIMEN':
-            raise OutcomeInputError('SPECIMEN_TEMPERATURE_REQUIRED')
-        if record['data_kind'] not in ('REAL', 'SYNTHETIC'):
-            raise OutcomeInputError('INVALID_DATA_KIND')
-        context = record['context']
-        if not isinstance(context, dict) or set(context) != CONTEXT:
-            raise OutcomeInputError('MISSING_SYSTEM_CONTEXT')
-        for value in [*context.values(), record['source_ref'], record['method_version']]:
-            if not isinstance(value, str) or not value.strip():
-                raise OutcomeInputError('MISSING_PROVENANCE')
-        if not isinstance(record['samples'], list) or not 1 <= len(record['samples']) <= 10001:
-            raise OutcomeInputError('INVALID_SAMPLES')
-        previous = -1
-        for row in record['samples']:
-            if not isinstance(row, dict) or set(row) != {'time_s', 'temperature_c'}:
-                raise OutcomeInputError('INVALID_SAMPLE_FIELDS')
-            time = num(row, 'time_s', 0, 1e8)
-            num(row, 'temperature_c', -273.15, 2000)
-            if time <= previous:
-                raise OutcomeInputError('TIME_MUST_INCREASE')
-            previous = time
+    validate_temperature_record(prediction, 'PREDICTED')
+    validate_temperature_record(observation, 'OBSERVED')
     if prediction['context'] != observation['context']:
         raise OutcomeInputError('SYSTEM_OR_SENSOR_MISMATCH')
     if prediction['data_kind'] != observation['data_kind']:

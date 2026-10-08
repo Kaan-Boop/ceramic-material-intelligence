@@ -1,6 +1,6 @@
-# API ve domain sözleşmesi — taslak v0.1
+# API ve domain sözleşmesi — prototip envanteri
 
-Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyaları sentetik örneklerdir; contract testleri M3/M4'te oluşturulacak. Başlangıç: same-origin JSON REST `/api/v1`.
+Bu tablo çalışan prototip uçlarıyla roadmap'teki hedef uçları birlikte listeler; bu tek başına tam OpenAPI sözleşmesi değildir. Makine sözleşmesi `contracts/prototype-openapi.json` dosyasında üretilir ve endpoint değişiklikleriyle birlikte yenilenmelidir. Fixture'lar sentetik olarak etiketlenir. Yerel JSON arşivleri production veritabanı, kullanıcı yetkilendirmesi veya yedekleme sağlamaz. Başlangıç: same-origin JSON REST `/api/v1`.
 
 ## Endpoints ve aşama
 
@@ -28,6 +28,9 @@ Bu belge uygulanmış servis veya tam OpenAPI şeması değildir. JSON dosyalar�
 | GET /experiments/{record_id} | Deney–numune snapshot’ını checksum kontrolüyle döndürür | M6 kayıt köprüsü |
 | POST /experiments/{record_id}/observations | Bir gloss/porozite/su emmesi gözlemini specimen kaydına immutable biçimde bağlar | M6 ölçüm kaydı |
 | GET /experiments/{record_id}/observations | Deney kaydına bağlı checksum doğrulanmış gözlemleri listeler | M6 ölçüm kaydı |
+| POST /experiments/{record_id}/measurements | Kuruma/pişme küçülmesi, sır akma mesafesi, yüzey sınıfı, tutunma veya kusur gözlemini gerçek numuneye bağlar; tahmin üretmez | M6 laboratuvar defteri |
+| GET /experiments/{record_id}/measurements | Gerçek deney kaydına bağlı checksum doğrulanmış ölçümleri listeler | M6 laboratuvar defteri |
+| POST /simulations/thermal-1d/compare | Katmanlı 1D sıcaklık hesabını konumu/zamanı tanımlı sensör serisiyle karşılaştırır; hata metriği doğrulanmış model anlamına gelmez | Araştırma prototipi |
 | POST /analyses, persist=true | Yeni immutable AnalysisRun | M5 |
 | GET /analyses/{id} | Yetkili kaydedilmiş sonuç | M5 |
 | GET/POST /recipes | Kayıtlar / yeni Recipe+ilk revision | M5 |
